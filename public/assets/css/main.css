@@ -1,0 +1,124 @@
+html, body {
+    height: 100%;
+}
+
+#menu {
+    background: #438eb9;
+    border-color: #438eb9;
+    border-radius: 0;
+}
+
+#menu .navbar-nav > li > a {
+    color: #FFFFFF;
+}
+
+#menu .navbar-nav > li > a:hover, #menu .navbar-nav > li > a:focus, #menu .navbar-nav > li.open > a {
+    background: #87B7D2;
+}
+
+#menu .navbar-nav > .active > a, #menu .navbar-nav > .active > a:hover, #menu .navbar-nav > .active > a:focus {
+    background-color: #87B7D2;
+}
+
+@media (max-width: 767px) {
+    .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+        background-color: #87B7D2;
+    }
+
+    .navbar-default .navbar-toggle .icon-bar {
+        background-color: white;
+    }
+}
+
+#contenedor {
+    min-height: calc(100% - 142px);
+
+}
+
+#contenedor h1:first-of-type {
+    margin: 0;
+}
+
+#contenedor h {
+    margin: 0;
+}
+
+footer {
+    min-height: 70px;
+    background: #438eb9;
+    color: white;
+}
+
+#escudo-un {
+    margin-top: 5px;
+}
+
+.list-inline > li {
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.social li > a {
+    margin-top: 22px;
+    display: block;
+    width: 30px;
+    height: 30px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    background: #fff;
+    line-height: 30px;
+    vertical-align: middle;
+    color: #888;
+    border-bottom: 2px solid transparent;
+    text-align: center;
+}
+
+input:required + .popover, select:required + .popover {
+    background: #e74c3c;
+    color: #fff;
+}
+
+input:required + .popover.bottom > .arrow:after, input:required + .popover.top > .arrow:after, select:required + .popover.bottom > .arrow:after {
+    border-bottom-color: #e74c3c;
+    border-top-color: #e74c3c;
+}
+
+.alert [data-growl="message"] {
+    margin-right: 20px;
+}
+
+.alert-success {
+    background-color: #00bc8c;
+    border-color: #00bc8c;
+    color: #ffffff;
+}
+
+.alert-danger {
+    background-color: #e74c3c;
+    border-color: #e74c3c;
+    color: #ffffff;
+}
+
+#cover-display {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #444;
+    background: rgba(68, 68, 68, 0.95);
+    overflow: hidden;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    z-index: 1500;
+}
+
+#img-loading {
+    width: 64px;
+    height: 64px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -32px;
+    margin-left: -32px;
+}
