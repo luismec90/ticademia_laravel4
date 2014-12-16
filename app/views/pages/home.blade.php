@@ -1,8 +1,7 @@
 @extends('layouts.default')
 
 @section('content')
-<h1>Bienvenido</h1>
-<hr>
+<h1 class="section-title"><span>Bienvenido</span></h1>
 <div class="row">
     <img class="col-sm-5 img-responsive" src="{{ asset('assets/images/general/img_presentacion.png') }}">
     <div id="intro" class="col-sm-7 text-justify">

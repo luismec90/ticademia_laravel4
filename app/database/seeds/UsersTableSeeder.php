@@ -10,27 +10,55 @@ class UsersTableSeeder extends Seeder {
         $faker = Faker::create();
 
         User::create([
-            'nombres' => 'Luis Fernando',
-            'apellidos' => 'Montoya Gómez',
-            'fecha_nacimiento'=>'1990-02-22',
-            'sexo' => 'm',
-            'email' => 'luismec90@gmail.com',
-            'imagen' => 'default.png',
-            'password' => Hash::make("123"),
-            'activo' => 1
+            'id'         => 1,
+            'first_name' => 'Luis Fernando',
+            'last_name'  => 'Montoya Gómez',
+            'birth_date' => '1990-02-22',
+            'gender'     => 'm',
+            'email'      => 'luismec90@gmail.com',
+            'avatar'     => 'default.png',
+            'password'   => Hash::make("123"),
+            'confirmed'  => 1
         ]);
+
+        User::create([
+            'id'         => 2,
+            'first_name' => 'Mary',
+            'last_name'  => 'Serna',
+            'birth_date' => '1990-02-22',
+            'gender'     => 'f',
+            'email'      => 'mary.serna.8903@gmail.com',
+            'avatar'     => 'default.png',
+            'password'   => Hash::make("123"),
+            'confirmed'  => 1
+        ]);
+
+        /*
+            User::create([
+                'id'         => 3,
+                'first_name' => 'Juan',
+                'last_name'  => 'Montoya',
+                'birth_date' => '1990-02-22',
+                'gender'     => 'm',
+                'code'       => '123',
+                'email'      => 'lfmontoyag@unal.edu.co',
+                'avatar'     => 'default.png',
+                'password'   => Hash::make("123"),
+                'confirmed'  => 1
+            ]);
+        */
 
         foreach (range(1, 10) as $index)
         {
             User::create([
-                'nombres' => $faker->firstName,
-                'apellidos' => $faker->lastName,
-                'fecha_nacimiento'=>$faker->dateTime(),
-                'sexo' => 'm',
-                'email' => $faker->email,
-                'imagen' => 'default.png',
-                'password' => Hash::make("123"),
-                'activo' => 1
+                'first_name' => $faker->firstName,
+                'last_name'  => $faker->lastName,
+                'birth_date' => $faker->dateTime(),
+                'gender'     => 'm',
+                'email'      => $faker->email,
+                'avatar'     => 'default.png',
+                'password'   => Hash::make("1234"),
+                'confirmed'  => 1
             ]);
         }
     }

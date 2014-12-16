@@ -13,10 +13,13 @@
         @show
         </title>
 
-        {{ HTML::style('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css') }}
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
+        <link href="http://fonts.googleapis.com/css?family=Raleway:400,300,700" rel="stylesheet" type="text/css">
         {{ HTML::style('assets/libs/jqueryui/jquery-ui.min.css') }}
-        {{ HTML::style('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css') }}
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
         {{ HTML::style('assets/libs/animate/animate.css') }}
+        {{ HTML::style('assets/libs/bootstrap-social/bootstrap-social.css') }}
         {{ HTML::style('assets/css/main.css') }}
         @section('css')
         @show

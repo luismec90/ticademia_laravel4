@@ -11,21 +11,41 @@
 |
 */
 
-Route::get('test', array('as' => 'home', 'uses' => 'PagesController@test'));
+Route::get('test', ['as' => 'home', 'uses' => 'PagesController@test']);
 
-Route::get('/', array('as' => 'home', 'uses' => 'PagesController@home'));
+Route::get('/', ['as' => 'home', 'uses' => 'PagesController@home']);
 
-/* Register */
-Route::get('register', array('as' => 'register_path', 'uses' => 'RegistrationController@create'));
+/* Registro */
+Route::get('registro', ['before' => 'guest', 'as' => 'register_path', 'uses' => 'RegistrationController@create']);
+Route::post('registro', ['before' => 'guest', 'as' => 'register_path', 'uses' => 'RegistrationController@store']);
+Route::get('register/verify/{confirmationCode}', ['as' => 'confirmation_path', 'uses' => 'RegistrationController@confirm']);
 
-Route::post('register', array('as' => 'register_path', 'uses' => 'RegistrationController@store'));
+/* Entrar o registrarse con Facebook o Google + */
+Route::get('login_facebook', ['before' => 'guest', 'as' => 'login_facebook_path', 'uses' => 'SocialNetworksController@loginWithFacebook']);
+Route::get('login_google', ['before' => 'guest', 'as' => 'login_google_path', 'uses' => 'SocialNetworksController@loginWithGoogle']);
+
+/* Terminos y condiciones*/
+Route::get('terminos-y-condiciones', ['as' => 'terms_path', 'uses' => 'PagesController@terms']);
 
 /* Sesiones */
-Route::post('login', array('as' => 'login_path', 'uses' => 'SessionsController@store'));
-
-Route::get('logout', array('as' => 'logout_path', 'uses' => 'SessionsController@destroy'));
+Route::post('entrar', ['as' => 'login_path', 'uses' => 'SessionsController@store']);
+Route::get('salir', ['as' => 'logout_path', 'uses' => 'SessionsController@destroy']);
 
 /* Password reset */
 Route::controller('password', 'RemindersController');
+
+/* Mi perfil */
+Route::get('perfil', ['before' => 'auth', 'as' => 'profile_path', 'uses' => 'UsersController@showProfile']);
+Route::post('perfil', ['before' => 'auth', 'as' => 'update_profile_path', 'uses' => 'UsersController@updateProfile']);
+Route::get('perfil/password', ['before' => 'auth', 'as' => 'password_path', 'uses' => 'UsersController@showPassword']);
+Route::post('perfil/password', ['before' => 'auth', 'as' => 'update_password_path', 'uses' => 'UsersController@updatePassword']);
+
+Route::get('mis-cursos', ['before' => 'auth', 'as' => 'my_courses_path', 'uses' => 'CoursesController@index']);
+
+Route::group(array('prefix' => 'curso/{course_id}'), function ()
+{
+    Route::get('/', array('before'=>'auth|isEnrolled','as' => 'course_path', 'uses' => 'CoursesController@show'));
+});
+
 
 

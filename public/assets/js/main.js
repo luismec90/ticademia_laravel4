@@ -46,6 +46,21 @@ $(function () {
         });
 
         if (!invalidForm) {
+            $(':checkbox[required]', $(this)).each(function () {
+                console.log($(this).is(':checked'))
+                if (!$(this).is(':checked')) {
+                    $(this).focus().popover({
+                        'trigger': 'manual',
+                        'placement': 'top',
+                        'content': 'Debes aceptar los términos y condiciones de uso para proceder con el registro'
+                    }).popover('show').focus();
+                    invalidForm = true;
+                    return false;
+                }
+            });
+        }
+
+        if (!invalidForm) {
             var regexpDate = /^\d{4}-\d{2}-\d{2}$/;
             $('.date:input[required]', $(this)).each(function () {
                 var check = this.value.trim();
@@ -86,6 +101,12 @@ $(function () {
 
     $('form.validate-form :input[required]').change(function (e) {
         $(this).popover('destroy');
+    });
+
+    $('.btn-file :file').change(function () {
+        var input = $(this);
+        var label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.parent().parent().siblings("input").val(label);
     });
 });
 

@@ -2,10 +2,49 @@ html, body {
     height: 100%;
 }
 
+body {
+    font-family: "Lato";
+
+    font-size: 16px;
+    color: #222;
+
+    -webkit-font-smoothing: antialiased;
+    -webkit-overflow-scrolling: touch;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Raleway";
+    font-weight: 300;
+    color: #333;
+}
+
+.section-title {
+    margin: 0 0 30px;
+    text-align: center;
+    position: relative;
+}
+
+.section-title:after {
+    content: "";
+    display: block;
+    height: 1px;
+    background: #f5f5f5;
+    position: absolute;
+    top: 20px;
+    width: 100%
+}
+
+.section-title span {
+    background: #fff;
+    padding: 0 10px;
+    z-index: 1;
+    position: relative;
+}
+
 #menu {
     background: #438eb9;
-    border-color: #438eb9;
     border-radius: 0;
+    border-color: #438eb9;
 }
 
 #menu .navbar-nav > li > a {
@@ -35,13 +74,7 @@ html, body {
 
 }
 
-#contenedor h1:first-of-type {
-    margin: 0;
-}
 
-#contenedor h {
-    margin: 0;
-}
 
 footer {
     min-height: 70px;
@@ -76,13 +109,13 @@ footer {
 }
 
 input:required + .popover, select:required + .popover {
-    background: #e74c3c;
+    background: #d15b47;
     color: #fff;
 }
 
 input:required + .popover.bottom > .arrow:after, input:required + .popover.top > .arrow:after, select:required + .popover.bottom > .arrow:after {
-    border-bottom-color: #e74c3c;
-    border-top-color: #e74c3c;
+    border-bottom-color: #d15b47;
+    border-top-color: #d15b47;
 }
 
 .alert [data-growl="message"] {
@@ -96,8 +129,8 @@ input:required + .popover.bottom > .arrow:after, input:required + .popover.top >
 }
 
 .alert-danger {
-    background-color: #e74c3c;
-    border-color: #e74c3c;
+    background-color: #d15b47 !important;
+    border-color: #d15b47;
     color: #ffffff;
 }
 
@@ -122,3 +155,53 @@ input:required + .popover.bottom > .arrow:after, input:required + .popover.top >
     margin-top: -32px;
     margin-left: -32px;
 }
+
+.btn-primary {
+    color: #fff;
+    background-color: #7daa50 !important;
+    border-color: #7daa50;
+}
+
+.btn-primary:hover, .btn-primary:active, .open > .btn-primary.dropdown-toggle {
+    background-color: #87b87f !important;
+    border-color: #7daa50
+}
+#global-authorization .social-login .facebook {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    -webkit-transition: all all 200ms ease-out;
+    -moz-transition: all all 200ms ease-out;
+    transition: all all 200ms ease-out;
+    background-color: #324d8f;
+    font-size: 20px;
+    color: #fff;
+    padding: 0 0 0 15px;
+    font-size: 16px;
+    width: 100% !important;
+    font-size: 14px !important;
+    margin: 0 auto 10px;
+    display: block !important;
+}
+#avatar-header{
+    margin-right: 10px;
+}
+#avatar-header img{
+    margin-top: 7px;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 155px;
+    height: 34px;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    display: block;
+    cursor: pointer;
+}
+
+

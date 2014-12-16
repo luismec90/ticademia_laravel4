@@ -13,4 +13,9 @@ class PagesController extends BaseController {
         return View::make('pages.home');
     }
 
+    public function terms()
+    {
+        return View::make('pages.terms');
+    }
+
 }

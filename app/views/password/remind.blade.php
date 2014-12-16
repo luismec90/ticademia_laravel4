@@ -4,10 +4,9 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-             <h1>Restablecer contraseña</h1>
+             <h1 class="section-title"><span>Restablecer contraseña</span></h1>
         </div>
     </div>
-    <hr>
     <div class="row">
         <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
 
@@ -21,7 +20,7 @@
         
         <!-- Enviar contraseña button -->
         <div class="form-group">
-           {{ Form::submit('Enviar',['class'=>'btn btn-success']) }}
+           {{ Form::submit('Enviar',['class'=>'btn btn-primary']) }}
         </div>
 
 
