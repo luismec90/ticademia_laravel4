@@ -48,6 +48,8 @@ Route::group(array('prefix' => 'curso/{course_id}'), function ()
     Route::get('/muro', array('before'=>'auth|isEnrolled','as' => 'wall_path', 'uses' => 'WallMessagesController@index'));
     Route::post('/muro', array('before'=>'auth|isEnrolled','as' => 'wall_save_message_path', 'uses' => 'WallMessagesController@storeMessage'));
     Route::post('/muro/{wall_message_id}/respuesta', array('before'=>'auth|isEnrolled','as' => 'wall_save_reply_path', 'uses' => 'WallMessagesController@storeReply'));
+    Route::delete('/muro/delete', array('before'=>'auth|isEnrolled','as' => 'wall_delete_message_path', 'uses' => 'WallMessagesController@destroy'));
+
 });
 
 

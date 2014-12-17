@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder {
             'birth_date' => '1990-02-22',
             'gender'     => 'm',
             'email'      => 'luismec90@gmail.com',
-            'avatar'     => 'default.png',
+            'avatar'     => '1.jpg',
             'password'   => Hash::make("123"),
             'confirmed'  => 1
         ]);
@@ -56,7 +56,7 @@ class UsersTableSeeder extends Seeder {
                 'birth_date' => $faker->dateTime(),
                 'gender'     => 'm',
                 'email'      => $faker->email,
-                'avatar'     => 'default.png',
+                'avatar'     => ($index+2).".jpg",
                 'password'   => Hash::make("1234"),
                 'confirmed'  => 1
             ]);

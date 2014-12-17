@@ -40,7 +40,10 @@
                             <div class="comment-box">
                                 <div class="comment-head">
                                     <h6 class="comment-name">{{ $wallMessage->user->fullName() }}</h6>
-                                    <span>{{ $wallMessage->created_at->diffForHumans() }}</span>
+                                    <span> {{  $wallMessage->created_at }} | {{ $wallMessage->created_at->diffForHumans() }}</span>
+                                    @if($wallMessage->user->isMe())
+                                       <i class="delete-message fa fa-trash" data-message-id="{{ $wallMessage->id }}"></i>
+                                    @endif
                                     <i class="reply fa fa-reply"></i>
                                 </div>
                                 <div class="comment-content">
@@ -58,7 +61,10 @@
                                 <div class="comment-box">
                                     <div class="comment-head">
                                         <h6 class="comment-name">{{ $reply->user->fullName() }}</h6>
-                                         <span> {{  $reply->created_at }} | {{ $reply->created_at->diffForHumans() }}</span>
+                                        <span> {{  $reply->created_at }} | {{ $reply->created_at->diffForHumans() }}</span>
+                                        @if($wallMessage->user->isMe())
+                                            <i class="delete-message fa fa-trash" data-message-id="{{ $wallMessage->id }}"></i>
+                                        @endif
                                     </div>
                                     <div class="comment-content">
                                         {{{ $reply->message }}}
@@ -104,4 +110,25 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modal-delete-message">
+	<div class="modal-dialog">
+	    {{ Form::open(['route'=>['wall_delete_message_path',$course->id],'class'=>'validate-form','method'=>'DELETE']) }}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Eliminar publicación</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="wall_message_id" id="message_id">
+                    ¿Realmente deseas eliminar esta publicación?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </div>
+            </div><!-- /.modal-content -->
+		{{ Form::close() }}
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 @stop

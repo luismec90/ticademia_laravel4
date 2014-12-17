@@ -85,4 +85,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return "{$this->first_name} {$this->last_name}";
     }
 
+    public function isMe()
+    {
+        if (Auth::check() && Auth::user()->id == $this->id)
+            return true;
+        return false;
+    }
+
 }

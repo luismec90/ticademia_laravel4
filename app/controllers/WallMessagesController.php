@@ -45,15 +45,29 @@ class WallMessagesController extends \BaseController {
             return Redirect::back();
         }
 
-        $wallMessage = new WallMessage;
-        $wallMessage->course_id = $course_id;
-        $wallMessage->user_id = Auth::user()->id;
-        $wallMessage->wall_message_id = $wall_message_id;
-        $wallMessage->message = Input::get('message');
-        $wallMessage->save();
-
+        $wallMessageReply = new WallMessage;
+        $wallMessageReply->course_id = $course_id;
+        $wallMessageReply->user_id = Auth::user()->id;
+        $wallMessageReply->wall_message_id = $wallMessage->id;
+        $wallMessageReply->message = Input::get('message');
+        $wallMessageReply->save();
 
         Flash::success('Comentario creado exitosamente');
+
+        return Redirect::back();
+    }
+
+    public function destroy($course_id)
+    {
+        $wall_message_id=Input::get('wall_message_id');
+
+        $wallMessage = WallMessage::where('course_id', $course_id)
+            ->where('user_id', Auth::user()->id)
+                ->findOrFail($wall_message_id);
+
+       $wallMessage->delete();
+
+        Flash::success('Publicación eliminada exitosamente');
 
         return Redirect::back();
     }
