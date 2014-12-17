@@ -6,7 +6,7 @@ class WallMessage extends \Eloquent {
 
     public function replies()
     {
-        return $this->hasMany('WallMessage')->orderBy('created_at','ASC');;
+        return $this->hasMany('WallMessage')->orderBy('created_at','ASC');
     }
 
     public function user()

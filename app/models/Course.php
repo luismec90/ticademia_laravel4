@@ -11,6 +11,6 @@ class Course extends \Eloquent {
 
     public function wallMessages()
     {
-        return $this->hasMany('WallMessage')->whereNull('wall_message_id')->orderBy('created_at','DESC');
+        return $this->hasMany('WallMessage')->whereNull('wall_message_id')->orderBy('created_at','DESC')->paginate(20);
     }
 }

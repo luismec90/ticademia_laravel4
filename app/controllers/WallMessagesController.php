@@ -4,14 +4,22 @@ class WallMessagesController extends \BaseController {
 
     public function index($course_id)
     {
-        $course = Course::with('subject')
-            ->with('wallMessages')
-            ->with('wallMessages.replies')
-            ->with('wallMessages.user')
-            ->with('wallMessages.replies.user')
-            ->findOrFail($course_id);
+        $course = Course::with('subject')->findOrFail($course_id);
 
-        return View::make('course.wall', compact('course'));
+        $wallMessages = WallMessage::with('replies')
+            ->with('user')
+            ->with('replies.user')
+            ->where('course_id', $course->id)->paginate(20);
+
+        if (Request::ajax())
+        {
+            if ($wallMessages->count())
+                return Response::json(View::make('course.partials.wall_message', compact('course', 'wallMessages'))->render());
+            else
+                return "";
+        }
+
+        return View::make('course.wall', compact('course', 'wallMessages'));
     }
 
     public function storeMessage($course_id)
@@ -59,16 +67,21 @@ class WallMessagesController extends \BaseController {
 
     public function destroy($course_id)
     {
-        $wall_message_id=Input::get('wall_message_id');
+        $wall_message_id = Input::get('wall_message_id');
 
         $wallMessage = WallMessage::where('course_id', $course_id)
             ->where('user_id', Auth::user()->id)
-                ->findOrFail($wall_message_id);
+            ->findOrFail($wall_message_id);
 
-       $wallMessage->delete();
+        $wallMessage->delete();
 
         Flash::success('Publicación eliminada exitosamente');
 
         return Redirect::back();
+    }
+
+    public function loadMessages($course_id)
+    {
+        dd(Input::all());
     }
 }
