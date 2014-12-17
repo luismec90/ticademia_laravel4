@@ -19,4 +19,5 @@ class CoursesController extends \BaseController {
         return View::make('course.show', compact('course'));
     }
 
+
 }

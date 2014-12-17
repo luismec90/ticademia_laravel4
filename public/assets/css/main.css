@@ -7,7 +7,7 @@ body {
 
     font-size: 16px;
     color: #222;
-
+    background: #fff;
     -webkit-font-smoothing: antialiased;
     -webkit-overflow-scrolling: touch;
 }
@@ -108,12 +108,12 @@ footer {
     text-align: center;
 }
 
-input:required + .popover, select:required + .popover {
+input:required + .popover, select:required + .popover, textarea:required + .popover {
     background: #d15b47;
     color: #fff;
 }
 
-input:required + .popover.bottom > .arrow:after, input:required + .popover.top > .arrow:after, select:required + .popover.bottom > .arrow:after {
+input:required + .popover.bottom > .arrow:after, input:required + .popover.top > .arrow:after, select:required + .popover.bottom > .arrow:after,textarea:required + .popover.bottom > .arrow:after {
     border-bottom-color: #d15b47;
     border-top-color: #d15b47;
 }
@@ -188,6 +188,7 @@ input:required + .popover.bottom > .arrow:after, input:required + .popover.top >
 }
 #avatar-header{
     margin-right: 10px;
+    margin-left: 10px;
 }
 #avatar-header img{
     margin-top: 7px;
@@ -205,3 +206,10 @@ input:required + .popover.bottom > .arrow:after, input:required + .popover.top >
 }
 
 
+#logo{
+margin-right: 20px;
+}
+.text-muted.name-course{
+    font-size: 25px;
+    color:#BDB3B3;
+}

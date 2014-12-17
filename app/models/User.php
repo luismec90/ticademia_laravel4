@@ -80,4 +80,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->belongsToMany('Course')->withTimestamps();
     }
 
+    public function fullName()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+
 }

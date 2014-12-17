@@ -15,11 +15,18 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
+            @if(Auth::check())
+                <li class="@if(Route::currentRouteName()=='my_courses_path') {{ "active"}} @endif"><a href="{{ route('my_courses_path') }}">Mis cursos</a></li>
+            @endif
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 @if(Auth::check())
-                 <li><a href="{{ route('my_courses_path') }}">Mis cursos</a></li>
-                 <li id="avatar-header"> @include('layouts.partials.avatar')</li>
+
+                @if(isset($course))
+                    @include('course.partials.menu_course')
+                @endif
+
+                <li id="avatar-header"> @include('layouts.partials.avatar')</li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     {{ Auth::user()->first_name }} <b class="caret"></b></a>

@@ -45,6 +45,9 @@ Route::get('mis-cursos', ['before' => 'auth', 'as' => 'my_courses_path', 'uses' 
 Route::group(array('prefix' => 'curso/{course_id}'), function ()
 {
     Route::get('/', array('before'=>'auth|isEnrolled','as' => 'course_path', 'uses' => 'CoursesController@show'));
+    Route::get('/muro', array('before'=>'auth|isEnrolled','as' => 'wall_path', 'uses' => 'WallMessagesController@index'));
+    Route::post('/muro', array('before'=>'auth|isEnrolled','as' => 'wall_save_message_path', 'uses' => 'WallMessagesController@storeMessage'));
+    Route::post('/muro/{wall_message_id}/respuesta', array('before'=>'auth|isEnrolled','as' => 'wall_save_reply_path', 'uses' => 'WallMessagesController@storeReply'));
 });
 
 
