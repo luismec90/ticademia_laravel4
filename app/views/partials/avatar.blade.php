@@ -1,0 +1,1 @@
+<img class="media-object img-circle avatar img-responsive" src="{{ $user->avatarPath() }}" alt="{{  $user->fullName() }}">

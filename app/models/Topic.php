@@ -9,4 +9,9 @@ class Topic extends \Eloquent {
     {
         return $this->belongsTo('user');
     }
+
+    public function replies()
+    {
+        return $this->hasMany('TopicReply');
+    }
 }

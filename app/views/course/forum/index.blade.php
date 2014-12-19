@@ -1,11 +1,10 @@
 @extends('layouts.default')
 
-@section('js')
-{{ HTML::script('assets/js/forum.js') }}
-<script>
-    var wall_path="{{ route('wall_path',$course->id) }}";
-</script>
+@section('css')
+{{ HTML::style('assets/css/forum.css') }}
 @stop
+
+
 @section('content')
 <h1 class="section-title"><span>{{ $course->subject->name }}: Foro</span> </h1>
 <div id="div-forum">
@@ -16,17 +15,35 @@
                     {{ $topics->links() }}
                 </div>
             </div>
-            <table class="table table-bordered">
+            <table id="table-forum" class="table">
                 <tr>
-                    <td>Tema</td>
-                    <td>Propietario</td>
-                    <td>Fecha</td>
+                    <td></td>
+                    <td>Publicación</td>
+                    <td>Respuestas</td>
+                    <td>Última respuesta</td>
                 </tr>
                 @foreach($topics as $topic)
-                <tr>
-                    <td><a href="{{ route('topic_path',[$course->id,$topic->id]) }}" class="link"><b>{{ $topic->name }}</b></a></a><br>{{ $topic->description }}</td>
-                    <td>{{ $topic->user->fullName() }}</td>
-                    <td>{{ $topic->created_at }}</td>
+                <tr class="topic">
+                    <td class="col-xs-3 col-sm-2 col-md-1">@include('partials.avatar',['user'=>$topic->user])</td>
+                    <td>
+                        <div class="name row">
+                            <div class="col-xs-12">
+                                <a href="{{ route('topic_path',[$course->id,$topic->id]) }}" class="link"><b>{{ $topic->name }}</b></a>
+                            </div>
+                        </div>
+                        <div class="information row">
+                            <div class="col-xs-12">
+                            Publicado <b>{{ $topic->created_at->diffForHumans() }}</b>: {{ $topic->created_at }}, por <b>{{ $topic->user->fullName() }}</b>
+                            </div>
+                        </div>
+                    </td>
+                    <td>{{ $topic->replies->count() }}</td>
+                    <td class="information">
+                    @if(!is_null($topic->lastReply))
+                        La última respuesta fue <b>{{ $topic->lastReply->created_at->diffForHumans() }}</b>: {{ $topic->lastReply->created_at }}, por <b>{{ $topic->lastReply->user->fullName() }}</b></td>
+                    @else
+                    N/A
+                    @endif
                 </tr>
                 @endforeach
             </table>

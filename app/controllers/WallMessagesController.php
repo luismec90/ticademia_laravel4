@@ -11,7 +11,7 @@ class WallMessagesController extends \BaseController {
             ->with('replies.user')
             ->where('course_id', $course->id)
             ->whereNull('wall_message_id')
-            ->orderBy('created_at','DESC')->paginate(20);
+            ->orderBy('created_at', 'DESC')->paginate(20);
 
         if (Request::ajax())
         {
@@ -39,7 +39,7 @@ class WallMessagesController extends \BaseController {
         $wallMessage->message = Input::get('message');
         $wallMessage->save();
 
-        Flash::success('Comentario creado exitosamente');
+        Flash::success('Publicación creada exitosamente');
 
         return Redirect::back();
     }
@@ -62,7 +62,32 @@ class WallMessagesController extends \BaseController {
         $wallMessageReply->message = Input::get('message');
         $wallMessageReply->save();
 
-        Flash::success('Comentario creado exitosamente');
+        Flash::success('Publicación creada exitosamente');
+
+        return Redirect::back();
+    }
+
+    public function update($course_id)
+    {
+
+        $wall_message_id = Input::get('wall_message_id');
+
+        if (Input::get('message') == '')
+        {
+            Flash::error('Por favor inténtalo nuevamente');
+
+            return Redirect::back();
+        }
+
+        $wallMessage = WallMessage::where('course_id', $course_id)
+            ->where('user_id', Auth::user()->id)
+            ->findOrFail($wall_message_id);
+
+        $wallMessage->message = Input::get('message');
+
+        $wallMessage->save();
+
+        Flash::success('Publicación editada exitosamente');
 
         return Redirect::back();
     }
@@ -82,8 +107,4 @@ class WallMessagesController extends \BaseController {
         return Redirect::back();
     }
 
-    public function loadMessages($course_id)
-    {
-        dd(Input::all());
-    }
 }

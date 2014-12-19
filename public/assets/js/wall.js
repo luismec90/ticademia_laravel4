@@ -4,11 +4,22 @@ $(function () {
         $(this).parent().parent().parent().parent().find('.div-reply').removeClass('hide').find('textarea').val('').focus();
 
     });
-    $('#div-comments .delete-message').click(function () {
+
+    $("#div-comments").on("click",'.delete-message',function(){
 
         var message_id = $(this).attr('data-message-id');
         $('#message_id').val(message_id);
         $('#modal-delete-message').modal();
+    });
+
+    $("#div-comments").on("click",'.edit-message',function(){
+
+        var message_id = $(this).attr('data-message-id');
+        var message = $(this).attr('data-message');
+        $('#edit_message_id').val(message_id)
+        $('#textarea_edit_message').val(message);
+        $('#modal-edit-message').modal();
+
     });
 
     $('#div-comments .btn-cancel-reply').click(function () {

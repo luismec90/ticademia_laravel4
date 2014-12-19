@@ -61,4 +61,25 @@
 		{{ Form::close() }}
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<div class="modal fade" id="modal-edit-message">
+	<div class="modal-dialog">
+	    {{ Form::open(['route'=>['wall_edit_message_path',$course->id],'class'=>'validate-form','method'=>'PUT']) }}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Editar publicación</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="wall_message_id" id="edit_message_id">
+                    <textarea id="textarea_edit_message" name="message" class="form-control"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+            </div><!-- /.modal-content -->
+		{{ Form::close() }}
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 @stop

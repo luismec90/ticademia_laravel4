@@ -50,11 +50,15 @@ Route::group(array('prefix' => 'curso/{course_id}'), function ()
     Route::get('/muro', array('before'=>'auth|isEnrolled','as' => 'wall_path', 'uses' => 'WallMessagesController@index'));
     Route::post('/muro', array('before'=>'auth|isEnrolled','as' => 'wall_save_message_path', 'uses' => 'WallMessagesController@storeMessage'));
     Route::post('/muro/{wall_message_id}/respuesta', array('before'=>'auth|isEnrolled','as' => 'wall_save_reply_path', 'uses' => 'WallMessagesController@storeReply'));
-    Route::delete('/muro/delete', array('before'=>'auth|isEnrolled','as' => 'wall_delete_message_path', 'uses' => 'WallMessagesController@destroy'));
+    Route::put('/muro/editar', array('before'=>'auth|isEnrolled','as' => 'wall_edit_message_path', 'uses' => 'WallMessagesController@update'));
+    Route::delete('/muro/eliminar', array('before'=>'auth|isEnrolled','as' => 'wall_delete_message_path', 'uses' => 'WallMessagesController@destroy'));
 
     /* Foro */
     Route::get('/foro', array('before'=>'auth|isEnrolled','as' => 'forum_path', 'uses' => 'ForumController@index'));
     Route::get('/foro/{topic_id}', array('before'=>'auth|isEnrolled','as' => 'topic_path', 'uses' => 'ForumController@show'));
+    Route::post('/foro/{topic_id}/respuesta', array('before'=>'auth|isEnrolled','as' => 'topic_save_reply_path', 'uses' => 'ForumController@storeReply'));
+    Route::put('/foro/{topic_id}/editar', array('before'=>'auth|isEnrolled','as' => 'topic_edit_reply_path', 'uses' => 'ForumController@updateReply'));
+    Route::delete('/foro/{topic_id}/eliminar', array('before'=>'auth|isEnrolled','as' => 'topic_delete_reply_path', 'uses' => 'ForumController@destroyReply'));
 });
 
 

@@ -9,4 +9,6 @@ class TopicReply extends \Eloquent {
     {
         return $this->belongsTo('user');
     }
+
+
 }
