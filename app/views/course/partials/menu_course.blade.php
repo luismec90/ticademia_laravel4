@@ -1,1 +1,2 @@
 <li class="@if(Route::currentRouteName()=='wall_path') {{ "active"}} @endif"><a href="{{ route('wall_path',$course->id) }}">Muro</a></li>
+<li class="@if(Route::currentRouteName()=='forum_path') {{ "active"}} @endif"><a href="{{ route('forum_path',$course->id) }}">Foro</a></li>

@@ -9,17 +9,19 @@ class WallMessagesController extends \BaseController {
         $wallMessages = WallMessage::with('replies')
             ->with('user')
             ->with('replies.user')
-            ->where('course_id', $course->id)->paginate(20);
+            ->where('course_id', $course->id)
+            ->whereNull('wall_message_id')
+            ->orderBy('created_at','DESC')->paginate(20);
 
         if (Request::ajax())
         {
             if ($wallMessages->count())
-                return Response::json(View::make('course.partials.wall_message', compact('course', 'wallMessages'))->render());
+                return Response::json(View::make('course.wall.partials.wall_message', compact('course', 'wallMessages'))->render());
             else
                 return "";
         }
 
-        return View::make('course.wall', compact('course', 'wallMessages'));
+        return View::make('course.wall.index', compact('course', 'wallMessages'));
     }
 
     public function storeMessage($course_id)

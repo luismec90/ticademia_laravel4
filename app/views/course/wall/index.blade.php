@@ -33,7 +33,7 @@
            {{ Form::close() }}
            </div>
             <div id="div-append-comments" class="comments-container">
-                @include('course.partials.wall_message')
+                @include('course.wall.partials.wall_message')
             </div>
             <div id="loadmoreajaxloader" style="display: none;"><img width="50" alt="Loading..." src="{{ asset('assets/images/general/loading2.gif') }}"><div></div></div>
 

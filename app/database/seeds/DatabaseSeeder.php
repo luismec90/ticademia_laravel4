@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder {
         $this->call('LevelsTableSeeder');
         $this->enrollingStudents();
         $this->call('WallMessagesTableSeeder');
+        $this->call('TopicsTableSeeder');
+        $this->call('TopicRepliesTableSeeder');
 
     }
 

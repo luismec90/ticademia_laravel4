@@ -14,7 +14,7 @@ class WallMessagesTableSeeder extends Seeder {
             WallMessage::create([
                 'id'        => $index,
                 'course_id' => 1,
-                'user_id'   => $index%7+1,
+                'user_id'   =>  rand(1,12),
                 'message'   => $faker->text(),
                 'type'      => 'custom'
             ]);
