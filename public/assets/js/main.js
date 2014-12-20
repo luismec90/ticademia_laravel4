@@ -103,7 +103,7 @@ $(function () {
         $(this).popover('destroy');
     });
 
-    $('.btn-file :file').change(function () {
+    $('.btn-file-input :file').change(function () {
         var input = $(this);
         var label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
         input.parent().parent().siblings("input").val(label);

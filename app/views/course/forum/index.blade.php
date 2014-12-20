@@ -24,7 +24,7 @@
                 </tr>
                 @foreach($topics as $topic)
                 <tr class="topic">
-                    <td class="col-xs-3 col-sm-2 col-md-1">@include('partials.avatar',['user'=>$topic->user])</td>
+                    <td class="col-xs-3 col-sm-2 col-md-1">@include('layouts.partials.avatar_square',['user'=>$topic->user])</td>
                     <td>
                         <div class="name row">
                             <div class="col-xs-12">

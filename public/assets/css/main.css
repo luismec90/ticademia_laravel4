@@ -44,7 +44,8 @@ h1, h2, h3, h4, h5, h6 {
 #menu {
     background: #438eb9;
     border-radius: 0;
-    border-color: #438eb9;
+    border-color: #0d6085;
+    background: #0d6085 url("http://mooc.org/assets/images/bg-mast.png") 0 0 repeat;
 }
 
 #menu .navbar-nav > li > a {
@@ -52,7 +53,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #menu .navbar-nav > li > a:hover, #menu .navbar-nav > li > a:focus, #menu .navbar-nav > li.open > a {
-    background: #87B7D2;
+    background: rgba(135, 183, 210, .4);
 }
 
 #menu .navbar-nav > .active > a, #menu .navbar-nav > .active > a:hover, #menu .navbar-nav > .active > a:focus {
@@ -78,8 +79,8 @@ h1, h2, h3, h4, h5, h6 {
 
 footer {
     min-height: 70px;
-    background: #438eb9;
     color: white;
+    background: #0d6085 url("http://mooc.org/assets/images/bg-mast.png") 0 0 repeat;
 }
 
 #escudo-un {

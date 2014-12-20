@@ -16,7 +16,7 @@
                         <div class="panel-heading"><b class="link">{{ $topic->name }}</b></div>
                         <div class="panel-body">
                             <div class="col-xs-3 col-sm-2 col-md-1">
-                                @include('partials.avatar',['user'=>$topic->user])
+                                @include('layouts.partials.avatar_square',['user'=>$topic->user])
                             </div>
                             <div class="col-xs-9 col-sm-10 col-md-11 ">
                                 <div class="row info-date">
@@ -61,7 +61,7 @@
                     <td class="col-xs-3 col-sm-2 col-md-1">
                         <div class="row">
                             <div class="col-sm-8 col-sm-offset-2">
-                                @include('partials.avatar',['user'=>$topicReply ->user])
+                                @include('layouts.partials.avatar_square',['user'=>$topicReply ->user])
                             </div>
                         </div>
                     <td  class="container-reply">

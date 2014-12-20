@@ -18,4 +18,7 @@ class PagesController extends BaseController {
         return View::make('pages.terms');
     }
 
+
+
+
 }

@@ -7,6 +7,43 @@ class UsersController extends \BaseController {
         return View::make('pages.profile.general_info');
     }
 
+    public function changeAvatar()
+    {
+
+        $validation = Validator::make(Input::all(), User::$updateAvatar, User::$validationMessages);
+        if ($validation->fails())
+        {
+            return Redirect::back()->withInput()->withErrors($validation);
+        }
+
+        $dataX = Input::get('dataX');
+        $dataY = Input::get('dataY');
+        $dataHeight = Input::get('dataHeight');
+        $dataWidth = Input::get('dataWidth');
+
+        $path = 'users/avatars/';
+
+        if (Auth::user()->avatar != 'default.png' && File::exists($path . Auth::user()->avatar))
+        {
+            File::delete($path . Auth::user()->avatar);
+        }
+        $avatar = Input::file('avatar');
+        $fileName = Auth::user()->id . '.' . $avatar->getClientOriginalExtension();
+        Image::make($avatar->getRealPath())
+            ->crop($dataWidth,$dataHeight,$dataX, $dataY)
+            ->fit(300, 300)
+            ->save("$path/$fileName");
+
+        Auth::user()->avatar = $fileName;
+
+        Auth::user()->save();
+
+        Flash::success('Imagen actualizada exitosamente');
+
+        return Redirect::back();
+    }
+
+
     public function updateProfile()
     {
 
@@ -21,21 +58,6 @@ class UsersController extends \BaseController {
             Auth::user()->birth_date = Input::get('birth_date');
             Auth::user()->gender = Input::get('gender');
             Auth::user()->email = Input::get('email');
-
-            if (Input::hasFile('avatar'))
-            {
-                $path = 'users/avatars/';
-                if (Auth::user()->avatar != 'default.png' && File::exists($path . Auth::user()->avatar))
-                {
-                    File::delete($path . Auth::user()->avatar);
-                }
-                $avatar = Input::file('avatar');
-                $fileName = Auth::user()->id . '.' . $avatar->getClientOriginalExtension();
-                Image::make($avatar->getRealPath())
-                    ->fit(300, 300)
-                    ->save("$path/$fileName");
-                Auth::user()->avatar = $fileName;
-            }
 
             Auth::user()->save();
 

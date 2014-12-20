@@ -26,7 +26,7 @@
                     @include('course.partials.menu_course')
                 @endif
 
-                <li id="avatar-header"> @include('layouts.partials.avatar')</li>
+                <li id="avatar-header"> @include('layouts.partials.avatar_circle')</li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     {{ Auth::user()->first_name }} <b class="caret"></b></a>

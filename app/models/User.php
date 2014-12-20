@@ -26,8 +26,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         'first_name' => 'required',
         'last_name'  => 'required',
         'birth_date' => 'sometimes|date_format:Y-m-d',
-        'gender'     => 'required|in:f,m',
-        'avatar'     => 'image|max:2048'
+        'gender'     => 'required|in:f,m'
+    ];
+
+    public static $updateAvatar = [
+        'avatar'     => 'required|image|max:2048',
+        'dataX'      => 'required|numeric',
+        'dataY'      => 'required|numeric',
+        'dataHeight' => 'required|numeric',
+        'dataWidth'  => 'required|numeric',
     ];
 
     public static $updatePasswordRules = [
@@ -47,6 +54,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         'password.required'      => 'El campo contraseña es obligatorio',
         'password.confirmed'     => 'El campo confirmar contraseña no coincide',
         'password.min'           => 'El campo contraseña debe tener al menos 4 caracteres',
+        'avatar.required'        => 'El campo imagen es obligatorio',
+        'avatar.image'           => 'El campo imagen debe ser una imagen válida',
     ];
 
     public function avatarPath()
@@ -89,6 +98,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     {
         if (Auth::check() && Auth::user()->id == $this->id)
             return true;
+
         return false;
     }
 
