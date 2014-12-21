@@ -94,6 +94,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return "{$this->first_name} {$this->last_name}";
     }
 
+    public function socialNetworks()
+    {
+        return $this->hasMany('SocialNetwork');
+    }
+
     public function isMe()
     {
         if (Auth::check() && Auth::user()->id == $this->id)

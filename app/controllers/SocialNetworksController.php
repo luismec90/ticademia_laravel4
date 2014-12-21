@@ -22,34 +22,62 @@ class SocialNetworksController extends \BaseController {
 
             // Send a request with it
             $result = json_decode($fb->request('/me'), true);
-            $user = User::where('email', $result['email'])->first();
+
+            $isNewUser = false;
+
+            $user = User::whereHas('socialNetworks', function ($query) use ($result)
+            {
+                $query->where('email', $result['email'])
+                    ->where('name', 'facebook');
+            })->first();
+
             if (is_null($user))
             {
-                $user = new User;
-                $user->first_name = $result['first_name'];
-                $user->last_name = $result['last_name'];
-                $user->gender = ($result['gender'] == 'male') ? 'm' : 'f';
-                $user->email = $result['email'];
-                $user->avatar = 'default.png';
-                $user->confirmed = 1;
-                $user->save();
+                $user = User::where('email', $result['email'])->first();
+
+                if (is_null($user))
+                {
+                    $isNewUser = true;
+
+                    $user = new User;
+                    $user->first_name = $result['first_name'];
+                    $user->last_name = $result['last_name'];
+                    $user->gender = ($result['gender'] == 'male') ? 'm' : 'f';
+                    $user->email = $result['email'];
+                    $user->avatar = 'default.png';
+                    $user->confirmed = 1;
+                    $user->save();
+                }
+
+                $socialNetWork = new SocialNetWork;
+                $socialNetWork->user_id = $user->id;
+                $socialNetWork->email = $result['email'];
+                $socialNetWork->name = 'facebook';
+                $socialNetWork->save();
             }
 
 
             Auth::login($user);
 
-            if (Auth::user()->gender == 'f')
+
+            if ($isNewUser)
             {
-                $welcome = 'Bienvenida';
-            } else if (Auth::user()->gender == 'm')
-            {
-                $welcome = 'Bienvenido';
+                Flash::success("Te has registrado exitisamente");
             } else
             {
-                $welcome = 'Bienvenid@';
-            }
+                if (Auth::user()->gender == 'f')
+                {
+                    $welcome = 'Bienvenida';
+                } else if (Auth::user()->gender == 'm')
+                {
+                    $welcome = 'Bienvenido';
+                } else
+                {
+                    $welcome = 'Bienvenid@';
+                }
 
-            Flash::success("$welcome  " . Auth::user()->first_name);
+                Flash::success("$welcome de nuevo " . Auth::user()->first_name);
+            }
 
             return Redirect::route('home');
 
@@ -85,33 +113,58 @@ class SocialNetworksController extends \BaseController {
             // Send a request with it
             $result = json_decode($googleService->request('https://www.googleapis.com/oauth2/v1/userinfo'), true);
 
-            $user = User::where('email', $result['email'])->first();
+            $isNewUser = false;
+
+            $user = User::whereHas('socialNetworks', function ($query) use ($result)
+            {
+                $query->where('email', $result['email'])
+                    ->where('name', 'google');
+            })->first();
 
             if (is_null($user))
             {
-                $user = new User;
-                $user->first_name = $result['given_name'];
-                $user->last_name = $result['family_name'];
-                $user->email = $result['email'];
-                $user->avatar = 'default.png';
-                $user->confirmed = 1;
-                $user->save();
+                $user = User::where('email', $result['email'])->first();
+
+                if (is_null($user))
+                {
+                    $isNewUser = true;
+
+                    $user = new User;
+                    $user->first_name = $result['given_name'];
+                    $user->last_name = $result['family_name'];
+                    $user->email = $result['email'];
+                    $user->avatar = 'default.png';
+                    $user->confirmed = 1;
+                    $user->save();
+                }
+
+                $socialNetWork = new SocialNetWork;
+                $socialNetWork->user_id = $user->id;
+                $socialNetWork->email = $result['email'];
+                $socialNetWork->name = 'google';
+                $socialNetWork->save();
             }
 
             Auth::login($user);
 
-            if (Auth::user()->gender == 'f')
+            if ($isNewUser)
             {
-                $welcome = 'Bienvenida';
-            } else if (Auth::user()->gender == 'm')
-            {
-                $welcome = 'Bienvenido';
+                Flash::success("Te has registrado exitisamente");
             } else
             {
-                $welcome = 'Bienvenid@';
-            }
+                if (Auth::user()->gender == 'f')
+                {
+                    $welcome = 'Bienvenida';
+                } else if (Auth::user()->gender == 'm')
+                {
+                    $welcome = 'Bienvenido';
+                } else
+                {
+                    $welcome = 'Bienvenid@';
+                }
 
-            Flash::success("$welcome  " . Auth::user()->first_name);
+                Flash::success("$welcome  " . Auth::user()->first_name);
+            }
 
             return Redirect::route('home');
 
@@ -125,4 +178,110 @@ class SocialNetworksController extends \BaseController {
             return Redirect::to((string) $url);
         }
     }
+
+    public function linkWithFacebook()
+    {
+        $code = Input::get('code');
+        $fb = OAuth::consumer('Facebook');
+
+        if (!empty($code))
+        {
+            $token = $fb->requestAccessToken($code);
+            $result = json_decode($fb->request('/me'), true);
+
+
+            $socialNetwork = SocialNetwork::where('email', $result['email'])
+                ->where('name', 'facebook')
+                ->first();
+
+            if (is_null($socialNetwork))
+            {
+                $socialNetwork = new SocialNetWork;
+                $socialNetwork->user_id = Auth::user()->id;
+                $socialNetwork->email = $result['email'];
+                $socialNetwork->name = 'facebook';
+                $socialNetwork->save();
+
+                Flash::success("Cuenta vinculada exitosamente");
+
+            } else if ($socialNetwork->user->isMe())
+            {
+                Flash::success("La cuenta ya esta vinculada");
+            } else
+            {
+                Flash::error("Esta cuenta de Facebook ya ha sido registrada con otro usuario");
+            }
+
+            return Redirect::route('profile_path');
+        } else
+        {
+            $url = $fb->getAuthorizationUri();
+
+            return Redirect::to((string) $url);
+        }
+
+    }
+
+    public function linkWithGoogle()
+    {
+        $code = Input::get('code');
+        $googleService = OAuth::consumer('Google');
+
+        if (!empty($code))
+        {
+            $token = $googleService->requestAccessToken($code);
+            $result = json_decode($googleService->request('https://www.googleapis.com/oauth2/v1/userinfo'), true);
+
+            $socialNetwork = SocialNetwork::where('email', $result['email'])
+                ->where('name', 'google')
+                ->first();
+
+            if (is_null($socialNetwork))
+            {
+                $socialNetwork = new SocialNetWork;
+                $socialNetwork->user_id = Auth::user()->id;
+                $socialNetwork->email = $result['email'];
+                $socialNetwork->name = 'google';
+                $socialNetwork->save();
+
+                Flash::success("Cuenta vinculada exitosamente");
+
+            } else if ($socialNetwork->user->isMe())
+            {
+                Flash::success("La cuenta ya esta vinculada");
+            } else
+            {
+                Flash::error("Esta cuenta de Google ya ha sido registrada con otro usuario");
+            }
+
+
+            return Redirect::route('profile_path');
+        } else
+        {
+            $url = $googleService->getAuthorizationUri();
+
+            return Redirect::to((string) $url);
+        }
+    }
+
+    public function unlinkWithFacebook()
+    {
+        $socialNetwork = SocialNetwork::where('user_id', Auth::user()->id)
+            ->where('name', 'facebook')->delete();
+
+        Flash::success("Cuenta desvinculada exitosamente");
+
+        return Redirect::route('profile_path');
+    }
+
+    public function unlinkWithGoogle()
+    {
+        $socialNetwork = SocialNetwork::where('user_id', Auth::user()->id)
+            ->where('name', 'google')->delete();
+
+        Flash::success("Cuenta desvinculada exitosamente");
+
+        return Redirect::route('profile_path');
+    }
+
 }

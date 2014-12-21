@@ -259,3 +259,7 @@
     margin-left: auto;
     margin-right: auto;
 }
+.panel-body h4{
+    display:inline-block;
+    margin-right: 10px;
+}

@@ -4,10 +4,28 @@ class UsersController extends \BaseController {
 
     public function showProfile()
     {
-        return View::make('pages.profile.general_info');
+        $linkedWithFacebook = false;
+        $linkedWithGoogle = false;
+
+        $socialNetworks = SocialNetwork::where('user_id', Auth::user()->id)
+            ->get();
+
+        foreach ($socialNetworks as $socialNetwork)
+        {
+            if ($socialNetwork->name == "facebook")
+            {
+                $linkedWithFacebook = true;
+            } else if ($socialNetwork->name == "google")
+            {
+                $linkedWithGoogle = true;
+            }
+        }
+
+        return View::make('pages.profile.general_info', compact('linkedWithFacebook', 'linkedWithGoogle'));
     }
 
-    public function changeAvatar()
+    public
+    function changeAvatar()
     {
 
         $validation = Validator::make(Input::all(), User::$updateAvatar, User::$validationMessages);
@@ -30,7 +48,7 @@ class UsersController extends \BaseController {
         $avatar = Input::file('avatar');
         $fileName = Auth::user()->id . '.' . $avatar->getClientOriginalExtension();
         Image::make($avatar->getRealPath())
-            ->crop($dataWidth,$dataHeight,$dataX, $dataY)
+            ->crop($dataWidth, $dataHeight, $dataX, $dataY)
             ->fit(300, 300)
             ->save("$path/$fileName");
 
@@ -44,7 +62,8 @@ class UsersController extends \BaseController {
     }
 
 
-    public function updateProfile()
+    public
+    function updateProfile()
     {
 
         $validation = Validator::make(Input::all(), User::$updateRules, User::$validationMessages);
@@ -67,12 +86,14 @@ class UsersController extends \BaseController {
         }
     }
 
-    public function showPassword()
+    public
+    function showPassword()
     {
         return View::make('pages.profile.change_password');
     }
 
-    public function updatePassword()
+    public
+    function updatePassword()
     {
         $validation = Validator::make(Input::all(), User::$updatePasswordRules);
         if ($validation->fails())
