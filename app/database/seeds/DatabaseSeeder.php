@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder {
     private function enrollingStudents()
     {
         DB::table('course_user')->insert(['user_id' => 1, 'course_id' => 1, 'level_id' => 1, 'role' => 1, 'group' => 5]);
+        DB::table('course_user')->insert(['user_id' => 3, 'course_id' => 1, 'level_id' => 1, 'role' => 1, 'group' => 1]);
         DB::table('course_user')->insert(['user_id' => 2, 'course_id' => 1, 'level_id' => 1, 'role' => 2, 'contact_information' => 'Lorem..']);
 
     }
