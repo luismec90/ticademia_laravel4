@@ -50,7 +50,7 @@
                                     <!-- E-mail Form Input -->
                                     <div class="form-group">
                                         {{ Form::label('email','Correo electrónico:') }}
-                                        {{ Form::text('email','luismec90@gmail.com',['class'=>'form-control email','required'=>true]) }}
+                                        {{ Form::text('email',null,['class'=>'form-control email','required'=>true]) }}
                                     </div>
                                     <!-- Contraseña Form Input -->
                                     <div class="form-group">
