@@ -9,7 +9,7 @@
 </script>
 @stop
 @section('content')
-<h1 class="section-title"><span>{{ $course->subject->name }}: Muro</span> </h1>
+<h1 class="section-title"><span>Muro</span> </h1>
 <div id="div-comments">
     <div class="row">
         <div class="col-xs-12">

@@ -20,6 +20,9 @@ class DatabaseSeeder extends Seeder {
         $this->call('TopicsTableSeeder');
         $this->call('TopicRepliesTableSeeder');
         $this->call('SocialNetworksTableSeeder');
+        $this->call('ModulesTableSeeder');
+        $this->call('MaterialsTableSeeder');
+        $this->call('QuizzesTableSeeder');
 
     }
 

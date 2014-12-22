@@ -14,6 +14,7 @@ class CoursesController extends \BaseController {
     public function show($course_id)
     {
         $course = Course::with('subject')
+            ->with('modules')
             ->findOrFail($course_id);
 
         return View::make('course.show', compact('course'));
@@ -24,6 +25,6 @@ class CoursesController extends \BaseController {
         $course = Course::with('subject')
             ->findOrFail($course_id);
 
-        return View::make('course.calendar',compact('course'));
+        return View::make('course.calendar', compact('course'));
     }
 }

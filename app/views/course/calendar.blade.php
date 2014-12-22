@@ -4,7 +4,7 @@
 @stop
 
 @section('content')
-<h1 class="section-title"><span>{{ $course->subject->name }}: Calendario</span></h1>
+<h1 class="section-title"><span>Calendario</span></h1>
 <div class="container">
     <div class="row">
         <div class="col-xs-12">

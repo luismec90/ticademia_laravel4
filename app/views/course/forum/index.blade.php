@@ -6,7 +6,7 @@
 
 
 @section('content')
-<h1 class="section-title"><span>{{ $course->subject->name }}: Foro</span> </h1>
+<h1 class="section-title"><span>Foro</span> </h1>
 <div id="div-forum">
     <div class="row">
         <div class="col-xs-12">

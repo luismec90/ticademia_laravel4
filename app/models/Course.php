@@ -9,8 +9,13 @@ class Course extends \Eloquent {
         return $this->belongsTo('Subject');
     }
 
+    public function modules()
+    {
+        return $this->hasMany('Module')->orderBy('start_date');
+    }
+
     public function wallMessages()
     {
-        return $this->hasMany('WallMessage')->whereNull('wall_message_id')->orderBy('created_at','DESC')->paginate(20);
+        return $this->hasMany('WallMessage')->whereNull('wall_message_id')->orderBy('created_at', 'DESC')->paginate(20);
     }
 }
