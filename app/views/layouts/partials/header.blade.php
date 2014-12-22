@@ -34,7 +34,6 @@
                          <li class="@if(Route::currentRouteName()=='profile_path') {{ "active"}} @endif">
                             <a href="{{ route('profile_path') }}">Mi perfil</a>
                         </li>
-                        <li><a href="#">Another action</a></li>
                         <li class="divider"></li>
                         <li>{{ link_to_route('logout_path','Salir') }}</li>
                     </ul>
