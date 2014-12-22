@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-	'password' => 'ticademia2014',
+	'password' => 'wypgtjtzwdbtspmk',
 
 	/*
 	|--------------------------------------------------------------------------
