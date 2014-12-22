@@ -69,7 +69,7 @@ class SocialNetworksController extends \BaseController {
 
             if ($isNewUser)
             {
-                Flash::success("Te has registrado exitisamente");
+                Flash::success("Te has registrado exitosamente");
             } else
             {
                 if (Auth::user()->gender == 'f')
@@ -164,7 +164,7 @@ class SocialNetworksController extends \BaseController {
 
             if ($isNewUser)
             {
-                Flash::success("Te has registrado exitisamente");
+                Flash::success("Te has registrado exitosamente");
             } else
             {
                 if (Auth::user()->gender == 'f')
