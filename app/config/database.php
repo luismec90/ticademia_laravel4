@@ -55,9 +55,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'dev',
-			'username'  => 'root',
-			'password'  => '',
+			'database'  => 'ticademia',
+			'username'  => 'ticademia',
+			'password'  => 'ticademia',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
