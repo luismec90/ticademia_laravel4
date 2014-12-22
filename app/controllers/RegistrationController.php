@@ -29,7 +29,6 @@ class RegistrationController extends \BaseController {
         $user->confirmation_code = $confirmation_code;
         $user->save();
 
-        //   Auth::login($user);
 
         Mail::send('emails.auth.verify', compact('confirmation_code', 'user'), function ($message)
         {

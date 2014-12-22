@@ -33,6 +33,18 @@ class UsersTableSeeder extends Seeder {
             'confirmed'  => 1
         ]);
 
+        User::create([
+            'id'         => 3,
+            'first_name' => 'Luis Fernando',
+            'last_name'  => 'Montoya Gómez',
+            'birth_date' => '1990-02-22',
+            'gender'     => 'm',
+            'email'      => 'estudiante1',
+            'avatar'     => 'default.png',
+            'password'   => Hash::make("123"),
+            'confirmed'  => 1
+        ]);
+
         /*
             User::create([
                 'id'         => 3,

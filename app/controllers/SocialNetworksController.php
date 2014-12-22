@@ -47,6 +47,13 @@ class SocialNetworksController extends \BaseController {
                     $user->avatar = 'default.png';
                     $user->confirmed = 1;
                     $user->save();
+
+                    $this->emailVerified($user);
+                } else if ($user->confirmed == 0)
+                {
+                    $user->confirmed = 1;
+                    $user->confirmation_code = null;
+                    $user->save();
                 }
 
                 $socialNetWork = new SocialNetWork;
@@ -135,6 +142,14 @@ class SocialNetworksController extends \BaseController {
                     $user->email = $result['email'];
                     $user->avatar = 'default.png';
                     $user->confirmed = 1;
+                    $user->save();
+
+                    $this->emailVerified($user);
+
+                } else if ($user->confirmed == 0)
+                {
+                    $user->confirmed = 1;
+                    $user->confirmation_code = null;
                     $user->save();
                 }
 
@@ -282,6 +297,16 @@ class SocialNetworksController extends \BaseController {
         Flash::success("Cuenta desvinculada exitosamente");
 
         return Redirect::route('profile_path');
+    }
+
+    private function emailVerified($user)
+    {
+
+        Mail::send('emails.auth.verified', compact('confirmation_code', 'user'), function ($message) use ($user)
+        {
+            $message->to($user->email, $user->first_name)
+                ->subject('Bienvenid@ a TICademia');
+        });
     }
 
 }
