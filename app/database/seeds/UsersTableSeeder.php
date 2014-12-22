@@ -39,7 +39,7 @@ class UsersTableSeeder extends Seeder {
             'last_name'  => 'Montoya Gómez',
             'birth_date' => '1990-02-22',
             'gender'     => 'm',
-            'email'      => 'estudiante1',
+            'email'      => 'estudiante1@gmail.com',
             'avatar'     => 'default.png',
             'password'   => Hash::make("123"),
             'confirmed'  => 1
