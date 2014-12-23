@@ -15,16 +15,16 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                @if(Auth::check())
-                    <li class="@if(Route::currentRouteName()=='my_courses_path') {{ "active"}} @endif"><a
-                                href="{{ route('my_courses_path') }}">Mis cursos</a></li>
-                @endif
+                <li class="@if(Route::currentRouteName()=='') {{ "active"}} @endif">
+                    <a href="{{ route('my_courses_path') }}">Lista de cursos</a>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 @if(Auth::check())
 
-
-
+                    <li class="@if(Route::currentRouteName()=='my_courses_path') {{ "active"}} @endif">
+                        <a href="{{ route('my_courses_path') }}">Mis cursos</a>
+                    </li>
                     <li id="avatar-header"> @include('layouts.partials.avatar_circle')</li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">

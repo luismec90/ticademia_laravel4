@@ -19,7 +19,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .section-title {
-    margin: 0 0 30px;
+    margin: 0 0 20px;
     text-align: center;
     position: relative;
 }
@@ -76,6 +76,9 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #438eb9;
     color: #fff;
 }
+#menu-course .navbar-toggle .icon-bar {
+    background-color: #0d6085;
+}
 
 @media (min-width: 768px) {
     #menu-course .navbar-nav > li > a {
@@ -97,17 +100,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (max-width: 767px) {
-    .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+    #menu .navbar-toggle:hover,  #menu .navbar-toggle:focus {
         background-color: #87B7D2;
     }
 
-    .navbar-default .navbar-toggle .icon-bar {
+    #menu .navbar-toggle .icon-bar {
         background-color: white;
     }
 }
 
 #contenedor {
     min-height: calc(100% - 142px);
+    margin-top: 20px;
 
 }
 
