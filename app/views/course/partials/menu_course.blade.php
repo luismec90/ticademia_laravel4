@@ -18,17 +18,6 @@
                 <li class="@if(Route::currentRouteName()=='calendar_path') {{ "active"}} @endif"><a href="{{ route('calendar_path',$course->id) }}">Calendario</a></li>
                 <li class="@if(Route::currentRouteName()=='wall_path') {{ "active"}} @endif"><a href="{{ route('wall_path',$course->id) }}">Muro</a></li>
                 <li class="@if(Route::currentRouteName()=='forum_path') {{ "active"}} @endif"><a href="{{ route('forum_path',$course->id) }}">Foro</a></li>
-                <li role="presentation" class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-                        <i class="fa fa-bell-o"></i>
-
-                    </a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="drop5">
-                        <li role="presentation" class="dropdown-header">No hay notificaciones nuevas</li>
-                        <li class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="http://linkingshops.com/notificaciones">Ver todas las notificaciones.</a></li>
-                    </ul>
-                </li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

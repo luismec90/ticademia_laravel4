@@ -8,11 +8,11 @@
     margin-bottom: 10px;
 }
 
-i.fa {
+#div-forum i.fa {
     color: rgb(166, 166, 166);
     cursor: pointer;
     font-size: 16px;
 }
-i.fa:hover {
+#div-forum i.fa:hover {
 color: #03658c;
 }

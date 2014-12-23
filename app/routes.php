@@ -49,7 +49,14 @@ Route::post('perfil/avatar', ['before' => 'auth', 'as' => 'change_avatar_path', 
 Route::get('perfil/password', ['before' => 'auth', 'as' => 'password_path', 'uses' => 'UsersController@showPassword']);
 Route::post('perfil/password', ['before' => 'auth', 'as' => 'update_password_path', 'uses' => 'UsersController@updatePassword']);
 
+/* Mis cursos*/
 Route::get('mis-cursos', ['before' => 'auth', 'as' => 'my_courses_path', 'uses' => 'CoursesController@index']);
+
+
+/* Notificaciones */
+Route::get('notificaciones', array('before' => 'auth', 'as' => 'notifications_path', 'uses' => 'NotificationsController@index'));
+Route::get('notificaciones/{notification_id}', array('before' => 'auth', 'as' => 'show_notification_path', 'uses' => 'NotificationsController@show'));
+
 
 /* Curso */
 Route::group(['prefix' => 'curso/{course_id}', 'before' => 'auth|isEnrolled'], function ()
