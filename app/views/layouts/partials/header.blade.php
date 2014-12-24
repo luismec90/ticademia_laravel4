@@ -28,7 +28,6 @@
                             @else
                                 <i class="fa fa-bell-o"></i>
                             @endif
-
                         </a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="drop5">
                             @forelse(Auth::user()->newNotifications as $notification)

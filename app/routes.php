@@ -80,6 +80,9 @@ Route::group(['prefix' => 'curso/{course_id}', 'before' => 'auth|isEnrolled'], f
     Route::put('/foro/{topic_id}/editar', ['as' => 'topic_edit_reply_path', 'uses' => 'ForumController@updateReply']);
     Route::delete('/foro/{topic_id}/eliminar', ['as' => 'topic_delete_reply_path', 'uses' => 'ForumController@destroyReply']);
 
+    Route::get('/ranking-grupal', ['as' => 'group_ranking_path', 'uses' => 'CoursesController@groupRanking']);
+    Route::get('/ranking-general', ['as' => 'general_ranking_path', 'uses' => 'CoursesController@generalRanking']);
+
     /* Modulo */
     Route::group(['prefix' => 'modulo/{module_id}'], function ()
     {

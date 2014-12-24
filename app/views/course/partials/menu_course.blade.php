@@ -18,6 +18,16 @@
                 <li class="@if(Route::currentRouteName()=='calendar_path') {{ "active"}} @endif"><a href="{{ route('calendar_path',$course->id) }}">Calendario</a></li>
                 <li class="@if(Route::currentRouteName()=='wall_path') {{ "active"}} @endif"><a href="{{ route('wall_path',$course->id) }}">Muro</a></li>
                 <li class="@if(Route::currentRouteName()=='forum_path') {{ "active"}} @endif"><a href="{{ route('forum_path',$course->id) }}">Foro</a></li>
+                <li role="presentation" class="dropdown @if(Route::currentRouteName()=='group_ranking_path' || Route::currentRouteName()=='general_ranking_path') {{ "active"}} @endif">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                        Ranking <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li class="@if(Route::currentRouteName()=='group_ranking_path') {{ "active"}} @endif"><a href="{{ route('group_ranking_path',$course->id) }}">Ranking grupal</a></li>
+                        <li class="@if(Route::currentRouteName()=='general_ranking_path') {{ "active"}} @endif"><a href="{{ route('general_ranking_path',$course->id) }}">Ranking general</a></li>
+                    </ul>
+                </li>
+                <li class="@if(Route::currentRouteName()=='') {{ "active"}} @endif"><a href="{{ route('forum_path',$course->id) }}">Mis logros</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

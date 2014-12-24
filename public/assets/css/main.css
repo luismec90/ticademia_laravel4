@@ -68,9 +68,7 @@ h1, h2, h3, h4, h5, h6 {
     height: 30px;
 }
 
-#menu-course a {
-    color: #444;
-}
+
 
 #menu-course .navbar-nav > li > a:hover, #menu-course .navbar-nav > li > a:active, #menu-course .navbar-nav > li > a:focus, #menu-course .navbar-nav > .active > a:hover, #menu-course .navbar-nav > .active > a {
     background-color: #438eb9;
@@ -110,9 +108,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #contenedor {
-    min-height: calc(100% - 142px);
+    min-height: calc(100% - 118px);
     margin-top: 20px;
-
 }
 
 footer {
@@ -277,7 +274,7 @@ input:required + .popover.bottom > .arrow:after, input:required + .popover.top >
     color: #03658c;
 }
 
-table.table tr:first-child {
+table.table:not(.no-header) tr:first-child {
     font-weight: bold;
     color: #444;
     background-color: #f5f5f5;
@@ -295,7 +292,7 @@ table.table tr:first-child {
     -o-transform-origin: 50% 0;
     -ms-transform-origin: 50% 0;
     transform-origin: 50% 0;
-    font-size: 1.5em !important;
+    font-size: 1.2em !important;
     color: #fff;
 }
 

@@ -34,7 +34,7 @@
                                     <a class="btn btn-primary btn-sm" href="{{ route("show_notification_path",$notification->id) }}">Ver</a>
                                 </td>
                                 <td>
-                                {{ $notification->created_at }}
+                                    {{ ucfirst($notification->created_at->diffForHumans()) }}: {{ $notification->created_at }}
                                 </td>
                             </tr>
                     @endforeach

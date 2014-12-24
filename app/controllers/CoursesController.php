@@ -27,4 +27,21 @@ class CoursesController extends \BaseController {
 
         return View::make('course.calendar', compact('course'));
     }
+
+    public function groupRanking($course_id)
+    {
+        $course = Course::with('subject')
+            ->findOrFail($course_id);
+
+        return View::make('course.ranking.group', compact('course'));
+    }
+
+    public function generalRanking($course_id)
+    {
+        $course = Course::with('subject')
+            ->findOrFail($course_id);
+
+        return View::make('course.ranking.general', compact('course'));
+    }
+
 }
