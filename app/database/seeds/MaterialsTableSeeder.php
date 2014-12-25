@@ -14,7 +14,7 @@ class MaterialsTableSeeder extends Seeder {
             'module_id'   => 1,
             'name'        => 'Definición y clasificación de ángulos I',
             'description' => $faker->text(5),
-            'url'         => 'https://cdn.sublimevideo.net/vpa/ms_360p.mp4',
+            'url'         => 'Sx0WVOxU0I8',
             'type'        => 'video',
             'order'       => '1'
         ]);
@@ -24,7 +24,7 @@ class MaterialsTableSeeder extends Seeder {
             'module_id'   => 1,
             'name'        => 'Definición y clasificación de ángulos II',
             'description' => $faker->text(5),
-            'url'         => 'https://cdn.sublimevideo.net/vpa/ms_360p.mp4',
+            'url'         => 'HPA1dNH-rlo',
             'type'        => 'video',
             'order'       => '2'
         ]);
@@ -34,7 +34,7 @@ class MaterialsTableSeeder extends Seeder {
             'module_id'   => 1,
             'name'        => 'Teorema fundamentales de los triángulos',
             'description' => $faker->text(5),
-            'url'         => 'https://cdn.sublimevideo.net/vpa/ms_360p.mp4',
+            'url'         => 'MCbKYBUeE3U',
             'type'        => 'video',
             'order'       => '3'
         ]);
@@ -44,7 +44,7 @@ class MaterialsTableSeeder extends Seeder {
             'module_id'   => 1,
             'name'        => 'Criterios de congruencia entre triángulos ',
             'description' => $faker->text(5),
-            'url'         => 'https://cdn.sublimevideo.net/vpa/ms_360p.mp4',
+            'url'         => 'x3k-O_jtxoU',
             'type'        => 'video',
             'order'       => '4'
         ]);

@@ -1,4 +1,7 @@
+sublime.load();
+
 $(function () {
+
     $('#quizzes-div .quiz-launcher').click(function () {
         $('#panel-iframe-title').html('Pregunta 1');
         $('#iframe-container').removeClass('hide');
@@ -14,12 +17,19 @@ $(function () {
 
     $('#materials-div .video-launcher').click(function () {
 
-        $('#panel-video-title').html('Video 1');
+        var name = $(this).attr("data-name");
+        var url = $(this).attr("data-url");
 
+        $('#panel-video-title').html(name);
+        sublime.unprepare('my_video_player');
+        $("#my_video_player").attr("data-youtube-id", url);
+        sublime.prepare('my_video_player');
+        sublime('my_video_player').play();
         $('#video-container').removeClass('hide');
         $('#video-container .panel').addClass('animated bounceInRight');
         setTimeout(function () {
             $('#video-container .panel').removeClass('animated bounceInRight');
+
         }, 1300);
 
     });
@@ -30,22 +40,12 @@ $(function () {
         setTimeout(function () {
             $('#video-container').addClass('hide');
             $('#video-container .panel').removeClass('animated bounceOutRight');
+            sublime('my_video_player').stop();
         }, 600);
 
     });
 
 });
-/*
-sublime.load();
-sublime.ready(function () {
-    var player = sublime.player('my_video_player');
-    player.on({
-        start: function (player) {
-            console.log('playback started.')
-        },
-        end: function (player) {
-            console.log('playback ended.')
-        }
-    });
-});
-    */
+
+
+
