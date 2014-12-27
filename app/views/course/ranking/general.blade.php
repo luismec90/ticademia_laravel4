@@ -1,19 +1,19 @@
 @extends('layouts.default')
 @section('css')
     {{ HTML::style('assets/css/course.css') }}
-    {{ HTML::style('//cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.css') }}
+    {{ HTML::style('assets/libs/datatables/css/dataTables.bootstrap.css') }}
 @stop
 @section('js')
     {{ HTML::script('assets/libs/datatables/js/jquery.dataTables.min.js') }}
-    {{ HTML::script('//cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.js') }}
+    {{ HTML::script('assets/libs/datatables/js/dataTables.bootstrap.js') }}
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#table-ranking').dataTable({
                 "language": {
                     "url": "{{ asset('assets/libs/datatables/js/spanish.lang') }}"
                 }
             });
-        } );
+        });
     </script>
 @stop
 @section('content')
@@ -24,12 +24,12 @@
 
             <table id="table-ranking" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
-                    <tr>
-                        <td>Posición</td>
-                        <td class="col-xs-3 col-sm-2 col-md-1">Avatar</td>
-                        <td>Nombre</td>
-                        <td>Puntaje</td>
-                    </tr>
+                <tr>
+                    <td>Posición</td>
+                    <td class="col-xs-3 col-sm-2 col-md-1">Avatar</td>
+                    <td>Nombre</td>
+                    <td>Puntaje</td>
+                </tr>
                 </thead>
                 <tbody>
                 @foreach($ranking as $index => $user)

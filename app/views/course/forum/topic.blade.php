@@ -1,10 +1,23 @@
 @extends('layouts.default')
 @section('css')
 {{ HTML::style('assets/css/forum.css') }}
+{{ HTML::style('assets/libs/datatables/css/dataTables.bootstrap.css') }}
 @stop
 @section('js')
-{{ HTML::script('assets/js/forum.js') }}
+    {{ HTML::script('assets/libs/datatables/js/jquery.dataTables.min.js') }}
+    {{ HTML::script('assets/libs/datatables/js/dataTables.bootstrap.js') }}
+    <script>
+        $(document).ready(function () {
+            $('#table-comments').dataTable({
+                "language": {
+                    "url": "{{ asset('assets/libs/datatables/js/spanish.lang') }}"
+                },
+                "bSort": false
+            });
+        });
+    </script>
 @stop
+@secti
 @section('content')
 <h1 class="section-title"><span>{{ $course->subject->name }}: Foro</span> </h1>
 <div id="div-forum">
@@ -54,8 +67,14 @@
                            </div>
                        {{ Form::close() }}
                        </div>
-                        {{ $topicReplies->links() }}
-            <table class="table">
+
+            <table id="table-comments" class="table">
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td>Mensaje</td>
+                    </tr>
+                </thead>
                 @foreach($topicReplies as $topicReply)
                 <tr>
                     <td class="col-xs-3 col-sm-2 col-md-1">
@@ -86,10 +105,13 @@
                 </tr>
                 @endforeach
             </table>
-
+            <div class="row">
+                <div class="col-xs-12">
+                    <br>
+                </div>
+            </div>
         </div>
     </div>
-    {{ $topicReplies->links() }}
 </div>
 
 <div class="modal fade" id="modal-edit-topic-reply">

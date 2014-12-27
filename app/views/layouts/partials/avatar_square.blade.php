@@ -1,1 +1,1 @@
-<img class="media-object img-thumbnail avatar img-responsive" width="{{ isset($size) ? $size : 40 }}" src="{{ $user->avatarPath() }}" alt="{{  $user->fullName() }}">
+<img class="media-object img-thumbnail avatar img-responsive" width="{{ isset($size) ? $size : 100 }}" src="{{ $user->avatarPath() }}" alt="{{  $user->fullName() }}">

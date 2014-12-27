@@ -2,6 +2,20 @@
 
 @section('css')
 {{ HTML::style('assets/css/forum.css') }}
+{{ HTML::style('assets/libs/datatables/css/dataTables.bootstrap.css') }}
+@stop
+@section('js')
+    {{ HTML::script('assets/libs/datatables/js/jquery.dataTables.min.js') }}
+    {{ HTML::script('assets/libs/datatables/js/dataTables.bootstrap.js') }}
+    <script>
+        $(document).ready(function () {
+            $('#table-forum').dataTable({
+                "language": {
+                    "url": "{{ asset('assets/libs/datatables/js/spanish.lang') }}"
+                }
+            });
+        });
+    </script>
 @stop
 
 
@@ -10,18 +24,15 @@
 <div id="div-forum">
     <div class="row">
         <div class="col-xs-12">
-            <div class="row">
-                <div class="col-xs-12 text-right">
-                    {{ $topics->links() }}
-                </div>
-            </div>
             <table id="table-forum" class="table">
+                <thead>
                 <tr>
                     <td></td>
                     <td>Publicación</td>
                     <td>Respuestas</td>
                     <td>Última respuesta</td>
                 </tr>
+                </thead>
                 @foreach($topics as $topic)
                 <tr class="topic">
                     <td class="col-xs-3 col-sm-2 col-md-1">@include('layouts.partials.avatar_square',['user'=>$topic->user])</td>
@@ -48,8 +59,8 @@
                 @endforeach
             </table>
             <div class="row">
-                <div class="col-xs-12 text-right">
-                    {{ $topics->links() }}
+                <div class="col-xs-12">
+                    <br>
                 </div>
             </div>
         </div>

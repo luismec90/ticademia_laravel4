@@ -9,12 +9,12 @@ class ForumController extends \BaseController {
 
         $topics = Topic::with('user')
             ->where('course_id', $course->id)
-            ->paginate(20);
+            ->get();
 
 
         foreach ($topics as $topic)
         {
-            $lasReply = TopicReply::where('topic_id',$topic->id)->orderBy('created_at', 'DESC')->get()->first();
+            $lasReply = TopicReply::where('topic_id', $topic->id)->orderBy('created_at', 'DESC')->get()->first();
             $topic->lastReply = $lasReply;
         }
 
@@ -32,7 +32,7 @@ class ForumController extends \BaseController {
         $topicReplies = TopicReply::with('user')
             ->where('topic_id', $topic->id)
             ->orderBy('created_at', 'ASC')
-            ->paginate(20);
+            ->get();
 
         return View::make('course.forum.topic', compact('course', 'topic', 'topicReplies'));
     }
