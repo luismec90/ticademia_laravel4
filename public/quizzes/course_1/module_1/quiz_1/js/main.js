@@ -1,8 +1,8 @@
 var a, b, x, l1;
 
-$(function() {
+$(function () {
     API = getAPI();
-     API.LMSInitialize("");
+    API.LMSInitialize("");
 
     l1 = getRandom(200, 250);
     a = getRandom(20, 50);
@@ -11,11 +11,12 @@ $(function() {
 
     var correctAnswer = x;
     var missConception1 = 270 - a - b;
- //   console.log(correctAnswer + " " + missConception1);
+    //   console.log(correctAnswer + " " + missConception1);
     draw();
 
-    $("#verificar").click(function() {
-        var valor = $("#answer").val().trim(); valor = ((valor.split(",")).length == 2) ? valor.replace(",", ".") : valor;
+    $("#verificar").click(function () {
+        var valor = $("#answer").val().trim();
+        valor = ((valor.split(",")).length == 2) ? valor.replace(",", ".") : valor;
         if (valor != "") {
             $("#correcto").addClass("hide");
             $("#feedback").addClass("hide");
@@ -47,10 +48,10 @@ $(function() {
             API.notifyDaemon(calificacion);
         }
     });
-    $("#aceptar").click(function() {
+    $("#aceptar").click(function () {
         window.parent.location.reload();
     });
-    $('#modal').on('hide.bs.modal', function(e) {
+    $('#modal').on('hide.bs.modal', function (e) {
         window.parent.location.reload();
     });
 

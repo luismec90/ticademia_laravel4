@@ -88,7 +88,17 @@ Route::group(['prefix' => 'curso/{course_id}', 'before' => 'auth|isEnrolled'], f
     {
         Route::get('/', ['as' => 'module_path', 'uses' => 'ModulesController@show']);
     });
+
+    Route::group(['prefix' => 'SCORM'], function ()
+    {
+        Route::post('/LMSInitialize', ['uses' => 'ApiSCORMController@LMSInitialize']);
+        Route::post('/LMSFinish', ['uses' => 'ApiSCORMController@LMSFinish']);
+        Route::post('/LMSSetValue', ['uses' => 'ApiSCORMController@LMSSetValue']);
+        Route::post('/grade', ['uses' => 'ApiSCORMController@grade']);
+
+    });
 });
+
 
 
 

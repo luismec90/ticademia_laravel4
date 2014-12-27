@@ -6,16 +6,13 @@
 @section('js-top')
     {{ HTML::script('assets/js/api.js') }}
     <script>
-        base_url = "{{ URL::to('/') }}";
-        idUsuarioGlobal = -1;
-        nombreUsuarioGlobal = "";
-        idCursoGlobal = -1;
+        base_url = "{{ route('course_path',$course->id) }}";
+        idCursoGlobal = "1";
+        idUsuarioGlobal = "1";
+        nombreUsuarioGlobal = "Luis Fernando Montoya";
+        rolGlobal = "1";
         fechaInicioReto = "";
         evaluacionOReto = "";
-        rolGlobal = "2";
-        idUsuarioGlobal = "2";
-        nombreUsuarioGlobal = "Julian Moreno Cadavid";
-        idCursoGlobal = "1";
     </script>
 @stop
 @section('js')
@@ -53,7 +50,9 @@
                         @foreach($module->quizzes as $quiz)
                             <tr>
                                 <td>{{ $quiz->order }}</td>
-                                <td><a class="btn btn-primary quiz-launcher">Ver</a></td>
+                                <td><a class="btn btn-primary quiz-launcher" data-evaluacion-id="{{ $quiz->id }}"
+                                       data-url="{{ $quiz->path($course) }}"
+                                       data-order="{{ $quiz->order }}">Ver</a></td>
                             </tr>
                         @endforeach
                     </table>
@@ -71,7 +70,7 @@
                     <h3 id="panel-iframe-title"></h3>
                 </div>
                 <div class="panel-body">
-                    <iframe src="http://localhost/quizzes/course_1/module_1/quiz_1/launch.html?version=53"></iframe>
+                    <iframe id="iframe_exam"></iframe>
                 </div>
             </div>
         </div>
@@ -92,4 +91,20 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modal-quiz-attempt-feedback">
+    	<div class="modal-dialog">
+    		<div class="modal-content">
+    			<div class="modal-header">
+    				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    				<h4 class="modal-title">Retroalimentación</h4>
+    			</div>
+    			<div id="modal-body-quiz-attempt-feedback" class="modal-body">
+    			</div>
+    			<div class="modal-footer">
+    				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+    			</div>
+    		</div><!-- /.modal-content -->
+    	</div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 @stop

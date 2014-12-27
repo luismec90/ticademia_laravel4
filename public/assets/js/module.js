@@ -3,8 +3,16 @@ sublime.load();
 $(function () {
 
     $('#quizzes-div .quiz-launcher').click(function () {
-        $('#panel-iframe-title').html('Pregunta 1');
+        evaluacionOReto = "evaluacion";
+
+        var name = "Evaluación  " + $(this).attr("data-order");
+        var url = $(this).attr("data-url");
+        idEvaluacion = $(this).attr("data-evaluacion-id");
+
+        $('#panel-iframe-title').html(name);
+        $("#iframe_exam").attr("src", url);
         $('#iframe-container').removeClass('hide');
+
         $('#iframe-container .panel').addClass('animated bounceInRight');
     });
     $('#btn-close-iframe').click(function () {

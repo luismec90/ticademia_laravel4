@@ -455,3 +455,8 @@ table.table:not(.no-header) tr:first-child {
     padding-top: 2px;
     padding-bottom: 4px;
 }
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #3071a9;
+    border-color: #7daa50;
+}

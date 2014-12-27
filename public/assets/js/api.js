@@ -1,69 +1,65 @@
 API = new Object();
-API.LMSInitialize = function(a) {
+API.LMSInitialize = function (a) {
+
     if (evaluacionOReto == "evaluacion" && rolGlobal == 1) {
         $.ajax({
-            url: "../api/LMSInitialize",
+            url: base_url + "/SCORM/LMSInitialize",
             method: "post",
             data: {
                 param1: a,
-                idEvaluacion: idEvaluacion
+                quiz_id: idEvaluacion
             },
-            success: function(data) {
+            success: function (data) {
+                console.log(data)
             }
         });
     }
 }
-API.LMSFinish = function(a) {
+API.LMSFinish = function (a) {
     if (evaluacionOReto == "evaluacion" && rolGlobal == 1) {
         $.ajax({
-            url: "../api/LMSFinish",
+            url: base_url + "/SCORM/LMSFinish",
             method: "post",
             data: {
                 param1: a
             },
-            success: function(data) {
+            success: function (data) {
             }
         });
     }
 }
-API.calificar = function(calificacion, feedback) {
-    if (evaluacionOReto == "evaluacion" ) {
-        var stopEvaluation = Date.now();
-        var durationEvaluation =((stopEvaluation - startEvaluation)/1000);
-        console.log(durationEvaluation);
+API.calificar = function (calificacion, feedback) {
+    if (evaluacionOReto == "evaluacion") {
         $.ajax({
-            url: "../api/calificar",
+            url: base_url + "/SCORM/grade",
             method: "post",
             data: {
-                idEvaluacion: idEvaluacion,
-                calificacion: calificacion,
-                duracion: durationEvaluation,
+                quiz_id: idEvaluacion,
+                grade: calificacion,
                 feedback: feedback
             },
-            success: function(data) {
-
-                $("#bodymodalRespuestaEvaluacion").html(data);
-                $("#modalRespuestaEvaluacion").modal();
-
+            success: function (data) {
+                $("#modal-body-quiz-attempt-feedback").html(data);
+                $("#modal-quiz-attempt-feedback").modal();
             }
         });
     }
 }
-API.LMSSetValue = function(a, b) {
+API.LMSSetValue = function (a, b) {
     if (evaluacionOReto == "evaluacion" && rolGlobal == 1) {
         $.ajax({
-            url: "../api/LMSSetValue",
+            url: base_url + "/SCORM/LMSSetValue",
             method: "post",
             data: {
                 param1: a,
                 param2: b
             },
-            success: function(data) {
+            success: function (data) {
             }
         });
     }
 }
-API.notifyDaemon = function(calificacion) {
+API.notifyDaemon = function (calificacion) {
 
     if (evaluacionOReto == "reto") {
         if (calificacion == 1) {
@@ -83,17 +79,9 @@ API.notifyDaemon = function(calificacion) {
         conn.send(JSON.stringify(data));
     }
 }
-API.closeQuestion = function() {
+API.closeQuestion = function () {
     if (evaluacionOReto == "evaluacion") {
-        $("#coverDisplay").css({
-            "opacity": "0",
-            "width": "0",
-            "height": "0"
-        });
-        $("#contenedor-frame").removeClass("class-contenedor-pdf").addClass("hide");
-        $("html, body").css({
-            'overflow': 'content'
-        });
+        $('#btn-close-iframe').trigger('click');
     }
 }
  

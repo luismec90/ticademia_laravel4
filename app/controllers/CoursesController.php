@@ -41,7 +41,15 @@ class CoursesController extends \BaseController {
         $course = Course::with('subject')
             ->findOrFail($course_id);
 
-        return View::make('course.ranking.general', compact('course'));
+        $ranking = User::join('module_user', 'module_user.user_id', '=', 'users.id')
+            ->join('modules', 'module_user.module_id', '=', 'modules.id')
+            ->where('modules.course_id', $course_id)
+            ->groupBy('module_user.user_id')
+            ->select('users.*', DB::raw('SUM(module_user.score) score'))
+            ->orderBy('score', 'DESC')
+            ->get();
+
+        return View::make('course.ranking.general', compact('course', 'ranking'));
     }
 
 }
