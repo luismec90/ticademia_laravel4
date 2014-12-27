@@ -26,7 +26,7 @@
                 <thead>
                 <tr>
                     <td>Posición</td>
-                    <td class="col-xs-3 col-sm-2 col-md-1">Avatar</td>
+                    <td class="col-xs-3 col-sm-2 col-md-1"></td>
                     <td>Nombre</td>
                     <td>Puntaje</td>
                 </tr>

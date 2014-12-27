@@ -5,6 +5,7 @@
 {{ HTML::style('assets/libs/datatables/css/dataTables.bootstrap.css') }}
 @stop
 @section('js')
+    {{ HTML::script('assets/js/forum.js') }}
     {{ HTML::script('assets/libs/datatables/js/jquery.dataTables.min.js') }}
     {{ HTML::script('assets/libs/datatables/js/dataTables.bootstrap.js') }}
     <script>

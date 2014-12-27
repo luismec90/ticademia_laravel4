@@ -4,6 +4,7 @@
 {{ HTML::style('assets/libs/datatables/css/dataTables.bootstrap.css') }}
 @stop
 @section('js')
+    {{ HTML::script('assets/js/forum.js') }}
     {{ HTML::script('assets/libs/datatables/js/jquery.dataTables.min.js') }}
     {{ HTML::script('assets/libs/datatables/js/dataTables.bootstrap.js') }}
     <script>
@@ -17,7 +18,6 @@
         });
     </script>
 @stop
-@secti
 @section('content')
 <h1 class="section-title"><span>{{ $course->subject->name }}: Foro</span> </h1>
 <div id="div-forum">
