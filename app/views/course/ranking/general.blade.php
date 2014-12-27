@@ -21,8 +21,28 @@
 
     <div class="row">
         <div class="col-xs-12">
-
-            <table id="table-ranking" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <table class="table table-bordered">
+                <thead>
+                <tr >
+                    <th>Puesto</th>
+                    <th>Nombre</th>
+                    <th>Puntaje</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr >
+                    <td>{{ $userRanking['position'] }}</td>
+                    <td>{{ $userRanking['fullName'] }}</td>
+                    <td>{{ $userRanking['score'] }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-xs-12">
+                    <hr>
+                </div>
+            </div>
+            <table id="table-ranking" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
                 <thead>
                 <tr>
                     <td>Posición</td>

@@ -33,7 +33,22 @@ class CoursesController extends \BaseController {
         $course = Course::with('subject')
             ->findOrFail($course_id);
 
-        return View::make('course.ranking.group', compact('course'));
+        $ranking = $course->groupRanking();
+
+        $userGroup = Auth::user()->courses()->where('course_id', $course_id)->first()->pivot->group;
+
+        $userRanking = "N/A";
+
+        foreach ($ranking as $index => $row)
+        {
+            if ($row->group == $userGroup)
+            {
+                $userRanking = ['position' => ($index + 1), 'group' => $userGroup, 'score' => $row->score];
+                break;
+            }
+        }
+
+        return View::make('course.ranking.group', compact('course', 'ranking','userRanking'));
     }
 
     public function generalRanking($course_id)
@@ -49,7 +64,17 @@ class CoursesController extends \BaseController {
             ->orderBy('score', 'DESC')
             ->get();
 
-        return View::make('course.ranking.general', compact('course', 'ranking'));
+        $userRanking = "N/A";
+        foreach ($ranking as $index => $user)
+        {
+            if ($user->isMe())
+            {
+                $userRanking = ['position' => ($index + 1), 'fullName' => $user->fullName(), 'score' => $user->score];
+                break;
+            }
+        }
+
+        return View::make('course.ranking.general', compact('course', 'ranking', 'userRanking'));
     }
 
 }
