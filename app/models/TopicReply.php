@@ -10,5 +10,8 @@ class TopicReply extends \Eloquent {
         return $this->belongsTo('user');
     }
 
-
+    public function topic()
+    {
+        return $this->belongsTo('Topic');
+    }
 }

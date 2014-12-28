@@ -48,7 +48,7 @@ class CoursesController extends \BaseController {
             }
         }
 
-        return View::make('course.ranking.group', compact('course', 'ranking','userRanking'));
+        return View::make('course.ranking.group', compact('course', 'ranking', 'userRanking'));
     }
 
     public function generalRanking($course_id)
@@ -82,6 +82,11 @@ class CoursesController extends \BaseController {
         $course = Course::with('subject')
             ->findOrFail($course_id);
 
-        return View::make('course.reached_achievements', compact('course'));
+        $reachedAchievements = ReachedAchievement::with('achievement')
+            ->where('course_id', $course->id)
+            ->where('user_id', Auth::user()->id)
+            ->get();
+
+        return View::make('course.reached_achievements', compact('course', 'reachedAchievements'));
     }
 }

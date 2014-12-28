@@ -4,14 +4,12 @@ class PagesController extends BaseController {
 
     public function test()
     {
-        $user = Auth::user();
-        $course = Course::first();
-        $achievement_id = 1;
 
-        if (!Achievement::haveTheAchievement($user, $course, $achievement_id))
-        {
+        Achievement::create([
+            'name'        => '10 en línea',
+            'description' => 'Se gana cuando se resuelven 10 ejercicios consecutivos.'
+        ]);
 
-        }
     }
 
 
