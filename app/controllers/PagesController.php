@@ -4,7 +4,14 @@ class PagesController extends BaseController {
 
     public function test()
     {
-        return View::make('emails.auth.reminder',['token'=>'asdasd']);
+        $user = Auth::user();
+        $course = Course::first();
+        $achievement_id = 1;
+
+        if (!Achievement::haveTheAchievement($user, $course, $achievement_id))
+        {
+
+        }
     }
 
 
@@ -17,8 +24,6 @@ class PagesController extends BaseController {
     {
         return View::make('pages.terms');
     }
-
-
 
 
 }

@@ -27,7 +27,7 @@
                         <li class="@if(Route::currentRouteName()=='general_ranking_path') {{ "active"}} @endif"><a href="{{ route('general_ranking_path',$course->id) }}">Ranking general</a></li>
                     </ul>
                 </li>
-                <li class="@if(Route::currentRouteName()=='') {{ "active"}} @endif"><a href="{{ route('forum_path',$course->id) }}">Mis logros</a></li>
+                <li class="@if(Route::currentRouteName()=='achievement_path') {{ "active"}} @endif"><a href="{{ route('achievement_path',$course->id) }}">Mis logros</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

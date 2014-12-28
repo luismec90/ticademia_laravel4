@@ -77,4 +77,11 @@ class CoursesController extends \BaseController {
         return View::make('course.ranking.general', compact('course', 'ranking', 'userRanking'));
     }
 
+    public function reachedAchievements($course_id)
+    {
+        $course = Course::with('subject')
+            ->findOrFail($course_id);
+
+        return View::make('course.reached_achievements', compact('course'));
+    }
 }
