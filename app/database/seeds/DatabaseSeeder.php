@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('NotificationsTableSeeder');
         $this->call('ModuleUserTableSeeder');
         $this->call('AchievementsTableSeeder');
+        $this->call('ReachedAchievementsTableSeeder');
 
     }
 
