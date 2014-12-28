@@ -6,7 +6,7 @@ class ReachedAchievement extends \Eloquent {
 
     public function achievement()
     {
-        return $this->belongsTo('achievement');
+        return $this->belongsTo('Achievement');
     }
 
 }
