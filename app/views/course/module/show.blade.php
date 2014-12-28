@@ -20,10 +20,12 @@
     {{ HTML::script('assets/js/module.js') }}
 @stop
 @section('content')
-    <h1 class="section-title"><span>{{ $module->name }}</span></h1>
+
+    <h1 class="section-title"><span><a class="btn btn-default btn-back" title="Ir atrás" href="{{ route('course_path',$course->id) }}"><i class="fa fa-reply"></i></a>{{ $module->name }}</span></h1>
+
     <div class="row">
         <div class="col-xs-5">
-            <div id="materials-div" class="panel panel-default">
+            <div id="materials-div" class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">Materiales</h3>
                 </div>
@@ -41,7 +43,7 @@
             </div>
         </div>
         <div class="col-xs-7">
-            <div id="quizzes-div" class="panel panel-default">
+            <div id="quizzes-div" class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">Evaluaciones</h3>
                 </div>

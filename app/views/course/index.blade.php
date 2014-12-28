@@ -5,10 +5,12 @@
 <div class="row">
     <div class="col-xs-12">
         <table class="table table-striped table-bordered">
-            <tr>
-                <td>Curso</td>
-                <td>Entrar</td>
-            </tr>
+            <thead>
+                <tr>
+                    <td>Curso</td>
+                    <td>Entrar</td>
+                </tr>
+            </thead>
             @foreach($courses as $course)
             <tr>
                 <td>

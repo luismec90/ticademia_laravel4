@@ -108,7 +108,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #contenedor {
-    min-height: calc(100% - 118px);
+    min-height: calc(100% - 142px);
     margin-top: 20px;
 }
 
@@ -460,4 +460,9 @@ table.table:not(.no-header) thead tr:first-child {
     color: #fff;
     background-color: #3071a9;
     border-color: #7daa50;
+}
+.btn-back{
+  margin-right: 10px;
+    margin-top: -5px;
+    margin-left: -30px;
 }

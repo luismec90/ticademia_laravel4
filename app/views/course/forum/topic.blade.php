@@ -19,7 +19,7 @@
     </script>
 @stop
 @section('content')
-<h1 class="section-title"><span>{{ $course->subject->name }}: Foro</span> </h1>
+<h1 class="section-title"><span><a class="btn btn-default btn-back" title="Ir atrás" href="{{ route('forum_path',$course->id) }}"><i class="fa fa-reply"></i></a> Foro</span> </h1>
 <div id="div-forum">
     <div class="row">
         <div class="col-xs-12">

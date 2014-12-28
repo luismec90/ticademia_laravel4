@@ -9,11 +9,13 @@
         <div class="col-xs-12">
             <table class="table">
                 <tr>
+                    <thead>
                     <td>Módulo</td>
                     <td class="hidden-xs">Descripción</td>
                     <td >Fecha de inicio</td>
                     <td>Fecha de finalización</td>
                     <td>Opciones</td>
+                    </thead>
                 </tr>
                 @foreach($course->modules as $module)
                     <tr>
