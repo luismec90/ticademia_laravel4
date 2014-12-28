@@ -8,4 +8,5 @@ class ReachedAchievement extends \Eloquent {
     {
         return $this->belongsTo('achievement');
     }
+
 }
