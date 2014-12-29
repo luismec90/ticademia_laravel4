@@ -14,7 +14,7 @@ class MaterialsTableSeeder extends Seeder {
             'module_id'   => 1,
             'name'        => 'Definición y clasificación de ángulos I',
             'description' => $faker->text(5),
-            'url'         => 'Sx0WVOxU0I8',
+            'url'         => 'eW3gMGqcZQc',
             'type'        => 'video',
             'order'       => '1'
         ]);
