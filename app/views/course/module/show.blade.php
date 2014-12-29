@@ -87,7 +87,8 @@
                     <h3 id="panel-video-title"></h3>
                 </div>
                 <div class="panel-body">
-                    <video class="sublime" data-youtube-id="TKoBVs4idIc" width="640" height="360" preload="none"></video>
+                    <video id="my_video_player" class="sublime" data-youtube-id="C1_U79gEPjU" width="868" height="490"
+                           preload="none"></video>
                 </div>
             </div>
         </div>
