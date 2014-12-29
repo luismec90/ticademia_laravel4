@@ -29,10 +29,10 @@ $(function () {
         var url = $(this).attr("data-url");
 
         $('#panel-video-title').html(name);
-        sublime.unprepare('my_video_player');
+        //sublime.unprepare('my_video_player');
         $("#my_video_player").attr("data-youtube-id", url);
-        sublime.prepare('my_video_player');
-        sublime('my_video_player').play();
+        //sublime.prepare('my_video_player');
+        //sublime('my_video_player').play();
         $('#video-container').removeClass('hide');
         $('#video-container .panel').addClass('animated bounceInRight');
         setTimeout(function () {
@@ -48,7 +48,7 @@ $(function () {
         setTimeout(function () {
             $('#video-container').addClass('hide');
             $('#video-container .panel').removeClass('animated bounceOutRight');
-            sublime('my_video_player').stop();
+          //  sublime('my_video_player').stop();
         }, 600);
 
     });
