@@ -39,7 +39,7 @@ class MaterialsController extends \BaseController {
 
         $reviews = Review::where('material_id', $material->id)->orderBy('created_at','DESC')->paginate(5);
 
-        if (true || Request::ajax())
+        if (Request::ajax())
         {
             return Response::json(View::make('course.partials.show_reviews', compact('course', 'reviews'))->render());
         } else

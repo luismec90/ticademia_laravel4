@@ -83,7 +83,7 @@ $(function () {
 
 function getReviews(page) {
     materialID = $("#modal-show-reviews").attr("data-material-id");
-
+    $("#body-modal-show-reviews").html("");
     $.ajax({
         url: load_material_reviews_path + '/' + materialID + '?page=' + page,
         dataType: 'json'
