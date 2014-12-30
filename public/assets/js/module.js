@@ -53,7 +53,46 @@ $(function () {
 
     });
 
+    $('#materials-div .create-review').click(function () {
+
+        var name = $(this).attr("data-name");
+        var materialID = $(this).attr("data-material-id");
+        $("#material-name").html(name);
+        $("#material_id").val(materialID);
+        $("#modal-create-review").modal();
+    });
+
+
+    $('#materials-div .show-reviews').click(function () {
+
+        var name = $(this).attr("data-name");
+        var materialID = $(this).attr("data-material-id");
+        $("#modal-show-reviews-material-name").html(name);
+        $("#modal-show-reviews").attr("data-material-id", materialID);
+
+        getReviews(1);
+
+        $("#modal-show-reviews").modal();
+    });
+
+    $("#modal-show-reviews").on('click', '.pagination a', function (e) {
+        getReviews($(this).attr('href').split('page=')[1]);
+        e.preventDefault();
+    });
 });
+
+function getReviews(page) {
+    materialID = $("#modal-show-reviews").attr("data-material-id");
+
+    $.ajax({
+        url: load_material_reviews_path + '/' + materialID + '?page=' + page,
+        dataType: 'json'
+    }).done(function (data) {
+        $("#body-modal-show-reviews").html(data);
+    }).fail(function () {
+        alert('Posts could not be loaded.');
+    });
+}
 
 
 

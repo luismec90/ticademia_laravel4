@@ -4,11 +4,8 @@ class PagesController extends BaseController {
 
     public function test()
     {
-
-        Achievement::create([
-            'name'        => '10 en línea',
-            'description' => 'Se gana cuando se resuelven 10 ejercicios consecutivos.'
-        ]);
+      //  $xml = simplexml_load_file('http://gdata.youtube.com/feeds/api/videos/kAOm3APJopM');
+      //  return strval($xml->xpath('//yt:duration[@seconds]')[0]->attributes()->seconds);
 
     }
 

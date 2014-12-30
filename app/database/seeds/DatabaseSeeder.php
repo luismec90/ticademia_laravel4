@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('ModuleUserTableSeeder');
         $this->call('AchievementsTableSeeder');
         $this->call('ReachedAchievementsTableSeeder');
+        $this->call('ReviewsTableSeeder');
 
     }
 
@@ -34,7 +35,7 @@ class DatabaseSeeder extends Seeder {
     {
         foreach (range(1, 80) as $index)
         {
-            DB::table('course_user')->insert(['user_id' => $index, 'course_id' => 1, 'level_id' => 1, 'role' => 1, 'group' => rand(1,5)]);
+            DB::table('course_user')->insert(['user_id' => $index, 'course_id' => 1, 'level_id' => 1, 'role' => 1, 'group' => rand(1, 5)]);
         }
 
     }

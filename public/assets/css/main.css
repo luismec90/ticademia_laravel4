@@ -272,6 +272,7 @@ input:required + .popover.bottom > .arrow:after, input:required + .popover.top >
 
 .link {
     color: #03658c;
+    cursor: pointer;
 }
 
 table.table:not(.no-header) thead tr:first-child {
