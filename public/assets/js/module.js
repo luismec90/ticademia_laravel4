@@ -1,3 +1,4 @@
+var materialID;
 sublime.load();
 
 $(function () {
@@ -24,7 +25,7 @@ $(function () {
     });
 
     $('#materials-div .video-launcher').click(function () {
-
+        materialID = $(this).attr("data-id");
         var name = $(this).attr("data-name");
         var url = $(this).attr("data-url");
 
@@ -43,6 +44,21 @@ $(function () {
     });
 
     $('#btn-close-video').click(function () {
+        var playbackTime = sublime('my_video_player').playbackTime();
+
+        $.ajax({
+            url: material_video_playbacktime_path,
+            data: {
+                materialID: materialID,
+                playbackTime: playbackTime
+            },
+            method: 'POST'
+        }).done(function (data) {
+            //console.log(data);
+        }).fail(function (data) {
+            console.log('Error');
+        });
+
 
         $('#video-container .panel').addClass('animated bounceOutRight');
         setTimeout(function () {
@@ -57,8 +73,17 @@ $(function () {
 
         var name = $(this).attr("data-name");
         var materialID = $(this).attr("data-material-id");
+
+        var reviewID = $(this).attr("data-material-review-id");
+        var reviewRating = $(this).attr("data-material-review-rating");
+        var reviewComment = $(this).attr("data-material-review-comment");
+
+        $("#create-review-id").val(reviewID);
+        $("#create-review-rating").val(reviewRating);
+        $("#create-review-comment").val(reviewComment);
+
         $("#material-name").html(name);
-        $("#material_id").val(materialID);
+        $("#material-id").val(materialID);
         $("#modal-create-review").modal();
     });
 
@@ -90,7 +115,7 @@ function getReviews(page) {
     }).done(function (data) {
         $("#body-modal-show-reviews").html(data);
     }).fail(function () {
-        alert('Posts could not be loaded.');
+        console.log('Error');
     });
 }
 

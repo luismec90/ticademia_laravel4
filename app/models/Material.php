@@ -17,4 +17,12 @@ class Material extends \Eloquent {
         $this->rating_count = $reviews->count();
         $this->save();
     }
+
+    public function userPlayBackTime()
+    {
+        return $this->hasMany('MaterialUser')
+            ->where('user_id', Auth::user()->id)
+            ->selectRaw('material_id, SUM(playback_time) AS playback_time')
+            ->groupBy('material_id');
+    }
 }

@@ -80,4 +80,4 @@ App::down(function()
 
 require app_path().'/filters.php';
 
-Config::set('laravel-debugbar::config.enabled', false);
+//Config::set('laravel-debugbar::config.enabled', false);

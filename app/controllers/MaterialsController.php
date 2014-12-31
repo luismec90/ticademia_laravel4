@@ -8,7 +8,7 @@ class MaterialsController extends \BaseController {
         $validation = Validator::make(Input::all(), Review::$rules);
         if ($validation->fails())
         {
-            return Redirect::back()->withInput()->withErrors($validation);
+            return dd($validation);
         }
 
         $materialID = Input::get('material_id');
@@ -16,7 +16,8 @@ class MaterialsController extends \BaseController {
         $module = Module::where('course_id', $courseID)->findOrFail($moduleID);
         $material = Material::where('module_id', $module->id)->findOrFail($materialID);
 
-        $review = new Review;
+        $review = Review::findOrNew(Input::get('review_id'));
+
         $review->user_id = Auth::user()->id;
         $review->material_id = $material->id;
         $review->rating = Input::get('rating');
@@ -30,14 +31,14 @@ class MaterialsController extends \BaseController {
         return Redirect::back();
     }
 
-    public function showRewiews($courseID, $moduleID,$materialID)
+    public function showRewiews($courseID, $moduleID, $materialID)
     {
 
         $module = Module::where('course_id', $courseID)->findOrFail($moduleID);
 
         $material = Material::where('module_id', $module->id)->findOrFail($materialID);
 
-        $reviews = Review::where('material_id', $material->id)->orderBy('created_at','DESC')->paginate(5);
+        $reviews = Review::where('material_id', $material->id)->orderBy('created_at', 'DESC')->paginate(5);
 
         if (Request::ajax())
         {
@@ -48,5 +49,24 @@ class MaterialsController extends \BaseController {
         }
 
 
+    }
+
+    public function playbackTime($courseID, $moduleID)
+    {
+
+        if (Input::has('materialID') && Input::has('playbackTime'))
+        {
+            $module = Module::where('course_id', $courseID)->findOrFail($moduleID);
+
+            $material = Material::where('module_id', $module->id)->findOrFail(Input::get('materialID'));
+
+            $materialUser = new MaterialUser;
+            $materialUser->user_id = Auth::user()->id;
+            $materialUser->material_id = $material->id;
+            $materialUser->playback_time = round(Input::get('playbackTime'));
+            $materialUser->save();
+
+            return "ok";
+        }
     }
 }

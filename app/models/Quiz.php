@@ -9,4 +9,11 @@ class Quiz extends \Eloquent {
         return asset("quizzes/course_{$course->id}/module_{$this->module_id}/quiz_{$this->id}/launch.html");
     }
 
+    public function userQuizAttempts()
+    {
+
+        return $this->hasMany('QuizAttempt')->where('user_id', Auth::user()->id);
+
+    }
+
 }

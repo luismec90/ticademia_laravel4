@@ -86,7 +86,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     public function courses()
     {
-        return $this->belongsToMany('Course')->withTimestamps()->withPivot(['level_id','role','contact_information','group']);
+        return $this->belongsToMany('Course')->withTimestamps()->withPivot(['level_id', 'role', 'contact_information', 'group']);
     }
 
     public function fullName()
@@ -116,5 +116,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
         return false;
     }
+
 
 }

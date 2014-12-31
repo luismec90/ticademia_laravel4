@@ -14,6 +14,7 @@
         fechaInicioReto = "";
         evaluacionOReto = "";
         load_material_reviews_path = "{{ route('load_material_reviews_path',[$course->id,$module->id]) }}"
+        material_video_playbacktime_path="{{ route('material_video_playbacktime_path',[$course->id,$module->id]) }}"
     </script>
 @stop
 @section('js')
@@ -51,29 +52,23 @@
                         </tr>
                         @foreach($module->materials as $material)
                             <tr>
-                                <td>{{ $material->name }}</td>
-                                <td>{{ round($material->duration/60,1) }} m</td>
-                                {{--<td>
-                                     @foreach($material->reviews as $review)
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                @for ($i=1; $i <= 5 ; $i++)
-                                                    <span class="glyphicon glyphicon-star{{ ($i <= $review->rating) ? '' : '-empty'}}"></span>
-                                                @endfor
-
-                                                {{ $review->user ? $review->user->name : 'Anonymous'}} <span class="pull-right">{{$review->timeago}}</span>
-
-                                                <p>{{{$review->comment}}}</p>
-                                            </div>
-                                        </div>
-                                    @endforeach
-
-                                </td>--}}
+                                <td>{{ $material->name }}<br>
+                                    @if( $material->user_play_back_time->count())
+                                        <i class="fa fa-check"></i> {{ round($material->user_play_back_time[0]->playback_time/60,1) }} m
+                                    @endif
+                                </td>
+                                <td>{{ round($material->duration/60,1) }} m
+                                </td>
                                 <td>
                                     Valoración: {{ $material->rating_cache }} <a class="link create-review"
                                                                                  data-name="{{ $material->name }}"
-                                                                                 data-material-id="{{ $material->id }}">Valorar</a><br>
+                                                                                 data-material-id="{{ $material->id }}"
+                                    @if( $material->reviews->count() && $review=$material->reviews[0])
+                                                                                 data-material-review-id="{{  $review->id }}"
+                                                                                 data-material-review-rating="{{ $review->rating }}"
+                                                                                 data-material-review-comment="{{ $review->comment }}"
+                                            @endif
+                                            >Valorar</a><br>
                                     <hr>
                                     Comentarios: {{ $material->rating_count }}
                                     <br>
@@ -81,8 +76,9 @@
                                        data-material-id="{{ $material->id }}">Ver comentarios</a>
                                 </td>
                                 <td><a class="btn btn-default btn-sm btn-primary video-launcher"
+                                       data-id="{{ $material->id }}"
                                        data-name="{{ $material->name }}"
-                                       data-url="{{ $material->url }}">Repdoducir</a>
+                                       data-url="{{ $material->url }}">Reproducir</a>
 
 
                                 </td>
@@ -99,9 +95,27 @@
                 </div>
                 <div class="panel-body">
                     <table class="table no-header">
+                        <tr>
+                            <td>
+                                Evaluación
+                            </td>
+                            <td>
+                                Intentos
+                            </td>
+                            <td>
+                                Opciones
+                            </td>
+                        </tr>
                         @foreach($module->quizzes as $quiz)
                             <tr>
                                 <td>{{ $quiz->order }}</td>
+                                <td>
+                                    @if( $quiz->userQuizAttempts->count())
+                                         {{ $quiz->userQuizAttempts[0]->successful_attempts }}/{{ $quiz->userQuizAttempts[0]->total_attempts }}
+                                    @else
+                                        0/0
+                                    @endif
+                                </td>
                                 <td><a class="btn btn-primary quiz-launcher" data-evaluacion-id="{{ $quiz->id }}"
                                        data-url="{{ $quiz->path($course) }}"
                                        data-order="{{ $quiz->order }}">Ver</a></td>
@@ -165,24 +179,25 @@
 
     <div class="modal fade" id="modal-create-review">
         <div class="modal-dialog">
-            {{ Form::open(['route'=>['store_material_review_path',$course->id,$module->id],'class'=>'validate-form','novalidate'=>true]) }}
+            {{ Form::open(['route'=>['store_material_review_path',$course->id,$module->id],'method'=>'PUT','class'=>'validate-form','novalidate'=>true]) }}
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title">Material: <span id="material-name"></span></h4>
                 </div>
                 <div class="modal-body">
-                    {{ Form::hidden('material_id',null,['id'=>'material_id','required'=>'required']) }}
+                    {{ Form::hidden('material_id',null,['id'=>'material-id','required'=>'required']) }}
+                    {{ Form::hidden('review_id',null,['id'=>'create-review-id']) }}
                     <!--  Form Input -->
                     <div class="form-group">
                         {{ Form::label('rating','Puntaje:') }}
-                        {{ Form::select('rating',[''=>'Seleccionar...','1','2','3','4','5','6','7','8','9','10'],null,['class'=>'form-control','required'=>'required']) }}
+                        {{ Form::select('rating',[''=>'Seleccionar...','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10'],null,['id'=>'create-review-rating','class'=>'form-control','required'=>'required']) }}
                     </div>
 
                     <!--  Form Input -->
                     <div class="form-group">
                         {{ Form::label('comment','Comentario:') }}
-                        {{ Form::textarea('comment',null,['class'=>'form-control']) }}
+                        {{ Form::textarea('comment',null,['id'=>'create-review-comment','class'=>'form-control']) }}
                     </div>
 
                 </div>
