@@ -19,7 +19,7 @@ class CreateReviewsTable extends Migration {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('material_id')->unsigned()->index();
             $table->foreign('material_id')->references('id')->on('materials')->onDelete('cascade');
-            $table->integer('rating');
+            $table->decimal('rating',2,1);
             $table->string('comment');
             $table->timestamps();
         });

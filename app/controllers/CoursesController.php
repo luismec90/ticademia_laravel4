@@ -37,7 +37,7 @@ class CoursesController extends \BaseController {
 
         $userGroup = Auth::user()->courses()->where('course_id', $course_id)->first()->pivot->group;
 
-        $userRanking = "N/A";
+        $userRanking = ['position' => 'N/A', 'group' => 'N/A', 'score' => 'N/A'];
 
         foreach ($ranking as $index => $row)
         {
@@ -64,7 +64,8 @@ class CoursesController extends \BaseController {
             ->orderBy('score', 'DESC')
             ->get();
 
-        $userRanking = "N/A";
+        $userRanking =['position' => 'N/A', 'fullName' => Auth::user()->fullName(), 'score' => 'N/A'];
+
         foreach ($ranking as $index => $user)
         {
             if ($user->isMe())

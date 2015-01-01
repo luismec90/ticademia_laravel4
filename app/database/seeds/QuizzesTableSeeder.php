@@ -10,27 +10,31 @@ class QuizzesTableSeeder extends Seeder {
         $faker = Faker::create();
 
         Quiz::create([
-            'id'        => 1,
-            'module_id' => 1,
-            'order'     => 1
+            'id'           => 1,
+            'module_id'    => 1,
+            'quiz_type_id' => 3,
+            'order'        => 1
         ]);
 
         Quiz::create([
-            'id'        => 2,
-            'module_id' => 1,
-            'order'     => 2
+            'id'           => 2,
+            'module_id'    => 1,
+            'quiz_type_id' => 3,
+            'order'        => 2
         ]);
 
         Quiz::create([
-            'id'        => 3,
-            'module_id' => 1,
-            'order'     => 3
+            'id'           => 3,
+            'module_id'    => 1,
+            'quiz_type_id' => 3,
+            'order'        => 3
         ]);
 
         Quiz::create([
-            'id'        => 4,
-            'module_id' => 1,
-            'order'     => 4
+            'id'           => 4,
+            'module_id'    => 1,
+            'quiz_type_id' => 3,
+            'order'        => 4
         ]);
     }
 

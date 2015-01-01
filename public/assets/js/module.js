@@ -3,7 +3,7 @@ sublime.load();
 
 $(function () {
 
-    $('#quizzes-div .quiz-launcher').click(function () {
+    $("#body-module").on('click', '.quiz-launcher', function () {
         evaluacionOReto = "evaluacion";
 
         var name = "Evaluación  " + $(this).attr("data-order");
@@ -17,6 +17,9 @@ $(function () {
         $('#iframe-container .panel').addClass('animated bounceInRight');
     });
     $('#btn-close-iframe').click(function () {
+
+        reloadModule();
+
         setTimeout(function () {
             $('#iframe-container').addClass('hide');
             $('#iframe-container .panel').removeClass('animated bounceOutRight');
@@ -24,7 +27,7 @@ $(function () {
         $('#iframe-container .panel').removeClass("bounceInRight").addClass('animated bounceOutRight');
     });
 
-    $('#materials-div .video-launcher').click(function () {
+    $("#body-module").on('click', '.video-launcher', function () {
         materialID = $(this).attr("data-id");
         var name = $(this).attr("data-name");
         var url = $(this).attr("data-url");
@@ -54,7 +57,8 @@ $(function () {
             },
             method: 'POST'
         }).done(function (data) {
-            //console.log(data);
+            $("#body-module").html(data);
+            loadStarts();
         }).fail(function (data) {
             console.log('Error');
         });
@@ -69,7 +73,7 @@ $(function () {
 
     });
 
-    $('#materials-div .create-review').click(function () {
+    $("#body-module").on('click', '.create-review', function () {
 
         var name = $(this).attr("data-name");
         var materialID = $(this).attr("data-material-id");
@@ -88,7 +92,7 @@ $(function () {
     });
 
 
-    $('#materials-div .show-reviews').click(function () {
+    $("#body-module").on('click', '.show-reviews', function () {
 
         var name = $(this).attr("data-name");
         var materialID = $(this).attr("data-material-id");
@@ -104,6 +108,8 @@ $(function () {
         getReviews($(this).attr('href').split('page=')[1]);
         e.preventDefault();
     });
+
+    loadStarts();
 });
 
 function getReviews(page) {
@@ -119,5 +125,55 @@ function getReviews(page) {
     });
 }
 
+function reloadModule() {
+    $.ajax({
+        url: module_path,
+        dataType: 'json'
+    }).done(function (data) {
+        $("#body-module").html(data);
+        loadStarts();
+    }).fail(function () {
+        console.log('Error');
+    });
+}
 
+
+function loadStarts() {
+    $('.estrellas').raty({
+        path: raty_path + '/images',
+        half: true,
+        hints: ['Muy malo', 'Malo', 'Regular', 'Bueno', 'Excelente'],
+        score: function () {
+            return $(this).attr('data-score');
+        },
+        click: function (score, evt) {
+            console.log(score);
+            var name = $(this).attr("data-name");
+            var materialID = $(this).attr("data-material-id");
+
+            var reviewID = $(this).attr("data-material-review-id");
+            var reviewRating = $(this).attr("data-material-review-rating");
+            var reviewComment = $(this).attr("data-material-review-comment");
+
+            $("#create-review-id").val(reviewID);
+            $("#create-review-rating").val(reviewRating);
+            $("#create-review-comment").val(reviewComment);
+
+            $("#material-name").html(name);
+            $("#material-id").val(materialID);
+
+
+            $("#rate_material_id").val(materialID);
+            $("#rate_comment").val(reviewComment);
+
+            $('#preview-stars').raty({
+                path: raty_path + '/images',
+                half: true,
+                hints: ['Muy malo', 'Malo', 'Regular', 'Bueno', 'Excelente'],
+                score: score
+            });
+            $("#modal-create-review").modal("show");
+        }
+    });
+}
 

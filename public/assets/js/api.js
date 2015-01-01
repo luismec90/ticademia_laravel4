@@ -44,6 +44,7 @@ API.calificar = function (calificacion, feedback) {
             }
         });
     }
+
 }
 API.LMSSetValue = function (a, b) {
     if (evaluacionOReto == "evaluacion" && rolGlobal == 1) {

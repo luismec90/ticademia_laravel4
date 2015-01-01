@@ -4,8 +4,10 @@ class PagesController extends BaseController {
 
     public function test()
     {
-      //  $xml = simplexml_load_file('http://gdata.youtube.com/feeds/api/videos/kAOm3APJopM');
-      //  return strval($xml->xpath('//yt:duration[@seconds]')[0]->attributes()->seconds);
+
+
+        //  $xml = simplexml_load_file('http://gdata.youtube.com/feeds/api/videos/kAOm3APJopM');
+        //  return strval($xml->xpath('//yt:duration[@seconds]')[0]->attributes()->seconds);
 
     }
 

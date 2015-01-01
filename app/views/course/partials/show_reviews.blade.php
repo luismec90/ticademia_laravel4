@@ -1,15 +1,19 @@
 <table class="table table-condensed table-bordered">
     <tr>
-        <td>Comentarios</td>
-        <td>Valoración</td>
-        <td class="col-xs-5">Usuario</td>
+        <td>Imagen</td>
+        <td>Usuario</td>
+        <td>Comentario</td>
+        <td class="col-xs-5">Fecha</td>
     </tr>
     @foreach($reviews as $review)
         <tr>
+            <td>@include('layouts.partials.avatar_square',['user'=>$review->user])
+            </td>
+            <td>
+                {{ $review->user->fullName() }}
+            </td>
             <td>{{ $review->comment }}</td>
-            <td>{{ $review->rating }}</td>
-            <td>{{ $review->user->fullName() }}
-            <br>
+            <td>
                 <span class="text-muted">{{ ucfirst($review->created_at->diffForHumans()) }}: {{  $review->created_at }}</span>
             </td>
         </tr>

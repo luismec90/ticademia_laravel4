@@ -51,22 +51,4 @@ class MaterialsController extends \BaseController {
 
     }
 
-    public function playbackTime($courseID, $moduleID)
-    {
-
-        if (Input::has('materialID') && Input::has('playbackTime'))
-        {
-            $module = Module::where('course_id', $courseID)->findOrFail($moduleID);
-
-            $material = Material::where('module_id', $module->id)->findOrFail(Input::get('materialID'));
-
-            $materialUser = new MaterialUser;
-            $materialUser->user_id = Auth::user()->id;
-            $materialUser->material_id = $material->id;
-            $materialUser->playback_time = round(Input::get('playbackTime'));
-            $materialUser->save();
-
-            return "ok";
-        }
-    }
 }

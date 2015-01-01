@@ -17,10 +17,7 @@ class MaterialsTableSeeder extends Seeder {
             'duration'     => '120',
             'url'          => 'eW3gMGqcZQc',
             'type'         => 'video',
-            'order'        => '1',
-            'rating_cache' => rand(1, 10),
-            'rating_count' => rand(5, 30)
-
+            'order'        => '1'
         ]);
 
         Material::create([
@@ -31,9 +28,7 @@ class MaterialsTableSeeder extends Seeder {
             'duration'     => '150',
             'url'          => 'HPA1dNH-rlo',
             'type'         => 'video',
-            'order'        => '2',
-            'rating_cache' => rand(1, 10),
-            'rating_count' => rand(5, 30)
+            'order'        => '2'
         ]);
 
         Material::create([
@@ -44,9 +39,7 @@ class MaterialsTableSeeder extends Seeder {
             'duration'     => '220',
             'url'          => 'MCbKYBUeE3U',
             'type'         => 'video',
-            'order'        => '3',
-            'rating_cache' => rand(1, 10),
-            'rating_count' => rand(5, 30)
+            'order'        => '3'
         ]);
 
         Material::create([
@@ -57,9 +50,7 @@ class MaterialsTableSeeder extends Seeder {
             'duration'     => '320',
             'url'          => 'x3k-O_jtxoU',
             'type'         => 'video',
-            'order'        => '4',
-            'rating_cache' => rand(1, 10),
-            'rating_count' => rand(5, 30)
+            'order'        => '4'
         ]);
     }
 

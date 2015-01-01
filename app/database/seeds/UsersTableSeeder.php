@@ -72,6 +72,17 @@ class UsersTableSeeder extends Seeder {
                 'confirmed'  => 1
             ]);
         }
+
+        User::create([
+            'first_name' => 'Oscar Alejandro',
+            'last_name'  => 'Montoya Gómez',
+            'birth_date' => '1992-01-19',
+            'gender'     => 'm',
+            'email'      => 'alex@gmail.com',
+            'avatar'     => 'default.png',
+            'password'   => Hash::make('1234'),
+            'confirmed'  => 1
+        ]);
     }
 
 }

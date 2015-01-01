@@ -11,9 +11,16 @@ class Quiz extends \Eloquent {
 
     public function userQuizAttempts()
     {
-
         return $this->hasMany('QuizAttempt')->where('user_id', Auth::user()->id);
-
     }
 
+    public function quizType()
+    {
+        return $this->belongsTo('QuizType');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('User');
+    }
 }

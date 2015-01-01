@@ -13,4 +13,5 @@ class Module extends \Eloquent {
     {
         return $this->hasMany('Quiz');
     }
+
 }

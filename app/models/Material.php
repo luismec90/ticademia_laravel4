@@ -9,6 +9,18 @@ class Material extends \Eloquent {
         return $this->hasMany('Review');
     }
 
+    public function reviewsWithComments()
+    {
+        return $this->hasMany('Review')
+            ->where('comment', '<>', '');
+    }
+
+    public function userReviews()
+    {
+        return $this->hasMany('Review')
+            ->where('user_id', Auth::user()->id);
+    }
+
     public function recalculateRating()
     {
         $reviews = $this->reviews();

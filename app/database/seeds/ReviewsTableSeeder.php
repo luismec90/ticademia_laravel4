@@ -14,9 +14,14 @@ class ReviewsTableSeeder extends Seeder {
             Review::create([
                 'user_id'     => rand(1, 14),
                 'material_id' => rand(1, 4),
-                'rating'      => rand(1, 10),
+                'rating'      => rand(1, 10) * 0.5,
                 'comment'     => $faker->text(),
             ]);
+        }
+
+        foreach (Material::all() as $material)
+        {
+            $material->recalculateRating();
         }
     }
 

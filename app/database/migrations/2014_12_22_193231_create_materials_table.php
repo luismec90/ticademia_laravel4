@@ -23,8 +23,8 @@ class CreateMaterialsTable extends Migration {
             $table->string('url');
             $table->string('type');
             $table->integer('order');
-            $table->decimal('rating_cache',3,1)->nullable();
-            $table->integer('rating_count')->nullable();
+            $table->decimal('rating_cache',2,1)->nullable();
+            $table->integer('rating_count')->default(0);
             $table->timestamps();
         });
     }

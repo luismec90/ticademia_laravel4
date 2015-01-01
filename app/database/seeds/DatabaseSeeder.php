@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('SocialNetworksTableSeeder');
         $this->call('ModulesTableSeeder');
         $this->call('MaterialsTableSeeder');
+        $this->call('QuizTypesTableSeeder');
         $this->call('QuizzesTableSeeder');
         $this->call('NotificationsTableSeeder');
         $this->call('ModuleUserTableSeeder');
@@ -33,7 +34,7 @@ class DatabaseSeeder extends Seeder {
 
     private function enrollingStudents()
     {
-        foreach (range(1, 80) as $index)
+        foreach (range(1, 85) as $index)
         {
             DB::table('course_user')->insert(['user_id' => $index, 'course_id' => 1, 'level_id' => 1, 'role' => 1, 'group' => rand(1, 5)]);
         }

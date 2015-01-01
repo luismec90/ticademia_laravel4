@@ -51,4 +51,13 @@
     background: #e74c3c;
 }
 
+#materials-div .estrellas {
+    display: inline-block;
 
+}
+#materials-div .text-muted{
+    margin: 0 15px 0 3px;
+}
+#materials-div .fa-check{
+    margin-left: 10px;
+}

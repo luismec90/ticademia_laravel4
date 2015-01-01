@@ -95,7 +95,7 @@ Route::group(['prefix' => 'curso/{course_id}', 'before' => 'auth|isEnrolled'], f
         Route::get('/material/valoraciones/{material_id}', ['as' => 'load_material_reviews_path', 'uses' => 'MaterialsController@showRewiews']);
 
         /* Estadisticas materiales */
-        Route::post('/material/video/playbacktime', ['as' => 'material_video_playbacktime_path', 'uses' => 'MaterialsController@playbackTime']);
+        Route::post('/material/video/playbacktime', ['as' => 'material_video_playbacktime_path', 'uses' => 'ModulesController@playbackTime']);
     });
 
     Route::group(['prefix' => 'SCORM'], function ()

@@ -64,6 +64,8 @@ class ApiSCORMController extends \BaseController {
         Session::forget($sessionName);
 
         $quizAttempt = QuizAttempt::find($quizAttemptId);
+        $quizAttempt->grade = $grade;
+        $quizAttempt->end_date = $endDate;
 
         if (is_null($quizAttempt))
             return 'error';
@@ -72,17 +74,32 @@ class ApiSCORMController extends \BaseController {
         {
             $feedbackForUser = $A[rand(0, 4)] . $B[rand(0, 3)];
             $feedback = "Correcto";
+
+            $this->bestTime($quiz, $quizAttempt->start_date, $quizAttempt->end_date);
         } else
         {
             $feedbackForUser = $C[rand(0, 3)] . $D[rand(0, 1)];
             $feedback = "Incorrecto";
         }
 
-        $quizAttempt->grade = $grade;
-        $quizAttempt->end_date = $endDate;
+
         $quizAttempt->feedback = $feedback;
         $quizAttempt->save();
 
+
         return $feedbackForUser;
+    }
+
+    private function bestTime($quiz, $start_date, $end_date)
+    {
+        $diff = DB::select(DB::raw("SELECT TIMESTAMPDIFF(MICROSECOND,'$start_date','$end_date')/1000000 AS value"));
+        $diff = $diff[0]->value;
+
+        if ($quiz->best_time == '' || $quiz->best_time > $diff)
+        {
+            $quiz->user_id = Auth::user()->id;
+            $quiz->best_time = $diff;
+            $quiz->save();
+        }
     }
 }
