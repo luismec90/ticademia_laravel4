@@ -20,7 +20,7 @@ class MaterialsController extends \BaseController {
 
         $review->user_id = Auth::user()->id;
         $review->material_id = $material->id;
-        $review->rating = Input::get('rating');
+        $review->rating = Input::get('score');
         $review->comment = Input::get('comment');
         $review->save();
 

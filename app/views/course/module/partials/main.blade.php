@@ -12,19 +12,24 @@
                                    data-id="{{ $material->id }}"
                                    data-name="{{ $material->name }}"
                                    data-url="{{ $material->url }}">{{ $material->name }}</a>
-                                    @if( $material->user_play_back_time->count())
-                                        <i class="fa fa-check"></i> {{ round($material->user_play_back_time[0]->playback_time/60,1) }} m
-                                    @endif
+                                @if( $material->user_play_back_time->count())
+                                    <i class="fa fa-check"></i> {{ round($material->user_play_back_time[0]->playback_time/60,1) }}
+                                    m
+                                @endif
                                 <br>
-                                <div  class="estrellas" data-score="{{ $material->rating_cache }}"  data-name="{{ $material->name }}"
+
+                                <div class="estrellas" data-score="{{ $material->rating_cache }}"
+                                     data-name="{{ $material->name }}"
                                      data-material-id="{{ $material->id }}"
                                 @if( $material->userReviews->count())
                                      data-material-review-id="{{  $material->userReviews[0]->id }}"
                                      data-material-review-rating="{{ $material->userReviews[0]->rating }}"
                                      data-material-review-comment="{{ $material->userReviews[0]->comment }}"
-                                        @endif></div><span class="text-muted"> ({{ $material->rating_count }})</span>
+                                        @endif></div>
+                                <span class="text-muted"> ({{ $material->rating_count }})</span>
                                 <a class="link show-reviews" data-name="{{ $material->name }}"
-                                   data-material-id="{{ $material->id }}">Ver comentarios</a><span class="text-muted"> ({{ $material->reviewsWithComments->count() }}) </span>
+                                   data-material-id="{{ $material->id }}">Ver comentarios</a><span
+                                        class="text-muted"> ({{ $material->reviewsWithComments->count() }}) </span>
 
                             </td>
                         </tr>
@@ -81,6 +86,9 @@
                             Puntaje
                         </td>
                         <td>
+                            Tiempo
+                        </td>
+                        <td>
                             Opciones
                         </td>
                     </tr>
@@ -90,7 +98,8 @@
                             <td>{{ $quiz->quiz_type->name  }}</td>
                             <td>
                                 @if( $quiz->userQuizAttempts->count())
-                                    {{ $quiz->userQuizAttempts[0]->successful_attempts }}/{{ $quiz->userQuizAttempts[0]->total_attempts }}
+                                    {{ $quiz->userQuizAttempts[0]->successful_attempts }}
+                                    /{{ $quiz->userQuizAttempts[0]->total_attempts }}
                                 @else
                                     0/0
                                 @endif
@@ -102,7 +111,8 @@
                                     Por:  {{ $quiz->user->fullName() }}
                             </td>
                             @endif
-                            <td></td>
+                            <td>{{ is_null($quiz->approvedQuiz) ? "" : $quiz->approvedQuiz->score  }}</td>
+                            <td>{{ is_null($quiz->approvedQuiz) ? "" : $quiz->approvedQuiz->best_time.' segundos'  }} </td>
                             <td><a class="btn btn-primary quiz-launcher" data-evaluacion-id="{{ $quiz->id }}"
                                    data-url="{{ $quiz->path($course) }}"
                                    data-order="{{ $quiz->order }}">Ver</a></td>

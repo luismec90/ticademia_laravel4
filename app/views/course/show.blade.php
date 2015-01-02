@@ -7,7 +7,7 @@
     <h1 class="section-title"><span>Modulos</span></h1>
     <div class="row">
         <div class="col-xs-12">
-            <table class="table">
+            <table class="table table-bordered table-striped table-hover">
                 <tr>
                     <thead>
                     <td>Módulo</td>

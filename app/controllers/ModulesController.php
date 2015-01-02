@@ -21,7 +21,9 @@ class ModulesController extends \BaseController {
                     ->groupBy('quiz_id');
 
             }, 'quizzes.quizType',
-            'quizzes.user'])->findOrFail($moduleID);
+            'quizzes.user',
+            'quizzes.approvedQuiz'])->findOrFail($moduleID);
+
 
 
         $ranking = User::join('module_user', 'module_user.user_id', '=', 'users.id')

@@ -23,4 +23,9 @@ class Quiz extends \Eloquent {
     {
         return $this->belongsTo('User');
     }
+
+    public function approvedQuiz()
+    {
+        return $this->hasOne('ApprovedQuiz')->where('user_id', Auth::user()->id);
+    }
 }

@@ -75,7 +75,11 @@ class ApiSCORMController extends \BaseController {
             $feedbackForUser = $A[rand(0, 4)] . $B[rand(0, 3)];
             $feedback = "Correcto";
 
-            $this->bestTime($quiz, $quizAttempt->start_date, $quizAttempt->end_date);
+            $diff = DB::select(DB::raw("SELECT TIMESTAMPDIFF(MICROSECOND,'$quizAttempt->start_date','$quizAttempt->end_date')/1000000 AS value"));
+            $diff = $diff[0]->value;
+
+            $this->bestTime($quiz, $diff);
+            $this->approvedQuiz($quiz, $diff);
         } else
         {
             $feedbackForUser = $C[rand(0, 3)] . $D[rand(0, 1)];
@@ -90,16 +94,42 @@ class ApiSCORMController extends \BaseController {
         return $feedbackForUser;
     }
 
-    private function bestTime($quiz, $start_date, $end_date)
+    private function bestTime($quiz, $diff)
     {
-        $diff = DB::select(DB::raw("SELECT TIMESTAMPDIFF(MICROSECOND,'$start_date','$end_date')/1000000 AS value"));
-        $diff = $diff[0]->value;
-
         if ($quiz->best_time == '' || $quiz->best_time > $diff)
         {
             $quiz->user_id = Auth::user()->id;
             $quiz->best_time = $diff;
             $quiz->save();
         }
+    }
+
+    private function approvedQuiz($quiz, $diff)
+    {
+        if (is_null($quiz->approvedQuiz))
+        {
+            $approvedQuiz = new ApprovedQuiz;
+            $approvedQuiz->user_id = Auth::user()->id;
+            $approvedQuiz->quiz_id = $quiz->id;
+            $approvedQuiz->score = $this->calculateQuizScore($quiz);
+            $approvedQuiz->best_time = $diff;
+            $approvedQuiz->save();
+        } else
+        {
+            if ($quiz->approvedQuiz->best_time > $diff)
+            {
+                $quiz->approvedQuiz->best_time = $diff;
+                $quiz->approvedQuiz->save();
+            }
+        }
+    }
+
+    private function calculateQuizScore($quiz)
+    {
+        $minValue = 150;
+        $maxValue = $quiz->quizType->value;
+        $score = $maxValue - 10 * ($quiz->userQuizAttempts->count()-1);
+
+        return MAX($minValue, $score);
     }
 }

@@ -52,6 +52,97 @@ class MaterialsTableSeeder extends Seeder {
             'type'         => 'video',
             'order'        => '4'
         ]);
+
+        Material::create([
+            'id'           => 5,
+            'module_id'    => 1,
+            'name'         => 'Criterios de congruencia entre triángulos ',
+            'description'  => $faker->text(5),
+            'duration'     => '320',
+            'url'          => 'x3k-O_jtxoU',
+            'type'         => 'video',
+            'order'        => '4'
+        ]);
+        Material::create([
+
+            'module_id'    => 1,
+            'name'         => 'Criterios de congruencia entre triángulos ',
+            'description'  => $faker->text(5),
+            'duration'     => '320',
+            'url'          => 'x3k-O_jtxoU',
+            'type'         => 'video',
+            'order'        => '4'
+        ]);
+        Material::create([
+
+            'module_id'    => 1,
+            'name'         => 'Criterios de congruencia entre triángulos ',
+            'description'  => $faker->text(5),
+            'duration'     => '320',
+            'url'          => 'x3k-O_jtxoU',
+            'type'         => 'video',
+            'order'        => '4'
+        ]);
+        Material::create([
+
+            'module_id'    => 1,
+            'name'         => 'Criterios de congruencia entre triángulos ',
+            'description'  => $faker->text(5),
+            'duration'     => '320',
+            'url'          => 'x3k-O_jtxoU',
+            'type'         => 'video',
+            'order'        => '4'
+        ]);
+        Material::create([
+
+            'module_id'    => 1,
+            'name'         => 'Criterios de congruencia entre triángulos ',
+            'description'  => $faker->text(5),
+            'duration'     => '320',
+            'url'          => 'x3k-O_jtxoU',
+            'type'         => 'video',
+            'order'        => '4'
+        ]);
+        Material::create([
+
+            'module_id'    => 1,
+            'name'         => 'Criterios de congruencia entre triángulos ',
+            'description'  => $faker->text(5),
+            'duration'     => '320',
+            'url'          => 'x3k-O_jtxoU',
+            'type'         => 'video',
+            'order'        => '4'
+        ]);
+        Material::create([
+
+            'module_id'    => 1,
+            'name'         => 'Criterios de congruencia entre triángulos ',
+            'description'  => $faker->text(5),
+            'duration'     => '320',
+            'url'          => 'x3k-O_jtxoU',
+            'type'         => 'video',
+            'order'        => '4'
+        ]);
+        Material::create([
+
+            'module_id'    => 1,
+            'name'         => 'Criterios de congruencia entre triángulos ',
+            'description'  => $faker->text(5),
+            'duration'     => '320',
+            'url'          => 'x3k-O_jtxoU',
+            'type'         => 'video',
+            'order'        => '4'
+        ]);
+        Material::create([
+
+            'module_id'    => 1,
+            'name'         => 'Criterios de congruencia entre triángulos ',
+            'description'  => $faker->text(5),
+            'duration'     => '320',
+            'url'          => 'x3k-O_jtxoU',
+            'type'         => 'video',
+            'order'        => '4'
+        ]);
     }
 
 }
