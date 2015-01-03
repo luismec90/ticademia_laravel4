@@ -117,7 +117,7 @@ class ApiSCORMController extends \BaseController {
             $approvedQuiz->save();
         } else
         {
-            if ($quiz->approvedQuiz->best_time > $diff)
+            if ($quiz->approvedQuiz->best_time > $diff || $quiz->approvedQuiz->best_time==null)
             {
                 $quiz->approvedQuiz->best_time = $diff;
                 $quiz->approvedQuiz->save();

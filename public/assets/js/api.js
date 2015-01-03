@@ -30,6 +30,7 @@ API.LMSFinish = function (a) {
 }
 API.calificar = function (calificacion, feedback) {
     if (evaluacionOReto == "evaluacion") {
+        coverOn();
         $.ajax({
             url: base_url + "/SCORM/grade",
             method: "post",
@@ -39,11 +40,15 @@ API.calificar = function (calificacion, feedback) {
                 feedback: feedback
             },
             success: function (data) {
+                coverOff();
                 if (evaluacionOReto == "evaluacion") {
                     $('#btn-close-iframe').trigger('click');
                 }
-                $("#modal-body-quiz-attempt-feedback").html(data);
-                $("#modal-quiz-attempt-feedback").modal();
+                setTimeout(function () {
+                    $("#modal-body-quiz-attempt-feedback").html(data);
+                    $("#modal-quiz-attempt-feedback").modal();
+                }, 700);
+
             }
         });
     }
