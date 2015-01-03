@@ -86,7 +86,7 @@
                             Puntaje
                         </td>
                         <td>
-                            Tiempo
+                           Mi mejor tiempo
                         </td>
                         <td>
                             Opciones

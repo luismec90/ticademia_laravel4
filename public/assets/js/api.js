@@ -39,6 +39,9 @@ API.calificar = function (calificacion, feedback) {
                 feedback: feedback
             },
             success: function (data) {
+                if (evaluacionOReto == "evaluacion") {
+                    $('#btn-close-iframe').trigger('click');
+                }
                 $("#modal-body-quiz-attempt-feedback").html(data);
                 $("#modal-quiz-attempt-feedback").modal();
             }
@@ -81,8 +84,8 @@ API.notifyDaemon = function (calificacion) {
     }
 }
 API.closeQuestion = function () {
-    if (evaluacionOReto == "evaluacion") {
-        $('#btn-close-iframe').trigger('click');
-    }
+    /*if (evaluacionOReto == "evaluacion") {
+     $('#btn-close-iframe').trigger('click');
+     }*/
 }
  
