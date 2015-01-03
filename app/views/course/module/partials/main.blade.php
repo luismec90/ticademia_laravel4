@@ -51,7 +51,7 @@
                             <td>
                                 {{ $index+1 }}
                             </td>
-                            <td>
+                            <td class="hidden-md">
                                 @include('layouts.partials.avatar_square',['user'=>$user,'size'=>50])
                             </td>
                             <td>
@@ -73,11 +73,11 @@
                 <table class="table table-bordered table-striped table-hover table-responsive">
                     <tr>
                         <td>
-                            Evaluación
+                            Eva.
                         </td>
                         <td>Tipo</td>
                         <td>
-                            Intentos
+                            Int.
                         </td>
                         <td>
                             Mejor tiempo
@@ -89,7 +89,7 @@
                            Mi mejor tiempo
                         </td>
                         <td>
-                            Opciones
+
                         </td>
                     </tr>
                     @foreach($module->quizzes as $quiz)
@@ -98,8 +98,7 @@
                             <td>{{ $quiz->quiz_type->name  }}</td>
                             <td>
                                 @if( $quiz->userQuizAttempts->count())
-                                    {{ $quiz->userQuizAttempts[0]->successful_attempts }}
-                                    /{{ $quiz->userQuizAttempts[0]->total_attempts }}
+                                    {{ $quiz->userQuizAttempts[0]->successful_attempts }}/{{ $quiz->userQuizAttempts[0]->total_attempts }}
 
                                 @else
                                     0/0
@@ -114,11 +113,11 @@
                             @endif
                             <td>{{ is_null($quiz->approvedQuiz) ? "" : $quiz->approvedQuiz->score  }}</td>
                             <td>{{ is_null($quiz->approvedQuiz) || $quiz->approvedQuiz->best_time==null ? "" : $quiz->approvedQuiz->best_time.' segundos'  }} </td>
-                            <td><a class="btn btn-primary quiz-launcher {{ $quiz->prevQuizIsApproved() ? "" : "disabled" }}" data-evaluacion-id="{{ $quiz->id }}"
+                            <td><a class="btn btn-primary btn-sm quiz-launcher {{ $quiz->prevQuizIsApproved() ? "" : "disabled" }}" data-evaluacion-id="{{ $quiz->id }}"
                                    data-url="{{ $quiz->path($course) }}"
                                    data-order="{{ $quiz->order }}">Ver</a>
                             @if(is_null($quiz->approvedQuiz) && $quiz->prevQuizIsApproved() && $quiz->userQuizAttempts->count() )
-                                    <a class="btn btn-default skip-quiz" data-evaluacion-id="{{ $quiz->id }}">Saltar</a>
+                                    <a class="btn btn-default btn-sm skip-quiz" data-evaluacion-id="{{ $quiz->id }}">Saltar</a>
                             @endif
                             </td>
                         </tr>
