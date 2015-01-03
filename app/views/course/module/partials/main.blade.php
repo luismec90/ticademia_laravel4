@@ -89,7 +89,7 @@
                            Mi mejor tiempo
                         </td>
                         <td>
-
+                            Opc.
                         </td>
                     </tr>
                     @foreach($module->quizzes as $quiz)
