@@ -6,7 +6,10 @@ class Quiz extends \Eloquent {
 
     public function path($course)
     {
-        return asset("quizzes/course_{$course->id}/module_{$this->module_id}/quiz_{$this->id}/launch.html");
+        // Para producción
+        // return asset("quizzes/course_{$course->id}/module_{$this->module_id}/quiz_{$this->id}/launch.html");
+        // Para desarrollo
+        return asset("quizzes/course_1/module_1/quiz_1/launch.html");
     }
 
     public function userQuizAttempts()
