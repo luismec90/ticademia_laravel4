@@ -80,6 +80,7 @@ class ApiSCORMController extends \BaseController {
 
             $this->bestTime($quiz, $diff);
             $this->approvedQuiz($quiz, $diff);
+            $this->updateModuleUserScore($quiz);
         } else
         {
             $feedbackForUser = $C[rand(0, 3)] . $D[rand(0, 1)];
@@ -128,8 +129,29 @@ class ApiSCORMController extends \BaseController {
     {
         $minValue = 150;
         $maxValue = $quiz->quizType->value;
-        $score = $maxValue - 10 * ($quiz->userQuizAttempts->count()-1);
+        $score = $maxValue - 10 * ($quiz->userQuizAttempts->count() - 1);
 
         return MAX($minValue, $score);
+    }
+
+    private function updateModuleUserScore($quiz)
+    {
+        $moduleUser = ModuleUser::where('user_id', Auth::user()->id)
+            ->where('module_id', $quiz->module->id)
+            ->first();
+
+        if (is_null($moduleUser))
+        {
+            $moduleUser = new ModuleUser;
+            $moduleUser->user_id = Auth::user()->id;
+            $moduleUser->module_id = $quiz->module->id;
+        }
+
+        $moduleUser->score = DB::table('approved_quizzes')
+            ->join('quizzes', 'quizzes.id', '=', 'approved_quizzes.quiz_id')
+            ->where('quizzes.module_id', $quiz->module->id)
+            ->sum('approved_quizzes.score');
+
+        $moduleUser->save();
     }
 }

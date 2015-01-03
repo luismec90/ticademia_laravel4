@@ -197,6 +197,11 @@ input:required + .popover.bottom > .arrow:after, input:required + .popover.top >
     background-color: #7daa50 !important;
     border-color: #7daa50;
 }
+.btn-primary.disabled {
+    color: #fff;
+    background-color: #7daa50 !important;
+    border-color: #7daa50;
+}
 
 .btn-primary:hover, .btn-primary:active, .open > .btn-primary.dropdown-toggle {
     background-color: #87b87f !important;

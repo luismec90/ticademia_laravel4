@@ -113,9 +113,15 @@
                             @endif
                             <td>{{ is_null($quiz->approvedQuiz) ? "" : $quiz->approvedQuiz->score  }}</td>
                             <td>{{ is_null($quiz->approvedQuiz) ? "" : $quiz->approvedQuiz->best_time.' segundos'  }} </td>
-                            <td><a class="btn btn-primary quiz-launcher" data-evaluacion-id="{{ $quiz->id }}"
+                            <td><a class="btn btn-primary quiz-launcher {{ $quiz->prevQuizIsApproved() ? "" : "disabled" }}" data-evaluacion-id="{{ $quiz->id }}"
                                    data-url="{{ $quiz->path($course) }}"
-                                   data-order="{{ $quiz->order }}">Ver</a></td>
+                                   data-order="{{ $quiz->order }}">Ver</a>
+                            @if(is_null($quiz->approvedQuiz))
+                                    <a class="btn btn-default" data-evaluacion-id="{{ $quiz->id }}"
+                                       data-url="{{ $quiz->path($course) }}"
+                                       data-order="{{ $quiz->order }}">Saltar</a>
+                            @endif
+                            </td>
                         </tr>
                     @endforeach
                 </table>

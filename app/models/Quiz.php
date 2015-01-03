@@ -28,4 +28,25 @@ class Quiz extends \Eloquent {
     {
         return $this->hasOne('ApprovedQuiz')->where('user_id', Auth::user()->id);
     }
+
+    public function module()
+    {
+        return $this->belongsTo('Module');
+    }
+
+    public function prevQuizIsApproved()
+    {
+        $prevQuiz = Quiz::where('module_id', $this->module_id)
+            ->where('order', $this->order - 1)
+            ->first();
+
+        if (is_null($prevQuiz) || !is_null($prevQuiz->approvedQuiz))
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
+
+    }
 }
