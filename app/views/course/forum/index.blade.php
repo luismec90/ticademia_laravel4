@@ -51,8 +51,8 @@
                     </td>
                     <td>{{ $topic->replies->count() }}</td>
                     <td class="information">
-                    @if(!is_null($topic->lastReply))
-                        La última respuesta fue <b>{{ $topic->lastReply->created_at->diffForHumans() }}</b>: {{ $topic->lastReply->created_at }}, por <b>{{ $topic->lastReply->user->fullName() }}</b></td>
+                    @if($topic->replies->count())
+                        La última respuesta fue <b>{{ $topic->replies[0]->created_at->diffForHumans() }}</b>: {{ $topic->replies[0]->created_at }}, por <b>{{ $topic->replies[0]->user->fullName() }}</b></td>
                     @else
                     N/A
                     @endif

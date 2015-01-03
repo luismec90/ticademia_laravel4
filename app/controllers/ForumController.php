@@ -7,16 +7,13 @@ class ForumController extends \BaseController {
     {
         $course = Course::with('subject')->findOrFail($course_id);
 
-        $topics = Topic::with('user')
+        $topics = Topic::with(['user', 'replies' => function ($q)
+        {
+            $q->orderBy('created_at', 'DESC');
+        }])
             ->where('course_id', $course->id)
             ->get();
 
-
-        foreach ($topics as $topic)
-        {
-            $lasReply = TopicReply::where('topic_id', $topic->id)->orderBy('created_at', 'DESC')->get()->first();
-            $topic->lastReply = $lasReply;
-        }
 
         return View::make('course.forum.index', compact('course', 'topics'));
     }

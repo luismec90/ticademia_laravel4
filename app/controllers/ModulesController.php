@@ -6,8 +6,6 @@ class ModulesController extends \BaseController {
     public function show($courseID, $moduleID)
     {
 
-        //   return Material::with('reviews')->get();
-
         $course = Course::with('subject')->findOrFail($courseID);
 
         $module = Module::with(['materials',
@@ -36,8 +34,6 @@ class ModulesController extends \BaseController {
             ->orderBy('score', 'DESC')
             ->take(10)
             ->get();
-
-
 
         if (Request::ajax())
         {
