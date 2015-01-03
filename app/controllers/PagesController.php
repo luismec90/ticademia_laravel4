@@ -4,9 +4,11 @@ class PagesController extends BaseController {
 
     public function test()
     {
-        $quiz = Quiz::find(3);
+       $module=Module::with('quizzes','quizzes.quizType')->first();
 
-        dd($quiz->prevQuizIsApproved());
+       return $module->quizzes[0]->quizType->name;
+        return "asd";
+
 
         //  $xml = simplexml_load_file('http://gdata.youtube.com/feeds/api/videos/kAOm3APJopM');
         //  return strval($xml->xpath('//yt:duration[@seconds]')[0]->attributes()->seconds);

@@ -20,11 +20,13 @@ class ModulesController extends \BaseController {
                 $q->selectRaw("quiz_id, SUM(case when grade>={$course->threshold} then 1 else 0 end) AS successful_attempts, COUNT(id) AS total_attempts")
                     ->groupBy('quiz_id');
 
-            }, 'quizzes.quizType',
+            },
+            'quizzes.quizType',
             'quizzes.user',
             'quizzes.approvedQuiz'])->findOrFail($moduleID);
 
 
+       // return $module;
 
         $ranking = User::join('module_user', 'module_user.user_id', '=', 'users.id')
             ->join('modules', 'module_user.module_id', '=', 'modules.id')

@@ -6,7 +6,7 @@
             </div>
             <div class="panel-body">
                 <table class="table table-bordered table-striped table-hover table-responsive">
-                    @foreach($module->materials as $material)
+                     @foreach($module->materials as $material)
                         <tr>
                             <td><a class="link video-launcher"
                                    data-id="{{ $material->id }}"
@@ -60,6 +60,7 @@
                             <td>{{ $user->score }}</td>
                         </tr>
                     @endforeach
+
                 </table>
             </div>
         </div>
@@ -86,19 +87,22 @@
                             Puntaje
                         </td>
                         <td>
-                           Mi mejor tiempo
+                            Mi mejor tiempo
                         </td>
                         <td>
                             Opc.
                         </td>
                     </tr>
+                    <?php $prevQuizIsAproved = true; ?>
                     @foreach($module->quizzes as $quiz)
+
                         <tr>
                             <td>{{ $quiz->order }}</td>
-                            <td>{{ $quiz->quiz_type->name  }}</td>
+                            <td>{{ $quiz->quizType->name  }}</td>
                             <td>
                                 @if( $quiz->userQuizAttempts->count())
-                                    {{ $quiz->userQuizAttempts[0]->successful_attempts }}/{{ $quiz->userQuizAttempts[0]->total_attempts }}
+                                    {{ $quiz->userQuizAttempts[0]->successful_attempts }}
+                                    /{{ $quiz->userQuizAttempts[0]->total_attempts }}
 
                                 @else
                                     0/0
@@ -113,15 +117,22 @@
                             @endif
                             <td>{{ is_null($quiz->approvedQuiz) ? "" : $quiz->approvedQuiz->score  }}</td>
                             <td>{{ is_null($quiz->approvedQuiz) || $quiz->approvedQuiz->best_time==null ? "" : $quiz->approvedQuiz->best_time.' segundos'  }} </td>
-                            <td><a class="btn btn-primary btn-sm quiz-launcher {{ $quiz->prevQuizIsApproved() ? "" : "disabled" }}" data-evaluacion-id="{{ $quiz->id }}"
+                            <td>
+                                <a class="btn btn-primary btn-sm quiz-launcher {{ $prevQuizIsAproved ? "" : "disabled" }}"
+                                   data-evaluacion-id="{{ $quiz->id }}"
                                    data-url="{{ $quiz->path($course) }}"
                                    data-order="{{ $quiz->order }}">Ver</a>
-                            @if(is_null($quiz->approvedQuiz) && $quiz->prevQuizIsApproved() && $quiz->userQuizAttempts->count() )
+                                @if(is_null($quiz->approvedQuiz) && $prevQuizIsAproved && $quiz->userQuizAttempts->count() )
                                     <a class="btn btn-default btn-sm skip-quiz" data-evaluacion-id="{{ $quiz->id }}">Saltar</a>
-                            @endif
+                                @endif
                             </td>
+
                         </tr>
+                        <?php
+                        $prevQuizIsAproved = !is_null($quiz->approvedQuiz);
+                        ?>
                     @endforeach
+
                 </table>
             </div>
         </div>
