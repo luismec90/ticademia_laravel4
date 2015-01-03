@@ -38,7 +38,7 @@ class MaterialsController extends \BaseController {
 
         $material = Material::where('module_id', $module->id)->findOrFail($materialID);
 
-        $reviews = Review::where('material_id', $material->id)->orderBy('created_at', 'DESC')->paginate(5);
+        $reviews = Review::where('material_id', $material->id)->where('comment','<>','')->orderBy('created_at', 'DESC')->paginate(5);
 
         if (Request::ajax())
         {
