@@ -109,6 +109,12 @@ $(function () {
         e.preventDefault();
     });
 
+    $("#body-module").on('click', '.skip-quiz', function () {
+        var evaluacionID = $(this).attr("data-evaluacion-id");
+        $("#skip-quiz-id").val(evaluacionID);
+        $("#modal-skip-quiz").modal();
+    });
+
     loadStarts();
 });
 

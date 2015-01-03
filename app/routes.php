@@ -96,6 +96,9 @@ Route::group(['prefix' => 'curso/{course_id}', 'before' => 'auth|isEnrolled'], f
 
         /* Estadisticas materiales */
         Route::post('/material/video/playbacktime', ['as' => 'material_video_playbacktime_path', 'uses' => 'ModulesController@playbackTime']);
+
+        /*saltar evaluacion*/
+        Route::post('/evaluacion/saltar', ['as' => 'skip_quiz_path', 'uses' => 'QuizzesController@skip']);
     });
 
     Route::group(['prefix' => 'SCORM'], function ()

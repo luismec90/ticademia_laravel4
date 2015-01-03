@@ -52,7 +52,7 @@
                                 {{ $index+1 }}
                             </td>
                             <td>
-                                @include('layouts.partials.avatar_square',['user'=>$user])
+                                @include('layouts.partials.avatar_square',['user'=>$user,'size'=>50])
                             </td>
                             <td>
                                 {{ $user->fullName() }}
@@ -100,6 +100,7 @@
                                 @if( $quiz->userQuizAttempts->count())
                                     {{ $quiz->userQuizAttempts[0]->successful_attempts }}
                                     /{{ $quiz->userQuizAttempts[0]->total_attempts }}
+
                                 @else
                                     0/0
                                 @endif
@@ -112,14 +113,12 @@
                             </td>
                             @endif
                             <td>{{ is_null($quiz->approvedQuiz) ? "" : $quiz->approvedQuiz->score  }}</td>
-                            <td>{{ is_null($quiz->approvedQuiz) ? "" : $quiz->approvedQuiz->best_time.' segundos'  }} </td>
+                            <td>{{ is_null($quiz->approvedQuiz) || $quiz->approvedQuiz->skipped==1 ? "" : $quiz->approvedQuiz->best_time.' segundos'  }} </td>
                             <td><a class="btn btn-primary quiz-launcher {{ $quiz->prevQuizIsApproved() ? "" : "disabled" }}" data-evaluacion-id="{{ $quiz->id }}"
                                    data-url="{{ $quiz->path($course) }}"
                                    data-order="{{ $quiz->order }}">Ver</a>
-                            @if(is_null($quiz->approvedQuiz))
-                                    <a class="btn btn-default" data-evaluacion-id="{{ $quiz->id }}"
-                                       data-url="{{ $quiz->path($course) }}"
-                                       data-order="{{ $quiz->order }}">Saltar</a>
+                            @if(is_null($quiz->approvedQuiz) && $quiz->prevQuizIsApproved() && $quiz->userQuizAttempts->count() )
+                                    <a class="btn btn-default skip-quiz" data-evaluacion-id="{{ $quiz->id }}">Saltar</a>
                             @endif
                             </td>
                         </tr>

@@ -20,7 +20,8 @@ class CreateApprovedQuizzesTable extends Migration {
             $table->integer('quiz_id')->unsigned()->index();
             $table->foreign('quiz_id')->references('id')->on('quizzes')->onDelete('cascade');
             $table->integer('score');
-            $table->decimal('best_time',8,3)->nullable();
+            $table->decimal('best_time', 8, 3)->nullable();
+            $table->boolean('skipped')->default(0);
             $table->timestamps();
         });
     }

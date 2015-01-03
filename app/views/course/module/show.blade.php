@@ -108,6 +108,7 @@
         <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
+
     <div class="modal fade" id="modal-show-reviews">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -122,6 +123,30 @@
                 </div>
             </div>
             <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <div class="modal fade" id="modal-skip-quiz">
+        <div class="modal-dialog">
+            {{ Form::open(['route'=>['skip_quiz_path',$course->id,$module->id],'class'=>'validate-form','novalidate'=>true]) }}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Saltar evaluación</h4>
+                </div>
+                <div  class="modal-body">
+                    {{ Form::hidden('quiz_id',null,['id'=>'skip-quiz-id','required'=>'required']) }}
+                    ¿Deseas saltar esta evaluación? ten en cuenta que luego la podrás realizar pero ya no recibirás puntuación.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+            {{ Form::close() }}
         </div>
         <!-- /.modal-dialog -->
     </div>
