@@ -28,6 +28,8 @@
     <h1 class="section-title"><span><a class="btn btn-default btn-back" title="Ir atrás"
                                        href="{{ route('course_path',$course->id) }}"><i
                         class="fa fa-reply"></i></a>{{ $module->name }}</span></h1>
+    <h4 class="text-center">{{ $module->start_date  }} / {{ $module->end_date }}</h4>
+    <br>
     <div id="body-module">
         @include('course.module.partials.main')
     </div>

@@ -39,7 +39,7 @@
         </div>
     </div>
     <div class="col-sm-3">
-        <div id="quizzes-div" class="panel panel-success">
+        <div id="ranking-div" class="panel panel-success">
             <div class="panel-heading">
                 <h3 class="panel-title">Ranking del módulo</h3>
             </div>

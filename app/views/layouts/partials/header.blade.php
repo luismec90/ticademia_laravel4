@@ -23,11 +23,14 @@
                 @if(Auth::check())
                     <li role="presentation" class="dropdown">
                         <a  href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+
                             @if(Auth::user()->newNotifications->count())
-                                <i class="fa fa-bell-o icon-animated-bell"></i><span class="badge badge-notification">{{ Auth::user()->newNotifications->count() }}</span>
+                                <i class="fa fa-bell-o icon-animated-bell"></i>
+                                <span class="badge badge-notification">{{ Auth::user()->newNotifications->count() }}</span>
                             @else
                                 <i class="fa fa-bell-o"></i>
                             @endif
+
                         </a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="drop5">
                             @forelse(Auth::user()->newNotifications as $notification)

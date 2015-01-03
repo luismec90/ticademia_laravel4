@@ -47,6 +47,7 @@ h1, h2, h3, h4, h5, h6 {
     border-color: #0d6085;
     background: #0d6085 url("http://mooc.org/assets/images/bg-mast.png") 0 0 repeat;
     margin-bottom: 0;
+    height: 52px;
 }
 
 #menu-course {

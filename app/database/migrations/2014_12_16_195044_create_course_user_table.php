@@ -19,7 +19,7 @@ class CreateCourseUserTable extends Migration {
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->integer('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('level_id')->unsigned();
+            $table->integer('level_id')->unsigned()->index();;
             $table->foreign('level_id')->references('id')->on('levels')->onDelete('cascade');
             $table->smallInteger('role');
             $table->string('contact_information')->nullable();

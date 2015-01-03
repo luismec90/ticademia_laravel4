@@ -15,12 +15,12 @@ class CreateModulesTable extends Migration {
         Schema::create('modules', function (Blueprint $table)
         {
             $table->increments('id');
-            $table->integer('course_id')->unsigned();
+            $table->integer('course_id')->unsigned()->index();
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->string('name');
             $table->string('description'); // ?
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->timestamp('start_date');
+            $table->timestamp('end_date');
             $table->timestamps();
         });
     }

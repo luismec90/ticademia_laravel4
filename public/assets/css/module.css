@@ -1,4 +1,4 @@
-#iframe-container,#video-container {
+#iframe-container, #video-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -8,7 +8,7 @@
     z-index: 1000;
 }
 
-#iframe-container.hide,#video-container.hide {
+#iframe-container.hide, #video-container.hide {
     display: none;
 }
 
@@ -17,9 +17,10 @@
     margin-bottom: 50px;
     height: auto;
 }
-#video-container .panel{
-    margin-top:20px;
-   max-width: 900px;
+
+#video-container .panel {
+    margin-top: 20px;
+    max-width: 900px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -55,9 +56,16 @@
     display: inline-block;
 
 }
-#materials-div .text-muted{
+
+#materials-div .text-muted {
     margin: 0 15px 0 3px;
 }
-#materials-div .fa-check{
+
+#materials-div .fa-check {
     margin-left: 10px;
+}
+
+#materials-div .panel-body, #ranking-div .panel-body, #quizzes-div .panel-body{
+    overflow: auto;
+
 }

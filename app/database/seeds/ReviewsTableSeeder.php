@@ -9,13 +9,13 @@ class ReviewsTableSeeder extends Seeder {
     {
         $faker = Faker::create();
 
-        foreach (range(1, 100) as $index)
+        foreach (range(1, 150) as $index)
         {
             Review::create([
                 'user_id'     => rand(1, 14),
-                'material_id' => rand(1, 4),
+                'material_id' => rand(1, 20),
                 'rating'      => rand(1, 10) * 0.5,
-                'comment'     => $faker->text(),
+                'comment'     => rand(0, 2) ? '' : $faker->text(),
             ]);
         }
 
