@@ -14,7 +14,18 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="@if(Route::currentRouteName()=='course_path' || Route::currentRouteName()=='module_path') {{ "active"}} @endif"><a href="{{ route('course_path',$course->id) }}">Modulos</a></li>
+                <li class="@if(Route::currentRouteName()=='course_path' || Route::currentRouteName()=='module_path') {{ "active"}} @endif" role="presentation" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                        Módulos <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        @foreach($course->modules as $module)
+                            <li class="{{ isset($currentModuleID) && $currentModuleID==$module->id ? "active" :"" }}"><a href="{{ route('module_path',[$course->id,$module->id]) }}">{{ $module->name }} </a></li>
+                        @endforeach
+                        <li class="divider"></li>
+                        <li class="{{ Route::currentRouteName()=='course_path' ? "active" :"" }}"><a href="{{ route('course_path',$course->id) }}">Ver todos</a></li>
+                    </ul>
+                </li>
                 <li class="@if(Route::currentRouteName()=='calendar_path') {{ "active"}} @endif"><a href="{{ route('calendar_path',$course->id) }}">Calendario</a></li>
                 <li class="@if(Route::currentRouteName()=='wall_path') {{ "active"}} @endif"><a href="{{ route('wall_path',$course->id) }}">Muro</a></li>
                 <li class="@if(Route::currentRouteName()=='forum_path'|| Route::currentRouteName()=='topic_path') {{ "active"}} @endif"><a href="{{ route('forum_path',$course->id) }}">Foro</a></li>

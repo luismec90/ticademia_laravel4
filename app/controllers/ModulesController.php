@@ -35,14 +35,16 @@ class ModulesController extends \BaseController {
             ->take(10)
             ->get();
 
-       // return $module;
+
 
         if (Request::ajax())
         {
             return Response::json(View::make('course.module.partials.main', compact('course', 'module', 'ranking'))->render());
         }
 
-        return View::make('course.module.show', compact('course', 'module', 'ranking'));
+        $currentModuleID=$moduleID;
+
+        return View::make('course.module.show', compact('course', 'module', 'ranking','currentModuleID'));
     }
 
 
