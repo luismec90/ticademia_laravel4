@@ -76,11 +76,23 @@ class ApiSCORMController extends \BaseController {
             $feedback = "Correcto";
 
             $diff = DB::select(DB::raw("SELECT TIMESTAMPDIFF(MICROSECOND,'$quizAttempt->start_date','$quizAttempt->end_date')/1000000 AS value"));
-            $diff = $diff[0]->value;
+            $diff = round($diff[0]->value, 3);
+
+            $firstTimeApprovedQuiz = is_null($quiz->approvedQuiz);
 
             $this->bestTime($quiz, $diff);
             $this->approvedQuiz($quiz, $diff);
             $this->updateModuleUserScore($quiz);
+
+            $quiz = Quiz::find($quiz->id);//Cargamos de nuevo el quiz para preguntar por ->approvedQuiz
+            if ($firstTimeApprovedQuiz && $quiz->approvedQuiz->skipped == 0)
+            {
+                $feedbackForUser .= '<br><br> Acabas de ganar <b>' . $quiz->approvedQuiz->score . '  puntos</b> y tu tiempo fue de <b>' . $diff . ' segundos</b>';
+            } else
+            {
+                $feedbackForUser .= '<br><br> Tu tiempo fue de <b>' . $diff . ' segundos</b>';
+            }
+            AchievementHelper::achievement_primerEjercicio(Auth::user(), $quiz->module->course);
         } else
         {
             $feedbackForUser = $C[rand(0, 3)] . $D[rand(0, 1)];

@@ -14,4 +14,9 @@ class Module extends \Eloquent {
         return $this->hasMany('Quiz');
     }
 
+
+    public function course()
+    {
+        return $this->belongsTo('Course');
+    }
 }

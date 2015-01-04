@@ -26,8 +26,8 @@ class CreateQuizAttemptTable extends Migration {
             $table->timestamps();
         });
 
-       // DB::statement('ALTER TABLE quiz_attempts MODIFY COLUMN start_date DATETIME(3) NOT NULL');
-       // DB::statement('ALTER TABLE quiz_attempts MODIFY COLUMN end_date DATETIME(3) DEFAULT NULL');
+        DB::statement('ALTER TABLE quiz_attempts MODIFY COLUMN start_date DATETIME(3) NOT NULL');
+        DB::statement('ALTER TABLE quiz_attempts MODIFY COLUMN end_date DATETIME(3) DEFAULT NULL');
     }
 
 

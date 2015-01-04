@@ -4,17 +4,28 @@ class PagesController extends BaseController {
 
     public function test()
     {
-       $module=Module::with('quizzes','quizzes.quizType')->first();
+        $quiz = Quiz::first();
 
-       return $module->quizzes[0]->quizType->name;
-        return "asd";
-
+        dd($quiz->approvedQuiz->toArray());
 
         //  $xml = simplexml_load_file('http://gdata.youtube.com/feeds/api/videos/kAOm3APJopM');
         //  return strval($xml->xpath('//yt:duration[@seconds]')[0]->attributes()->seconds);
 
     }
 
+    private function approvedQuiz($quiz, $diff)
+    {
+
+        $approvedQuiz = new ApprovedQuiz;
+        $approvedQuiz->user_id = Auth::user()->id;
+        $approvedQuiz->score = 420;
+        $approvedQuiz->best_time = $diff;
+        $quiz->approvedQuiz()->save($approvedQuiz);
+
+
+        dd($quiz->approvedQuiz->toArray());
+
+    }
 
     public function home()
     {
