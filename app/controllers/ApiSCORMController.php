@@ -75,8 +75,8 @@ class ApiSCORMController extends \BaseController {
             $feedbackForUser = $A[rand(0, 4)] . $B[rand(0, 3)];
             $feedback = "Correcto";
 
-            $diff = DB::select(DB::raw("SELECT TIMESTAMPDIFF(MICROSECOND,'$quizAttempt->start_date','$quizAttempt->end_date')/1000000 AS value"));
-            $diff = round($diff[0]->value, 3);
+            $diff = DB::select(DB::raw("SELECT ROUND(TIMESTAMPDIFF(MICROSECOND,'$quizAttempt->start_date','$quizAttempt->end_date')/1000000,3) AS value"));
+            $diff = $diff[0]->value;
 
             $firstTimeApprovedQuiz = is_null($quiz->approvedQuiz);
 
