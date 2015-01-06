@@ -63,6 +63,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return asset('users/avatars/' . $this->avatar);
     }
 
+
     public function isStudent($course_id)
     {
         if (is_null($this->is_student))
@@ -104,9 +105,19 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->hasMany('Notification')->orderBy('created_at', 'desc');
     }
 
-    public function newNotifications()
+    public function unviewedNotifications()
     {
-        return $this->hasMany('Notification')->orderBy('created_at', 'desc')->where('viewed', 0);
+        return $this->hasMany('Notification')->where('viewed', 0)->orderBy('created_at', 'desc');
+    }
+
+    public function modalNotifications()
+    {
+        return $this->hasMany('Notification')->where('show_modal', 1)->orderBy('created_at', 'desc');
+    }
+
+    public function unviewedModalNotifications()
+    {
+        return $this->hasMany('Notification')->where('viewed', 0)->where('show_modal', 1)->orderBy('created_at', 'desc');
     }
 
     public function isMe()
@@ -117,5 +128,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return false;
     }
 
+    public function modules()
+    {
+        return $this->belongsToMany('Module')->withTimestamps()->withPivot(['score']);
+    }
 
 }

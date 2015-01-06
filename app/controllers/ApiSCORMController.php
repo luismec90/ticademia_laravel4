@@ -93,6 +93,7 @@ class ApiSCORMController extends \BaseController {
                 $feedbackForUser .= '<br><br> Tu tiempo fue de <b>' . $diff . ' segundos</b>';
             }
             AchievementHelper::achievement_primerEjercicio(Auth::user(), $quiz->module->course);
+            $this->checkLevel($quiz->module->course);
         } else
         {
             $feedbackForUser = $C[rand(0, 3)] . $D[rand(0, 1)];
@@ -165,5 +166,75 @@ class ApiSCORMController extends \BaseController {
             ->sum('approved_quizzes.score');
 
         $moduleUser->save();
+    }
+
+    private function checkLevel($course)
+    {
+        $totalApprovedQuizzes = Quiz::whereHas('module', function ($q) use ($course)
+        {
+            $q->whereHas('course', function ($q) use ($course)
+            {
+                $q->where('course_id', $course->id);
+            });
+        })->whereHas('approvedQuiz', function ($q)
+        {
+            $q->where('user_id', Auth::user()->id)
+                ->where('skipped', 0);
+        })->count();
+
+        $totalQuizzes = Quiz::whereHas('module', function ($q) use ($course)
+        {
+            $q->whereHas('course', function ($q) use ($course)
+            {
+                $q->where('course_id', $course->id);
+            });
+        })->count();
+
+
+        $percentage = round($totalApprovedQuizzes / $totalQuizzes, 2);
+
+        if ($percentage == 100)
+        {
+            $level = 10;
+        } elseif ($percentage > 90)
+        {
+            $level = 9;
+        } else if ($percentage > 80)
+        {
+            $level = 8;
+        } else if ($percentage > 70)
+        {
+            $level = 7;
+        } else if ($percentage > 50)
+        {
+            $level = 6;
+        } else if ($percentage > 30)
+        {
+            $level = 5;
+        } else if ($percentage > 20)
+        {
+            $level = 4;
+        } else if ($percentage > 10)
+        {
+            $level = 3;
+        } else if ($percentage > 0)
+        {
+            $level = 2;
+        }
+
+        if (Auth::user()->courses->find($course->id)->pivot->level_id != $level)
+        {
+            Auth::user()->courses()->updateExistingPivot($course->id, ['level_id' => $level]);
+
+            $level = Level::findOrFail($level);
+
+            $notification = new Notification;
+            $notification->user_id = Auth::user()->id;
+            $notification->title = 'Cambio de nivel';
+            $notification->image = $level->imagePath(Auth::user()->gender);
+            $notification->body = "Felicitaciones! Has alcanzado el nivel <b>{$level->name}</b>.";
+            $notification->show_modal = 1;
+            $notification->save();
+        }
     }
 }

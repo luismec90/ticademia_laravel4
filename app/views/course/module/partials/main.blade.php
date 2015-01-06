@@ -6,7 +6,7 @@
             </div>
             <div class="panel-body">
                 <table class="table table-bordered table-striped table-hover table-responsive">
-                     @foreach($module->materials as $material)
+                    @foreach($module->materials as $material)
                         <tr>
                             <td><a class="link video-launcher"
                                    data-id="{{ $material->id }}"
@@ -55,7 +55,7 @@
                                 @include('layouts.partials.avatar_square',['user'=>$user,'size'=>50])
                             </td>
                             <td>
-                                {{ $user->fullName() }}
+                                <a class="link info-user" data-user-id="{{ $user->id }}">{{ $user->fullName() }}</a>
                             </td>
                             <td>{{ $user->score }}</td>
                         </tr>
@@ -101,7 +101,8 @@
                             <td>{{ $quiz->quizType->name  }}</td>
                             <td>
                                 @if( $quiz->userQuizAttempts->count())
-                                    {{ $quiz->userQuizAttempts[0]->successful_attempts }}/{{ $quiz->userQuizAttempts[0]->total_attempts }}
+                                    {{ $quiz->userQuizAttempts[0]->successful_attempts }}
+                                    /{{ $quiz->userQuizAttempts[0]->total_attempts }}
                                 @else
                                     0/0
                                 @endif

@@ -110,6 +110,27 @@ $(function () {
     });
 
     $('.popover_over').popover();
+
+    $(document).on('click', '.info-user', function () {
+        coverOn();
+        var userID = $(this).attr("data-user-id");
+        $.ajax({
+            url: info_user_path,
+            method: 'GET',
+            data: {
+                userID: userID
+            }
+        }).done(function (data) {
+            coverOff();
+            if (data != "") {
+                $("#div-modal-info-user").html(data);
+                $("#modal-info-user").modal();
+            }
+        }).fail(function (data) {
+            coverOff();
+            console.log('Error');
+        });
+    });
 });
 
 function coverOn() {
@@ -125,5 +146,19 @@ function coverOff() {
         "opacity": "0",
         "width": "0",
         "height": "0"
+    });
+}
+
+function loadNotificaction() {
+    $.ajax({
+        url: load_notification_path,
+        method: 'GET'
+    }).done(function (data) {
+        if (data != "") {
+            $("#div-modal-notification").html(data);
+            $("#modal-notification").modal();
+        }
+    }).fail(function (data) {
+        console.log('Error');
     });
 }

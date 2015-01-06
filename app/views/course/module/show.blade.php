@@ -16,13 +16,16 @@
         load_material_reviews_path = "{{ route('load_material_reviews_path',[$course->id,$module->id]) }}";
         material_video_playbacktime_path = "{{ route('material_video_playbacktime_path',[$course->id,$module->id]) }}";
         module_path = "{{ route('module_path',[$course->id,$module->id]) }}";
-        raty_path="{{ asset('assets/libs/raty/') }}";
+        raty_path = "{{ asset('assets/libs/raty/') }}";
     </script>
 @stop
 @section('js')
     {{ HTML::script('assets/libs/raty/jquery.raty.js') }}
     <script type="text/javascript" src="//cdn.sublimevideo.net/js/hckx7vmz.js"></script>
     {{ HTML::script('assets/js/module.js') }}
+    <script>
+        info_user_path = "{{ route('info_user_path',$course->id) }}";
+    </script>
 @stop
 @section('content')
     <h1 class="section-title"><span><a class="btn btn-default btn-back" title="Ir atrás"
@@ -39,6 +42,7 @@
                 <div class="panel-heading">
                 <span id="btn-close-iframe" class="pull-right btn-close" data-effect="fadeOut"><i
                             class="fa fa-times"></i></span>
+
                     <h3 id="panel-iframe-title"></h3>
                 </div>
                 <div class="panel-body">
@@ -53,6 +57,7 @@
                 <div class="panel-heading">
                 <span id="btn-close-video" class="pull-right btn-close" data-effect="fadeOut"><i
                             class="fa fa-times"></i></span>
+
                     <h3 id="panel-video-title"></h3>
                 </div>
                 <div class="panel-body">
@@ -73,7 +78,9 @@
                 <div id="modal-body-quiz-attempt-feedback" class="modal-body">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="loadNotificaction()">
+                        Cerrar
+                    </button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -87,7 +94,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Material: <span id="material-name"></span> <div id="preview-stars"></div></h4>
+                    <h4 class="modal-title">Material: <span id="material-name"></span>
+
+                        <div id="preview-stars"></div>
+                    </h4>
                 </div>
                 <div class="modal-body">
                     {{ Form::hidden('material_id',null,['id'=>'material-id','required'=>'required']) }}
@@ -138,9 +148,10 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title">Saltar evaluación</h4>
                 </div>
-                <div  class="modal-body">
+                <div class="modal-body">
                     {{ Form::hidden('quiz_id',null,['id'=>'skip-quiz-id','required'=>'required']) }}
-                    ¿Deseas saltar esta evaluación? ten en cuenta que luego la podrás realizar pero ya no recibirás puntuación.
+                    ¿Deseas saltar esta evaluación? ten en cuenta que luego la podrás realizar pero ya no recibirás
+                    puntuación.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

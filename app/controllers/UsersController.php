@@ -116,4 +116,33 @@ class UsersController extends \BaseController {
         }
     }
 
+    public function infoUser($courseID)
+    {
+        $userID = Input::get('userID');
+
+        $course = Course::findOrFail($courseID);
+        $user = User::with('modules')->findOrFail($userID);
+        $ranking = $course->generalRanking();
+        $user->total_score = 0;
+        $user->general_position = "N/A";
+        foreach ($ranking as $index => $row)
+        {
+            if ($user->id == $row->id)
+            {
+                $user->total_score = $row->score;
+                $user->general_position = $index + 1;
+                break;
+            }
+        }
+
+        $reachedAchievements = ReachedAchievement::with('achievement')
+            ->where('course_id', $course->id)
+            ->where('user_id', $user->id)
+            ->get();
+
+        $level = Level::find(Auth::user()->courses->find($course->id)->pivot->level_id);
+
+        return View::make('course.partials.modal_info_user', ['user' => $user, 'course' => $course, 'reachedAchievements' => $reachedAchievements, 'level' => $level]);
+        // return Response::json(View::make('layouts.partials.modal_notification', ['title' => $notification->title, 'image' => $notification->image, 'body' => $notification->body])->render());
+    }
 }

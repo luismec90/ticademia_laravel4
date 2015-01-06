@@ -24,6 +24,9 @@ Route::get('register/verify/{confirmationCode}', ['as' => 'confirmation_path', '
 Route::get('login_facebook', ['before' => 'guest', 'as' => 'login_facebook_path', 'uses' => 'SocialNetworksController@loginWithFacebook']);
 Route::get('login_google', ['before' => 'guest', 'as' => 'login_google_path', 'uses' => 'SocialNetworksController@loginWithGoogle']);
 
+/* Cargar notificaciones */
+Route::get('cargar-notificaciones', ['before' => 'auth', 'as' => 'load_notification_path', 'uses' => 'NotificationsController@load']);
+
 /* Vincular cuenta con Facebook o Google + */
 Route::get('vincular_con_facebook', ['before' => 'auth', 'as' => 'link_facebook_path', 'uses' => 'SocialNetworksController@linkWithFacebook']);
 Route::get('vincular_con_google', ['before' => 'auth', 'as' => 'link_google_path', 'uses' => 'SocialNetworksController@linkWithGoogle']);
@@ -41,6 +44,7 @@ Route::get('salir', ['as' => 'logout_path', 'uses' => 'SessionsController@destro
 
 /* Password reset */
 Route::controller('password', 'RemindersController');
+
 
 /* Mi perfil */
 Route::get('perfil', ['before' => 'auth', 'as' => 'profile_path', 'uses' => 'UsersController@showProfile']);
@@ -109,6 +113,9 @@ Route::group(['prefix' => 'curso/{course_id}', 'before' => 'auth|isEnrolled'], f
         Route::post('/grade', ['uses' => 'ApiSCORMController@grade']);
 
     });
+
+    /* Carne */
+    Route::get('carne', ['as' => 'info_user_path', 'uses' => 'UsersController@infoUser']);
 });
 
 

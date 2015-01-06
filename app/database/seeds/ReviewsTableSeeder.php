@@ -9,7 +9,7 @@ class ReviewsTableSeeder extends Seeder {
     {
         $faker = Faker::create();
 
-        foreach (range(1, 150) as $index)
+        foreach (range(1, 50) as $index)
         {
             Review::create([
                 'user_id'     => rand(1, 14),

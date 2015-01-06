@@ -1,59 +1,75 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="luismec90@gmail.com">
-        <link href="{{ asset('assets/images/general/favicon.png') }}" rel="icon" type="image/x-icon">
-        <title>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="luismec90@gmail.com">
+    <link href="{{ asset('assets/images/general/favicon.png') }}" rel="icon" type="image/x-icon">
+    <title>
         @section('title')
             Ticademia
         @show
-        </title>
+    </title>
 
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
-        <link href="http://fonts.googleapis.com/css?family=Raleway:400,300,700" rel="stylesheet" type="text/css">
-        {{ HTML::style('assets/libs/jqueryui/jquery-ui.min.css') }}
-        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        {{ HTML::style('assets/libs/animate/animate.css') }}
-        {{ HTML::style('assets/libs/bootstrap-social/bootstrap-social.css') }}
-        {{ HTML::style('assets/css/main.css') }}
-        @section('css')
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet"
+          type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Raleway:400,300,700" rel="stylesheet" type="text/css">
+    {{ HTML::style('assets/libs/jqueryui/jquery-ui.min.css') }}
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    {{ HTML::style('assets/libs/animate/animate.css') }}
+    {{ HTML::style('assets/libs/bootstrap-social/bootstrap-social.css') }}
+    {{ HTML::style('assets/css/main.css') }}
+    @section('css')
+    @show
+
+    @section('js-top')
         @show
 
-        @section('js-top')
-        @show
-
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+                <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-    </head>
-    <body>
-        @include('layouts.partials.header')
-        <div id="contenedor" class="container-fluid">
+</head>
+<body>
+@include('layouts.partials.header')
+<div id="contenedor" class="container-fluid">
 
-            @yield('content')
+    @yield('content')
 
-        </div>
-        @include('layouts.partials.footer')
+</div>
+@include('layouts.partials.footer')
 
-        {{ HTML::script('//code.jquery.com/jquery-2.1.1.min.js') }}
-        {{ HTML::script('assets/libs/jqueryui/jquery-ui.min.js') }}
-        {{ HTML::script('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js') }}
-        {{ HTML::script('assets/libs/bootstrap-growl/bootstrap-growl.min.js') }}
-        {{ HTML::script('assets/js/main.js') }}
+{{ HTML::script('//code.jquery.com/jquery-2.1.1.min.js') }}
+{{ HTML::script('assets/libs/jqueryui/jquery-ui.min.js') }}
+{{ HTML::script('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js') }}
+{{ HTML::script('assets/libs/bootstrap-growl/bootstrap-growl.min.js') }}
+{{ HTML::script('assets/js/main.js') }}
 
-        @section('js')
-        @show
+@section('js')
+@show
+<script>
+    load_notification_path = "{{ route('load_notification_path') }}";
 
-         @include('layouts.partials.notify')
-         <div id="cover-display">
-             <img id="img-loading" src="{{ asset("assets/images/general/loading.gif") }}" >
-         </div>
-    </body>
+    @if(Auth::check() && Auth::user()->unviewedModalNotifications->count())
+    $(function () {
+        loadNotificaction();
+    });
+    @endif
+</script>
+@include('layouts.partials.notify')
+<div id="div-modal-notification">
+
+</div>
+<div id="div-modal-info-user">
+
+</div>
+<!-- /.modal -->
+<div id="cover-display">
+    <img id="img-loading" src="{{ asset("assets/images/general/loading.gif") }}">
+</div>
+</body>
 </html>

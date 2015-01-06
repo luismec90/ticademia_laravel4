@@ -57,13 +57,29 @@ class AchievementHelper {
         return is_null($reachedAchievement);
     }
 
-    public static function giveAchievement($user, $course, $achievement_id)
+    public static function giveAchievement($user, $course, $achievementID)
     {
         $reachedAchievement = new ReachedAchievement;
         $reachedAchievement->user_id = $user->id;
         $reachedAchievement->course_id = $course->id;
-        $reachedAchievement->achievement_id = $achievement_id;
+        $reachedAchievement->achievement_id = $achievementID;
         $reachedAchievement->save();
+
+        AchievementHelper::setNotification($achievementID, $course->id);
+    }
+
+    public static function setNotification($achievementID, $courseID)
+    {
+        $achievement = Achievement::findOrFail($achievementID);
+
+        $notification = new Notification;
+        $notification->user_id = Auth::user()->id;
+        $notification->title = 'Has ganado un nuevo logro';
+        $notification->image = $achievement->imagePath();
+        $notification->url = route('achievement_path', $courseID);
+        $notification->body = "Felicitaciones! Has ganado el logro <b>{$achievement->name}</b>.";
+        $notification->show_modal = 1;
+        $notification->save();
     }
 
 }

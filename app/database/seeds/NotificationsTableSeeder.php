@@ -11,14 +11,14 @@ class NotificationsTableSeeder extends Seeder {
 
         Notification::create([
             'user_id' => 1,
-            'url'     => route('topic_path',[1, 1]),
-            'body'    => 'El usuario Juan Montoya ha respondido el tema'
+            'url'     => route('topic_path', [1, 1]),
+            'body'    => 'El usuario Juan Montoya ha respondido el tema',
         ]);
 
         Notification::create([
             'user_id' => 3,
-            'url'     => route('topic_path',[1, 1]),
-            'body'    => 'El usuario Juan Montoya ha respondido el tema'
+            'url'     => route('topic_path', [1, 1]),
+            'body'    => 'El usuario Juan Montoya ha respondido el tema',
         ]);
     }
 
