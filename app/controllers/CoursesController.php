@@ -79,6 +79,7 @@ class CoursesController extends \BaseController {
         $reachedAchievements = ReachedAchievement::with('achievement')
             ->where('course_id', $course->id)
             ->where('user_id', Auth::user()->id)
+            ->orderBy('created_at','DESC')
             ->get();
 
         return View::make('course.reached_achievements', compact('course', 'reachedAchievements'));

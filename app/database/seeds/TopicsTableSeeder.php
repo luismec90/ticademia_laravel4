@@ -14,7 +14,7 @@ class TopicsTableSeeder extends Seeder {
             Topic::create([
                 'id'          => $index,
                 'course_id'   => 1,
-                'user_id'     => rand(1, 12),
+                'user_id'     => rand(2, 12),
                 'name'        => $faker->text(),
                 'description' => $faker->text()
             ]);

@@ -16,6 +16,7 @@
                 }
             });
         });
+        info_user_path = "{{ route('info_user_path',$course->id) }}";
     </script>
 @stop
 
@@ -36,7 +37,7 @@
                 </thead>
                 @foreach($topics as $topic)
                 <tr class="topic">
-                    <td class="col-xs-3 col-sm-2 col-md-1">@include('layouts.partials.avatar_square',['user'=>$topic->user])</td>
+                    <td class="col-xs-3 col-sm-2 col-md-1">@include('layouts.partials.link_avatar_square',['user'=>$topic->user])</td>
                     <td>
                         <div class="name row">
                             <div class="col-xs-12">
@@ -45,14 +46,14 @@
                         </div>
                         <div class="information row">
                             <div class="col-xs-12">
-                            Publicado <b>{{ $topic->created_at->diffForHumans() }}</b>: {{ $topic->created_at }}, por <b>{{ $topic->user->fullName() }}</b>
+                            Publicado <b>{{ $topic->created_at->diffForHumans() }}</b>: {{ $topic->created_at }}, por <b>{{ $topic->user->LinkFullName() }}</b>
                             </div>
                         </div>
                     </td>
                     <td>{{ $topic->replies->count() }}</td>
                     <td class="information">
                     @if($topic->replies->count())
-                        La última respuesta fue <b>{{ $topic->replies[0]->created_at->diffForHumans() }}</b>: {{ $topic->replies[0]->created_at }}, por <b>{{ $topic->replies[0]->user->fullName() }}</b></td>
+                        La última respuesta fue <b>{{ $topic->replies[0]->created_at->diffForHumans() }}</b>: {{ $topic->replies[0]->created_at }}, por <b>{{ $topic->replies[0]->user->LinkFullName() }}</b></td>
                     @else
                     N/A
                     @endif

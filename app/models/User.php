@@ -95,6 +95,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return "{$this->first_name} {$this->last_name}";
     }
 
+    public function linkFullName()
+    {
+        return "<a class='link info-user' data-user-id='{$this->id}'>{$this->first_name} {$this->last_name}</a>";
+    }
+
     public function socialNetworks()
     {
         return $this->hasMany('SocialNetwork');

@@ -3,11 +3,11 @@
     <li>
         <div class="comment-main-level">
             <!-- Avatar -->
-            <div class="comment-avatar"><img src="{{ $wallMessage->user->avatarPath() }}" alt=""></div>
+            <div class="comment-avatar"><img class="link info-user" data-user-id="{{ $wallMessage->user->id }}" src="{{ $wallMessage->user->avatarPath() }}" alt=""></div>
             <!-- Contenedor del Comentario -->
             <div class="comment-box">
                 <div class="comment-head">
-                    <h6 class="comment-name">{{ $wallMessage->user->fullName() }}</h6>
+                    <h6 class="comment-name">{{ $wallMessage->user->linkFullName() }}</h6>
                     <span> Publicado {{ $wallMessage->created_at->diffForHumans() }}: {{ $wallMessage->created_at }}</span>
                     @if($wallMessage->user->isMe())
                        <i class="delete-message fa fa-trash" data-message-id="{{ $wallMessage->id }}"></i>
@@ -25,11 +25,11 @@
             @foreach($wallMessage->replies as $reply)
             <li>
                 <!-- Avatar -->
-                <div class="comment-avatar"><img src="{{ $reply->user->avatarPath() }}" alt=""></div>
+                <div class="comment-avatar"><img class="link info-user" data-user-id="{{ $wallMessage->user->id }}"  src="{{ $reply->user->avatarPath() }}" alt=""></div>
                 <!-- Contenedor del Comentario -->
                 <div class="comment-box">
                     <div class="comment-head">
-                        <h6 class="comment-name">{{ $reply->user->fullName() }}</h6>
+                        <h6 class="comment-name">{{ $reply->user->linkFullName() }}</h6>
                         <span> Publicado {{ $reply->created_at->diffForHumans() }}: {{ $reply->created_at }}</span>
                         @if($reply->user->isMe())
                             <i class="delete-message fa fa-trash" data-message-id="{{ $reply->id }}"></i>
@@ -48,7 +48,7 @@
                 <!-- Contenedor del Comentario -->
                 <div class="comment-box">
                     <div class="comment-head">
-                        <h6 class="comment-name">{{ Auth::user()->fullName() }}</h6>
+                        <h6 class="comment-name">{{ Auth::user()->linkFullName() }}</h6>
                     </div>
                     <div class="comment-content">
                         {{ Form::open(['route'=>['wall_save_reply_path',$course->id,$wallMessage->id],'class'=>'validate-form','novalidate'=>true]) }}

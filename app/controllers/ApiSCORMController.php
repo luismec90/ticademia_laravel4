@@ -64,11 +64,13 @@ class ApiSCORMController extends \BaseController {
         Session::forget($sessionName);
 
         $quizAttempt = QuizAttempt::find($quizAttemptId);
-        $quizAttempt->grade = $grade;
-        $quizAttempt->end_date = $endDate;
 
         if (is_null($quizAttempt))
             return 'error';
+
+        $quizAttempt->grade = $grade;
+        $quizAttempt->end_date = $endDate;
+        $quizAttempt->save();
 
         if ($grade == 1)
         {
@@ -93,6 +95,8 @@ class ApiSCORMController extends \BaseController {
                 $feedbackForUser .= '<br><br> Tu tiempo fue de <b>' . $diff . ' segundos</b>';
             }
             AchievementHelper::achievement_primerEjercicio(Auth::user(), $quiz->module->course);
+            AchievementHelper::achievement_enLinea(Auth::user(), $quiz->module->course);
+
             $this->checkLevel($quiz->module->course);
         } else
         {
@@ -191,8 +195,8 @@ class ApiSCORMController extends \BaseController {
         })->count();
 
 
-        $percentage = round($totalApprovedQuizzes / $totalQuizzes, 2);
-
+        $percentage = round($totalApprovedQuizzes / $totalQuizzes * 100, 2);
+        
         if ($percentage == 100)
         {
             $level = 10;
@@ -220,6 +224,9 @@ class ApiSCORMController extends \BaseController {
         } else if ($percentage > 0)
         {
             $level = 2;
+        } else
+        {
+            $level = 1;
         }
 
         if (Auth::user()->courses->find($course->id)->pivot->level_id != $level)

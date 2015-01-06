@@ -6,6 +6,7 @@
 {{ HTML::script('assets/js/wall.js') }}
 <script>
     var wall_path="{{ route('wall_path',$course->id) }}";
+    info_user_path = "{{ route('info_user_path',$course->id) }}";
 </script>
 @stop
 @section('content')

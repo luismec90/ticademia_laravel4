@@ -150,15 +150,24 @@ function coverOff() {
 }
 
 function loadNotificaction() {
+    $("#modal-notification").modal('hide');
     $.ajax({
         url: load_notification_path,
         method: 'GET'
     }).done(function (data) {
         if (data != "") {
-            $("#div-modal-notification").html(data);
-            $("#modal-notification").modal();
+            if ($("#modal-notification").hasClass('in')) {
+                setTimeout(function () {
+                    $("#div-modal-notification").html(data);
+                    $("#modal-notification").modal();
+                }, 1000);
+            } else {
+                $("#div-modal-notification").html(data);
+                $("#modal-notification").modal();
+            }
         }
     }).fail(function (data) {
         console.log('Error');
     });
+
 }

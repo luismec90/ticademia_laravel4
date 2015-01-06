@@ -118,7 +118,7 @@ class UsersController extends \BaseController {
 
     public function infoUser($courseID)
     {
-        $userID = Input::get('userID');
+        $userID = Input::get('userID',1);
 
         $course = Course::findOrFail($courseID);
         $user = User::with('modules')->findOrFail($userID);

@@ -16,6 +16,7 @@
                 "bSort": false
             });
         });
+        info_user_path = "{{ route('info_user_path',$course->id) }}";
     </script>
 @stop
 @section('content')
@@ -29,12 +30,12 @@
                         <div class="panel-heading"><b class="link">{{ $topic->name }}</b></div>
                         <div class="panel-body">
                             <div class="col-xs-3 col-sm-2 col-md-1">
-                                @include('layouts.partials.avatar_square',['user'=>$topic->user])
+                                @include('layouts.partials.link_avatar_square',['user'=>$topic->user])
                             </div>
                             <div class="col-xs-9 col-sm-10 col-md-11 ">
                                 <div class="row info-date">
                                     <div class="col-xs-12">
-                                        <div class="text-muted">Publicado <b>{{ $topic->created_at->diffForHumans() }}</b>: {{ $topic->created_at }}, por <b>{{ $topic->user->fullName() }}</b></div>
+                                        <div class="text-muted">Publicado <b>{{ $topic->created_at->diffForHumans() }}</b>: {{ $topic->created_at }}, por <b>{{ $topic->user->linkFullName() }}</b></div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -80,7 +81,7 @@
                     <td class="col-xs-3 col-sm-2 col-md-1">
                         <div class="row">
                             <div class="col-sm-8 col-sm-offset-2">
-                                @include('layouts.partials.avatar_square',['user'=>$topicReply ->user])
+                                @include('layouts.partials.link_avatar_square',['user'=>$topicReply ->user])
                             </div>
                         </div>
                     <td  class="container-reply">
@@ -90,7 +91,7 @@
                                                                                                                    <i class="delete-topic-reply fa fa-trash pull-right" data-topic-reply-id="{{ $topicReply->id }}"></i>
                                                                                                                 <i class="edit-topic-reply fa fa-pencil-square-o pull-right" data-topic-reply-id="{{ $topicReply->id }}" data-message="{{ $topicReply->reply }}"></i>
                                                                                                                 @endif
-                                <div class="text-muted">Publicado <b>{{ $topicReply->created_at->diffForHumans() }}</b>: {{ $topicReply->created_at }}, por <b>{{ $topicReply->user->fullName() }}</b>
+                                <div class="text-muted">Publicado <b>{{ $topicReply->created_at->diffForHumans() }}</b>: {{ $topicReply->created_at }}, por <b>{{ $topicReply->user->linkFullName() }}</b>
 
                                 </div>
 

@@ -52,10 +52,10 @@
                                 {{ $index+1 }}
                             </td>
                             <td class="hidden-md">
-                                @include('layouts.partials.avatar_square',['user'=>$user,'size'=>50])
+                                @include('layouts.partials.link_avatar_square',['user'=>$user,'size'=>50])
                             </td>
                             <td>
-                                <a class="link info-user" data-user-id="{{ $user->id }}">{{ $user->fullName() }}</a>
+                                {{ $user->linkFullName() }}
                             </td>
                             <td>{{ $user->score }}</td>
                         </tr>
@@ -111,7 +111,7 @@
                                 @if(!is_null($quiz->best_time))
                                     {{ $quiz->best_time  }} segundos
                                     <br>
-                                    Por:  {{ $quiz->user->fullName() }}
+                                    Por:  {{ $quiz->user->linkFullName() }}
                             </td>
                             @endif
                             <td>{{ is_null($quiz->approvedQuiz) ? "" : $quiz->approvedQuiz->score  }}</td>

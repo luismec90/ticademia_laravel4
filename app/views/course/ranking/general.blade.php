@@ -14,6 +14,7 @@
                 }
             });
         });
+        info_user_path = "{{ route('info_user_path',$course->id) }}";
     </script>
 @stop
 @section('content')
@@ -55,8 +56,8 @@
                 @foreach($ranking as $index => $user)
                     <tr>
                         <td>{{ $index+1 }}</td>
-                        <td class="col-xs-3 col-sm-2 col-md-1">@include('layouts.partials.avatar_square',['user'=>$user,'size'=>70])</td>
-                        <td>{{ $user->fullName() }}</td>
+                        <td class="col-xs-3 col-sm-2 col-md-1">@include('layouts.partials.link_avatar_square',['user'=>$user,'size'=>70])</td>
+                        <td>{{ $user->linkFullName() }}</td>
                         <td>{{ $user->score }}</td>
                     </tr>
                 @endforeach

@@ -74,7 +74,7 @@
                                     ?>
 
                                     <div class="col-sm-3"><a href="#x"
-                                                             title="Nombre: <?= $reachedAchievement->name ?>. Descripción: <?= $reachedAchievement->description ?>.">
+                                                             title="Nombre: {{ $reachedAchievement->achievement->name }}. Descripción: {{ $reachedAchievement->achievement->description }}">
                                             @include('course.partials.achievement_image',['achievement'=>$reachedAchievement->achievement])
                                         </a>
                                     </div>

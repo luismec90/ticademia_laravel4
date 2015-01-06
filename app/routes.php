@@ -61,6 +61,8 @@ Route::get('mis-cursos', ['before' => 'auth', 'as' => 'my_courses_path', 'uses' 
 Route::get('notificaciones', array('before' => 'auth', 'as' => 'notifications_path', 'uses' => 'NotificationsController@index'));
 Route::get('notificaciones/{notification_id}', array('before' => 'auth', 'as' => 'show_notification_path', 'uses' => 'NotificationsController@show'));
 
+/* Carne */
+Route::get('curso/{course_id}/carne', ['as' => 'info_user_path', 'uses' => 'UsersController@infoUser']);
 
 /* Curso */
 Route::group(['prefix' => 'curso/{course_id}', 'before' => 'auth|isEnrolled'], function ()
@@ -114,8 +116,7 @@ Route::group(['prefix' => 'curso/{course_id}', 'before' => 'auth|isEnrolled'], f
 
     });
 
-    /* Carne */
-    Route::get('carne', ['as' => 'info_user_path', 'uses' => 'UsersController@infoUser']);
+
 });
 
 

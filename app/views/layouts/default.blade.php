@@ -53,7 +53,6 @@
 @show
 <script>
     load_notification_path = "{{ route('load_notification_path') }}";
-
     @if(Auth::check() && Auth::user()->unviewedModalNotifications->count())
     $(function () {
         loadNotificaction();

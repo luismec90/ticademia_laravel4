@@ -1,0 +1,1 @@
+<img class="media-object img-thumbnail avatar img-responsive info-user" data-user-id="{{ $user->id }}" width="{{ isset($size) ? $size : 100 }}" src="{{ $user->avatarPath() }}" alt="{{  $user->fullName() }}">

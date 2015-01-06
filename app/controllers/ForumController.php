@@ -36,6 +36,8 @@ class ForumController extends \BaseController {
 
     public function storeReply($course_id, $topic_id)
     {
+        $course = Course::findOrFail($course_id);
+
         $topic = Topic::where('course_id', $course_id)->findOrFail($topic_id);
 
         if (Input::get('message') == '')
@@ -50,6 +52,10 @@ class ForumController extends \BaseController {
         $topicReply->topic_id = $topic->id;
         $topicReply->reply = Input::get('message');
         $topicReply->save();
+
+        AchievementHelper::achievement_primeraParticipacionForo(Auth::user(), $course);
+        AchievementHelper::achievement_muyParticipativo(Auth::user(), $course);
+        AchievementHelper::achievement_superParticipativo(Auth::user(), $course);
 
         Flash::success('Mensaje creado exitosamente');
 

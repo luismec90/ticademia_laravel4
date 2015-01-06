@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder {
         $this->enrollingStudents();
         $this->call('WallMessagesTableSeeder');
         $this->call('TopicsTableSeeder');
-        $this->call('TopicRepliesTableSeeder');
+       // $this->call('TopicRepliesTableSeeder');
         $this->call('SocialNetworksTableSeeder');
         $this->call('ModulesTableSeeder');
         $this->call('MaterialsTableSeeder');
@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('NotificationsTableSeeder');
         $this->call('ModuleUserTableSeeder');
         $this->call('AchievementsTableSeeder');
-        $this->call('ReachedAchievementsTableSeeder');
+       // $this->call('ReachedAchievementsTableSeeder');
         $this->call('ReviewsTableSeeder');
 
     }
