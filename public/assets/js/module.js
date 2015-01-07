@@ -133,7 +133,6 @@ function getReviews(page) {
 
 function reloadModule() {
     $.ajax({
-        url: module_path,
         dataType: 'json'
     }).done(function (data) {
         $("#body-module").html(data);

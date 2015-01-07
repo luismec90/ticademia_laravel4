@@ -45,11 +45,11 @@
             </div>
             <div class="panel-body">
                 <table class="table table-bordered table-striped table-hover table-responsive">
-
-                    @foreach($ranking as $index => $user)
-                        <tr>
+                    <?php $index = 15 *(Input::get('page', 1) - 1)?>
+                    @foreach($ranking as $user)
+                        <tr class="{{ $user->isMe() ? "warning" :""}}">
                             <td>
-                                {{ $index+1 }}
+                                {{ ++$index }}
                             </td>
                             <td class="hidden-md">
                                 @include('layouts.partials.link_avatar_square',['user'=>$user,'size'=>50])
@@ -62,6 +62,7 @@
                     @endforeach
 
                 </table>
+                {{ $ranking->links() }}
             </div>
         </div>
     </div>

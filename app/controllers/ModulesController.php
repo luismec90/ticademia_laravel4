@@ -32,8 +32,7 @@ class ModulesController extends \BaseController {
             ->groupBy('module_user.user_id')
             ->select('users.*', DB::raw('SUM(module_user.score) score'))
             ->orderBy('score', 'DESC')
-            ->take(10)
-            ->get();
+            ->paginate(15);
 
         if (Request::ajax())
         {
