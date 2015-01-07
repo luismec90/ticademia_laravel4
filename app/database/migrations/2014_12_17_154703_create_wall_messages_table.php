@@ -21,8 +21,9 @@ class CreateWallMessagesTable extends Migration {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('wall_message_id')->unsigned()->nullable();
             $table->foreign('wall_message_id')->references('id')->on('wall_messages')->onDelete('cascade');
+            $table->integer('achievement_id')->unsigned()->nullable();
+            $table->foreign('achievement_id')->references('id')->on('achievements')->onDelete('cascade');
             $table->string('message', 512);
-            $table->string('type', 16);
 
             $table->timestamps();
         });

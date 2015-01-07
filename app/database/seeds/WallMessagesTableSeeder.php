@@ -14,19 +14,17 @@ class WallMessagesTableSeeder extends Seeder {
             WallMessage::create([
                 'id'        => $index,
                 'course_id' => 1,
-                'user_id'   =>  rand(1,12),
-                'message'   => $faker->text(),
-                'type'      => 'custom'
+                'user_id'   => rand(1, 12),
+                'message'   => $faker->text()
             ]);
         }
         foreach (range(1, 20) as $index)
         {
             WallMessage::create([
                 'course_id'       => 1,
-                'user_id'         => rand(1,12),
-                'wall_message_id' =>  rand(1,50),
-                'message'         => $faker->text(),
-                'type'            => 'custom'
+                'user_id'         => rand(1, 12),
+                'wall_message_id' => rand(1, 50),
+                'message'         => $faker->text()
             ]);
         }
     }

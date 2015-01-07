@@ -118,9 +118,9 @@ class UsersController extends \BaseController {
 
     public function infoUser($courseID)
     {
-        $userID = Input::get('userID',1);
+        $userID = Input::get('userID');
 
-        $course = Course::findOrFail($courseID);
+        $course = Course::with('modules')->findOrFail($courseID);
         $user = User::with('modules')->findOrFail($userID);
         $ranking = $course->generalRanking();
         $user->total_score = 0;
@@ -135,14 +135,23 @@ class UsersController extends \BaseController {
             }
         }
 
+        foreach ($course->modules as $module)
+        {
+            $moduleUser = $user->modules->find($module->id);
+
+            if (is_null($moduleUser))
+                $module->score = 0;
+            else
+                $module->score = $moduleUser->pivot->score;
+        }
+
         $reachedAchievements = ReachedAchievement::with('achievement')
             ->where('course_id', $course->id)
             ->where('user_id', $user->id)
             ->get();
 
-        $level = Level::find(Auth::user()->courses->find($course->id)->pivot->level_id);
+        $level = Level::find($user->courses->find($course->id)->pivot->level_id);
 
-        return View::make('course.partials.modal_info_user', ['user' => $user, 'course' => $course, 'reachedAchievements' => $reachedAchievements, 'level' => $level]);
-        // return Response::json(View::make('layouts.partials.modal_notification', ['title' => $notification->title, 'image' => $notification->image, 'body' => $notification->body])->render());
+        return Response::json(View::make('course.partials.modal_body_info_user', ['user' => $user, 'course' => $course, 'reachedAchievements' => $reachedAchievements, 'level' => $level])->render());
     }
 }

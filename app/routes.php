@@ -116,6 +116,7 @@ Route::group(['prefix' => 'curso/{course_id}', 'before' => 'auth|isEnrolled'], f
 
     });
 
+    Route::get('/compartir/logro/{achievementID}', ['as' => 'share_achievement_path', 'uses' => 'WallMessagesController@shareAchievement']);
 
 });
 

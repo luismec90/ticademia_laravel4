@@ -101,8 +101,7 @@
                             <td>{{ $quiz->quizType->name  }}</td>
                             <td>
                                 @if( $quiz->userQuizAttempts->count())
-                                    {{ $quiz->userQuizAttempts[0]->successful_attempts }}
-                                    /{{ $quiz->userQuizAttempts[0]->total_attempts }}
+                                    {{ $quiz->userQuizAttempts[0]->successful_attempts }}/{{ $quiz->userQuizAttempts[0]->total_attempts }}
                                 @else
                                     0/0
                                 @endif

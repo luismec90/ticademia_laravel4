@@ -60,13 +60,50 @@
     @endif
 </script>
 @include('layouts.partials.notify')
-<div id="div-modal-notification">
 
-</div>
-<div id="div-modal-info-user">
+<div class="modal fade" id="modal-notification">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Notificación</h4>
+            </div>
+            <div id="modal-notification-body" class="modal-body">
 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="loadNotificaction()">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="modal-info-user">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Carné</h4>
+            </div>
+            <div id="modal-info-user-body" class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
 <div id="cover-display">
     <img id="img-loading" src="{{ asset("assets/images/general/loading.gif") }}">
 </div>

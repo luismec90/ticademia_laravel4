@@ -119,6 +119,8 @@ class ApiSCORMController extends \BaseController {
             $quiz->user_id = Auth::user()->id;
             $quiz->best_time = $diff;
             $quiz->save();
+
+            AchievementHelper::achievement_mejorTiempo(Auth::user(), $quiz->module->course);
         }
     }
 
@@ -196,7 +198,7 @@ class ApiSCORMController extends \BaseController {
 
 
         $percentage = round($totalApprovedQuizzes / $totalQuizzes * 100, 2);
-        
+
         if ($percentage == 100)
         {
             $level = 10;

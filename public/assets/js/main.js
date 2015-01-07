@@ -123,7 +123,7 @@ $(function () {
         }).done(function (data) {
             coverOff();
             if (data != "") {
-                $("#div-modal-info-user").html(data);
+                $("#modal-info-user-body").html(data);
                 $("#modal-info-user").modal();
             }
         }).fail(function (data) {
@@ -150,24 +150,17 @@ function coverOff() {
 }
 
 function loadNotificaction() {
-    $("#modal-notification").modal('hide');
     $.ajax({
         url: load_notification_path,
         method: 'GET'
     }).done(function (data) {
         if (data != "") {
-            if ($("#modal-notification").hasClass('in')) {
-                setTimeout(function () {
-                    $("#div-modal-notification").html(data);
-                    $("#modal-notification").modal();
-                }, 1000);
-            } else {
-                $("#div-modal-notification").html(data);
+            setTimeout(function () {
+                $("#modal-notification-body").html(data);
                 $("#modal-notification").modal();
-            }
+            }, 500);
         }
     }).fail(function (data) {
         console.log('Error');
     });
-
 }

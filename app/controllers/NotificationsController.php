@@ -40,7 +40,7 @@ class NotificationsController extends \BaseController {
         $notification->viewed = 1;
         $notification->save();
 
-        return Response::json(View::make('layouts.partials.modal_notification', ['title' => $notification->title, 'image' => $notification->image, 'body' => $notification->body])->render());
+        return Response::json(View::make('layouts.partials.modal_body_notification', ['title' => $notification->title, 'image' => $notification->image, 'body' => $notification->body,'extra_info'=> $notification->extra_info])->render());
 
     }
 }

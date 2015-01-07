@@ -48,21 +48,26 @@ class AchievementsTableSeeder extends Seeder {
         Achievement::create([
             'id'          => 11,
             'name'        => '3 en línea',
-            'description' => 'Se gana cuando se resuelven 3 ejercicios consecutivos.'
+            'description' => 'Se gana cuando se resuelven 3 evaluaciones diferentes consecutivamente.'
         ]);
 
         Achievement::create([
             'id'          => 12,
             'name'        => '5 en línea',
-            'description' => 'Se gana cuando se resuelven 5 ejercicios consecutivos.'
+            'description' => 'Se gana cuando se resuelven 5 evaluaciones diferentes consecutivamente.'
         ]);
 
         Achievement::create([
             'id'          => 13,
             'name'        => '10 en línea',
-            'description' => 'Se gana cuando se resuelven 10 ejercicios consecutivos.'
+            'description' => 'Se gana cuando se resuelven 10 evaluaciones diferentes consecutivamente.'
         ]);
 
+        Achievement::create([
+            'id'          => 14,
+            'name'        => 'Mejor tiempo',
+            'description' => 'Se gana cuando se obtiene el mejor tiempo en una evaluación.'
+        ]);
 
     }
 

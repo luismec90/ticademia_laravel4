@@ -242,3 +242,7 @@ ul {
 #comments-list li:hover{
     border-left: 2px solid orangered;
 }
+.inlineblock{
+    display: inline-block;
+    margin-left: 10px;
+}

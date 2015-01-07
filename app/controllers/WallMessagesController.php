@@ -2,9 +2,9 @@
 
 class WallMessagesController extends \BaseController {
 
-    public function index($course_id)
+    public function index($courseID)
     {
-        $course = Course::with('subject')->findOrFail($course_id);
+        $course = Course::with('subject')->findOrFail($courseID);
 
         $wallMessages = WallMessage::with('replies')
             ->with('user')
@@ -24,7 +24,7 @@ class WallMessagesController extends \BaseController {
         return View::make('course.wall.index', compact('course', 'wallMessages'));
     }
 
-    public function storeMessage($course_id)
+    public function storeMessage($courseID)
     {
         if (Input::get('message') == '')
         {
@@ -34,7 +34,7 @@ class WallMessagesController extends \BaseController {
         }
 
         $wallMessage = new WallMessage;
-        $wallMessage->course_id = $course_id;
+        $wallMessage->course_id = $courseID;
         $wallMessage->user_id = Auth::user()->id;
         $wallMessage->message = Input::get('message');
         $wallMessage->save();
@@ -44,9 +44,9 @@ class WallMessagesController extends \BaseController {
         return Redirect::back();
     }
 
-    public function storeReply($course_id, $wall_message_id)
+    public function storeReply($courseID, $wall_message_id)
     {
-        $wallMessage = WallMessage::where('course_id', $course_id)->findOrFail($wall_message_id);
+        $wallMessage = WallMessage::where('course_id', $courseID)->findOrFail($wall_message_id);
 
         if (Input::get('message') == '')
         {
@@ -56,7 +56,7 @@ class WallMessagesController extends \BaseController {
         }
 
         $wallMessageReply = new WallMessage;
-        $wallMessageReply->course_id = $course_id;
+        $wallMessageReply->course_id = $courseID;
         $wallMessageReply->user_id = Auth::user()->id;
         $wallMessageReply->wall_message_id = $wallMessage->id;
         $wallMessageReply->message = Input::get('message');
@@ -67,7 +67,7 @@ class WallMessagesController extends \BaseController {
         return Redirect::back();
     }
 
-    public function update($course_id)
+    public function update($courseID)
     {
 
         $wall_message_id = Input::get('wall_message_id');
@@ -79,8 +79,9 @@ class WallMessagesController extends \BaseController {
             return Redirect::back();
         }
 
-        $wallMessage = WallMessage::where('course_id', $course_id)
+        $wallMessage = WallMessage::where('course_id', $courseID)
             ->where('user_id', Auth::user()->id)
+            ->whereNull('achievement_id')
             ->findOrFail($wall_message_id);
 
         $wallMessage->message = Input::get('message');
@@ -92,11 +93,11 @@ class WallMessagesController extends \BaseController {
         return Redirect::back();
     }
 
-    public function destroy($course_id)
+    public function destroy($courseID)
     {
         $wall_message_id = Input::get('wall_message_id');
 
-        $wallMessage = WallMessage::where('course_id', $course_id)
+        $wallMessage = WallMessage::where('course_id', $courseID)
             ->where('user_id', Auth::user()->id)
             ->findOrFail($wall_message_id);
 
@@ -107,4 +108,29 @@ class WallMessagesController extends \BaseController {
         return Redirect::back();
     }
 
+    public function shareAchievement($courseID, $achievementID)
+    {
+        $course = Course::find($courseID);
+
+        $achievement = Achievement::findOrFail($achievementID);
+
+        if (AchievementHelper::dontHaveTheAchievement(Auth::user(), $course, $achievementID))
+        {
+            Flash::error('No tienes el logro:' + $achievement->name);
+
+            return Redirect::back();
+        }
+
+
+        $wallMessage = new WallMessage;
+        $wallMessage->course_id = $courseID;
+        $wallMessage->user_id = Auth::user()->id;
+        $wallMessage->achievement_id = $achievement->id;
+        $wallMessage->message = "He obtenido el logro: <b>$achievement->name</b>.";
+        $wallMessage->save();
+
+        Flash::success('El logro se ha compartido exitosamente');
+
+        return Redirect::route('wall_path', $course->id);
+    }
 }

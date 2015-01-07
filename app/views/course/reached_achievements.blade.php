@@ -19,6 +19,9 @@
                     <td>
                         Fecha
                     </td>
+                    <td>
+                        Opciones
+                    </td>
                 </tr>
                 </thead>
                 @foreach($reachedAchievements as $reachedAchievement)
@@ -31,10 +34,14 @@
                         </td>
                         <td>
                             {{ $reachedAchievement->achievement->description }}
+
                         </td>
                         <td>
                             {{ ucfirst($reachedAchievement->created_at->diffForHumans()) }}
                             : {{ $reachedAchievement->created_at  }}
+                        </td>
+                        <td>
+                                <a class='btn btn-primary' href="{{ route('share_achievement_path', [$course->id,$reachedAchievement->achievement->id]) }}">Compartir en TICademia</a>
                         </td>
                     </tr>
                 @endforeach

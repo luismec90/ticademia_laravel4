@@ -4,8 +4,12 @@ class PagesController extends BaseController {
 
     public function test()
     {
+
         $user = User::first();
+
         $course = Course::first();
+
+        $modules = $course->modules;
 
         $quizAttempts = QuizAttempt::whereHas('quiz', function ($q) use ($course)
         {
@@ -17,12 +21,7 @@ class PagesController extends BaseController {
             ->orderBy('created_at', 'DESC')
             ->get();
 
-        $quizAttemptApproved = $quizAttempts->take(10)->filter(function ($quizAttempt) use ($course)
-        {
-            return $quizAttempt->grade >= $course->threshold;
-        });
-        //return $quizAttempts->take(10);
-        return $quizAttemptApproved->count();
+        return $quizAttempts->take(3);
 
         //  $xml = simplexml_load_file('http://gdata.youtube.com/feeds/api/videos/kAOm3APJopM');
         //  return strval($xml->xpath('//yt:duration[@seconds]')[0]->attributes()->seconds);

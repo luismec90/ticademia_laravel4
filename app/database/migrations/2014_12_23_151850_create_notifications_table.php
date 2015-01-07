@@ -21,6 +21,7 @@ class CreateNotificationsTable extends Migration {
             $table->string('image');
             $table->string('title');
             $table->string('body', 256);
+            $table->string('extra_info');
             $table->boolean('viewed')->default(0);
             $table->boolean('show_modal')->default(0);
             $table->timestamps();

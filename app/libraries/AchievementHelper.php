@@ -40,10 +40,20 @@ class AchievementHelper {
         $achievementID = 13;
         if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
         {
+            $dontRepeatQuiz = [];
 
-            $quizAttemptApproved = $quizAttempts->take(10)->filter(function ($quizAttempt) use ($course)
+            $quizAttemptApproved = $quizAttempts->take(10)->filter(function ($quizAttempt) use ($course, &$dontRepeatQuiz)
             {
-                return $quizAttempt->grade >= $course->threshold;
+                if (in_array($quizAttempt->quiz_id, $dontRepeatQuiz))
+                {
+                    return false;
+
+                } else
+                {
+                    array_push($dontRepeatQuiz, $quizAttempt->quiz_id);
+
+                    return $quizAttempt->grade >= $course->threshold;
+                }
             });
 
             if ($quizAttemptApproved->count() >= 10)
@@ -58,9 +68,20 @@ class AchievementHelper {
         if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
         {
 
-            $quizAttemptApproved = $quizAttempts->take(5)->filter(function ($quizAttempt) use ($course)
+            $dontRepeatQuiz = [];
+
+            $quizAttemptApproved = $quizAttempts->take(5)->filter(function ($quizAttempt) use ($course, &$dontRepeatQuiz)
             {
-                return $quizAttempt->grade >= $course->threshold;
+                if (in_array($quizAttempt->quiz_id, $dontRepeatQuiz))
+                {
+                    return false;
+
+                } else
+                {
+                    array_push($dontRepeatQuiz, $quizAttempt->quiz_id);
+
+                    return $quizAttempt->grade >= $course->threshold;
+                }
             });
 
             if ($quizAttemptApproved->count() >= 5)
@@ -76,9 +97,20 @@ class AchievementHelper {
         if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
         {
 
-            $quizAttemptApproved = $quizAttempts->take(3)->filter(function ($quizAttempt) use ($course)
+            $dontRepeatQuiz = [];
+
+            $quizAttemptApproved = $quizAttempts->take(3)->filter(function ($quizAttempt) use ($course, &$dontRepeatQuiz)
             {
-                return $quizAttempt->grade >= $course->threshold;
+                if (in_array($quizAttempt->quiz_id, $dontRepeatQuiz))
+                {
+                    return false;
+
+                } else
+                {
+                    array_push($dontRepeatQuiz, $quizAttempt->quiz_id);
+
+                    return $quizAttempt->grade >= $course->threshold;
+                }
             });
 
             if ($quizAttemptApproved->count() >= 3)
@@ -165,6 +197,16 @@ class AchievementHelper {
         }
     }
 
+    public static function achievement_mejorTiempo($user, $course)
+    {
+        $achievementID = 14;
+
+        if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+        {
+            AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+        }
+    }
+
     public static function dontHaveTheAchievement($user, $course, $achievementID)
     {
         $reachedAchievement = ReachedAchievement::where('user_id', $user->id)
@@ -196,6 +238,7 @@ class AchievementHelper {
         $notification->image = $achievement->imagePath();
         $notification->url = route('achievement_path', $courseID);
         $notification->body = "Felicitaciones! Has ganado el logro: <b>{$achievement->name}</b>.";
+        $notification->extra_info = "<a class='btn btn-primary' href='" . route('share_achievement_path', [$courseID, $achievement->id]) . "'>Compartir en TICademia</a>";
         $notification->show_modal = 1;
         $notification->save();
     }
