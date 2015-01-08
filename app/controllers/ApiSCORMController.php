@@ -5,16 +5,27 @@ class ApiSCORMController extends \BaseController {
 
     public function LMSInitialize()
     {
+
         $quizId = Input::get('quiz_id');
-        $quiz = Quiz::find($quizId);
+        $quiz = Quiz::with('module', 'module.course')->find($quizId);
 
         if (is_null($quiz))
             return 'error';
+
 
         $microDate = microtime();
         $ms = explode(' ', $microDate);
         $ms = round($ms[0] * 1000);
         $starDate = date('Y-m-d H:i:s') . '.' . $ms;
+
+        $sessionName = Auth::user()->id . '-' . $quiz->id;
+
+        if (!Auth::user()->isStudent($quiz->module->course->id))
+        {
+            Session::put($sessionName, $starDate);
+
+            return 'ok';
+        }
 
         $quizAttempt = new QuizAttempt;
         $quizAttempt->quiz_id = $quiz->id;
@@ -22,7 +33,7 @@ class ApiSCORMController extends \BaseController {
         $quizAttempt->start_date = $starDate;
         $quizAttempt->save();
 
-        $sessionName = Auth::user()->id . '-' . $quiz->id;
+
         Session::put($sessionName, $quizAttempt->id);
 
         return 'ok';
@@ -54,10 +65,30 @@ class ApiSCORMController extends \BaseController {
         $quizId = Input::get('quiz_id');
         $grade = Input::get('grade');
 
-        $quiz = Quiz::find($quizId);
+        $quiz = Quiz::with('module', 'module.course')->find($quizId);
 
         if (is_null($quiz) || $grade == '')
             return 'error';
+
+        if (!Auth::user()->isStudent($quiz->module->course->id))
+        {
+            $sessionName = Auth::user()->id . '-' . $quiz->id;
+            $startDate = Session::get($sessionName);
+            Session::forget($sessionName);
+
+            if ($grade >= $quiz->module->course->threshold)
+            {
+                $diff = DB::select(DB::raw("SELECT ROUND(TIMESTAMPDIFF(MICROSECOND,'$startDate','$endDate')/1000000,3) AS value"));
+                $diff = $diff[0]->value;
+                $feedbackForUser = $A[rand(0, 4)] . $B[rand(0, 3)];
+                $feedbackForUser .= '<br><br> Tu tiempo fue de <b>' . $diff . ' segundos</b>';
+            } else
+            {
+                $feedbackForUser = $C[rand(0, 3)] . $D[rand(0, 1)];
+            }
+
+            return $feedbackForUser;
+        }
 
         $sessionName = Auth::user()->id . '-' . $quiz->id;
         $quizAttemptId = Session::get($sessionName);
@@ -72,7 +103,7 @@ class ApiSCORMController extends \BaseController {
         $quizAttempt->end_date = $endDate;
         $quizAttempt->save();
 
-        if ($grade == 1)
+        if ($grade >= $quiz->course->threshold)
         {
             $feedbackForUser = $A[rand(0, 4)] . $B[rand(0, 3)];
             $feedback = "Correcto";

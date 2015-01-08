@@ -16,3 +16,11 @@
 #div-forum i.fa:hover {
 color: #03658c;
 }
+
+span.monitor {
+    color: #e74c3c;
+    font-size: 14px;
+    font-weight: 700;
+    top:0px;
+    margin-right: 4px;
+}

@@ -74,6 +74,7 @@ class UsersTableSeeder extends Seeder {
         }
 
         User::create([
+            'id'         => 85,
             'first_name' => 'Oscar Alejandro',
             'last_name'  => 'Montoya Gómez',
             'birth_date' => '1992-01-19',
@@ -81,6 +82,19 @@ class UsersTableSeeder extends Seeder {
             'email'      => 'alex@gmail.com',
             'avatar'     => 'default.png',
             'password'   => Hash::make('1234'),
+            'confirmed'  => 1
+        ]);
+
+
+        User::create([
+            'id'         => 86,
+            'first_name' => 'Juan',
+            'last_name'  => 'Váldez',
+            'birth_date' => '1990-02-22',
+            'gender'     => 'm',
+            'email'      => 'monitor1@gmail.com',
+            'avatar'     => 'default.png',
+            'password'   => Hash::make('123'),
             'confirmed'  => 1
         ]);
     }

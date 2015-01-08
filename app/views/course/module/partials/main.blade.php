@@ -117,7 +117,7 @@
                             <td>{{ is_null($quiz->approvedQuiz) ? "" : $quiz->approvedQuiz->score  }}</td>
                             <td>{{ is_null($quiz->approvedQuiz) || $quiz->approvedQuiz->best_time==null ? "" : $quiz->approvedQuiz->best_time.' segundos'  }} </td>
                             <td>
-                                <a class="btn btn-primary btn-sm quiz-launcher {{ $prevQuizIsAproved ? "" : "disabled" }}"
+                                <a class="btn btn-primary btn-sm quiz-launcher {{ $prevQuizIsAproved || Auth::user()->isMonitor($course->id) ? "" : "disabled" }}"
                                    data-evaluacion-id="{{ $quiz->id }}"
                                    data-url="{{ $quiz->path($course) }}"
                                    data-order="{{ $quiz->order }}">Ver</a>

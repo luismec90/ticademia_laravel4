@@ -98,7 +98,7 @@ Route::filter('isEnrolled', function ($route)
 
     $course = Course::findOrFail($course_id);
 
-    if (!Auth::user()->isStudent($course->id))
+    if (!Auth::user()->isStudent($course->id) && !Auth::user()->isMonitor($course->id))
     {
         if (Request::ajax())
         {

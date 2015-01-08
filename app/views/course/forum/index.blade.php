@@ -46,14 +46,14 @@
                         </div>
                         <div class="information row">
                             <div class="col-xs-12">
-                            Publicado <b>{{ $topic->created_at->diffForHumans() }}</b>: {{ $topic->created_at }}, por <b>{{ $topic->user->LinkFullName() }}</b>
+                            Publicado <b>{{ $topic->created_at->diffForHumans() }}</b>: {{ $topic->created_at }}, por <b>{{ $topic->user->linkFullName() }} <span class="monitor">{{ $topic->user->isMonitor($course->id) ? '(Monitor)' : '' }}</span></b>
                             </div>
                         </div>
                     </td>
                     <td>{{ $topic->replies->count() }}</td>
                     <td class="information">
                     @if($topic->replies->count())
-                        La última respuesta fue <b>{{ $topic->replies[0]->created_at->diffForHumans() }}</b>: {{ $topic->replies[0]->created_at }}, por <b>{{ $topic->replies[0]->user->LinkFullName() }}</b></td>
+                        La última respuesta fue <b>{{ $topic->replies[0]->created_at->diffForHumans() }}</b>: {{ $topic->replies[0]->created_at }}, por <b>{{ $topic->replies[0]->user->linkFullName() }} <span class="monitor">{{ $topic->user->isMonitor($course->id) ? '(Monitor)' : '' }}</span></b></td>
                     @else
                     N/A
                     @endif

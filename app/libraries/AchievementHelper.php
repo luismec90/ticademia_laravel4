@@ -219,13 +219,16 @@ class AchievementHelper {
 
     public static function giveAchievement($user, $course, $achievementID)
     {
-        $reachedAchievement = new ReachedAchievement;
-        $reachedAchievement->user_id = $user->id;
-        $reachedAchievement->course_id = $course->id;
-        $reachedAchievement->achievement_id = $achievementID;
-        $reachedAchievement->save();
+        if ($user->isStudent($course->id))
+        {
+            $reachedAchievement = new ReachedAchievement;
+            $reachedAchievement->user_id = $user->id;
+            $reachedAchievement->course_id = $course->id;
+            $reachedAchievement->achievement_id = $achievementID;
+            $reachedAchievement->save();
 
-        AchievementHelper::setNotification($achievementID, $course->id, $reachedAchievement->id);
+            AchievementHelper::setNotification($achievementID, $course->id, $reachedAchievement->id);
+        }
     }
 
     public static function setNotification($achievementID, $courseID, $reachedAchievementID)

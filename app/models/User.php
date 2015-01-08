@@ -9,7 +9,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     use UserTrait, RemindableTrait;
 
-    private $is_student = null;
+    private $isStudent = null;
+    private $isMonitor = null;
 
     protected $hidden = array('password', 'remember_token');
 
@@ -66,24 +67,47 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     public function isStudent($course_id)
     {
-        if (is_null($this->is_student))
+        if (is_null($this->isStudent))
         {
             $course = $this->courses()->where('course_id', $course_id)->where('role', 1)->get();
             if ($course->count())
             {
-                $this->is_student = true;
+                $this->isStudent = true;
 
                 return true;
             }
-            $this->is_student = false;
+            $this->isStudent = false;
 
             return false;
         } else
         {
-            return $this->is_student;
+            return $this->isStudent;
         }
 
     }
+
+
+    public function isMonitor($course_id)
+    {
+        if (is_null($this->isMonitor))
+        {
+            $course = $this->courses()->where('course_id', $course_id)->where('role', 2)->get();
+            if ($course->count())
+            {
+                $this->isMonitor = true;
+
+                return true;
+            }
+            $this->isMonitor = false;
+
+            return false;
+        } else
+        {
+            return $this->isMonitor;
+        }
+
+    }
+
 
     public function courses()
     {
