@@ -193,4 +193,3 @@ function loadStarts() {
         }
     });
 }
-
