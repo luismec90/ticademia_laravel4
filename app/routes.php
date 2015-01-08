@@ -31,6 +31,9 @@ Route::get('cargar-notificaciones', ['before' => 'auth', 'as' => 'load_notificat
 Route::get('vincular_con_facebook', ['before' => 'auth', 'as' => 'link_facebook_path', 'uses' => 'SocialNetworksController@linkWithFacebook']);
 Route::get('vincular_con_google', ['before' => 'auth', 'as' => 'link_google_path', 'uses' => 'SocialNetworksController@linkWithGoogle']);
 
+/* Compratir en Facebook*/
+Route::get('compartir/logro/{reached_achievement_id}', ['as' => 'terms_path', 'uses' => 'PagesController@sharer']);
+
 /* Desvincular cuenta con Facebook o Google + */
 Route::get('desvincular_con_facebook', ['before' => 'auth', 'as' => 'unlink_facebook_path', 'uses' => 'SocialNetworksController@unlinkWithFacebook']);
 Route::get('desvincular_con_google', ['before' => 'auth', 'as' => 'unlink_google_path', 'uses' => 'SocialNetworksController@unlinkWithGoogle']);
