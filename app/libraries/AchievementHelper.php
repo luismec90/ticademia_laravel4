@@ -225,10 +225,10 @@ class AchievementHelper {
         $reachedAchievement->achievement_id = $achievementID;
         $reachedAchievement->save();
 
-        AchievementHelper::setNotification($achievementID, $course->id);
+        AchievementHelper::setNotification($achievementID, $course->id, $reachedAchievement->id);
     }
 
-    public static function setNotification($achievementID, $courseID)
+    public static function setNotification($achievementID, $courseID, $reachedAchievementID)
     {
         $achievement = Achievement::findOrFail($achievementID);
 
@@ -238,7 +238,8 @@ class AchievementHelper {
         $notification->image = $achievement->imagePath();
         $notification->url = route('achievement_path', $courseID);
         $notification->body = "Felicitaciones! Has ganado el logro: <b>{$achievement->name}</b>.";
-        $notification->extra_info = "<a class='btn btn-primary' href='" . route('share_achievement_path', [$courseID, $achievement->id]) . "'>Compartir en TICademia</a>";
+        $notification->extra_info = "<a class='btn btn-primary' href='" . route('share_achievement_path', [$courseID, $achievement->id]) . "'>Compartir en TICademia</a>
+        <a class='btn btn-info' href='https://www.facebook.com/sharer/sharer.php?u=" . route('share_path', [$courseID, $reachedAchievementID]) . "'>Compartir en Facebook</a>";
         $notification->show_modal = 1;
         $notification->save();
     }

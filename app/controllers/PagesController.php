@@ -52,7 +52,7 @@ class PagesController extends BaseController {
         return View::make('pages.terms');
     }
 
-    public function sharer($reachedAchievementID)
+    public function share($reachedAchievementID)
     {
         $reachedAchievement = ReachedAchievement::findOrFail($reachedAchievementID);
 
