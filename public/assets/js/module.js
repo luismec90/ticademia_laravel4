@@ -155,7 +155,6 @@ function reloadModule() {
     });
 }
 
-
 function loadStarts() {
     $('.estrellas').raty({
         path: raty_path + '/images',
