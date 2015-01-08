@@ -15,9 +15,9 @@ class CreateQuizAttemptTable extends Migration {
         Schema::create('quiz_attempts', function (Blueprint $table)
         {
             $table->increments('id');
-            $table->integer('quiz_id')->unsigned();
+            $table->integer('quiz_id')->unsigned()->index();
             $table->foreign('quiz_id')->references('id')->on('quizzes')->onDelete('cascade');
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->float('grade');
             $table->dateTime('start_date');

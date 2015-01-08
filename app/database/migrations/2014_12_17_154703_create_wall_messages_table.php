@@ -15,13 +15,13 @@ class CreateWallMessagesTable extends Migration {
         Schema::create('wall_messages', function (Blueprint $table)
         {
             $table->increments('id');
-            $table->integer('course_id')->unsigned();
+            $table->integer('course_id')->unsigned()->index();
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('wall_message_id')->unsigned()->nullable();
+            $table->integer('wall_message_id')->unsigned()->index()->nullable();
             $table->foreign('wall_message_id')->references('id')->on('wall_messages')->onDelete('cascade');
-            $table->integer('achievement_id')->unsigned()->nullable();
+            $table->integer('achievement_id')->unsigned()->index()->nullable();
             $table->foreign('achievement_id')->references('id')->on('achievements')->onDelete('cascade');
             $table->string('message', 512);
 

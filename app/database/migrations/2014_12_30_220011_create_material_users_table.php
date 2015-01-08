@@ -15,9 +15,9 @@ class CreateMaterialUsersTable extends Migration {
 		Schema::create('material_users', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('material_id')->unsigned();
+			$table->integer('material_id')->unsigned()->index();
 			$table->foreign('material_id')->references('id')->on('materials')->onDelete('cascade');
-			$table->integer('user_id')->unsigned();
+			$table->integer('user_id')->unsigned()->index();
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 			$table->integer('playback_time');
 			$table->timestamps();

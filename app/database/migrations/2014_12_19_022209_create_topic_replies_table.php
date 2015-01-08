@@ -15,9 +15,9 @@ class CreateTopicRepliesTable extends Migration {
         Schema::create('topic_replies', function (Blueprint $table)
         {
             $table->increments('id');
-            $table->integer('topic_id')->unsigned();
+            $table->integer('topic_id')->unsigned()->index();
             $table->foreign('topic_id')->references('id')->on('topics')->onDelete('cascade');
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('reply', 1024);
             $table->timestamps();

@@ -15,9 +15,9 @@ class CreateApprovedQuizzesTable extends Migration {
         Schema::create('approved_quizzes', function (Blueprint $table)
         {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('quiz_id')->unsigned();
+            $table->integer('quiz_id')->unsigned()->index();
             $table->foreign('quiz_id')->references('id')->on('quizzes')->onDelete('cascade');
             $table->integer('score');
             $table->decimal('best_time', 8, 3)->nullable();
