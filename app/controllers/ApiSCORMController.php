@@ -103,7 +103,7 @@ class ApiSCORMController extends \BaseController {
         $quizAttempt->end_date = $endDate;
         $quizAttempt->save();
 
-        if ($grade >= $quiz->course->threshold)
+        if ($grade >= $quiz->module->course->threshold)
         {
             $feedbackForUser = $A[rand(0, 4)] . $B[rand(0, 3)];
             $feedback = "Correcto";
@@ -147,6 +147,16 @@ class ApiSCORMController extends \BaseController {
     {
         if ($quiz->best_time == '' || $quiz->best_time > $diff)
         {
+            if ($quiz->user_id != null && !$quiz->user->isMe())
+            {
+                Mail::send('emails.notify', ['oldUser' => $quiz->user, 'quiz' => $quiz, 'newUser' => Auth::user(), 'oldBestTime' => $quiz->best_time, 'newBestTime' => $diff], function ($message) use ($quiz)
+                {
+                    $message->to($quiz->user->email, $quiz->user->fullName())
+                        ->bcc('luismec90@gmail.com', 'Luis Montoya')
+                        ->subject('TICademia');
+                });
+            }
+
             $quiz->user_id = Auth::user()->id;
             $quiz->best_time = $diff;
             $quiz->save();

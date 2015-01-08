@@ -60,10 +60,11 @@
 
                     <h3 id="panel-video-title"></h3>
                 </div>
-                <div class="panel-body">
-                    <video id="my_video_player" class="sublime" data-youtube-id="Dv7gLpW91DM" data-autoresize="fit"
-                           width="868" height="490"
+                <div id="panel-body-video" class="panel-body">
+                    <video id="my_video_player" class="sublime" data-youtube-id="Dv7gLpW91DM" data-settings="uid:demo-responsive-fit-resizing; autoresize:fit;"
+
                            preload="none"></video>
+
                 </div>
             </div>
         </div>

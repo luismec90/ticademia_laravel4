@@ -35,6 +35,18 @@ $(function () {
         $('#panel-video-title').html(name);
         sublime.unprepare('my_video_player');
         $("#my_video_player").attr("data-youtube-id", url);
+
+        var windowWidth = $(window).width();
+
+        if (windowWidth > 991) {
+            var panelWidth = 868;
+        } else {
+            var panelWidth = windowWidth - 62;
+        }
+
+        $("#my_video_player").attr("width", panelWidth);
+        $("#my_video_player").attr("height", panelWidth * 9 / 16);
+
         sublime.prepare('my_video_player');
         sublime('my_video_player').play();
         $('#video-container').removeClass('hide');
