@@ -145,7 +145,8 @@ function getReviews(page) {
 
 function reloadModule() {
     $.ajax({
-        dataType: 'json'
+        dataType: 'json',
+        method: 'post'
     }).done(function (data) {
         $("#body-module").html(data);
         loadStarts();

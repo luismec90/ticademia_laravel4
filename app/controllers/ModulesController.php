@@ -24,7 +24,7 @@ class ModulesController extends \BaseController {
             'quizzes.approvedQuiz'])->findOrFail($moduleID);
 
 
-       // return $module;
+        // return $module;
 
         $ranking = User::join('module_user', 'module_user.user_id', '=', 'users.id')
             ->join('modules', 'module_user.module_id', '=', 'modules.id')
@@ -39,9 +39,14 @@ class ModulesController extends \BaseController {
             return Response::json(View::make('course.module.partials.main', compact('course', 'module', 'ranking'))->render());
         }
 
-        $currentModuleID=$moduleID;
+        $currentModuleID = $moduleID;
 
-        return View::make('course.module.show', compact('course', 'module', 'ranking','currentModuleID'));
+        return View::make('course.module.show', compact('course', 'module', 'ranking', 'currentModuleID'));
+    }
+
+    public function ajaxShow($courseID, $moduleID)
+    {
+        return $this->show($courseID, $moduleID);
     }
 
 
