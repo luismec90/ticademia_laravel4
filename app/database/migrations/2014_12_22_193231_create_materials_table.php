@@ -15,7 +15,7 @@ class CreateMaterialsTable extends Migration {
         Schema::create('materials', function (Blueprint $table)
         {
             $table->increments('id');
-            $table->integer('module_id')->unsigned()->index();
+            $table->integer('module_id')->unsigned();
             $table->foreign('module_id')->references('id')->on('modules')->onDelete('cascade');
             $table->string('name');
             $table->string('description'); // ?

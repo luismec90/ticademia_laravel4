@@ -15,9 +15,9 @@ class CreateTopicsTable extends Migration {
         Schema::create('topics', function (Blueprint $table)
         {
             $table->increments('id');
-            $table->integer('course_id')->unsigned()->index();
+            $table->integer('course_id')->unsigned();
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
-            $table->integer('user_id')->unsigned()->index();
+            $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('name');
             $table->string('description', 1024);
