@@ -242,5 +242,4 @@ class AchievementHelper {
         $notification->show_modal = 1;
         $notification->save();
     }
-
 }
