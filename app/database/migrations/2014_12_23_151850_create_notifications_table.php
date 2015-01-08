@@ -20,8 +20,8 @@ class CreateNotificationsTable extends Migration {
             $table->string('url');
             $table->string('image');
             $table->string('title');
-            $table->string('body', 256);
-            $table->string('extra_info');
+            $table->string('body');
+            $table->string('extra_info', 512);
             $table->boolean('viewed')->default(0);
             $table->boolean('show_modal')->default(0);
             $table->timestamps();
