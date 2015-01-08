@@ -42,6 +42,7 @@
                         </td>
                         <td>
                                 <a class='btn btn-primary' href="{{ route('share_achievement_path', [$course->id,$reachedAchievement->achievement->id]) }}">Compartir en TICademia</a>
+                            <a class='btn btn-info btn-sm' onClick="MyWindow=window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('share_path', [$course->id, $reachedAchievement->id]) }}','MyWindow',width=600,height=300); return false;" href='#'> Compartir en Facebook </a>
                         </td>
                     </tr>
                 @endforeach
