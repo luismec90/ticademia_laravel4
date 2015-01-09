@@ -21,7 +21,7 @@ class CreateNotificationsTable extends Migration {
             $table->string('image');
             $table->string('title');
             $table->string('body');
-            $table->string('extra_info', 512);
+            $table->integer('reached_achievement_id')->unsigned()->index()->nullable();
             $table->boolean('viewed')->default(0);
             $table->boolean('show_modal')->default(0);
             $table->timestamps();

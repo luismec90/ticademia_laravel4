@@ -6,10 +6,9 @@ class PagesController extends BaseController {
     {
         $user = User::first();
 
-        $quiz = Quiz::first();
-        $oldBestTime='5.214';
-        return View::make('emails.notify', compact('user', 'quiz','oldBestTime'));
+        $notification = Notification::find(3);
 
+        return $notification->reachedAchievement;
 
         //  $xml = simplexml_load_file('http://gdata.youtube.com/feeds/api/videos/kAOm3APJopM');
         //  return strval($xml->xpath('//yt:duration[@seconds]')[0]->attributes()->seconds);
