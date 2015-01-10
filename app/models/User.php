@@ -9,8 +9,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     use UserTrait, RemindableTrait;
 
-    private $isStudent = null;
-    private $isMonitor = null;
 
     protected $hidden = array('password', 'remember_token');
 
@@ -64,50 +62,38 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return asset('users/avatars/' . $this->avatar);
     }
 
-
-    public function isStudent($course_id)
+    public function isStudent($courseID)
     {
-        if (is_null($this->isStudent))
-        {
-            $course = $this->courses()->where('course_id', $course_id)->where('role', 1)->get();
-            if ($course->count())
-            {
-                $this->isStudent = true;
+        if (is_null($this->role))
+            $this->setRol($courseID);
 
-                return true;
-            }
-            $this->isStudent = false;
+        return $this->role == 1;
+    }
 
-            return false;
-        } else
-        {
-            return $this->isStudent;
-        }
+    public function isMonitor($courseID)
+    {
+        if (is_null($this->role))
+            $this->setRol($courseID);
+
+        return $this->role == 2;
 
     }
 
-
-    public function isMonitor($course_id)
+    public function isTeacher($courseID)
     {
-        if (is_null($this->isMonitor))
-        {
-            $course = $this->courses()->where('course_id', $course_id)->where('role', 2)->get();
-            if ($course->count())
-            {
-                $this->isMonitor = true;
+        if (is_null($this->role))
+            $this->setRol($courseID);
 
-                return true;
-            }
-            $this->isMonitor = false;
-
-            return false;
-        } else
-        {
-            return $this->isMonitor;
-        }
+        return $this->role == 3;
 
     }
 
+    public function setRol($courseID)
+    {
+        $course = $this->courses()->find($courseID);
+
+        $this->role = $course->role;
+    }
 
     public function courses()
     {

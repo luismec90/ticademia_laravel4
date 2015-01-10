@@ -37,6 +37,12 @@ class Quiz extends \Eloquent {
         return $this->belongsTo('Module');
     }
 
+    public function topic()
+    {
+        return $this->belongsTo('Topic');
+    }
+
+
     public function prevQuizIsApproved()
     {
         $prevQuiz = Quiz::where('module_id', $this->module_id)

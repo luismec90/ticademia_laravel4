@@ -94,11 +94,26 @@ Route::filter('csrf', function ()
 
 Route::filter('isEnrolled', function ($route)
 {
-    $course_id = $route->getParameter('course_id');
+    $courseID = $route->getParameter('course_id');
 
-    $course = Course::findOrFail($course_id);
+    $course = Course::findOrFail($courseID);
 
-    if (!Auth::user()->isStudent($course->id) && !Auth::user()->isMonitor($course->id))
+    if (!Auth::user()->isStudent($course->id) && !Auth::user()->isMonitor($course->id) && !Auth::user()->isTeacher($course->id))
+    {
+        if (Request::ajax())
+        {
+            return Response::make('Unauthorized', 401);
+        } else
+        {
+            return Redirect::home();
+        }
+    }
+});
+Route::filter('isTeacher', function ($route)
+{
+    $courseID = $route->getParameter('course_id');
+
+    if (!Auth::user()->isTeacher($courseID))
     {
         if (Request::ajax())
         {

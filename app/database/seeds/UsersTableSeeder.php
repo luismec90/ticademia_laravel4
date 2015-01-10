@@ -97,6 +97,18 @@ class UsersTableSeeder extends Seeder {
             'password'   => Hash::make('123'),
             'confirmed'  => 1
         ]);
+
+        User::create([
+            'id'         => 87,
+            'first_name' => 'Julian',
+            'last_name'  => 'Moreno',
+            'birth_date' => '1990-02-22',
+            'gender'     => 'm',
+            'email'      => 'profesor1@gmail.com',
+            'avatar'     => 'default.png',
+            'password'   => Hash::make('123'),
+            'confirmed'  => 1
+        ]);
     }
 
 }

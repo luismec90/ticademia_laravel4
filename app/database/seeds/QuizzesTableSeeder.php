@@ -15,6 +15,7 @@ class QuizzesTableSeeder extends Seeder {
                 'id'           => $i,
                 'module_id'    => 1,
                 'quiz_type_id' => 3,
+                'topic_id'     => $i,
                 'order'        => $i
             ]);
         }

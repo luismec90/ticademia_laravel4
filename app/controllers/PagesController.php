@@ -6,9 +6,7 @@ class PagesController extends BaseController {
     {
         $user = User::first();
 
-        $notification = Notification::find(3);
-
-        return $notification->reachedAchievement;
+        return $user->courses()->find(1);
 
         //  $xml = simplexml_load_file('http://gdata.youtube.com/feeds/api/videos/kAOm3APJopM');
         //  return strval($xml->xpath('//yt:duration[@seconds]')[0]->attributes()->seconds);

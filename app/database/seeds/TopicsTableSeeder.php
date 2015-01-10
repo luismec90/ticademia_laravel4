@@ -9,13 +9,13 @@ class TopicsTableSeeder extends Seeder {
     {
         $faker = Faker::create();
 
-        foreach (range(1, 50) as $index)
+        foreach (range(1, 40) as $index)
         {
             Topic::create([
                 'id'          => $index,
                 'course_id'   => 1,
                 'user_id'     => rand(2, 12),
-                'name'        => $faker->text(),
+                'name'        => "Módulo: Geometría elemental, conjuntos y sistemas numéricos. Evaluación $index",
                 'description' => $faker->text()
             ]);
         }

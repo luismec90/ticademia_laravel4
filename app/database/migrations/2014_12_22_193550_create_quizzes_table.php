@@ -19,6 +19,8 @@ class CreateQuizzesTable extends Migration {
             $table->foreign('module_id')->references('id')->on('modules')->onDelete('cascade');
             $table->integer('quiz_type_id')->unsigned()->index();
             $table->foreign('quiz_type_id')->references('id')->on('quiz_types')->onDelete('cascade');
+            $table->integer('topic_id')->unsigned()->index()->nullable();
+            $table->foreign('topic_id')->references('id')->on('topics')->onDelete('cascade');
             $table->integer('user_id')->unsigned()->index()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->decimal('best_time',8,3)->nullable();

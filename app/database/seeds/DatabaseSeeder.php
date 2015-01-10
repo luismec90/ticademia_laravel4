@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder {
         $this->enrollingStudents();
         $this->call('WallMessagesTableSeeder');
         $this->call('TopicsTableSeeder');
-        // $this->call('TopicRepliesTableSeeder');
+        $this->call('TopicRepliesTableSeeder');
         $this->call('SocialNetworksTableSeeder');
         $this->call('ModulesTableSeeder');
         $this->call('MaterialsTableSeeder');
@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder {
             DB::table('course_user')->insert(['user_id' => $index, 'course_id' => 1, 'level_id' => 1, 'role' => 1, 'group' => rand(1, 5)]);
         }
         DB::table('course_user')->insert(['user_id' => 86, 'course_id' => 1, 'level_id' => 1, 'role' => 2]);
+        DB::table('course_user')->insert(['user_id' => 87, 'course_id' => 1, 'level_id' => 1, 'role' => 3]);
     }
 
 }

@@ -112,6 +112,13 @@ Route::group(['prefix' => 'curso/{course_id}', 'before' => 'auth|isEnrolled'], f
         Route::post('/evaluacion/saltar', ['as' => 'skip_quiz_path', 'uses' => 'QuizzesController@skip']);
     });
 
+    /* Estadísticas */
+    Route::group(['prefix' => 'estadisticas','before' => 'isTeacher'], function ()
+    {
+        Route::get('/estudiantes', ['as' => 'estatistics_students_path', 'uses' => 'StatisticsController@students']);
+
+    });
+
     Route::group(['prefix' => 'SCORM'], function ()
     {
         Route::post('/LMSInitialize', ['uses' => 'ApiSCORMController@LMSInitialize']);

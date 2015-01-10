@@ -77,7 +77,6 @@
                         <td>
                             Eva.
                         </td>
-                        <td>Tipo</td>
                         <td>
                             Int.
                         </td>
@@ -99,7 +98,6 @@
 
                         <tr>
                             <td>{{ $quiz->order }}</td>
-                            <td>{{ $quiz->quizType->name  }}</td>
                             <td>
                                 @if( $quiz->userQuizAttempts->count())
                                     {{ $quiz->userQuizAttempts[0]->successful_attempts }}/{{ $quiz->userQuizAttempts[0]->total_attempts }}
@@ -117,10 +115,11 @@
                             <td>{{ is_null($quiz->approvedQuiz) ? "" : $quiz->approvedQuiz->score  }}</td>
                             <td>{{ is_null($quiz->approvedQuiz) || $quiz->approvedQuiz->best_time==null ? "" : $quiz->approvedQuiz->best_time.' segundos'  }} </td>
                             <td>
-                                <a class="btn btn-primary btn-sm quiz-launcher {{ $prevQuizIsAproved || Auth::user()->isMonitor($course->id) ? "" : "disabled" }}"
+                                <a class="btn btn-primary btn-sm quiz-launcher {{ $prevQuizIsAproved || Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id)? "" : "disabled" }}"
                                    data-evaluacion-id="{{ $quiz->id }}"
                                    data-url="{{ $quiz->path($course) }}"
                                    data-order="{{ $quiz->order }}">Ver</a>
+                                <a class="btn btn-primary btn-sm" href="{{ route('topic_path',[$course->id,$quiz->topic_id]) }}">Tema</a>
                                 @if(is_null($quiz->approvedQuiz) && $prevQuizIsAproved && $quiz->userQuizAttempts->count() )
                                     <a class="btn btn-default btn-sm skip-quiz" data-evaluacion-id="{{ $quiz->id }}">Saltar</a>
                                 @endif
