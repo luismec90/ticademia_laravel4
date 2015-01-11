@@ -14,15 +14,13 @@
         google.setOnLoadCallback(drawChart);
 
         function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Fecha', 'Evaluaciones intentadas', 'Evaluaciones resueltas'],
-                ['2004', 1000, 400],
-                ['2005', 1170, 460],
-                ['2006', 660, 1120],
-                ['2007', 1030, 540]
-            ]);
+
+            var data = google.visualization.arrayToDataTable(
+                    {{ json_encode($data) }}
+            );
 
             var options = {
+                'height': 400,
                 legend: {position: 'bottom'}
             };
 
@@ -30,16 +28,24 @@
 
             chart.draw(data, options);
         }
+
+        $(document).ready(function () {
+            $(window).resize(function(){
+                drawChart();
+            });
+        });
     </script>
 @stop
 @stop
 @section('content')
     <h1 class="section-title"><span>Evaluaciones</span></h1>
+    <h3 class="text-center">Total de evaluaciones: {{ $totalQuizzes }}</h3>
+    <br>
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Distribución de niveles</h3>
+                    <h3 class="panel-title">Evaluaciones resueltas Vs Evaluaciones intentadas</h3>
                 </div>
                 <div class="panel-body">
 

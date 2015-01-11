@@ -109,11 +109,11 @@ Route::filter('isEnrolled', function ($route)
         }
     }
 });
-Route::filter('isTeacher', function ($route)
+Route::filter('isMonitorOrTeacher', function ($route)
 {
     $courseID = $route->getParameter('course_id');
 
-    if (!Auth::user()->isTeacher($courseID))
+    if (!Auth::user()->isMonitor($courseID) && !Auth::user()->isTeacher($courseID))
     {
         if (Request::ajax())
         {

@@ -12,8 +12,8 @@ class CoursesTableSeeder extends Seeder {
         Course::create([
             'id'                   => 1,
             'subject_id'           => 1,
-            'start_date'           => '2014-02-01',
-            'end_date'             => '2014-06-01',
+            'start_date'           => '2015-01-01',
+            'end_date'             => '2015-01-01',
             'levels'               => '8',
             'type_of_registration' => 1,
             'threshold'            => 0.6
@@ -22,8 +22,8 @@ class CoursesTableSeeder extends Seeder {
         Course::create([
             'id'                   => 2,
             'subject_id'           => 1,
-            'start_date'           => '2014-02-01',
-            'end_date'             => '2014-06-01',
+            'start_date'           => '2015-01-01',
+            'end_date'             => '2015-01-01',
             'levels'               => '8',
             'type_of_registration' => 1,
             'threshold'            => 0.6

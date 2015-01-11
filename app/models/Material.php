@@ -9,6 +9,11 @@ class Material extends \Eloquent {
         return $this->hasMany('Review');
     }
 
+    public function module()
+    {
+        return $this->belongsTo('Module');
+    }
+
     public function reviewsWithComments()
     {
         return $this->hasMany('Review')

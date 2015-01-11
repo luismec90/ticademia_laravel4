@@ -30,6 +30,20 @@ class StatisticsController extends \BaseController {
         return View::make('course.statistics.students', compact('course', 'data', 'totalStudents'));
     }
 
+    public function materials($courseID)
+    {
+        $course = Course::findOrFail($courseID);
+        $totalMaterials = Material::whereHas('module', function ($q) use ($course)
+        {
+            $q->where('course_id', $course->id);
+        })->count();
+
+
+        $data[0] = ['Nivel', 'Cantidad de estudiantes'];
+
+        return View::make('course.statistics.materials', compact('course', 'data', 'totalMaterials'));
+    }
+
     public function moduleReport($courseID)
     {
         $course = Course::with('modules')->findOrFail($courseID);
@@ -41,12 +55,21 @@ class StatisticsController extends \BaseController {
             $selectModules[$module->id] = $module->name;
         }
 
-        return View::make('course.statistics.module_report', compact('course', 'selectModules'));
+        $data = null;
+        if (Input::has('moduleID'))
+        {
+            $moduleID = Input::get('moduleID');
+            $module = Module::where('course_id', $courseID)->findOrFail($moduleID);
+            $totalQuizzes = $module->quizzes->count();
+            $data = $module->report($totalQuizzes,true);
+        }
+
+        return View::make('course.statistics.module_report', compact('course', 'selectModules', 'data','module'));
     }
 
     public function downloadModuleReport($courseID)
     {
-        $moduleID = Input::get('module');
+        $moduleID = Input::get('moduleID');
 
         if ($moduleID == '')
         {
@@ -82,10 +105,31 @@ class StatisticsController extends \BaseController {
                 $sheet->mergeCells('A1:F1');
 
                 $sheet->prependRow(2, array(
-                    "Fecha de corte: $module->end_date"
+                    "Fecha de corte para este módulo: $module->end_date"
                 ));
 
                 $sheet->mergeCells('A2:F2');
+
+                $sheet->prependRow(3, array(
+                    "Fecha de generación de este reporte: ".date('Y-m-d H:i:s')
+                ));
+
+                $sheet->prependRow(4,[
+                    "Total de estudiantes: ".sizeof($data)
+                ]);
+
+                $sheet->mergeCells('A4:F4');
+
+                $sheet->mergeCells('A3:F3');
+
+                $sheet->row(5, function($row) {
+
+                    $row->setBackground('#428bca');
+                    $row->setFontColor('#ffffff');
+                    $row->setFontSize(12);
+                    $row->setFontWeight('bold');
+
+                });
             });
 
         })->download('xlsx');
@@ -95,29 +139,56 @@ class StatisticsController extends \BaseController {
     {
         $course = Course::findOrFail($courseID);
 
-        $data[0] = ['Fecha', 'Evaluaciones intentadas', 'Evaluaciones resueltas'];
+        $totalQuizzes = Quiz::whereHas('module', function ($q) use ($course)
+        {
+            $q->where('course_id', $course->id);
+        })->count();
 
-        $quizzesAttempts = QuizAttempt::join('quizzes', 'quizzes.id', '=', 'quiz_attempt,quiz_id')
-            ->join('modules', 'modules.id', '=', 'quizzes,module_id')
-            ->select('quiz_attempt.* ')
-            ->get();
+        $predata[0] = ['Fecha', 'Evaluaciones resueltas', 'Evaluaciones intentadas'];
 
-        $i = 1;
+        $quizzesAttempts = QuizAttempt::whereHas('quiz', function ($q) use ($course)
+        {
+            $q->whereHas('module', function ($q) use ($course)
+            {
+                $q->where('course_id', $course->id);
+            });
+        })->get();
 
-        /*
-                foreach ($levels as $level)
-                {
-                    $data[$i] = [$level->name, DB::table('course_user')
-                        ->where('course_id', $courseID)
-                        ->where('level_id', $level->id)
-                        ->where('role', 1)
-                        ->count()];
 
-                    $i ++;
-                }
-        */
+        $date = $course->start_date;
+        $end_date = date('Y-m-d');
 
-        return View::make('course.statistics.quizzes', compact('course', 'data'));
+        $months = ['', '01' => 'Ene', '02' => 'Feb', '03' => 'Mar', '04' => 'Abr', '05' => 'May', '06' => 'Jun',
+                       '07' => 'Jul', '08' => 'Ago', '09' => 'Sep', '10' => 'Oct', '11' => 'Nov', '12' => 'Dic'];
+
+        while (strtotime($date) <= strtotime($end_date))
+        {
+            $auxDate = explode("-", $date);
+            $predata[$date] = [$months[$auxDate[1]] . ' ' . $auxDate[2], 0, 0];
+            $date = date("Y-m-d", strtotime("+1 day", strtotime($date)));
+        }
+
+        foreach ($quizzesAttempts as $quizzesAttempt)
+        {
+            $date = $quizzesAttempt->created_at->format('Y-m-d');
+
+            if ($quizzesAttempt->grade >= $course->threshold)
+            {
+                $predata[$date][1] ++;
+            }
+            $predata[$date][2] ++;
+
+        }
+        $data = [];
+        $i = 0;
+        foreach ($predata as $row)
+        {
+            $data[$i] = $row;
+            $i ++;
+
+        }
+
+        return View::make('course.statistics.quizzes', compact('course', 'data', 'totalQuizzes'));
     }
 
 }
