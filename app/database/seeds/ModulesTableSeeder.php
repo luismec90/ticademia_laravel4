@@ -15,7 +15,7 @@ class ModulesTableSeeder extends Seeder {
             'name'        => 'Geometría elemental, conjuntos y sistemas numéricos',
             'description' => $faker->text(),
             'start_date'  => '2014-08-11',
-            'end_date'    => '2014-08-11'
+            'end_date'    => '2015-08-11'
         ]);
 
         Module::create([

@@ -126,6 +126,7 @@ return array(
         'Artdarek\OAuth\OAuthServiceProvider',
         'Intervention\Image\ImageServiceProvider',
         'Barryvdh\Debugbar\ServiceProvider',
+        'Maatwebsite\Excel\ExcelServiceProvider',
 
     ),
 
@@ -197,6 +198,7 @@ return array(
         'OAuth'             => 'Artdarek\OAuth\Facade\OAuth',
         'Image'             => 'Intervention\Image\Facades\Image',
         'Debugbar'          => 'Barryvdh\Debugbar\Facade',
+        'Excel'             => 'Maatwebsite\Excel\Facades\Excel',
 
     ),
 

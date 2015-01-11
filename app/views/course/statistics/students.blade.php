@@ -20,7 +20,9 @@
     </script>
 @stop
 @section('content')
-    <h1 class="section-title"><span>Estadísticas: Estudiantes</span></h1>
+    <h1 class="section-title"><span>Estudiantes</span></h1>
+    <h3 class="text-center">Total de estudiantes matriculados: {{ $totalStudents }}</h3>
+    <br>
     <div class="row">
         <div class="col-sm-6">
             <div class="panel panel-primary">

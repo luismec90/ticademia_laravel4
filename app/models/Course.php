@@ -19,6 +19,11 @@ class Course extends \Eloquent {
         return $this->hasMany('WallMessage')->whereNull('wall_message_id')->orderBy('created_at', 'DESC')->paginate(20);
     }
 
+    public function users()
+    {
+        return $this->belongsToMany('User')->withTimestamps()->withPivot(['level_id', 'role', 'contact_information', 'group']);
+    }
+
     public function groupRanking()
     {
         $query = DB::select("SELECT T.group,Round((0.3*T.max_score+0.7*T.avg_score-sqrt(T.standard_deviation))) score

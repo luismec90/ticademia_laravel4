@@ -115,7 +115,10 @@ Route::group(['prefix' => 'curso/{course_id}', 'before' => 'auth|isEnrolled'], f
     /* Estadísticas */
     Route::group(['prefix' => 'estadisticas','before' => 'isTeacher'], function ()
     {
-        Route::get('/estudiantes', ['as' => 'estatistics_students_path', 'uses' => 'StatisticsController@students']);
+        Route::get('/estudiantes', ['as' => 'statistics_students_path', 'uses' => 'StatisticsController@students']);
+        Route::get('/reportes', ['as' => 'module_report_path', 'uses' => 'StatisticsController@moduleReport']);
+        Route::post('/reportes/descargar', ['as' => 'download_module_report_path', 'uses' => 'StatisticsController@downloadModuleReport']);
+        Route::get('/evaluaciones', ['as' => 'statistics_quizzes_path', 'uses' => 'StatisticsController@quizzes']);
 
     });
 

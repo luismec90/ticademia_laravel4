@@ -4,7 +4,7 @@
 @stop
 
 @section('content')
-    <h1 class="section-title"><span>Modulos</span></h1>
+    <h1 class="section-title"><span>Módulos</span></h1>
     <div class="row">
         <div class="col-xs-12">
             <table class="table table-bordered table-striped table-hover">

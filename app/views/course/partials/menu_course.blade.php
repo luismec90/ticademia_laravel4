@@ -53,13 +53,18 @@
                             href="{{ route('achievement_path',$course->id) }}">Mis logros</a></li>
                 @if(Auth::user()->isTeacher($course->id))
                     <li role="presentation"
-                        class="dropdown @if(Route::currentRouteName()=='estatistics_students_path') {{ "active"}} @endif">
+                        class="dropdown @if(Route::currentRouteName()=='statistics_students_path' || Route::currentRouteName()=='module_report_path' || Route::currentRouteName()=='statistics_quizzes_path') {{ "active"}} @endif">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
                             Estadísticas <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li class="@if(Route::currentRouteName()=='estatistics_students_path') {{ "active"}} @endif"><a
-                                        href="{{ route('estatistics_students_path',$course->id) }}">Estudiantes</a></li>
+                            <li class="@if(Route::currentRouteName()=='statistics_students_path') {{ "active"}} @endif">
+                                <a href="{{ route('statistics_students_path',$course->id) }}">Estudiantes</a></li>
+                            <li class="@if(Route::currentRouteName()=='statistics_quizzes_path') {{ "active"}} @endif">
+                                <a href="{{ route('statistics_quizzes_path',$course->id) }}">Evaluaciones</a></li>
+                            <li class="divider"></li>
+                            <li class="@if(Route::currentRouteName()=='module_report_path') {{ "active"}} @endif">
+                                <a href="{{ route('module_report_path',$course->id) }}">Reportes</a></li>
                         </ul>
                     </li>
                 @endif
