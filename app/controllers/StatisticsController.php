@@ -27,7 +27,63 @@ class StatisticsController extends \BaseController {
             $i ++;
         }
 
-        return View::make('course.statistics.students', compact('course', 'data', 'totalStudents'));
+        $predata2[0] = ['Fecha', 'Cantidad de conexiones por día'];
+
+        $date = $course->start_date;
+        $end_date = date('Y-m-d');
+
+        $months = ['', '01' => 'Ene', '02' => 'Feb', '03' => 'Mar', '04' => 'Abr', '05' => 'May', '06' => 'Jun',
+                       '07' => 'Jul', '08' => 'Ago', '09' => 'Sep', '10' => 'Oct', '11' => 'Nov', '12' => 'Dic'];
+
+        while (strtotime($date) <= strtotime($end_date))
+        {
+            $auxDate = explode("-", $date);
+            $predata2[$date] = [$months[$auxDate[1]] . ' ' . $auxDate[2], 0];
+            $date = date("Y-m-d", strtotime("+1 day", strtotime($date)));
+        }
+
+        $connections = Connection::where('course_id', $course->id)->get();
+
+
+        foreach ($connections as $connection)
+        {
+            $date = $connection->created_at->format('Y-m-d');
+
+            $predata2[$date][1] ++;
+
+        }
+
+        $data2 = [];
+        $i = 0;
+        foreach ($predata2 as $row)
+        {
+            $data2[$i] = $row;
+            $i ++;
+        }
+
+        $data3[0] = ['Hora', 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado',];
+
+        for ($i = 1; $i < 24; $i ++)
+        {
+            $data3[$i] = [$i - 1, 0, 0, 0, 0, 0, 0, 0];
+
+        }
+
+        $connections = DB::table('connections')->where('course_id', $course->id)
+            ->selectRaw('DAYOFWEEK(updated_at) day,HOUR(updated_at) hour,COUNT(distinct(user_id)) total')
+            ->groupBy('day', 'hour')
+            ->get();
+
+
+        foreach ($connections as $connection)
+        {
+
+            $data3[$connection->hour + 1][$connection->day]=$connection->total;
+
+        }
+
+
+        return View::make('course.statistics.students', compact('course', 'data', 'data2', 'data3', 'totalStudents'));
     }
 
     public function materials($courseID)
@@ -38,10 +94,84 @@ class StatisticsController extends \BaseController {
             $q->where('course_id', $course->id);
         })->count();
 
+        $predata[0] = ['Fecha', 'Cantidad de visitas', 'Porcentaje promedio de reproducción (%)'];
+        $predata2[0] = ['Fecha', 'Cantidad de visitas'];
 
-        $data[0] = ['Nivel', 'Cantidad de estudiantes'];
 
-        return View::make('course.statistics.materials', compact('course', 'data', 'totalMaterials'));
+        $date = $course->start_date;
+        $end_date = date('Y-m-d');
+
+        $months = ['', '01' => 'Ene', '02' => 'Feb', '03' => 'Mar', '04' => 'Abr', '05' => 'May', '06' => 'Jun',
+                       '07' => 'Jul', '08' => 'Ago', '09' => 'Sep', '10' => 'Oct', '11' => 'Nov', '12' => 'Dic'];
+
+        while (strtotime($date) <= strtotime($end_date))
+        {
+            $auxDate = explode("-", $date);
+            $predata[$date] = [$months[$auxDate[1]] . ' ' . $auxDate[2], 0, 0];
+            $predata2[$date] = [$months[$auxDate[1]] . ' ' . $auxDate[2], 0];
+            $date = date("Y-m-d", strtotime("+1 day", strtotime($date)));
+        }
+
+        $viewedVideos = MaterialUser::with('material')
+            ->whereHas('material', function ($q) use ($course)
+            {
+                $q->where('type', 'video')->whereHas('module', function ($q) use ($course)
+                {
+                    $q->where('course_id', $course->id);
+                });
+            })->get();
+
+        foreach ($viewedVideos as $video)
+        {
+            $date = $video->created_at->format('Y-m-d');
+
+            $predata[$date][1] ++;
+
+            $predata[$date][2] += $video->playback_time / $video->material->duration * 100;
+        }
+
+        $data = [];
+        $i = 0;
+        foreach ($predata as $row)
+        {
+            $data[$i] = $row;
+            if ($data[$i][1] > 0)
+            {
+                $data[$i][2] = round($data[$i][2] / $data[$i][1], 1);
+            }
+            $i ++;
+
+        }
+
+        $viewedPDFs = MaterialUser::with('material')
+            ->whereHas('material', function ($q) use ($course)
+            {
+                $q->where('type', 'pdf')->whereHas('module', function ($q) use ($course)
+                {
+                    $q->where('course_id', $course->id);
+                });
+            })->get();
+
+        foreach ($viewedPDFs as $pdf)
+        {
+            $date = $pdf->created_at->format('Y-m-d');
+
+            $predata[$date][1] ++;
+
+        }
+
+        $data2 = [];
+        $i = 0;
+        foreach ($predata2 as $row)
+        {
+            $data2[$i] = $row;
+
+            $i ++;
+
+        }
+
+
+        return View::make('course.statistics.materials', compact('course', 'data', 'data2', 'totalMaterials'));
     }
 
     public function moduleReport($courseID)
@@ -61,10 +191,10 @@ class StatisticsController extends \BaseController {
             $moduleID = Input::get('moduleID');
             $module = Module::where('course_id', $courseID)->findOrFail($moduleID);
             $totalQuizzes = $module->quizzes->count();
-            $data = $module->report($totalQuizzes,true);
+            $data = $module->report($totalQuizzes, true);
         }
 
-        return View::make('course.statistics.module_report', compact('course', 'selectModules', 'data','module'));
+        return View::make('course.statistics.module_report', compact('course', 'selectModules', 'data', 'module'));
     }
 
     public function downloadModuleReport($courseID)
@@ -111,18 +241,19 @@ class StatisticsController extends \BaseController {
                 $sheet->mergeCells('A2:F2');
 
                 $sheet->prependRow(3, array(
-                    "Fecha de generación de este reporte: ".date('Y-m-d H:i:s')
+                    "Fecha de generación de este reporte: " . date('Y-m-d H:i:s')
                 ));
 
-                $sheet->prependRow(4,[
-                    "Total de estudiantes: ".sizeof($data)
+                $sheet->prependRow(4, [
+                    "Total de estudiantes: " . sizeof($data)
                 ]);
 
                 $sheet->mergeCells('A4:F4');
 
                 $sheet->mergeCells('A3:F3');
 
-                $sheet->row(5, function($row) {
+                $sheet->row(5, function ($row)
+                {
 
                     $row->setBackground('#428bca');
                     $row->setFontColor('#ffffff');

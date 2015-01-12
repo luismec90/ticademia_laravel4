@@ -108,6 +108,21 @@ Route::filter('isEnrolled', function ($route)
             return Redirect::home();
         }
     }
+
+    $connection = Connection::where('course_id')->find(Session::get('connectionID', - 1));
+
+    if (is_null($connection))
+    {
+        $connection = new Connection;
+        $connection->user_id = Auth::user()->id;
+        $connection->course_id = $course->id;
+        $connection->save();
+        Session::put('connectionID', $connection->id);
+    } else
+    {
+        $connection->touch();
+    }
+
 });
 Route::filter('isMonitorOrTeacher', function ($route)
 {

@@ -21,7 +21,7 @@ class SessionsController extends \BaseController {
     public function destroy()
     {
         Auth::logout();
-
+        Session::flush();
         return Redirect::home();
     }
 }

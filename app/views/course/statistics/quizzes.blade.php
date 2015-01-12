@@ -20,8 +20,11 @@
             );
 
             var options = {
+                vAxes: {
+                    0: {title: 'Evaluaciones', logScale: false, minValue: 0}
+                },
                 'height': 400,
-                legend: {position: 'bottom'}
+                legend: {position: 'top'}
             };
 
             var chart = new google.visualization.LineChart(document.getElementById('chart-quizzes'));
