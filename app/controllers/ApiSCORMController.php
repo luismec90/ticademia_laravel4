@@ -278,6 +278,12 @@ class ApiSCORMController extends \BaseController {
 
             $level = Level::findOrFail($level);
 
+            $historicalLevel = new HistoricalLevel;
+            $historicalLevel->course_id = $course->id;
+            $historicalLevel->user_id = Auth::user()->id;
+            $historicalLevel->level_id = $level->id;
+            $historicalLevel->save();
+
             $notification = new Notification;
             $notification->user_id = Auth::user()->id;
             $notification->title = 'Cambio de nivel';

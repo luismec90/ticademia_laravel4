@@ -29,6 +29,7 @@ class StatisticsController extends \BaseController {
 
         $predata2[0] = ['Fecha', 'Cantidad de conexiones por día'];
 
+
         $date = $course->start_date;
         $end_date = date('Y-m-d');
 
@@ -42,14 +43,17 @@ class StatisticsController extends \BaseController {
             $date = date("Y-m-d", strtotime("+1 day", strtotime($date)));
         }
 
-        $connections = Connection::where('course_id', $course->id)->get();
+        $connections = $connections = DB::table('connections')->where('course_id', $course->id)
+            ->selectRaw("DATE_FORMAT(created_at,'%Y-%m-%d') day,COUNT(distinct(user_id)) total")
+            ->groupBy('day')
+            ->get();
 
 
         foreach ($connections as $connection)
         {
-            $date = $connection->created_at->format('Y-m-d');
+            $date = $connection->day;
 
-            $predata2[$date][1] ++;
+            $predata2[$date][1] += $connection->total;
 
         }
 
@@ -70,7 +74,7 @@ class StatisticsController extends \BaseController {
         }
 
         $connections = DB::table('connections')->where('course_id', $course->id)
-            ->selectRaw('DAYOFWEEK(updated_at) day,HOUR(updated_at) hour,COUNT(distinct(user_id)) total')
+            ->selectRaw('DAYOFWEEK(created_at) day,HOUR(created_at) hour,COUNT(distinct(user_id)) total')
             ->groupBy('day', 'hour')
             ->get();
 
@@ -78,12 +82,72 @@ class StatisticsController extends \BaseController {
         foreach ($connections as $connection)
         {
 
-            $data3[$connection->hour + 1][$connection->day]=$connection->total;
+            $data3[$connection->hour + 1][$connection->day] = $connection->total;
+
+        }
+
+        /*------*/
+        $levels = Level::orderBy('id')->lists('name');
+
+        $predata4[0] = array_merge(['Fecha'], $levels);
+
+        $date = $course->start_date;
+        $end_date = date('Y-m-d');
+
+        $months = ['', '01' => 'Ene', '02' => 'Feb', '03' => 'Mar', '04' => 'Abr', '05' => 'May', '06' => 'Jun',
+                       '07' => 'Jul', '08' => 'Ago', '09' => 'Sep', '10' => 'Oct', '11' => 'Nov', '12' => 'Dic'];
+
+        while (strtotime($date) <= strtotime($end_date))
+        {
+            $auxDate = explode("-", $date);
+
+            $predata4[$date][0] = $months[$auxDate[1]] . ' ' . $auxDate[2];
+
+            $totalLevels = sizeof($levels);
+
+            for ($i = 1; $i <= $totalLevels; $i ++)
+            {
+                $predata4[$date][$i] = 0;
+            }
+            $predata4[$date][1] = $totalStudents;
+
+            $date = date("Y-m-d", strtotime("+1 day", strtotime($date)));
+        }
+
+        $historicalLevels = DB::table('historical_levels')->where('course_id', $course->id)
+            ->selectRaw("DATE_FORMAT(created_at,'%Y-%m-%d') day,COUNT(distinct(user_id)) total,level_id")
+            ->groupBy('day', 'level_id')
+            ->get();
+
+        foreach ($historicalLevels as $historicalLevel)
+        {
+
+            $predata4[$historicalLevel->day][$historicalLevel->level_id] = $historicalLevel->total;
+            $predata4[$historicalLevel->day][1] -= $historicalLevel->total;
 
         }
 
 
-        return View::make('course.statistics.students', compact('course', 'data', 'data2', 'data3', 'totalStudents'));
+        $data4 = [];
+        $totalLevels = sizeof($levels);
+        $i = 0;
+
+        foreach ($predata4 as $row)
+        {
+
+            $data4[$i] = $row;
+            if ($i > 0)
+            {
+                for ($j = 1; $j <= $totalLevels; $j ++)
+                {
+                    $data4[$i][$j] = round($data4[$i][$j] / $totalStudents * 100, 1);
+                }
+            }
+            $i ++;
+
+        }
+
+        return View::make('course.statistics.students', compact('course', 'data', 'data2', 'data3', 'data4', 'totalStudents'));
     }
 
     public function materials($courseID)
