@@ -2,13 +2,45 @@
 
 class MaterialsController extends \BaseController {
 
+    public function store($courseID, $moduleID)
+    {
+        $course = Course::findOrFail($courseID);
+        $module = Module::where('course_id', $course->id)->findOrFail($moduleID);
+
+        $validation = Validator::make(Input::all(), Material::$videoRules);
+        if ($validation->fails())
+        {
+            Flash::error('Por favor inténtalo nuevamente');
+
+            return Redirect::back();
+        }
+
+        $xml = simplexml_load_file('http://gdata.youtube.com/feeds/api/videos/'.Input::get('url'));
+        $duration = strval($xml->xpath('//yt:duration[@seconds]')[0]->attributes()->seconds);
+
+        $material = new Material;
+        $material->module_id = $module->id;
+        $material->name = Input::get('name');
+        $material->description = Input::get('description');
+        $material->url = Input::get('url');
+        $material->duration = $duration;
+        $material->type = Input::get('type');
+        $material->save();
+
+        Flash::success('Material creado exitosamente');
+
+        return Redirect::back();
+    }
+
     public function storeRewiews($courseID, $moduleID)
     {
 
         $validation = Validator::make(Input::all(), Review::$rules);
         if ($validation->fails())
         {
-            return dd($validation);
+            Flash::error('Por favor inténtalo nuevamente');
+
+            return Redirect::back();
         }
 
         $materialID = Input::get('material_id');
@@ -38,7 +70,7 @@ class MaterialsController extends \BaseController {
 
         $material = Material::where('module_id', $module->id)->findOrFail($materialID);
 
-        $reviews = Review::where('material_id', $material->id)->where('comment','<>','')->orderBy('created_at', 'DESC')->paginate(5);
+        $reviews = Review::where('material_id', $material->id)->where('comment', '<>', '')->orderBy('created_at', 'DESC')->paginate(5);
 
         if (Request::ajax())
         {

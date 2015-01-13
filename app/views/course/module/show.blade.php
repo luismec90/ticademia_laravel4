@@ -33,6 +33,15 @@
                         class="fa fa-reply"></i></a>{{ $module->name }}</span></h1>
     <h4 class="text-center">{{ $module->start_date  }} / {{ $module->end_date }}</h4>
     <br>
+    @if(Auth::user()->isTeacher($course->id))
+        <div class="row">
+            <div class="col-xs-12">
+                <a class="btn btn-primary" data-toggle="modal" href="#modal-create-material">Crear material</a>
+                <!-- <a class="btn btn-primary pull-right" data-toggle="modal" href="#modal-create-quiz">Crear evaluación</a> -->
+            </div>
+        </div>
+        <br>
+    @endif
     <div id="body-module">
         @include('course.module.partials.main')
     </div>
@@ -61,7 +70,8 @@
                     <h3 id="panel-video-title"></h3>
                 </div>
                 <div id="panel-body-video" class="panel-body">
-                    <video id="my_video_player" class="sublime" data-youtube-id="Dv7gLpW91DM" data-settings="uid:demo-responsive-fit-resizing; autoresize:fit;"
+                    <video id="my_video_player" class="sublime" data-youtube-id="Dv7gLpW91DM"
+                           data-settings="uid:demo-responsive-fit-resizing; autoresize:fit;"
 
                            preload="none"></video>
 
@@ -165,4 +175,8 @@
         <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
+
+    @if(Auth::user()->isTeacher($course->id))
+        @include('course.module.partials.CRUD_materials_quizzes')
+    @endif
 @stop

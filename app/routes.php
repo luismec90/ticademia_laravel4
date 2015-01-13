@@ -108,12 +108,16 @@ Route::group(['prefix' => 'curso/{course_id}', 'before' => 'auth|isEnrolled'], f
         /* Estadisticas materiales */
         Route::post('/material/video/playbacktime', ['as' => 'material_video_playbacktime_path', 'uses' => 'ModulesController@playbackTime']);
 
-        /*saltar evaluacion*/
+        /*Saltar evaluacion*/
         Route::post('/evaluacion/saltar', ['as' => 'skip_quiz_path', 'uses' => 'QuizzesController@skip']);
+
+        /* CRUD */
+        Route::post('/material/crear', ['before' => 'isTeacher', 'as' => 'store_material_path', 'uses' => 'MaterialsController@store']);
+        Route::post('/quiz/crear', ['before' => 'isTeacher', 'as' => 'store_quiz_path', 'uses' => 'QuizzesController@store']);
     });
 
     /* Estadísticas */
-    Route::group(['prefix' => 'estadisticas','before' => 'isMonitorOrTeacher'], function ()
+    Route::group(['prefix' => 'estadisticas', 'before' => 'isMonitorOrTeacher'], function ()
     {
         Route::get('/estudiantes', ['as' => 'statistics_students_path', 'uses' => 'StatisticsController@students']);
         Route::get('/materiales', ['as' => 'statistics_materials_path', 'uses' => 'StatisticsController@materials']);

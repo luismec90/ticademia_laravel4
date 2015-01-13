@@ -4,6 +4,12 @@ class Material extends \Eloquent {
 
     protected $fillable = [];
 
+    public static $videoRules = [
+        'name'        => 'required',
+        'type'        => 'required',
+        'url'         => 'required'
+    ];
+
     public function reviews()
     {
         return $this->hasMany('Review');

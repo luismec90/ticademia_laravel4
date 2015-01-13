@@ -124,6 +124,23 @@ Route::filter('isEnrolled', function ($route)
     }
 
 });
+
+Route::filter('isTeacher', function ($route)
+{
+    $courseID = $route->getParameter('course_id');
+
+    if (!Auth::user()->isTeacher($courseID))
+    {
+        if (Request::ajax())
+        {
+            return Response::make('Unauthorized', 401);
+        } else
+        {
+            return Redirect::home();
+        }
+    }
+});
+
 Route::filter('isMonitorOrTeacher', function ($route)
 {
     $courseID = $route->getParameter('course_id');
@@ -139,3 +156,4 @@ Route::filter('isMonitorOrTeacher', function ($route)
         }
     }
 });
+
