@@ -64,7 +64,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     public function isStudent($courseID)
     {
-        if (is_null($this->role))
+        if (is_null($this->role) || $this->course_id != $courseID)
             $this->setRol($courseID);
 
         return $this->role == 1;
@@ -72,7 +72,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     public function isMonitor($courseID)
     {
-        if (is_null($this->role))
+        if (is_null($this->role) || $this->course_id != $courseID)
             $this->setRol($courseID);
 
         return $this->role == 2;
@@ -81,7 +81,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     public function isTeacher($courseID)
     {
-        if (is_null($this->role))
+        if (is_null($this->role) || $this->course_id != $courseID)
             $this->setRol($courseID);
 
         return $this->role == 3;
@@ -91,8 +91,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     public function setRol($courseID)
     {
         $course = $this->courses()->find($courseID);
-
-        $this->role = $course->role;
+        if (is_null($course))
+        {
+            $this->role = 0;
+        } else
+        {
+            $this->role = $course->role;
+        }
+        $this->course_id =$courseID;
     }
 
     public function courses()

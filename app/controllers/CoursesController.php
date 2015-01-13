@@ -4,11 +4,19 @@ class CoursesController extends \BaseController {
 
     public function index()
     {
+        $courses = Course::with('subject')->get();
+
+        return View::make('course.index', compact('courses'));
+    }
+
+
+    public function userCourses()
+    {
         $courses = Auth::user()
             ->courses()
             ->with('subject')->get();
 
-        return View::make('course.index', compact('courses'));
+        return View::make('course.user_courses', compact('courses'));
     }
 
     public function show($course_id)

@@ -21,6 +21,7 @@ class CreateCoursesTable extends Migration {
             $table->date('end_date');
             $table->smallInteger('levels');
             $table->string('type_of_registration');
+            $table->string('image');
             $table->float('threshold');
             $table->timestamps();
         });

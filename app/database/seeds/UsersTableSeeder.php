@@ -62,6 +62,7 @@ class UsersTableSeeder extends Seeder {
         foreach (range(1, 80) as $index)
         {
             User::create([
+                'dni'        => rand(11111111,999999999),
                 'first_name' => $faker->firstName,
                 'last_name'  => $faker->lastName,
                 'birth_date' => $faker->dateTime(),

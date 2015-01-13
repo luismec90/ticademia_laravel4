@@ -17,6 +17,15 @@ class SubjectsTableSeeder extends Seeder {
             'language'          => 'español',
             'prerequisites'     => 'Lorem...'
         ]);
+
+        Subject::create([
+            'id'                => 2,
+            'name'              => 'Fundamentos de programación',
+            'description'       => 'Lorem...',
+            'table_of_contents' => 'Lorem...',
+            'language'          => 'español',
+            'prerequisites'     => 'Lorem...'
+        ]);
     }
 
 }

@@ -56,8 +56,11 @@ Route::post('perfil/avatar', ['before' => 'auth', 'as' => 'change_avatar_path', 
 Route::get('perfil/password', ['before' => 'auth', 'as' => 'password_path', 'uses' => 'UsersController@showPassword']);
 Route::post('perfil/password', ['before' => 'auth', 'as' => 'update_password_path', 'uses' => 'UsersController@updatePassword']);
 
+/* Lista cursos*/
+Route::get('cursos', ['as' => 'courses_path', 'uses' => 'CoursesController@index']);
+
 /* Mis cursos*/
-Route::get('mis-cursos', ['before' => 'auth', 'as' => 'my_courses_path', 'uses' => 'CoursesController@index']);
+Route::get('mis-cursos', ['before' => 'auth', 'as' => 'my_courses_path', 'uses' => 'CoursesController@userCourses']);
 
 
 /* Notificaciones */

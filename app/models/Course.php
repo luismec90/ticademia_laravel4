@@ -4,6 +4,7 @@ class Course extends \Eloquent {
 
     protected $fillable = [];
 
+
     public function subject()
     {
         return $this->belongsTo('Subject');
@@ -47,5 +48,10 @@ class Course extends \Eloquent {
             ->select('users.*', DB::raw('SUM(module_user.score) score'))
             ->orderBy('score', 'DESC')
             ->get();
+    }
+
+    public function imagePath()
+    {
+        return asset("courses/course_{$this->id}/{$this->image}");
     }
 }
