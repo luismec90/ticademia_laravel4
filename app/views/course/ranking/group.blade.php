@@ -41,7 +41,15 @@
                 @foreach($ranking as $index => $row)
                     <tr>
                         <td>{{ $index+1 }}</td>
-                        <td>{{ $row->group }}</td>
+                        <td>
+                            @if($index==0)
+                                <img width="25" src="{{ asset('assets/images/general/gold_cup.png') }}">
+                            @elseif($index==1)
+                                <img width="25" src="{{ asset('assets/images/general/silver_cup.png') }}">
+                            @elseif($index==2)
+                                <img width="25" src="{{ asset('assets/images/general/bronze_cup.png') }}">
+                            @endif
+                            {{ $row->group }}</td>
                         <td>{{ $row->score }}</td>
                     </tr>
                 @endforeach

@@ -24,14 +24,14 @@
         <div class="col-xs-12">
             <table class="table table-bordered">
                 <thead>
-                <tr >
+                <tr>
                     <th>Puesto</th>
                     <th>Nombre</th>
                     <th>Puntaje</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr >
+                <tr>
                     <td>{{ $userRanking['position'] }}</td>
                     <td>{{ $userRanking['fullName'] }}</td>
                     <td>{{ $userRanking['score'] }}</td>
@@ -43,7 +43,8 @@
                     <hr>
                 </div>
             </div>
-            <table id="table-ranking" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+            <table id="table-ranking" class="table table-striped table-bordered table-hover" cellspacing="0"
+                   width="100%">
                 <thead>
                 <tr>
                     <td>Posición</td>
@@ -57,7 +58,15 @@
                     <tr>
                         <td>{{ $index+1 }}</td>
                         <td class="col-xs-3 col-sm-2 col-md-1">@include('layouts.partials.link_avatar_square',['user'=>$user,'size'=>70])</td>
-                        <td>{{ $user->linkFullName() }}</td>
+                        <td>
+                            @if($index==0)
+                                <img width="25" src="{{ asset('assets/images/general/gold_cup.png') }}">
+                            @elseif($index==1)
+                                <img width="25" src="{{ asset('assets/images/general/silver_cup.png') }}">
+                            @elseif($index==2)
+                                <img width="25" src="{{ asset('assets/images/general/bronze_cup.png') }}">
+                            @endif
+                            {{ $user->linkFullName() }}</td>
                         <td>{{ $user->score }}</td>
                     </tr>
                 @endforeach

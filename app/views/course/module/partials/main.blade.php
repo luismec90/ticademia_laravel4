@@ -51,13 +51,24 @@
                             <td>
                                 {{ ++$index }}
                             </td>
-                            <td class="hidden-md">
+                            <td class="hidden-sm hidden-md">
                                 @include('layouts.partials.link_avatar_square',['user'=>$user,'size'=>50])
                             </td>
                             <td>
+                                @if($index==1)
+                                    <img width="25" src="{{ asset('assets/images/general/gold_cup.png') }}">
+                                @elseif($index==2)
+                                    <img width="25" src="{{ asset('assets/images/general/silver_cup.png') }}">
+                                @elseif($index==3)
+                                    <img width="25" src="{{ asset('assets/images/general/bronze_cup.png') }}">
+                                @endif
                                 {{ $user->linkFullName() }}
+
                             </td>
-                            <td>{{ $user->score }}</td>
+                            <td>{{ $user->score }}
+
+
+                            </td>
                         </tr>
                     @endforeach
 
