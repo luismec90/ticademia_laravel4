@@ -67,6 +67,10 @@
                                     <i class="delete-message fa fa-trash" data-message-id="{{ $reply->id }}"></i>
                                     <i class="edit-message fa fa-pencil-square-o" data-message-id="{{ $reply->id }}"
                                        data-message="{{ $reply->message }}"></i>
+                                    <a onClick="MyWindow=window.open('http://twitter.com/share?text=Mensaje publicado en TICademia: {{ urlencode($reply->message) }}  &url={{ route('share_social_wall_message_path', [$reply->id]) }}','MyWindow',width=600,height=300); return false;"
+                                       href='#'> <i class="fa fa-twitter"></i></a>
+                                    <a onClick="MyWindow=window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('share_social_wall_message_path', [$reply->id]) }}','MyWindow',width=600,height=300); return false;"
+                                       href='#'><i class="fa fa-facebook"></i></a>
                                 @endif
                             </div>
                             <div class="comment-content">

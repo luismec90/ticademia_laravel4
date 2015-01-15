@@ -28,7 +28,8 @@ LEFT JOIN (SELECT aq.user_id,ROUND(COUNT(aq.id)/$totalQuizzes*100,2) percentage
 FROM approved_quizzes aq
 JOIN quizzes q ON aq.quiz_id=q.id
 WHERE aq.skipped=0
-AND aq.created_at<='{$this->end_date}') AS T ON T.user_id=u.id
+AND aq.created_at<='{$this->end_date}'
+GROUP BY aq.user_id) AS T ON T.user_id=u.id
 WHERE cu.course_id={$this->course_id}
 AND cu.role=1
 GROUP BY u.id
