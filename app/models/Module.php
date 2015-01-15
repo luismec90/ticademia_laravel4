@@ -20,7 +20,7 @@ class Module extends \Eloquent {
         return $this->belongsTo('Course');
     }
 
-    public function report($totalQuizzes, $withUserID=false)
+    public function report($totalQuizzes, $withUserID = false)
     {
         $query = "SELECT " . ($withUserID ? "u.id," : "") . "cu.group,u.dni,u.email,u.last_name,u.first_name,COALESCE(T.percentage,0) percentage FROM course_user cu
 JOIN users u ON u.id=cu.user_id
@@ -34,7 +34,7 @@ WHERE cu.course_id={$this->course_id}
 AND cu.role=1
 GROUP BY u.id
 ORDER BY cu.group,u.last_name";
-        echo $query;
-        dd(DB::select($query));
+
+        return DB::select($query);
     }
 }
