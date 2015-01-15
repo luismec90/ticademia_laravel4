@@ -135,14 +135,14 @@
                                 @endif
                             </td>
                             <td>
-                                @if(!is_null($quiz->best_time))
+                                @if(!is_null($quiz->user_id))
                                     {{ $quiz->best_time  }} segundos
                                     <br>
                                     Por:  {{ $quiz->user->linkFullName() }}
                             </td>
                             @endif
                             <td>{{ is_null($quiz->approvedQuiz) ? "" : $quiz->approvedQuiz->score  }}</td>
-                            <td>{{ is_null($quiz->approvedQuiz) || $quiz->approvedQuiz->best_time==null ? "" : $quiz->approvedQuiz->best_time.' segundos'  }} </td>
+                            <td>{{ is_null($quiz->approvedQuiz) || $quiz->approvedQuiz->user_id==null ? "" : $quiz->approvedQuiz->best_time.' segundos'  }} </td>
                             <td>
                                 <a class="btn btn-primary btn-sm quiz-launcher {{ $prevQuizIsAproved || Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id)? "" : "disabled" }}"
                                    data-evaluacion-id="{{ $quiz->id }}"
@@ -160,7 +160,6 @@
                         $prevQuizIsAproved = !is_null($quiz->approvedQuiz);
                         ?>
                     @endforeach
-
                 </table>
             </div>
         </div>

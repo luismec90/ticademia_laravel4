@@ -20,9 +20,9 @@ class CreateQuizzesTable extends Migration {
             $table->integer('quiz_type_id')->unsigned()->index();
             $table->foreign('quiz_type_id')->references('id')->on('quiz_types')->onDelete('cascade');
             $table->integer('topic_id')->unsigned()->index()->nullable();
-            $table->foreign('topic_id')->references('id')->on('topics')->onDelete('cascade');
+            $table->foreign('topic_id')->references('id')->on('topics')->onDelete('set null');
             $table->integer('user_id')->unsigned()->index()->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->decimal('best_time',8,3)->nullable();
             $table->integer('order');
             $table->timestamps();
