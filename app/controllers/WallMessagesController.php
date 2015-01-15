@@ -9,6 +9,8 @@ class WallMessagesController extends \BaseController {
         $wallMessages = WallMessage::with('replies')
             ->with('user')
             ->with('replies.user')
+            ->with('likes')
+            ->with('myLikes')
             ->where('course_id', $course->id)
             ->whereNull('wall_message_id')
             ->orderBy('created_at', 'DESC')->paginate(20);
@@ -136,5 +138,61 @@ class WallMessagesController extends \BaseController {
         Flash::success('El logro se ha compartido exitosamente');
 
         return Redirect::route('wall_path', $course->id);
+    }
+
+    public function likeMessage($courseID)
+    {
+        $course = Course::findOrFail($courseID);
+
+        $wallMessage = WallMessage::where('course_id', $course->id)->findOrFail(Input::get('wall_message_id'));
+
+        $like = Like::where('user_id', Auth::user()->id)
+            ->where('wall_message_id', $wallMessage->id)
+            ->first();
+
+        if (is_null($like))
+        {
+            $like = new Like;
+            $like->user_id = Auth::user()->id;
+            $like->wall_message_id = $wallMessage->id;
+            $like->save();
+
+            if(!$wallMessage->user->isMe()){
+                $notification = new Notification;
+                $notification->user_id = $wallMessage->user_id;
+                $notification->title = 'Has ganado un nuevo logro';
+                $notification->url = route('wall_path', $course->id);
+                $notification->body = "El usuario ".Auth::user()->fullName()." le ha dado me gusta a tu publicación de muro en el curso: ".$course->subject->name;
+                $notification->save();
+            }
+        }
+
+        return $wallMessage->likes->count();
+    }
+
+    public function unlikeMessage($courseID)
+    {
+        $course = Course::findOrFail($courseID);
+
+        $wallMessage = WallMessage::where('course_id', $course->id)->findOrFail(Input::get('wall_message_id'));
+
+        $like = Like::where('user_id', Auth::user()->id)
+            ->where('wall_message_id', $wallMessage->id)
+            ->first();
+
+        if (!is_null($like))
+            $like->delete();
+
+        return $wallMessage->likes->count();
+    }
+
+    public function whoLikeMessage($courseID)
+    {
+        $course = Course::findOrFail($courseID);
+
+        $wallMessage = WallMessage::with(['likes', 'likes.user'])
+            ->where('course_id', $course->id)->findOrFail(Input::get('wall_message_id'));
+
+        return $wallMessage->likes;
     }
 }

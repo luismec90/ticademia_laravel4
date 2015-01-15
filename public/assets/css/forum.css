@@ -24,3 +24,25 @@ span.monitor {
     top:0px;
     margin-right: 4px;
 }
+#table-comments .likes-div{
+    margin-top: 10px;
+}
+#table-comments .likes-div .fa{
+    margin-left: 15px;
+    color:#03658c;
+    font-size: 15px;
+}
+#table-comments .like-icon{
+    cursor: pointer;
+}
+#table-comments .user-list li{
+    margin-bottom: 0;
+}
+
+.popover .user-list{
+     padding: 0;
+
+ }
+.popover .user-list li{
+    list-style-type: none;
+}

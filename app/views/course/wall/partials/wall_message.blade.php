@@ -44,6 +44,20 @@
                         @else
                             {{{ $wallMessage->message }}}
                         @endif
+
+                        <div class="likes-div">
+                            @if( $wallMessage->myLikes->count())
+                                <a class="link unlike" data-wall-message-id="{{ $wallMessage->id }}">Ya no me gusta </a>
+                            @else
+                                <a class="link like" data-wall-message-id="{{ $wallMessage->id }}"> Me gusta </a>
+                            @endif
+
+                            <i class="fa fa-thumbs-o-up {{ $wallMessage->likes->count() ? "like-icon" :"" }}" data-wall-message-id="{{ $wallMessage->id }}"></i>
+                            <span class="counter">{{ $wallMessage->likes->count() }} </span>
+
+                            <i class="fa fa-comment-o"></i>
+                            {{ $wallMessage->replies->count() }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -75,6 +89,16 @@
                             </div>
                             <div class="comment-content">
                                 {{{ $reply->message }}}
+                                <div class="likes-div">
+                                    @if( $reply->myLikes->count())
+                                        <a class="link unlike" data-wall-message-id="{{ $reply->id }}">Ya no me gusta </a>
+                                    @else
+                                        <a class="link like" data-wall-message-id="{{ $reply->id }}"> Me gusta </a>
+                                    @endif
+
+                                    <i class="fa fa-thumbs-o-up {{ $reply->likes->count() ? "like-icon" :"" }}" data-wall-message-id="{{ $reply->id }}"></i>
+                                    <span class="counter">{{ $reply->likes->count() }} </span>
+                                </div>
                             </div>
                         </div>
                     </li>

@@ -14,4 +14,14 @@ class TopicReply extends \Eloquent {
     {
         return $this->belongsTo('Topic');
     }
+
+    public function likes()
+    {
+        return $this->hasMany('Like');
+    }
+
+    public function myLikes()
+    {
+        return $this->hasMany('Like')->where('user_id', Auth::user()->id);
+    }
 }

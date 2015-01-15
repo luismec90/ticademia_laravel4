@@ -16,12 +16,17 @@
                 "bSort": false,
                 "fnInitComplete": function (oSettings, json) {
                     @if(Session::get('storedReply',false))
-                        dataTabla.fnPageChange('last');
+                    dataTabla.fnPageChange('last');
                     @endif
+
+
                 }
             })
         });
         info_user_path = "{{ route('info_user_path',$course->id) }}";
+        like_topic_reply_path = "{{ route("like_topic_reply_path",$course->id) }}";
+        unlike_topic_reply_path = "{{ route("unlike_topic_reply_path",$course->id) }}";
+        who_like_topic_reply_path = "{{ route("who_like_topic_reply_path",$course->id) }}";
     </script>
 @stop
 @section('content')
@@ -119,6 +124,22 @@
                                 <div class="row">
                                     <div class="col-xs-12">
                                         {{{ $topicReply->reply }}}
+
+
+                                        <div class="likes-div">
+                                            @if( $topicReply->myLikes->count())
+                                                <a class="link unlike" data-topic-reply-id="{{ $topicReply->id }}">Ya
+                                                    no me gusta </a>
+                                            @else
+                                                <a class="link like" data-topic-reply-id="{{ $topicReply->id }}"> Me
+                                                    gusta </a>
+                                            @endif
+
+                                            <i class="fa fa-thumbs-o-up {{ $topicReply->likes->count() ? "like-icon" :"" }}"
+                                               data-topic-reply-id="{{ $topicReply->id }}"></i>
+                                            <span class="counter">{{ $topicReply->likes->count() }} </span>
+
+                                        </div>
                                     </div>
                                 </div>
                             </td>

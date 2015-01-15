@@ -86,6 +86,9 @@ Route::group(['prefix' => 'curso/{course_id}', 'before' => 'auth|isEnrolled'], f
     Route::post('/muro/{wall_message_id}/respuesta', ['as' => 'wall_save_reply_path', 'uses' => 'WallMessagesController@storeReply']);
     Route::put('/muro/editar', ['as' => 'wall_edit_message_path', 'uses' => 'WallMessagesController@update']);
     Route::delete('/muro/eliminar', ['as' => 'wall_delete_message_path', 'uses' => 'WallMessagesController@destroy']);
+    Route::post('/muro/mensaje/megusta', ['as' => 'like_message_path', 'uses' => 'WallMessagesController@likeMessage']);
+    Route::post('/muro/mensaje/yanomegusta', ['as' => 'unlike_message_path', 'uses' => 'WallMessagesController@unlikeMessage']);
+    Route::get('/muro/mensaje/aquienlegusta', ['as' => 'who_like_message_path', 'uses' => 'WallMessagesController@whoLikeMessage']);
 
     /* Foro */
     Route::get('/foro', ['as' => 'forum_path', 'uses' => 'ForumController@index']);
@@ -93,13 +96,16 @@ Route::group(['prefix' => 'curso/{course_id}', 'before' => 'auth|isEnrolled'], f
     Route::post('/foro/{topic_id}/respuesta', ['as' => 'topic_save_reply_path', 'uses' => 'ForumController@storeReply']);
     Route::put('/foro/{topic_id}/editar', ['as' => 'topic_edit_reply_path', 'uses' => 'ForumController@updateReply']);
     Route::delete('/foro/{topic_id}/eliminar', ['as' => 'topic_delete_reply_path', 'uses' => 'ForumController@destroyReply']);
+    Route::post('/foro/mensaje/megusta', ['as' => 'like_topic_reply_path', 'uses' => 'ForumController@likeTopicReply']);
+    Route::post('/foro/mensaje/yanomegusta', ['as' => 'unlike_topic_reply_path', 'uses' => 'ForumController@unlikeTopicReply']);
+    Route::get('/foro/mensaje/aquienlegusta', ['as' => 'who_like_topic_reply_path', 'uses' => 'ForumController@whoLikeTopicReply']);
 
     /* Ranking */
     Route::get('/ranking-grupal', ['as' => 'group_ranking_path', 'uses' => 'CoursesController@groupRanking']);
     Route::get('/ranking-individual', ['as' => 'individual_ranking_path', 'uses' => 'CoursesController@individualRanking']);
 
     /* Logros */
-    Route::get('/logros', ['before'=>'isStudent','as' => 'achievement_path', 'uses' => 'CoursesController@reachedAchievements']);
+    Route::get('/logros', ['before' => 'isStudent', 'as' => 'achievement_path', 'uses' => 'CoursesController@reachedAchievements']);
 
     /* Modulo */
     Route::group(['prefix' => 'modulo/{module_id}'], function ()

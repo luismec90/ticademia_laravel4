@@ -13,6 +13,7 @@ class WallMessage extends \Eloquent {
     {
         return $this->belongsTo('user');
     }
+
     public function course()
     {
         return $this->belongsTo('Course');
@@ -23,4 +24,13 @@ class WallMessage extends \Eloquent {
         return $this->belongsTo('ReachedAchievement');
     }
 
+    public function likes()
+    {
+        return $this->hasMany('Like');
+    }
+
+    public function myLikes()
+    {
+        return $this->hasMany('Like')->where('user_id',Auth::user()->id);
+    }
 }
