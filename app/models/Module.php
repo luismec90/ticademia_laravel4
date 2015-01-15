@@ -34,7 +34,7 @@ WHERE cu.course_id={$this->course_id}
 AND cu.role=1
 GROUP BY u.id
 ORDER BY cu.group,u.last_name";
-
-        return DB::select($query);
+        echo $query;
+        dd(DB::select($query));
     }
 }
