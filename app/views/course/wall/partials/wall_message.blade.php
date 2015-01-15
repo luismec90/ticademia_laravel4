@@ -16,12 +16,17 @@
                         <i class="reply fa fa-reply"></i>
                         @if($wallMessage->user->isMe())
                             <i class="delete-message fa fa-trash" data-message-id="{{ $wallMessage->id }}"></i>
-                            @if($wallMessage->achievement_id==null)
+                            @if($wallMessage->reached_achievement_id==null)
                                 <i class="edit-message fa fa-pencil-square-o" data-message-id="{{ $wallMessage->id }}"
                                    data-message="{{ $wallMessage->message }}"></i>
+                                <a onClick="MyWindow=window.open('http://twitter.com/share?text=Mensaje publicado en TICademia: {{ urlencode($wallMessage->message) }}  &url={{ route('share_social_wall_message_path', [$wallMessage->id]) }}','MyWindow',width=600,height=300); return false;"
+                                   href='#'> <i class="fa fa-twitter"></i></a>
+                                <a onClick="MyWindow=window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('share_social_wall_message_path', [$wallMessage->id]) }}','MyWindow',width=600,height=300); return false;"
+                                   href='#'><i class="fa fa-facebook"></i></a>
                             @else
-                                <a><i  onClick="MyWindow=window.open('http://twitter.com/share?text=He ganado el logro: {{ $wallMessage->achievement->name }} &url={{ route('share_path', [$course->id, $wallMessage->achievement_id]) }}','MyWindow',width=600,height=300); return false;" href='#' class="fa fa-twitter"></i></a>
-                                <a onClick="MyWindow=window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('share_path', [$course->id, $wallMessage->achievement_id]) }}','MyWindow',width=600,height=300); return false;"
+                                <a onClick="MyWindow=window.open('http://twitter.com/share?text=He ganado el logro: {{ $wallMessage->reachedAchievement->achievement->name }} &url={{ route('share_social_achievement_path', [$wallMessage->reached_achievement_id]) }}','MyWindow',width=600,height=300); return false;"
+                                   href='#'> <i class="fa fa-twitter"></i></a>
+                                <a onClick="MyWindow=window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('share_social_achievement_path', [$wallMessage->reached_achievement->id]) }}','MyWindow',width=600,height=300); return false;"
                                    href='#'><i class="fa fa-facebook"></i></a>
                             @endif
 
@@ -29,12 +34,12 @@
 
                     </div>
                     <div class="comment-content">
-                        @if($wallMessage->achievement_id!=null)
-                            @include('course.partials.achievement_image',['achievement'=>$wallMessage->achievement])
+                        @if($wallMessage->reached_achievement_id!=null)
+                            @include('course.partials.achievement_image',['achievement'=>$wallMessage->reachedAchievement->achievement])
                             <div class="inlineblock">
                                 <h4 class="">{{ $wallMessage->message }}</h4>
 
-                                <p>{{ $wallMessage->achievement->description }}</p>
+                                <p>{{ $wallMessage->reachedAchievement->achievement->description }}</p>
                             </div>
                         @else
                             {{{ $wallMessage->message }}}

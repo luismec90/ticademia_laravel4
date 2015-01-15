@@ -81,7 +81,7 @@ class WallMessagesController extends \BaseController {
 
         $wallMessage = WallMessage::where('course_id', $courseID)
             ->where('user_id', Auth::user()->id)
-            ->whereNull('achievement_id')
+            ->whereNull('reached_achievement_id')
             ->findOrFail($wall_message_id);
 
         $wallMessage->message = Input::get('message');
@@ -121,11 +121,15 @@ class WallMessagesController extends \BaseController {
             return Redirect::back();
         }
 
+        $reachedAchievement = ReachedAchievement::where('user_id', Auth::user()->id)
+            ->where('course_id', $course->id)
+            ->where('achievement_id', $achievement->id)
+            ->firstOrFail();
 
         $wallMessage = new WallMessage;
         $wallMessage->course_id = $courseID;
         $wallMessage->user_id = Auth::user()->id;
-        $wallMessage->achievement_id = $achievement->id;
+        $wallMessage->reached_achievement_id = $reachedAchievement->id;
         $wallMessage->message = "He obtenido el logro: <b>$achievement->name</b>.";
         $wallMessage->save();
 

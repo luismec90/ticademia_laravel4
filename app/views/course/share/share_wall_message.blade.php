@@ -12,9 +12,9 @@
             Ticademia
         @show
     </title>
-    <meta property="og:title" content="Logro: {{ $reachedAchievement->achievement->name }}"/>
-    <meta property="og:description" content="Descripción: {{ $reachedAchievement->achievement->description }}"/>
-    <meta property="og:image" content="{{ $reachedAchievement->achievement->imagePath(); }}"/>
+    <meta property="og:title" content="Curso: {{ $wallMessage->course->subject->name }}"/>
+    <meta property="og:description" content="Descripción: {{ $wallMessage->message }}"/>
+    <meta property="og:image" content="{{ $wallMessage->user->avatarPath(); }}"/>
 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet"
@@ -42,18 +42,21 @@
 
     <div class="row">
         <div class="col-lg-2 col-sm-3">
-            @include('layouts.partials.avatar_square',['user'=>$reachedAchievement->user,'size'=>'100%'])
+            @include('layouts.partials.avatar_square',['user'=>$wallMessage->user,'size'=>'100%'])
         </div>
-        <div class="col-lg-2 col-sm-3">
-            @include('course.partials.achievement_image',['achievement'=>$reachedAchievement->achievement,'size'=>'100%'])
-        </div>
-        <div class="col-lg-8 col-sm-6">
+
+        <div class="col-lg-10 col-sm-9">
             <div class="row">
                 <div class="col-xs-12">
-                    <h1>Logro: {{ $reachedAchievement->achievement->name }}</h1>
-                    <h4>
-                        {{ $reachedAchievement->achievement->description }}
-                    </h4>
+                    <h2> {{ $wallMessage->user->fullName() }} ha publicado el siguiente mensaje en el curso: {{ $wallMessage->course->subject->name }}</h2>
+
+                    <div class="well">
+                        "{{ $wallMessage->message }}"
+                        <hr>
+                        <div class="text-muted">
+                            Fecha de publicación: {{ $wallMessage->created_at }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -32,7 +32,9 @@ Route::get('vincular_con_facebook', ['before' => 'auth', 'as' => 'link_facebook_
 Route::get('vincular_con_google', ['before' => 'auth', 'as' => 'link_google_path', 'uses' => 'SocialNetworksController@linkWithGoogle']);
 
 /* Compratir en Facebook*/
-Route::get('compartir/logro/{reached_achievement_id}', ['as' => 'share_path', 'uses' => 'PagesController@share']);
+Route::get('compartir/logro/{reached_achievement_id}', ['as' => 'share_social_achievement_path', 'uses' => 'SocialNetworksController@shareAchievement']);
+Route::get('compartir/muro/{wall_message_id}', ['as' => 'share_social_wall_message_path', 'uses' => 'SocialNetworksController@shareWallMessage']);
+
 
 /* Desvincular cuenta con Facebook o Google + */
 Route::get('desvincular_con_facebook', ['before' => 'auth', 'as' => 'unlink_facebook_path', 'uses' => 'SocialNetworksController@unlinkWithFacebook']);

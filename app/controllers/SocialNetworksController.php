@@ -309,4 +309,19 @@ class SocialNetworksController extends \BaseController {
         });
     }
 
+    /* Compartir Logro*/
+    public function shareAchievement($reachedAchievementID)
+    {
+        $reachedAchievement = ReachedAchievement::findOrFail($reachedAchievementID);
+
+        return View::make('course.share.share_achievement', compact('reachedAchievement'));
+    }
+
+    /* Compartir mensaje del muro*/
+    public function shareWallMessage($wallMessageID)
+    {
+        $wallMessage = WallMessage::findOrFail($wallMessageID);
+
+        return View::make('course.share.share_wall_message', compact('wallMessage'));
+    }
 }

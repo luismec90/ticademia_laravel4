@@ -19,8 +19,8 @@
                         <td>{{ $user->courses->find($course->id)->pivot->group }}</td>
                     </tr>
                     <tr>
-                        <td>Posición general</td>
-                        <td>{{ $user->general_position }}</td>
+                        <td>Posición</td>
+                        <td>{{ $user->individual_position }}</td>
                     </tr>
                     <tr>
                         <td>Puntaje total</td>

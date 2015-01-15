@@ -13,10 +13,14 @@ class WallMessage extends \Eloquent {
     {
         return $this->belongsTo('user');
     }
-
-    public function achievement()
+    public function course()
     {
-        return $this->belongsTo('Achievement');
+        return $this->belongsTo('Course');
+    }
+
+    public function reachedAchievement()
+    {
+        return $this->belongsTo('ReachedAchievement');
     }
 
 }

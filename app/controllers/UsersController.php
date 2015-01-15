@@ -124,13 +124,13 @@ class UsersController extends \BaseController {
         $user = User::with('modules')->findOrFail($userID);
         $ranking = $course->individualRanking();
         $user->total_score = 0;
-        $user->general_position = "N/A";
+        $user->individual_position = "N/A";
         foreach ($ranking as $index => $row)
         {
             if ($user->id == $row->id)
             {
                 $user->total_score = $row->score;
-                $user->general_position = $index + 1;
+                $user->individual_position = $index + 1;
                 break;
             }
         }
