@@ -59,12 +59,12 @@ class CoursesController extends \BaseController {
         return View::make('course.ranking.group', compact('course', 'ranking', 'userRanking'));
     }
 
-    public function generalRanking($course_id)
+    public function individualRanking($course_id)
     {
         $course = Course::with('subject')
             ->findOrFail($course_id);
 
-        $ranking = $course->generalRanking();
+        $ranking = $course->individualRanking();
         $userRanking = ['position' => 'N/A', 'fullName' => Auth::user()->fullName(), 'score' => 'N/A'];
 
         foreach ($ranking as $index => $user)
@@ -76,7 +76,7 @@ class CoursesController extends \BaseController {
             }
         }
 
-        return View::make('course.ranking.general', compact('course', 'ranking', 'userRanking'));
+        return View::make('course.ranking.individual', compact('course', 'ranking', 'userRanking'));
     }
 
     public function reachedAchievements($course_id)

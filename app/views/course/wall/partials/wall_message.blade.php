@@ -8,17 +8,25 @@
                 <!-- Contenedor del Comentario -->
                 <div class="comment-box">
                     <div class="comment-head">
-                        <h6 class="comment-name">{{ $wallMessage->user->linkFullName() }} <span class="monitor">{{ $wallMessage->user->isMonitor($course->id) ? '(Monitor)' : '' }}</span></h6>
+                        <h6 class="comment-name">{{ $wallMessage->user->linkFullName() }} <span
+                                    class="monitor">{{ $wallMessage->user->isMonitor($course->id) ? '(Monitor)' : '' }}</span>
+                        </h6>
                         <span> Publicado {{ $wallMessage->created_at->diffForHumans() }}
                             : {{ $wallMessage->created_at }}</span>
+                        <i class="reply fa fa-reply"></i>
                         @if($wallMessage->user->isMe())
                             <i class="delete-message fa fa-trash" data-message-id="{{ $wallMessage->id }}"></i>
                             @if($wallMessage->achievement_id==null)
                                 <i class="edit-message fa fa-pencil-square-o" data-message-id="{{ $wallMessage->id }}"
                                    data-message="{{ $wallMessage->message }}"></i>
+                            @else
+                                <a><i  onClick="MyWindow=window.open('http://twitter.com/share?text=He ganado el logro: {{ $wallMessage->achievement->name }} &url={{ route('share_path', [$course->id, $wallMessage->achievement_id]) }}','MyWindow',width=600,height=300); return false;" href='#' class="fa fa-twitter"></i></a>
+                                <a onClick="MyWindow=window.open('https://www.facebook.com/sharer/sharer.php?u={{ route('share_path', [$course->id, $wallMessage->achievement_id]) }}','MyWindow',width=600,height=300); return false;"
+                                   href='#'><i class="fa fa-facebook"></i></a>
                             @endif
+
                         @endif
-                        <i class="reply fa fa-reply"></i>
+
                     </div>
                     <div class="comment-content">
                         @if($wallMessage->achievement_id!=null)
@@ -45,7 +53,9 @@
                         <!-- Contenedor del Comentario -->
                         <div class="comment-box">
                             <div class="comment-head">
-                                <h6 class="comment-name"> {{ $reply->user->linkFullName() }} <span class="monitor">{{ $wallMessage->user->isMonitor($course->id) ? '(Monitor)' : '' }}</span></h6>
+                                <h6 class="comment-name"> {{ $reply->user->linkFullName() }} <span
+                                            class="monitor">{{ $wallMessage->user->isMonitor($course->id) ? '(Monitor)' : '' }}</span>
+                                </h6>
                                 <span> Publicado {{ $reply->created_at->diffForHumans() }}
                                     : {{ $reply->created_at }}</span>
                                 @if($reply->user->isMe())

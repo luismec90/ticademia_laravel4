@@ -125,7 +125,7 @@ class ApiSCORMController extends \BaseController {
             {
                 $feedbackForUser .= '<br><br> Tu tiempo fue de <b>' . $diff . ' segundos</b>';
             }
-            AchievementHelper::achievement_primerEjercicio(Auth::user(), $quiz->module->course);
+
             AchievementHelper::achievement_enLinea(Auth::user(), $quiz->module->course);
 
             $this->checkLevel($quiz->module->course);

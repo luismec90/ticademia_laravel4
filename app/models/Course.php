@@ -39,7 +39,7 @@ class Course extends \Eloquent {
 
     }
 
-    public function generalRanking()
+    public function individualRanking()
     {
         return User::join('module_user', 'module_user.user_id', '=', 'users.id')
             ->join('modules', 'module_user.module_id', '=', 'modules.id')

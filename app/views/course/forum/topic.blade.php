@@ -13,7 +13,8 @@
                 "language": {
                     "url": "{{ asset('assets/libs/datatables/js/spanish.lang') }}"
                 },
-                "bSort": false
+                "bSort": false,
+                "bStateSave": true
             });
         });
         info_user_path = "{{ route('info_user_path',$course->id) }}";

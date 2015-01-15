@@ -33,7 +33,7 @@
                         class="fa fa-reply"></i></a>{{ $module->name }}</span></h1>
     <h4 class="text-center">{{ $module->start_date  }} / {{ $module->end_date }}</h4>
     <br>
-    @if(false && Auth::user()->isTeacher($course->id))
+    @if(Auth::user()->isTeacher($course->id))
         <div class="row">
             <div class="col-xs-12">
                 <a class="btn btn-primary" data-toggle="modal" href="#modal-create-material">Crear material</a>

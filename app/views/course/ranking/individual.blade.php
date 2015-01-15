@@ -18,7 +18,7 @@
     </script>
 @stop
 @section('content')
-    <h1 class="section-title"><span>Ranking General</span></h1>
+    <h1 class="section-title"><span>Ranking Individual</span></h1>
 
     <div class="row">
         <div class="col-xs-12">

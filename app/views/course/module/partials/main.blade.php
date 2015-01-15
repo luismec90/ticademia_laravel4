@@ -92,6 +92,9 @@
                             Int.
                         </td>
                         <td>
+                            Estatus
+                        </td>
+                        <td>
                             Mejor tiempo
                         </td>
                         <td>
@@ -117,6 +120,19 @@
                                 @endif
                             </td>
                             <td>
+                                @if(!is_null($quiz->approvedQuiz) && $quiz->approvedQuiz->skipped==0 && $quiz->approvedQuiz->created_at<=$module->end_date  )
+                                    <i class="fa fa-check"></i>
+                                @elseif(!is_null($quiz->approvedQuiz) && $quiz->approvedQuiz->skipped==0 && $quiz->approvedQuiz->created_at>$module->end_date  )
+                                    <i class="fa fa-check-circle"></i>
+                                @elseif(!is_null($quiz->approvedQuiz) && $quiz->approvedQuiz->skipped==1)
+                                    <i class="fa fa-share"></i>
+                                @elseif(!$prevQuizIsAproved)
+                                    <i class="fa fa-lock"></i>
+                                @elseif($prevQuizIsAproved)
+                                    <i class="fa fa-unlock"></i>
+                                @endif
+                            </td>
+                            <td>
                                 @if(!is_null($quiz->best_time))
                                     {{ $quiz->best_time  }} segundos
                                     <br>
@@ -130,7 +146,7 @@
                                    data-evaluacion-id="{{ $quiz->id }}"
                                    data-url="{{ $quiz->path($course) }}"
                                    data-order="{{ $quiz->order }}">Ver</a>
-                                <a class="btn btn-primary btn-sm" href="{{ route('topic_path',[$course->id,$quiz->topic_id]) }}">Tema</a>
+                                <a class="btn btn-primary btn-sm" href="{{ route('topic_path',[$course->id,$quiz->topic_id]) }}">Foro</a>
                                 @if(is_null($quiz->approvedQuiz) && $prevQuizIsAproved && $quiz->userQuizAttempts->count() )
                                     <a class="btn btn-default btn-sm skip-quiz" data-evaluacion-id="{{ $quiz->id }}">Saltar</a>
                                 @endif

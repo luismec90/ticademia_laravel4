@@ -38,19 +38,21 @@
                 <li class="@if(Route::currentRouteName()=='forum_path'|| Route::currentRouteName()=='topic_path') {{ "active"}} @endif">
                     <a href="{{ route('forum_path',$course->id) }}">Foro</a></li>
                 <li role="presentation"
-                    class="dropdown @if(Route::currentRouteName()=='group_ranking_path' || Route::currentRouteName()=='general_ranking_path') {{ "active"}} @endif">
+                    class="dropdown @if(Route::currentRouteName()=='group_ranking_path' || Route::currentRouteName()=='individual_ranking_path') {{ "active"}} @endif">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
                         Ranking <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li class="@if(Route::currentRouteName()=='group_ranking_path') {{ "active"}} @endif"><a
                                     href="{{ route('group_ranking_path',$course->id) }}">Ranking grupal</a></li>
-                        <li class="@if(Route::currentRouteName()=='general_ranking_path') {{ "active"}} @endif"><a
-                                    href="{{ route('general_ranking_path',$course->id) }}">Ranking general</a></li>
+                        <li class="@if(Route::currentRouteName()=='individual_ranking_path') {{ "active"}} @endif"><a
+                                    href="{{ route('individual_ranking_path',$course->id) }}">Ranking individual</a></li>
                     </ul>
                 </li>
+                @if(Auth::user()->isStudent($course->id))
                 <li class="@if(Route::currentRouteName()=='achievement_path') {{ "active"}} @endif"><a
                             href="{{ route('achievement_path',$course->id) }}">Mis logros</a></li>
+                @endif
                 @if(Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id))
                     <li role="presentation"
                         class="dropdown @if(Route::currentRouteName()=='statistics_students_path' || Route::currentRouteName()=='module_report_path' || Route::currentRouteName()=='statistics_quizzes_path') {{ "active"}} @endif">

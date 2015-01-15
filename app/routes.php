@@ -94,10 +94,10 @@ Route::group(['prefix' => 'curso/{course_id}', 'before' => 'auth|isEnrolled'], f
 
     /* Ranking */
     Route::get('/ranking-grupal', ['as' => 'group_ranking_path', 'uses' => 'CoursesController@groupRanking']);
-    Route::get('/ranking-general', ['as' => 'general_ranking_path', 'uses' => 'CoursesController@generalRanking']);
+    Route::get('/ranking-individual', ['as' => 'individual_ranking_path', 'uses' => 'CoursesController@individualRanking']);
 
     /* Logros */
-    Route::get('/logros', ['as' => 'achievement_path', 'uses' => 'CoursesController@reachedAchievements']);
+    Route::get('/logros', ['before'=>'isStudent','as' => 'achievement_path', 'uses' => 'CoursesController@reachedAchievements']);
 
     /* Modulo */
     Route::group(['prefix' => 'modulo/{module_id}'], function ()

@@ -2,26 +2,6 @@
 
 class AchievementHelper {
 
-    public static function achievement_primerEjercicio($user, $course)
-    {
-        $achievementID = 1;
-
-        if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
-        {
-            $module = Module::whereHas('quizzes', function ($q) use ($user)
-            {
-                $q->whereHas('approvedQuiz', function ($q) use ($user)
-                {
-                    $q->where('user_id', $user->id)
-                        ->where('skipped', 0);
-                });
-            })->where('course_id', $course->id)->get();
-
-            if ($module->count())
-                AchievementHelper::giveAchievement($user, $course, $achievementID);
-        }
-    }
-
     public static function achievement_enLinea($user, $course)
     {
 
