@@ -45,7 +45,7 @@
             </div>
             <div class="panel-body">
                 <table class="table table-bordered table-striped table-hover table-responsive">
-                    <?php $index = 15 *(Input::get('page', 1) - 1)?>
+                    <?php $index = 15 * (Input::get('page', 1) - 1)?>
                     @foreach($ranking as $user)
                         <tr class="{{ $user->isMe() ? "warning" :""}}">
                             <td>
@@ -114,13 +114,15 @@
                             <td>{{ $quiz->order }}</td>
                             <td>
                                 @if( $quiz->userQuizAttempts->count())
-                                    {{ $quiz->userQuizAttempts[0]->successful_attempts }}/{{ $quiz->userQuizAttempts[0]->total_attempts }}
+                                    {{ $quiz->userQuizAttempts[0]->successful_attempts .'/'. $quiz->userQuizAttempts[0]->total_attempts }}
                                 @else
                                     0/0
                                 @endif
                             </td>
                             <td>
-                                @if(!is_null($quiz->approvedQuiz) && $quiz->approvedQuiz->skipped==0 && $quiz->approvedQuiz->created_at<=$module->end_date  )
+                                @if(Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id))
+                                    <i class="fa fa-unlock"></i>
+                                @elseif(!is_null($quiz->approvedQuiz) && $quiz->approvedQuiz->skipped==0 && $quiz->approvedQuiz->created_at<=$module->end_date  )
                                     <i class="fa fa-check"></i>
                                 @elseif(!is_null($quiz->approvedQuiz) && $quiz->approvedQuiz->skipped==0 && $quiz->approvedQuiz->created_at>$module->end_date  )
                                     <i class="fa fa-check-circle"></i>
@@ -146,7 +148,8 @@
                                    data-evaluacion-id="{{ $quiz->id }}"
                                    data-url="{{ $quiz->path($course) }}"
                                    data-order="{{ $quiz->order }}">Ver</a>
-                                <a class="btn btn-primary btn-sm" href="{{ route('topic_path',[$course->id,$quiz->topic_id]) }}">Foro</a>
+                                <a class="btn btn-primary btn-sm"
+                                   href="{{ route('topic_path',[$course->id,$quiz->topic_id]) }}">Foro</a>
                                 @if(is_null($quiz->approvedQuiz) && $prevQuizIsAproved && $quiz->userQuizAttempts->count() )
                                     <a class="btn btn-default btn-sm skip-quiz" data-evaluacion-id="{{ $quiz->id }}">Saltar</a>
                                 @endif

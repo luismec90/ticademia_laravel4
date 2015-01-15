@@ -8,27 +8,29 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <table class="table table-bordered">
-                <thead>
-                <tr >
-                    <td>Posición</td>
-                    <td>Grupo</td>
-                    <td>Puntaje</td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr >
-                    <td>{{ $userRanking['position'] }}</td>
-                    <td>{{ $userRanking['group'] }}</td>
-                    <td>{{ $userRanking['score'] }}</td>
-                </tr>
-                </tbody>
-            </table>
-            <div class="row">
-                <div class="col-xs-12">
-                    <hr>
+            @if(Auth::user()->isStudent($course->id))
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <td>Posición</td>
+                        <td>Grupo</td>
+                        <td>Puntaje</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{ $userRanking['position'] }}</td>
+                        <td>{{ $userRanking['group'] }}</td>
+                        <td>{{ $userRanking['score'] }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <hr>
+                    </div>
                 </div>
-            </div>
+            @endif
             <table id="table-ranking" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                 <tr>

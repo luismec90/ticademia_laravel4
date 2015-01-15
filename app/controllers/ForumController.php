@@ -59,6 +59,8 @@ class ForumController extends \BaseController {
 
         Flash::success('Mensaje creado exitosamente');
 
+        Session::flash('storedReply', true);
+
         return Redirect::back();
     }
 

@@ -22,6 +22,7 @@
 
     <div class="row">
         <div class="col-xs-12">
+            @if(Auth::user()->isStudent($course->id))
             <table class="table table-bordered">
                 <thead>
                 <tr>
@@ -43,6 +44,7 @@
                     <hr>
                 </div>
             </div>
+            @endif
             <table id="table-ranking" class="table table-striped table-bordered table-hover" cellspacing="0"
                    width="100%">
                 <thead>

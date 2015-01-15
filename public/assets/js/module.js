@@ -69,8 +69,7 @@ $(function () {
             },
             method: 'POST'
         }).done(function (data) {
-            $("#body-module").html(data);
-            loadStarts();
+            reloadModule();
         }).fail(function (data) {
             console.log('Error');
         });
