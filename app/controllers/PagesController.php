@@ -5,7 +5,9 @@ class PagesController extends BaseController {
     public function test()
     {
 
-        echo route('share_wall_message_path', [$course->id, $wallMessage->id]);
+        return View::make('pages.test');
+
+
         //  $xml = simplexml_load_file('http://gdata.youtube.com/feeds/api/videos/kAOm3APJopM');
         //  return strval($xml->xpath('//yt:duration[@seconds]')[0]->attributes()->seconds);
 
@@ -21,8 +23,6 @@ class PagesController extends BaseController {
     {
         return View::make('pages.terms');
     }
-
-
 
 
 }

@@ -128,6 +128,7 @@ return array(
         'Barryvdh\Debugbar\ServiceProvider',
         'Maatwebsite\Excel\ExcelServiceProvider',
 
+
     ),
 
     /*
