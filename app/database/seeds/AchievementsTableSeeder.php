@@ -69,6 +69,34 @@ class AchievementsTableSeeder extends Seeder {
             'description' => 'Se gana cuando se obtiene el mejor tiempo en una evaluación.'
         ]);
 
-    }
+        Achievement::create([
+            'id'          => 15,
+            'name'        => '25% del curso',
+            'description' => '25% del curso',
+        ]);
 
+        Achievement::create([
+            'id'          => 16,
+            'name'        => '40% del curso',
+            'description' => '40% del curso',
+        ]);
+
+        Achievement::create([
+            'id'          => 17,
+            'name'        => '60% del curso',
+            'description' => '60% del curso',
+        ]);
+
+        Achievement::create([
+            'id'          => 18,
+            'name'        => '75% del curso',
+            'description' => '75% del curso',
+        ]);
+
+        Achievement::create([
+            'id'          => 19,
+            'name'        => '100% del curso',
+            'description' => '100% del curso',
+        ]);
+    }
 }

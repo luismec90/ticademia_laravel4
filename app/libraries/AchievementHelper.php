@@ -187,6 +187,48 @@ class AchievementHelper {
         }
     }
 
+    public static function achievement_percentageCourse($user, $course, $percentageCourse)
+    {
+        if ($percentageCourse == 100)
+        {
+            $achievementID = 19;
+            if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+            {
+                AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+            }
+
+        } else if ($percentageCourse >= 75)
+        {
+            $achievementID = 18;
+            if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+            {
+                AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+            }
+        } else if ($percentageCourse >= 60)
+        {
+            $achievementID = 17;
+            if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+            {
+                AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+            }
+        } else if ($percentageCourse >= 40)
+        {
+            $achievementID = 16;
+            if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+            {
+                AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+            }
+        } else if ($percentageCourse >= 25)
+        {
+            $achievementID = 15;
+            if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+            {
+                AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+            }
+        }
+    }
+
+
     public static function dontHaveTheAchievement($user, $course, $achievementID)
     {
         $reachedAchievement = ReachedAchievement::where('user_id', $user->id)

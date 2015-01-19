@@ -128,7 +128,11 @@ class ApiSCORMController extends \BaseController {
 
             AchievementHelper::achievement_enLinea(Auth::user(), $quiz->module->course);
 
-            $this->checkLevel($quiz->module->course);
+            $percentageCourse = $this->percentageCourse($quiz->module->course);
+
+            AchievementHelper::achievement_percentageCourse(Auth::user(), $quiz->module->course, $percentageCourse);
+
+            $this->checkLevel($quiz->module->course, $percentageCourse);
         } else
         {
             $feedbackForUser = $C[rand(0, 3)] . $D[rand(0, 1)];
@@ -215,47 +219,28 @@ class ApiSCORMController extends \BaseController {
         $moduleUser->save();
     }
 
-    private function checkLevel($course)
+    private function checkLevel($course,$percentage)
     {
-        $totalApprovedQuizzes = Quiz::whereHas('module', function ($q) use ($course)
-        {
-            $q->whereHas('course', function ($q) use ($course)
-            {
-                $q->where('course_id', $course->id);
-            });
-        })->whereHas('approvedQuiz', function ($q)
-        {
-            $q->where('user_id', Auth::user()->id)
-                ->where('skipped', 0);
-        })->count();
-
-        $totalQuizzes = Quiz::whereHas('module', function ($q) use ($course)
-        {
-            $q->whereHas('course', function ($q) use ($course)
-            {
-                $q->where('course_id', $course->id);
-            });
-        })->count();
 
 
-        $percentage = round($totalApprovedQuizzes / $totalQuizzes * 100, 2);
+
 
         if ($percentage == 100)
         {
-            $level = 10;
+            //  $level = 10; Dios de la sapiencia: 3 cursos completos
         } elseif ($percentage > 90)
         {
             $level = 9;
         } else if ($percentage > 80)
         {
             $level = 8;
-        } else if ($percentage > 70)
+        } else if ($percentage > 65)
         {
             $level = 7;
         } else if ($percentage > 50)
         {
             $level = 6;
-        } else if ($percentage > 30)
+        } else if ($percentage > 35)
         {
             $level = 5;
         } else if ($percentage > 20)
@@ -292,5 +277,31 @@ class ApiSCORMController extends \BaseController {
             $notification->show_modal = 1;
             $notification->save();
         }
+    }
+
+    private function percentageCourse($course)
+    {
+        $totalApprovedQuizzes = Quiz::whereHas('module', function ($q) use ($course)
+        {
+            $q->whereHas('course', function ($q) use ($course)
+            {
+                $q->where('course_id', $course->id);
+            });
+        })->whereHas('approvedQuiz', function ($q)
+        {
+            $q->where('user_id', Auth::user()->id)
+                ->where('skipped', 0);
+        })->count();
+
+        $totalQuizzes = Quiz::whereHas('module', function ($q) use ($course)
+        {
+            $q->whereHas('course', function ($q) use ($course)
+            {
+                $q->where('course_id', $course->id);
+            });
+        })->count();
+
+
+        return round($totalApprovedQuizzes / $totalQuizzes * 100, 2);
     }
 }
