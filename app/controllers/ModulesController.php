@@ -55,6 +55,8 @@ class ModulesController extends \BaseController {
 
         if (Input::has('materialID') && Input::has('playbackTime'))
         {
+            $course = Course::findOrFail($courseID);
+
             $module = Module::where('course_id', $courseID)->findOrFail($moduleID);
 
             $material = Material::where('module_id', $module->id)->findOrFail(Input::get('materialID'));
@@ -64,6 +66,8 @@ class ModulesController extends \BaseController {
             $materialUser->material_id = $material->id;
             $materialUser->playback_time = round(Input::get('playbackTime'));
             $materialUser->save();
+
+            AchievementHelper::achievement_materialesVistos(Auth::user(), $course);
 
             return $this->show($courseID, $moduleID);
         }

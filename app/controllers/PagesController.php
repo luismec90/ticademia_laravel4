@@ -5,9 +5,19 @@ class PagesController extends BaseController {
     public function test()
     {
 
-        return View::make('pages.test');
+       return  MaterialUser::whereHas('material', function ($q)
+        {
+            $q->whereHas('module', function ($q)
+            {
+                $q->where('course_id', 1);
+            });
+        })->where('user_id', 1)
+           ->select('material_id')
+            ->distinct()
+           ->get()
+           ->count();
 
-
+        return "asd";
         //  $xml = simplexml_load_file('http://gdata.youtube.com/feeds/api/videos/kAOm3APJopM');
         //  return strval($xml->xpath('//yt:duration[@seconds]')[0]->attributes()->seconds);
 

@@ -69,7 +69,8 @@ $(function () {
             },
             method: 'POST'
         }).done(function (data) {
-            reloadModule();
+            var loadNotification = true;
+            reloadModule(loadNotification);
         }).fail(function (data) {
             console.log('Error');
         });
@@ -142,12 +143,15 @@ function getReviews(page) {
     });
 }
 
-function reloadModule() {
+function reloadModule(loadNotification) {
     $.ajax({
         dataType: 'json',
         method: 'post'
     }).done(function (data) {
         $("#body-module").html(data);
+        if (loadNotification) {
+            loadNotificaction();
+        }
         loadStarts();
     }).fail(function () {
         console.log('Error');

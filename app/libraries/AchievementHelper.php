@@ -4,8 +4,6 @@ class AchievementHelper {
 
     public static function achievement_enLinea($user, $course)
     {
-
-
         $quizAttempts = QuizAttempt::whereHas('quiz', function ($q) use ($course)
         {
             $q->whereHas('module', function ($q) use ($course)
@@ -179,11 +177,34 @@ class AchievementHelper {
 
     public static function achievement_mejorTiempo($user, $course)
     {
-        $achievementID = 14;
-
-        if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+        $totalQuizzesBestTime = Quiz::whereHas('module', function ($q) use ($course)
         {
-            AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+            $q->where('course_id', $course->id);
+        })->where('user_id', $user->id)
+            ->count();
+
+        if ($totalQuizzesBestTime == 15)
+        {
+            $achievementID = 20;
+            if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+            {
+                AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+            }
+        } else if ($totalQuizzesBestTime == 5)
+        {
+            $achievementID = 21;
+            if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+            {
+                AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+            }
+        } else if ($totalQuizzesBestTime == 1)
+        {
+            $achievementID = 14;
+
+            if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+            {
+                AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+            }
         }
     }
 
@@ -228,6 +249,57 @@ class AchievementHelper {
         }
     }
 
+    public static function achievement_materialesVistos($user, $course)
+    {
+        $totalViewedMaterials = MaterialUser::whereHas('material', function ($q) use ($course)
+        {
+            $q->whereHas('module', function ($q) use ($course)
+            {
+                $q->where('course_id', $course->id);
+            });
+        })->where('user_id', $user->id)
+            ->select('material_id')
+            ->distinct()
+            ->get()
+            ->count();
+
+        $totalMaterials = Material::whereHas('module', function ($q) use ($course)
+        {
+            $q->where('course_id', $course->id);
+        })->count();
+
+        if ($totalViewedMaterials == $totalMaterials)
+        {
+            $achievementID = 25;
+            if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+            {
+                AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+            }
+        }
+
+        if ($totalViewedMaterials == 10)
+        {
+            $achievementID = 24;
+            if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+            {
+                AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+            }
+        } else if ($totalViewedMaterials == 5)
+        {
+            $achievementID = 23;
+            if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+            {
+                AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+            }
+        } else if ($totalViewedMaterials == 1)
+        {
+            $achievementID = 22;
+            if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+            {
+                AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+            }
+        }
+    }
 
     public static function dontHaveTheAchievement($user, $course, $achievementID)
     {

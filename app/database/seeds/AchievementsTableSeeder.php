@@ -98,5 +98,41 @@ class AchievementsTableSeeder extends Seeder {
             'name'        => '100% del curso',
             'description' => '100% del curso',
         ]);
+
+        Achievement::create([
+            'id'          => 20,
+            'name'        => 'Rompe-records',
+            'description' => 'Mejor tiempo en 5 ejercicios',
+        ]);
+
+        Achievement::create([
+            'id'          => 21,
+            'name'        => 'Flash',
+            'description' => 'Mejor tiempo en 15 ejercicios',
+        ]);
+
+        Achievement::create([
+            'id'          => 22,
+            'name'        => 'Primer material visto',
+            'description' => 'Primer material visto',
+        ]);
+
+        Achievement::create([
+            'id'          => 23,
+            'name'        => 'Visualizador',
+            'description' => '5 materiales vistos',
+        ]);
+
+        Achievement::create([
+            'id'          => 24,
+            'name'        => 'Súper visualizador',
+            'description' => '10 materiales vistos',
+        ]);
+
+        Achievement::create([
+            'id'          => 25,
+            'name'        => 'Mega visualizador',
+            'description' => 'Todos los materiales vistos',
+        ]);
     }
 }
