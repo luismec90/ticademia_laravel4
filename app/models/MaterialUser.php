@@ -8,4 +8,6 @@ class MaterialUser extends \Eloquent {
 	{
 		return $this->belongsTo('Material');
 	}
+
+
 }

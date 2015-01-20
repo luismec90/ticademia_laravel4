@@ -68,7 +68,7 @@ class ModulesController extends \BaseController {
             $materialUser->save();
 
             AchievementHelper::achievement_materialesVistos(Auth::user(), $course);
-           // AchievementHelper::achievement_videoUsuario(Auth::user(), $course);
+            AchievementHelper::achievement_videoUsuario(Auth::user(), $course);
 
             return $this->show($courseID, $moduleID);
         }

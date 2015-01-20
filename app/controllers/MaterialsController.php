@@ -15,7 +15,7 @@ class MaterialsController extends \BaseController {
             return Redirect::back();
         }
 
-        $xml = simplexml_load_file('http://gdata.youtube.com/feeds/api/videos/'.Input::get('url'));
+        $xml = simplexml_load_file('http://gdata.youtube.com/feeds/api/videos/' . Input::get('url'));
         $duration = strval($xml->xpath('//yt:duration[@seconds]')[0]->attributes()->seconds);
 
         $material = new Material;
@@ -34,6 +34,7 @@ class MaterialsController extends \BaseController {
 
     public function storeRewiews($courseID, $moduleID)
     {
+        $course = Course::findOrFail($courseID);
 
         $validation = Validator::make(Input::all(), Review::$rules);
         if ($validation->fails())
@@ -57,6 +58,8 @@ class MaterialsController extends \BaseController {
         $review->save();
 
         $material->recalculateRating();
+
+        AchievementHelper::achievement_valoracionesMateriales(Auth::user(),$course);
 
         Flash::success('Valoración creada exitosamente');
 
