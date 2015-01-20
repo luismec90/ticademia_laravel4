@@ -4,18 +4,18 @@ class PagesController extends BaseController {
 
     public function test()
     {
+        $course = Course::first();
 
-       return  MaterialUser::whereHas('material', function ($q)
-        {
-            $q->whereHas('module', function ($q)
+        MaterialUser::with('material')
+            ->whereHas('material', function ($q) use ($course)
             {
-                $q->where('course_id', 1);
-            });
-        })->where('user_id', 1)
-           ->select('material_id')
-            ->distinct()
-           ->get()
-           ->count();
+                $q->whereHas('module', function ($q) use ($course)
+                {
+                    $q->where('course_id', $course->id);
+                });
+            })->where('user_id',1)
+            ->get();
+
 
         return "asd";
         //  $xml = simplexml_load_file('http://gdata.youtube.com/feeds/api/videos/kAOm3APJopM');

@@ -134,5 +134,43 @@ class AchievementsTableSeeder extends Seeder {
             'name'        => 'Mega visualizador',
             'description' => 'Todos los materiales vistos',
         ]);
+
+        Achievement::create([
+            'id'          => 26,
+            'name'        => 'Video-usuario',
+            'description' => '3 videos vistos con porcentaje de reproducción superior al  75%',
+        ]);
+
+        Achievement::create([
+            'id'          => 27,
+            'name'        => 'Súper video-usuario',
+            'description' => '12 videos vistos con porcentaje de reproducción superior al  75%',
+        ]);
+
+        Achievement::create([
+            'id'          => 28,
+            'name'        => 'Primera valoración',
+            'description' => 'Primera valoración',
+        ]);
+
+        Achievement::create([
+            'id'          => 29,
+            'name'        => 'Valorador',
+            'description' => '4 materiales valorados',
+        ]);
+
+        Achievement::create([
+            'id'          => 30,
+            'name'        => 'Súper valorador',
+            'description' => '8 materiales valorados',
+        ]);
+
+        Achievement::create([
+            'id'          => 31,
+            'name'        => 'Mega-valorador',
+            'description' => 'Todos los materiales valorados',
+        ]);
+
+
     }
 }

@@ -219,15 +219,13 @@ class ApiSCORMController extends \BaseController {
         $moduleUser->save();
     }
 
-    private function checkLevel($course,$percentage)
+    private function checkLevel($course, $percentage)
     {
-
-
 
 
         if ($percentage == 100)
         {
-            //  $level = 10; Dios de la sapiencia: 3 cursos completos
+            $level = 9; //  $level = 10 -> Logro: Dios de la sapiencia: 3 cursos completos
         } elseif ($percentage > 90)
         {
             $level = 9;

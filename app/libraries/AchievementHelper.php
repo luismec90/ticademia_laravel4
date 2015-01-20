@@ -301,6 +301,30 @@ class AchievementHelper {
         }
     }
 
+    public function achievement_videoUsuario($user, $course)
+    {
+        $achievementID = 26;
+        if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+        {
+            $materialsUser = MaterialUser::with('material')
+                ->whereHas('material', function ($q) use ($course)
+                {
+                    $q->whereHas('module', function ($q) use ($course)
+                    {
+                        $q->where('course_id', $course->id);
+                    });
+                })->where('user_id', $user->id)
+                ->get();
+
+            foreach ($materialsUser as $materialUser)
+            {
+
+            }
+
+            AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+        }
+    }
+
     public static function dontHaveTheAchievement($user, $course, $achievementID)
     {
         $reachedAchievement = ReachedAchievement::where('user_id', $user->id)
