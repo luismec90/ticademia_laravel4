@@ -171,6 +171,44 @@ class AchievementsTableSeeder extends Seeder {
             'description' => 'Todos los materiales valorados',
         ]);
 
+        Achievement::create([
+            'id'          => 32,
+            'name'        => 'Colaborador',
+            'description' => '4 me gusta en sus comentarios en foros',
+        ]);
+
+
+        Achievement::create([
+            'id'          => 33,
+            'name'        => 'Altruista',
+            'description' => '12 me gusta en sus comentarios en foros',
+        ]);
+
+
+        Achievement::create([
+            'id'          => 34,
+            'name'        => 'Primera publicación en el muro',
+            'description' => 'Primera publicación en el muro',
+        ]);
+
+
+        Achievement::create([
+            'id'          => 35,
+            'name'        => 'Participativo',
+            'description' => '7 publicaciones en el muro',
+        ]);
+
+        Achievement::create([
+            'id'          => 36,
+            'name'        => 'Muy popular',
+            'description' => '5 me gusta en sus comentarios del muro',
+        ]);
+
+        Achievement::create([
+            'id'          => 37,
+            'name'        => 'Súper popular',
+            'description' => '10 me gusta en sus comentarios del muro',
+        ]);
 
     }
 }

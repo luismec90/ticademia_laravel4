@@ -28,6 +28,8 @@ class WallMessagesController extends \BaseController {
 
     public function storeMessage($courseID)
     {
+        $course = Course::findOrFail($courseID);
+
         if (Input::get('message') == '')
         {
             Flash::error('Por favor inténtalo nuevamente');
@@ -41,6 +43,8 @@ class WallMessagesController extends \BaseController {
         $wallMessage->message = Input::get('message');
         $wallMessage->save();
 
+        AchievementHelper::achievement_wallMessages(Auth::user(), $course);
+
         Flash::success('Publicación creada exitosamente');
 
         return Redirect::back();
@@ -48,6 +52,8 @@ class WallMessagesController extends \BaseController {
 
     public function storeReply($courseID, $wall_message_id)
     {
+        $course = Course::findOrFail($courseID);
+
         $wallMessage = WallMessage::where('course_id', $courseID)->findOrFail($wall_message_id);
 
         if (Input::get('message') == '')
@@ -63,6 +69,8 @@ class WallMessagesController extends \BaseController {
         $wallMessageReply->wall_message_id = $wallMessage->id;
         $wallMessageReply->message = Input::get('message');
         $wallMessageReply->save();
+
+        AchievementHelper::achievement_wallMessages(Auth::user(), $course);
 
         Flash::success('Publicación creada exitosamente');
 
@@ -157,12 +165,16 @@ class WallMessagesController extends \BaseController {
             $like->wall_message_id = $wallMessage->id;
             $like->save();
 
-            if(!$wallMessage->user->isMe()){
+            if (!$wallMessage->user->isMe())
+            {
+
+                AchievementHelper::achievement_meGustaWallMessages($wallMessage->user, $course, $wallMessage);
+
                 $notification = new Notification;
                 $notification->user_id = $wallMessage->user_id;
                 $notification->title = 'Has ganado un nuevo logro';
                 $notification->url = route('wall_path', $course->id);
-                $notification->body = "El usuario ".Auth::user()->fullName()." le ha dado me gusta a tu publicación de muro en el curso: ".$course->subject->name;
+                $notification->body = "El usuario " . Auth::user()->fullName() . " le ha dado me gusta a tu publicación de muro en el curso: " . $course->subject->name;
                 $notification->save();
             }
         }

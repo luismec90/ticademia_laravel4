@@ -133,6 +133,8 @@ class ForumController extends \BaseController {
 
             if (!$topicReply->user->isMe())
             {
+                AchievementHelper::achievement_meGustaTopicReply($topicReply->user, $course, $topicReply); //Si el like no fue en un post del mismo usuario tiene sentido verificar el logro
+
                 $notification = new Notification;
                 $notification->user_id = $topicReply->user_id;
                 $notification->title = 'Has ganado un nuevo logro';

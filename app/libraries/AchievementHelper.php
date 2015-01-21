@@ -385,6 +385,70 @@ class AchievementHelper {
         }
     }
 
+    public static function achievement_meGustaTopicReply($user, $course, $topicReply)
+    {
+        $countLikes = $topicReply->likes()->where('user_id', '<>', $user->id)->count();
+
+        if ($countLikes == 4)
+        {
+            $achievementID = 32;
+            if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+            {
+                AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+            }
+        } else if ($countLikes == 12)
+        {
+            $achievementID = 33;
+            if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+            {
+                AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+            }
+        }
+    }
+
+    public static function achievement_meGustaWallMessages($user, $course, $wallMessage)
+    {
+        $countLikes = $wallMessage->likes()->where('user_id', '<>', $user->id)->count();
+
+        if ($countLikes == 5)
+        {
+            $achievementID = 36;
+            if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+            {
+                AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+            }
+        } else if ($countLikes == 10)
+        {
+            $achievementID = 37;
+            if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+            {
+                AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+            }
+        }
+    }
+
+    public static function achievement_wallMessages($user, $course)
+    {
+        $countPosts = WallMessage::where('course_id', $course->id)
+            ->where('user_id', $user->id)->count();
+
+        if ($countPosts == 1)
+        {
+            $achievementID = 34;
+            if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+            {
+                AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+            }
+        } else if ($countPosts == 7)
+        {
+            $achievementID = 35;
+            if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+            {
+                AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+            }
+        }
+    }
+
     public static function dontHaveTheAchievement($user, $course, $achievementID)
     {
         $reachedAchievement = ReachedAchievement::where('user_id', $user->id)
@@ -405,16 +469,16 @@ class AchievementHelper {
             $reachedAchievement->achievement_id = $achievementID;
             $reachedAchievement->save();
 
-            AchievementHelper::setNotification($achievementID, $course->id, $reachedAchievement->id);
+            AchievementHelper::setNotification($user,$achievementID, $course->id, $reachedAchievement->id);
         }
     }
 
-    public static function setNotification($achievementID, $courseID, $reachedAchievementID)
+    public static function setNotification($user,$achievementID, $courseID, $reachedAchievementID)
     {
         $achievement = Achievement::findOrFail($achievementID);
 
         $notification = new Notification;
-        $notification->user_id = Auth::user()->id;
+        $notification->user_id = $user->id;
         $notification->title = 'Has ganado un nuevo logro';
         $notification->image = $achievement->imagePath();
         $notification->url = route('achievement_path', $courseID);
