@@ -111,7 +111,7 @@ Route::filter('isEnrolled', function ($route)
 
     $connection = Connection::where('course_id')->find(Session::get('connectionID', - 1));
 
-    if (is_null($connection))
+    if (!Session::has('connectionID'))
     {
         $connection = new Connection;
         $connection->user_id = Auth::user()->id;
@@ -120,6 +120,7 @@ Route::filter('isEnrolled', function ($route)
         Session::put('connectionID', $connection->id);
     } else
     {
+        $connection=Connection::findOrFail(Session::get('connectionID'));
         $connection->touch();
     }
 

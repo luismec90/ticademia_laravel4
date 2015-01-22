@@ -209,6 +209,36 @@ class AchievementsTableSeeder extends Seeder {
             'name'        => 'Súper popular',
             'description' => '10 me gusta en sus comentarios del muro',
         ]);
+        Achievement::create([
+            'id'          => 38,
+            'name'        => '3 horas conectado',
+            'description' => '3 horas conectado',
+        ]);
+        Achievement::create([
+            'id'          => 39,
+            'name'        => '6 horas conectado',
+            'description' => '6 horas conectado',
+        ]);
+        Achievement::create([
+            'id'          => 40,
+            'name'        => '12 horas conectado',
+            'description' => '12 horas conectado',
+        ]);
+        Achievement::create([
+            'id'          => 41,
+            'name'        => '24 horas conectado',
+            'description' => '24 horas conectado',
+        ]);
+        Achievement::create([
+            'id'          => 42,
+            'name'        => '36 horas conectado',
+            'description' => '36 horas conectado',
+        ]);
+        Achievement::create([
+            'id'          => 43,
+            'name'        => '72 horas conectado',
+            'description' => '72 horas conectado',
+        ]);
 
     }
 }

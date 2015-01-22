@@ -12,6 +12,8 @@ class SessionsController extends \BaseController {
             return Redirect::back()->withInput();
         }
 
+        AchievementHelper::achievement_timePlatformUse(Auth::user());
+
         Flash::success('Bienvenido nuevamante '.Auth::user()->nombres);
 
         return Redirect::back();

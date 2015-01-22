@@ -449,6 +449,74 @@ class AchievementHelper {
         }
     }
 
+    public static function achievement_timePlatformUse($user)
+    {
+        $courses = $user->courses;
+
+        foreach ($courses as $course)
+        {
+
+            $totalTime = Connection::selectRaw('ROUND(SUM(TIMESTAMPDIFF(SECOND, created_at, updated_at))/3600,1) total')
+                ->where('user_id', $user->id)
+                ->where('course_id', $course->id)
+                ->groupBy('user_id')
+                ->get();
+            if ($totalTime->count() > 0)
+            {
+                $totalTime = $totalTime[0]->total;
+
+                if ($totalTime >= 72)
+                {
+                    $achievementID = 43;
+                    if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+                    {
+                        AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+                    }
+                }
+                if ($totalTime >= 36)
+                {
+                    $achievementID = 42;
+                    if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+                    {
+                        AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+                    }
+                }
+                if ($totalTime >= 24)
+                {
+                    $achievementID = 41;
+                    if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+                    {
+                        AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+                    }
+                }
+                if ($totalTime >= 12)
+                {
+                    $achievementID = 40;
+                    if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+                    {
+                        AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+                    }
+                }
+                if ($totalTime >= 6)
+                {
+                    $achievementID = 39;
+                    if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+                    {
+                        AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+                    }
+                }
+                if ($totalTime >= 3)
+                {
+                    $achievementID = 38;
+                    if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
+                    {
+                        AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
+                    }
+                }
+            }
+        }
+    }
+
     public static function dontHaveTheAchievement($user, $course, $achievementID)
     {
         $reachedAchievement = ReachedAchievement::where('user_id', $user->id)
@@ -469,11 +537,11 @@ class AchievementHelper {
             $reachedAchievement->achievement_id = $achievementID;
             $reachedAchievement->save();
 
-            AchievementHelper::setNotification($user,$achievementID, $course->id, $reachedAchievement->id);
+            AchievementHelper::setNotification($user, $achievementID, $course->id, $reachedAchievement->id);
         }
     }
 
-    public static function setNotification($user,$achievementID, $courseID, $reachedAchievementID)
+    public static function setNotification($user, $achievementID, $courseID, $reachedAchievementID)
     {
         $achievement = Achievement::findOrFail($achievementID);
 

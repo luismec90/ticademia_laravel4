@@ -66,6 +66,7 @@ class SocialNetworksController extends \BaseController {
 
             Auth::login($user);
 
+            AchievementHelper::achievement_timePlatformUse(Auth::user());
 
             if ($isNewUser)
             {
@@ -161,6 +162,8 @@ class SocialNetworksController extends \BaseController {
             }
 
             Auth::login($user);
+
+            AchievementHelper::achievement_timePlatformUse(Auth::user());
 
             if ($isNewUser)
             {
