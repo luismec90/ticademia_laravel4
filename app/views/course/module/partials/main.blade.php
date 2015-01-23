@@ -5,7 +5,7 @@
                 <h3 class="panel-title">Materiales</h3>
             </div>
             <div class="panel-body">
-                <table class="table table-striped table-hover table-responsive">
+                <table class="table table-striped table-hover">
                     @foreach($module->materials as $material)
                         <tr>
                             <td>
@@ -47,17 +47,16 @@
                 <h3 class="panel-title">Ranking del módulo</h3>
             </div>
             <div class="panel-body">
-                <table class="table table-bordered table-striped table-hover table-responsive">
+                <table class="table  table-striped table-hover table-responsive">
                     <?php $index = 15 * (Input::get('page', 1) - 1)?>
                     @foreach($ranking as $user)
                         <tr class="{{ $user->isMe() ? "warning" :""}}">
                             <td>
                                 {{ ++$index }}
                             </td>
-                            <td class="hidden-sm hidden-md">
-                                @include('layouts.partials.link_avatar_square',['user'=>$user,'size'=>50])
-                            </td>
                             <td>
+                                <img class="img-rounded avatar info-user" data-user-id="{{ $user->id }}" width="30" src="{{ $user->avatarPath() }}" alt="{{  $user->fullName() }}">
+                                {{ $user->linkFullName() }}
                                 @if($index==1)
                                     <img width="25" src="{{ asset('assets/images/general/gold_cup.png') }}">
                                 @elseif($index==2)
@@ -65,8 +64,6 @@
                                 @elseif($index==3)
                                     <img width="25" src="{{ asset('assets/images/general/bronze_cup.png') }}">
                                 @endif
-                                {{ $user->linkFullName() }}
-
                             </td>
                             <td>{{ $user->score }}
 
@@ -89,7 +86,7 @@
                 <center>
                     <?php $prevQuizIsAproved = true; ?>
                     @foreach($module->quizzes as $quiz)
-                        <div class="quiz-div">
+                        <div class="quiz-div {{ $prevQuizIsAproved || Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id)? "hvr-float-shadow" : "" }}">
                             <div class="quiz-launcher {{ $prevQuizIsAproved || Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id)? "" : "disabled" }}"
                                  data-evaluacion-id="{{ $quiz->id }}"
                                  data-url="{{ $quiz->path($course) }}"
@@ -112,11 +109,7 @@
                                     {{ is_null($quiz->approvedQuiz) || $quiz->approvedQuiz->user_id==null ? "--" : $quiz->approvedQuiz->best_time  }}
                                     <img src="{{ asset('assets/images/course/time.png') }}" width="10">
                                 </div>
-                                <div class="quiz-best-time-ever">
-                                    @if(!is_null($quiz->user_id))
-                                        <img class="img-circle" src="{{ $quiz->user->avatarPath() }}" width="32">
-                                    @endif
-                                </div>
+
                                 <div class="quiz-status">
                                     @if(Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id))
                                         <i class="fa fa-unlock"></i>
@@ -132,6 +125,11 @@
                                         <i class="fa fa-unlock"></i>
                                     @endif
                                 </div>
+                            </div>
+                            <div class="quiz-best-time-ever">
+                                @if(!is_null($quiz->user_id))
+                                    <img class="img-circle" src="{{ $quiz->user->avatarPath() }}" width="32">
+                                @endif
                             </div>
                             <div class="jump-quiz">
                                 @if(is_null($quiz->approvedQuiz) && $prevQuizIsAproved && $quiz->userQuizAttempts->count() )
@@ -149,6 +147,7 @@
             </div>
         </div>
     </div>
+    <!--
     <div class="col-sm-5">
         <div id="quizzes-div" class="panel panel-primary">
             <div class="panel-heading">
@@ -237,4 +236,5 @@
             </div>
         </div>
     </div>
+    -->
 </div>
