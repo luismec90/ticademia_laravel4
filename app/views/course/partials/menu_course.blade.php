@@ -18,7 +18,7 @@
                 <li class="@if(Route::currentRouteName()=='course_path' || Route::currentRouteName()=='module_path') {{ "active"}} @endif"
                     role="presentation" class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                        Módulos <span class="caret"></span>
+                        <i class="fa fa-book"></i> Módulos <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         @foreach($course->modules as $module)
@@ -32,15 +32,15 @@
                     </ul>
                 </li>
                 <li class="@if(Route::currentRouteName()=='calendar_path') {{ "active"}} @endif"><a
-                            href="{{ route('calendar_path',$course->id) }}">Calendario</a></li>
+                            href="{{ route('calendar_path',$course->id) }}"><i class="fa fa-calendar"></i> Calendario</a></li>
                 <li class="@if(Route::currentRouteName()=='wall_path') {{ "active"}} @endif"><a
-                            href="{{ route('wall_path',$course->id) }}">Muro</a></li>
+                            href="{{ route('wall_path',$course->id) }}"><i class="fa fa-bullhorn"></i> Muro</a></li>
                 <li class="@if(Route::currentRouteName()=='forum_path'|| Route::currentRouteName()=='topic_path') {{ "active"}} @endif">
-                    <a href="{{ route('forum_path',$course->id) }}">Foro</a></li>
+                    <a href="{{ route('forum_path',$course->id) }}"><i class="fa fa-comment-o"></i> Foro</a></li>
                 <li role="presentation"
                     class="dropdown @if(Route::currentRouteName()=='group_ranking_path' || Route::currentRouteName()=='individual_ranking_path') {{ "active"}} @endif">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                        Ranking <span class="caret"></span>
+                        <i class="fa fa-list-ol"></i> Ranking <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li class="@if(Route::currentRouteName()=='group_ranking_path') {{ "active"}} @endif"><a
@@ -51,7 +51,7 @@
                 </li>
                 @if(Auth::user()->isStudent($course->id))
                 <li class="@if(Route::currentRouteName()=='achievement_path') {{ "active"}} @endif"><a
-                            href="{{ route('achievement_path',$course->id) }}">Mis logros</a></li>
+                            href="{{ route('achievement_path',$course->id) }}"><i class="fa fa-trophy"></i> Mis logros</a></li>
                 @endif
                 @if(Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id))
                     <li role="presentation"

@@ -5,9 +5,12 @@
                 <h3 class="panel-title">Materiales</h3>
             </div>
             <div class="panel-body">
-                <table class="table table-bordered table-striped table-hover table-responsive">
+                <table class="table table-striped table-hover table-responsive">
                     @foreach($module->materials as $material)
                         <tr>
+                            <td>
+                                <img src="{{ $material->iconPath() }}" width="35">
+                            </td>
                             <td><a class="link video-launcher"
                                    data-id="{{ $material->id }}"
                                    data-name="{{ $material->name }}"
@@ -83,6 +86,75 @@
                 <h3 class="panel-title">Evaluaciones</h3>
             </div>
             <div class="panel-body">
+                <center>
+                    <?php $prevQuizIsAproved = true; ?>
+                    @foreach($module->quizzes as $quiz)
+                        <div class="quiz-div">
+                            <div class="quiz-launcher {{ $prevQuizIsAproved || Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id)? "" : "disabled" }}"
+                                 data-evaluacion-id="{{ $quiz->id }}"
+                                 data-url="{{ $quiz->path($course) }}"
+                                 data-order="{{ $quiz->order }}">
+                                <div class="quiz-name">
+                                    {{ $quiz->order }}
+                                </div>
+                                <div class="quiz-attempts">
+                                    @if( $quiz->userQuizAttempts->count())
+                                        {{ $quiz->userQuizAttempts[0]->successful_attempts .'/'. $quiz->userQuizAttempts[0]->total_attempts }}
+                                    @else
+                                        0/0
+                                    @endif
+                                </div>
+                                <div class="quiz-score">
+                                    {{ is_null($quiz->approvedQuiz) ? "--" : $quiz->approvedQuiz->score  }}
+                                    <img src="{{ asset('assets/images/course/star.png') }}" width="15">
+                                </div>
+                                <div class="quiz-best-time">
+                                    {{ is_null($quiz->approvedQuiz) || $quiz->approvedQuiz->user_id==null ? "--" : $quiz->approvedQuiz->best_time  }}
+                                    <img src="{{ asset('assets/images/course/time.png') }}" width="10">
+                                </div>
+                                <div class="quiz-best-time-ever">
+                                    @if(!is_null($quiz->user_id))
+                                        <img class="img-circle" src="{{ $quiz->user->avatarPath() }}" width="32">
+                                    @endif
+                                </div>
+                                <div class="quiz-status">
+                                    @if(Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id))
+                                        <i class="fa fa-unlock"></i>
+                                    @elseif(!is_null($quiz->approvedQuiz) && $quiz->approvedQuiz->skipped==0 && $quiz->approvedQuiz->created_at<=$module->end_date  )
+                                        <i class="fa fa-check"></i>
+                                    @elseif(!is_null($quiz->approvedQuiz) && $quiz->approvedQuiz->skipped==0 && $quiz->approvedQuiz->created_at>$module->end_date  )
+                                        <i class="fa fa-check-circle"></i>
+                                    @elseif(!is_null($quiz->approvedQuiz) && $quiz->approvedQuiz->skipped==1)
+                                        <i class="fa fa-share"></i>
+                                    @elseif(!$prevQuizIsAproved)
+                                        <i class="fa fa-lock"></i>
+                                    @elseif($prevQuizIsAproved)
+                                        <i class="fa fa-unlock"></i>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="jump-quiz">
+                                @if(is_null($quiz->approvedQuiz) && $prevQuizIsAproved && $quiz->userQuizAttempts->count() )
+                                    <a class="btn btn-info btn-sm skip-quiz"
+                                       data-evaluacion-id="{{ $quiz->id }}"> <i class="fa fa-share"></i></a>
+                                @endif
+                            </div>
+                        </div>
+
+                        <?php
+                        $prevQuizIsAproved = !is_null($quiz->approvedQuiz);
+                        ?>
+                    @endforeach
+                </center>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-5">
+        <div id="quizzes-div" class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Evaluaciones</h3>
+            </div>
+            <div class="panel-body">
                 <table class="table table-bordered table-striped table-hover table-responsive">
                     <tr>
                         <td>
@@ -139,8 +211,8 @@
                                     {{ $quiz->best_time  }} segundos
                                     <br>
                                     Por:  {{ $quiz->user->linkFullName() }}
+                                @endif
                             </td>
-                            @endif
                             <td>{{ is_null($quiz->approvedQuiz) ? "" : $quiz->approvedQuiz->score  }}</td>
                             <td>{{ is_null($quiz->approvedQuiz) || $quiz->approvedQuiz->user_id==null ? "" : $quiz->approvedQuiz->best_time.' segundos'  }} </td>
                             <td>
@@ -151,7 +223,8 @@
                                 <a class="btn btn-primary btn-sm"
                                    href="{{ route('topic_path',[$course->id,$quiz->topic_id]) }}">Foro</a>
                                 @if(is_null($quiz->approvedQuiz) && $prevQuizIsAproved && $quiz->userQuizAttempts->count() )
-                                    <a class="btn btn-default btn-sm skip-quiz" data-evaluacion-id="{{ $quiz->id }}">Saltar</a>
+                                    <a class="btn btn-default btn-sm skip-quiz"
+                                       data-evaluacion-id="{{ $quiz->id }}">Saltar</a>
                                 @endif
                             </td>
 

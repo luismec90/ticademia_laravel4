@@ -3,7 +3,7 @@ sublime.load();
 
 $(function () {
 
-    $("#body-module").on('click', '.quiz-launcher', function () {
+    $("#body-module").on('click', '.quiz-launcher:not(.disabled)', function () {
         evaluacionOReto = "evaluacion";
 
         var name = "Evaluación  " + $(this).attr("data-order");

@@ -5,9 +5,9 @@ class Material extends \Eloquent {
     protected $fillable = [];
 
     public static $videoRules = [
-        'name'        => 'required',
-        'type'        => 'required',
-        'url'         => 'required'
+        'name' => 'required',
+        'type' => 'required',
+        'url'  => 'required'
     ];
 
     public function reviews()
@@ -48,4 +48,13 @@ class Material extends \Eloquent {
             ->selectRaw('material_id, SUM(playback_time) AS playback_time')
             ->groupBy('material_id');
     }
+
+    public function iconPath()
+    {
+        if ($this->type == "video")
+            return asset('assets/images/course/video-icon.png');
+        else
+            return asset('assets/images/course/pdf-icon.png');
+    }
+
 }

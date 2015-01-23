@@ -65,7 +65,88 @@
     margin-left: 10px;
 }
 
-#materials-div .panel-body, #ranking-div .panel-body, #quizzes-div .panel-body{
+#materials-div .panel-body, #ranking-div .panel-body, #quizzes-div .panel-body {
     overflow: auto;
 
+}
+
+#quizzes-div .quiz-div {
+    width: 100px;
+    height: 110px;
+    display: inline-block;
+    margin: 10px 20px 10px 20px;
+    background: url('../images/course/pergamino.png') no-repeat;
+    background-size: 100%;
+    position: relative;
+    color:#444;
+}
+#quizzes-div .quiz-launcher {
+    height: 100%;
+}
+#quizzes-div .quiz-launcher:not(.disabled) {
+    cursor: pointer;
+}
+#quizzes-div .jump-quiz {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top:40px;
+    right: -35px;
+    display: inline-block;
+}
+
+
+#quizzes-div .quiz-div .quiz-name {
+    position: absolute;
+    font-size: 30px;
+    left: 18px;
+    top: 15px;
+    display: inline-block;
+}
+
+#quizzes-div .quiz-div .quiz-attempts {
+    position: absolute;
+    right: 17px;
+    top: 20px;
+    display: inline-block;
+    font-size: 14px;
+}
+
+#quizzes-div .quiz-div .quiz-score {
+    position: absolute;
+    right: 17px;
+    top: 45px;
+    display: inline-block;
+    font-size: 14px;
+}
+#quizzes-div .quiz-div .quiz-score img {
+    margin-top: -5px;
+    margin-left: 1px;
+}
+#quizzes-div .quiz-div .quiz-best-time {
+    position: absolute;
+    right: 18px;
+    top: 70px;
+    display: inline-block;
+    font-size: 14px;
+}
+#quizzes-div .quiz-div .quiz-best-time img {
+    margin-top: -5px;
+    margin-left: 2px;
+}
+#quizzes-div .quiz-div .quiz-best-time-ever {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    display: inline-block;
+}
+#quizzes-div .quiz-div .quiz-status {
+    position: absolute;
+    right: 30px;
+    top: -17px;
+    display: inline-block;
+    font-size: 25px;
+}
+#quizzes-div .quiz-div .quiz-status .fa-check{
+   color:rgb(47, 137, 94);
 }
