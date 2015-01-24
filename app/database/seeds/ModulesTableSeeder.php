@@ -9,50 +9,27 @@ class ModulesTableSeeder extends Seeder {
     {
         $faker = Faker::create();
 
-        Module::create([
-            'id'          => 1,
-            'course_id'   => 1,
-            'name'        => 'Geometría elemental, conjuntos y sistemas numéricos',
-            'description' => $faker->text(),
-            'start_date'  => '2015-01-10',
-            'end_date'    => '2015-01-20'
-        ]);
+        $starDate = "2015-02-02 00:00:00";
 
-        Module::create([
-            'id'          => 2,
-            'course_id'   => 1,
-            'name'        => 'Álgebra',
-            'description' => $faker->text(),
-            'start_date'  => '2015-01-20',
-            'end_date'    => '2015-01-30'
-        ]);
+        for ($i = 1; $i <= 16; $i ++)
+        {
+            $fecha = new DateTime($starDate);
+            $fecha->add(new DateInterval('P6DT23H59M59S'));
+            $endDate = $fecha->format('Y-m-d H:i:s');
 
-        Module::create([
-            'id'          => 3,
-            'course_id'   => 1,
-            'name'        => 'Ecuaciones y desigualdades',
-            'description' => $faker->text(),
-            'start_date'  => '2015-01-30',
-            'end_date'    => '2015-02-09'
-        ]);
+            Module::create([
+                'id'          => $i,
+                'course_id'   => 1,
+                'name'        => "Módulo $i",
+                'description' => $faker->text(),
+                'start_date'  => $starDate,
+                'end_date'    => $endDate
+            ]);
 
-        Module::create([
-            'id'          => 4,
-            'course_id'   => 1,
-            'name'        => 'Funciones reales',
-            'description' => $faker->text(),
-            'start_date'  => '2015-02-09',
-            'end_date'    => '2015-02-19'
-        ]);
+            $fecha->add(new DateInterval('PT1S'));
+            $starDate = $fecha->format('Y-m-d H:i:s');
+        }
 
-        Module::create([
-            'id'          => 5,
-            'course_id'   => 1,
-            'name'        => 'Trigonometría',
-            'description' => $faker->text(),
-            'start_date'  => '2015-02-19',
-            'end_date'    => '2015-03-1'
-        ]);
     }
 
 }

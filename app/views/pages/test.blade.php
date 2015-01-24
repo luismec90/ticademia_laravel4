@@ -7,44 +7,20 @@
     <title>The HTML5 Herald</title>
     <meta name="description" content="The HTML5 Herald">
     <meta name="author" content="SitePoint">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css">
+    {{ HTML::style('assets/libs/slider-pips/css/jquery-ui-slider-pips.css') }}
 
-
-    <!--[if lt IE 9]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+    {{ HTML::script('assets/libs/slider-pips/js/jquery-ui-slider-pips.js') }}
 </head>
 
 <body>
+<div class="slider"></div>
 <script>
-    var courseID = 1;
-    var userID = Math.floor((Math.random() * 1000) + 1);
 
-    var conn = new WebSocket('ws://localhost:8080');
-
-    conn.onopen = function (e) {
-        console.log("Connection established!");
-
-        var data = {
-            'action': 'init',
-            'courseID': courseID,
-            'userID': userID
-        };
-        conn.send(JSON.stringify(data));
-    };
-
-    conn.onmessage = function (e) {
-        console.log(e.data);
-    };
-
-    function getDuel() {
-        var data = {
-            'action': 'getDuel',
-            'courseID': courseID,
-            'userID': userID
-        };
-        conn.send(JSON.stringify(data));
-    }
-
+    $("#modules-slider").slider({ max: 50, value: 10 })
+            .slider("pips");
 </script>
 </body>
 </html>

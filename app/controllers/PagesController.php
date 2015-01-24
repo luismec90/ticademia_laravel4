@@ -4,17 +4,20 @@ class PagesController extends BaseController {
 
     public function test()
     {
-        $totalTime = Connection::selectRaw('ROUND(SUM(TIMESTAMPDIFF(SECOND, created_at, updated_at))/3600,1) total')
-            ->where('user_id', 1)
-            ->where('course_id', 1)
-            ->groupBy('user_id')
-            ->get();
-        if ($totalTime->count() > 0)
+        $starDate = "2015-02-02 00:00:00";
+        for ($i = 1; $i <= 16; $i ++)
         {
-            $totalTime = $totalTime[0]->total;
+            $fecha = new DateTime($starDate);
+            $fecha->add(new DateInterval('P6DT23H59M59S'));
+            $endDate = $fecha->format('Y-m-d H:i:s');
 
-            return $totalTime;
+            echo "Inicio: $starDate <br>";
+            echo "Fin: $endDate <br>";
+            echo "<hr>";
+            $fecha->add(new DateInterval('PT1S'));
+            $starDate = $fecha->format('Y-m-d H:i:s');
         }
+        // return View::make('pages.test');
         //  $xml = simplexml_load_file('http://gdata.youtube.com/feeds/api/videos/kAOm3APJopM');
         //  return strval($xml->xpath('//yt:duration[@seconds]')[0]->attributes()->seconds);
 

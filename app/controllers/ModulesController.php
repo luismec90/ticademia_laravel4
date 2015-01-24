@@ -6,7 +6,7 @@ class ModulesController extends \BaseController {
     public function show($courseID, $moduleID)
     {
 
-        $course = Course::with('subject')->findOrFail($courseID);
+        $course = Course::with('subject','modules')->findOrFail($courseID);
 
         $module = Module::with(['materials',
             'materials.userPlayBackTime',

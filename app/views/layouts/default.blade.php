@@ -17,11 +17,12 @@
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet"
           type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Raleway:400,300,700" rel="stylesheet" type="text/css">
-    {{ HTML::style('assets/libs/jqueryui/jquery-ui.min.css') }}
+
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     {{ HTML::style('assets/libs/animate/animate.css') }}
     {{ HTML::style('assets/libs/bootstrap-social/bootstrap-social.css') }}
     {{ HTML::style('assets/css/main.css') }}
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css">
     @section('css')
     @show
 
@@ -43,8 +44,8 @@
 </div>
 @include('layouts.partials.footer')
 
-{{ HTML::script('//code.jquery.com/jquery-2.1.1.min.js') }}
-{{ HTML::script('assets/libs/jqueryui/jquery-ui.min.js') }}
+<script src="https://code.jquery.com/jquery-2.1.1.js"></script>
+<script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 {{ HTML::script('//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js') }}
 {{ HTML::script('assets/libs/bootstrap-growl/bootstrap-growl.min.js') }}
 {{ HTML::script('assets/js/main.js') }}

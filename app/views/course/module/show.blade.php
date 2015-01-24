@@ -1,5 +1,6 @@
 @extends('layouts.default')
 @section('css')
+    {{ HTML::style('assets/libs/slider-pips/css/jquery-ui-slider-pips.css') }}
     {{ HTML::style('assets/css/course.css') }}
     {{ HTML::style('assets/css/module.css') }}
 @stop
@@ -17,9 +18,12 @@
         material_video_playbacktime_path = "{{ route('material_video_playbacktime_path',[$course->id,$module->id]) }}";
         module_path = "{{ route('module_path',[$course->id,$module->id]) }}";
         raty_path = "{{ asset('assets/libs/raty/') }}";
+        courseJSON = JSON.parse('{{ json_encode($course) }}');
+        current_module="{{ $module->id }}";
     </script>
 @stop
 @section('js')
+    {{ HTML::script('assets/libs/slider-pips/js/jquery-ui-slider-pips.js') }}
     {{ HTML::script('assets/libs/raty/jquery.raty.js') }}
     <script type="text/javascript" src="//cdn.sublimevideo.net/js/hckx7vmz.js"></script>
     {{ HTML::script('assets/js/module.js') }}
@@ -28,9 +32,10 @@
     </script>
 @stop
 @section('content')
-    <h1 class="section-title"><span><a class="btn btn-default btn-back" title="Ir atrás"
+    <h1 class="section-title"><span>
+            {{--<a class="btn btn-default btn-back" title="Ir atrás"
                                        href="{{ route('course_path',$course->id) }}"><i
-                        class="fa fa-reply"></i></a>{{ $module->name }}</span></h1>
+                        class="fa fa-reply"></i></a>--}} {{ $module->name }}</span></h1>
     <h4 class="text-center">{{ $module->start_date  }} / {{ $module->end_date }}</h4>
     <br>
     @if(Auth::user()->isTeacher($course->id))
@@ -42,6 +47,16 @@
         </div>
         <br>
     @endif
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="modules-slider"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <hr>
+        </div>
+    </div>
     <div id="body-module">
         @include('course.module.partials.main')
     </div>

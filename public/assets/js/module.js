@@ -127,7 +127,10 @@ $(function () {
         $("#modal-skip-quiz").modal();
     });
 
+    loadSlider();
     loadStarts();
+
+
 });
 
 function getReviews(page) {
@@ -157,7 +160,37 @@ function reloadModule(loadNotification) {
         console.log('Error');
     });
 }
+function loadSlider() {
+    var saliderStpes = [];
 
+    $.each(courseJSON['modules'], function (index, value) {
+        saliderStpes.push(index + 1);
+    });
+
+    $("#modules-slider")
+
+        // activate the slider with options
+        .slider({
+            min: 0,
+            max: saliderStpes.length - 1,
+            value: current_module - 1
+        })
+
+        // add pips with the labels set to "months"
+        .slider("pips", {
+            rest: "label",
+            labels: saliderStpes
+        })
+
+        // and whenever the slider changes, lets echo out the month
+        .on("slidechange", function (e, ui) {
+            $step = ui.value;
+            var stateObj = {foo: "bar"};
+            history.pushState(stateObj, "Módulo " + $step, courseJSON['modules'][$step]['id']);
+            coverOn();
+            window.location.href =  courseJSON['modules'][$step]['id'];
+        });
+}
 function loadStarts() {
     $('.estrellas').raty({
         path: raty_path + '/images',
