@@ -20,6 +20,7 @@
         raty_path = "{{ asset('assets/libs/raty/') }}";
         courseJSON = JSON.parse('{{ json_encode($course) }}');
         current_module="{{ $module->id }}";
+
     </script>
 @stop
 @section('js')
@@ -132,7 +133,16 @@
                     <!--  Form Input -->
                     <div class="form-group">
                         {{ Form::label('comment','Comentario:') }}
-                        {{ Form::textarea('comment',null,['id'=>'create-review-comment','class'=>'form-control']) }}
+                        {{ Form::textarea('comment',null,['id'=>'create-review-comment','class'=>'form-control','row'=>4]) }}
+                    </div>
+                    <!--  Form Input -->
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                               {{ Form::checkbox('anonymous', 'true'); }}  Realizar comentario de forma anónima
+                            </label>
+                        </div>
+
                     </div>
                 </div>
                 <div class="modal-footer">

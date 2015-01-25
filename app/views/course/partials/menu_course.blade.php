@@ -26,9 +26,11 @@
                                         href="{{ route('module_path',[$course->id,$module->id]) }}">{{ $module->name }} </a>
                             </li>
                         @endforeach
-                        <li class="divider"></li>
-                        <li class="{{ Route::currentRouteName()=='course_path' ? "active" :"" }}"><a
-                                    href="{{ route('course_path',$course->id) }}">Ver todos</a></li>
+                            {{--
+                               <li class="divider"></li>
+                          <li class="{{ Route::currentRouteName()=='course_path' ? "active" :"" }}"><a
+                                       href="{{ route('course_path',$course->id) }}">Ver todos</a></li>
+                                       --}}
                     </ul>
                 </li>
                 <li class="@if(Route::currentRouteName()=='calendar_path') {{ "active"}} @endif"><a

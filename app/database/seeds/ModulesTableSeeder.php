@@ -21,7 +21,7 @@ class ModulesTableSeeder extends Seeder {
                 'id'          => $i,
                 'course_id'   => 1,
                 'name'        => "Módulo $i",
-                'description' => $faker->text(),
+                'description' => '',
                 'start_date'  => $starDate,
                 'end_date'    => $endDate
             ]);

@@ -21,11 +21,15 @@ class CoursesController extends \BaseController {
 
     public function show($course_id)
     {
-        $course = Course::with('subject')
-            ->with('modules')
+        $course = Course::with('modules')
             ->findOrFail($course_id);
 
-        return View::make('course.show', compact('course'));
+        return Redirect::route('module_path',[$course->id,$course->modules->first()->id]);
+        /* $course = Course::with('subject')
+             ->with('modules')
+             ->findOrFail($course_id);
+
+         return View::make('course.show', compact('course'));*/
     }
 
     public function calendar($course_id)
@@ -87,7 +91,7 @@ class CoursesController extends \BaseController {
         $reachedAchievements = ReachedAchievement::with('achievement')
             ->where('course_id', $course->id)
             ->where('user_id', Auth::user()->id)
-            ->orderBy('created_at','DESC')
+            ->orderBy('created_at', 'DESC')
             ->get();
 
         return View::make('course.reached_achievements', compact('course', 'reachedAchievements'));

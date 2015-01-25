@@ -180,6 +180,11 @@ function loadSlider() {
         .slider("pips", {
             rest: "label",
             labels: saliderStpes
+        }).slider("float", {
+            handle:false,
+            pips:true,
+            prefix:'Módulo ',
+            labels: saliderStpes
         })
 
         // and whenever the slider changes, lets echo out the month

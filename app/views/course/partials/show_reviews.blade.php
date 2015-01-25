@@ -7,14 +7,22 @@
     </tr>
     @foreach($reviews as $review)
         <tr>
-            <td>@include('layouts.partials.avatar_square',['user'=>$review->user])
+            <td>
+                @if(!is_null($review->user_id))
+                    @include('layouts.partials.avatar_square',['user'=>$review->user])
+                @endif
             </td>
             <td>
-                {{ $review->user->fullName() }}
+                @if(!is_null($review->user_id))
+                    {{ $review->user->fullName() }}
+                @else
+                    Anónimo
+                @endif
             </td>
             <td>{{ $review->comment }}</td>
             <td>
-                <span class="text-muted">{{ ucfirst($review->created_at->diffForHumans()) }}: {{  $review->created_at }}</span>
+                <span class="text-muted">{{ ucfirst($review->created_at->diffForHumans()) }}
+                    : {{  $review->created_at }}</span>
             </td>
         </tr>
     @endforeach

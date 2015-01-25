@@ -1,6 +1,6 @@
 API = new Object();
 API.LMSInitialize = function (a) {
-
+    $("#iframe_exam").contents().find("#verificar").attr("disabled", true);
     if (evaluacionOReto == "evaluacion" && rolGlobal == 1) {
         $.ajax({
             url: base_url + "/SCORM/LMSInitialize",
@@ -10,6 +10,7 @@ API.LMSInitialize = function (a) {
                 quiz_id: idEvaluacion
             },
             success: function (data) {
+                $("#iframe_exam").contents().find("#verificar").removeAttr("disabled", true);
                 console.log(data)
             }
         });

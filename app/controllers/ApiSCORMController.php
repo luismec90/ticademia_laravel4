@@ -68,7 +68,7 @@ class ApiSCORMController extends \BaseController {
         $quiz = Quiz::with('module', 'module.course')->find($quizId);
 
         if (is_null($quiz) || $grade == '')
-            return 'error';
+            return 'error1';
 
         if (!Auth::user()->isStudent($quiz->module->course->id))
         {
@@ -97,7 +97,7 @@ class ApiSCORMController extends \BaseController {
         $quizAttempt = QuizAttempt::find($quizAttemptId);
 
         if (is_null($quizAttempt))
-            return 'error';
+            return 'error2';
 
         $quizAttempt->grade = $grade;
         $quizAttempt->end_date = $endDate;
