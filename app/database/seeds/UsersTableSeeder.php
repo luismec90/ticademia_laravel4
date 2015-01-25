@@ -35,8 +35,8 @@ class UsersTableSeeder extends Seeder {
 
         User::create([
             'id'         => 3,
-            'first_name' => 'Luis Fernando',
-            'last_name'  => 'Montoya Gómez',
+            'first_name' => 'Andres Felipe',
+            'last_name'  => 'Pineda Corcho',
             'birth_date' => '1990-02-22',
             'gender'     => 'm',
             'email'      => 'estudiante1@gmail.com',
