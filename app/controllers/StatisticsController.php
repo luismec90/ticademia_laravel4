@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Collection;
+
 class StatisticsController extends \BaseController {
 
 
@@ -242,83 +244,76 @@ class StatisticsController extends \BaseController {
     {
         $course = Course::with('modules')->findOrFail($courseID);
 
-        $selectModules[''] = 'Seleccionar...';
+        $modules = Input::get('modules', []);
 
-        foreach ($course->modules as $module)
+        $allModules = Input::get('allModules', false);
+
+        if ($allModules || !is_array($modules))
         {
-            $selectModules[$module->id] = $module->name;
+            $modules = $course->modules->lists('id');
         }
-
         $data = null;
-        if (Input::has('moduleID'))
+
+        if (!empty($modules))
         {
-            $moduleID = Input::get('moduleID');
-            $module = Module::where('course_id', $courseID)->findOrFail($moduleID);
-            $totalQuizzes = $module->quizzes->count();
-            $data = $module->report($totalQuizzes, true);
+            $data = $this->getReport($course, $modules);
         }
 
-        return View::make('course.statistics.module_report', compact('course', 'selectModules', 'data', 'module'));
+        return View::make('course.statistics.students_report', compact('course', 'data', 'modules'));
     }
 
     public function downloadModuleReport($courseID)
     {
-        $moduleID = Input::get('moduleID');
+        $course = Course::with('modules')->findOrFail($courseID);
 
-        if ($moduleID == '')
+        $modules = Input::get('modules', []);
+
+        $allModules = Input::get('allModules', false);
+
+        if ($allModules || !is_array($modules))
+        {
+            $modules = $course->modules->lists('id');
+        }
+        $data = null;
+
+        if (empty($modules))
         {
             Flash::error('Por favor selecciona un móduloi');
 
             return Redirect::back();
+
         }
-
-        $module = Module::where('course_id', $courseID)->findOrFail($moduleID);
-
-        $totalQuizzes = $module->quizzes->count();
-
-        $data = $module->report($totalQuizzes);
+        $headerExcel = ['Grupo', 'DNI', 'Correo', 'Apellidos', 'Nombres'];
+        $data = $this->getReport($course, $modules, $headerExcel);
 
         $data = json_decode(json_encode($data), true);
 
-        Excel::create($module->name, function ($excel) use ($data, $module)
+        Excel::create("Reporte {$course->subject->name}", function ($excel) use ($data, $headerExcel, $course)
         {
-
-            $excel->sheet('Hoja 1', function ($sheet) use ($data, $module)
+            $excel->sheet('Hoja 1', function ($sheet) use ($data, $headerExcel, $course)
             {
-
                 $sheet->fromArray($data);
-
-                $sheet->row(1, array(
-                    'Grupo', 'DNI', 'Correo', 'Apellidos', 'Nombres', 'Porcentaje'
-                ));
-
+                $sheet->row(1, $headerExcel);
                 $sheet->prependRow(1, array(
-                    "Módulo: $module->name"
+                    "Curso: {$course->subject->name}"
                 ));
 
                 $sheet->mergeCells('A1:F1');
 
                 $sheet->prependRow(2, array(
-                    "Fecha de corte para este módulo: $module->end_date"
-                ));
-
-                $sheet->mergeCells('A2:F2');
-
-                $sheet->prependRow(3, array(
                     "Fecha de generación de este reporte: " . date('Y-m-d H:i:s')
                 ));
 
-                $sheet->prependRow(4, [
-                    "Total de estudiantes: " . sizeof($data)
+                $sheet->prependRow(3, [
+                    "Total de estudiantes matriculados: " . sizeof($data)
                 ]);
 
-                $sheet->mergeCells('A4:F4');
+                $sheet->mergeCells('A2:F2');
 
                 $sheet->mergeCells('A3:F3');
 
-                $sheet->row(5, function ($row)
+                $sheet->row(4, function ($row)
                 {
-
                     $row->setBackground('#428bca');
                     $row->setFontColor('#ffffff');
                     $row->setFontSize(12);
@@ -326,7 +321,6 @@ class StatisticsController extends \BaseController {
 
                 });
             });
-
         })->download('xlsx');
     }
 
@@ -384,6 +378,52 @@ class StatisticsController extends \BaseController {
         }
 
         return View::make('course.statistics.quizzes', compact('course', 'data', 'totalQuizzes'));
+    }
+
+    private function getReport($course, $modules, &$headerExcel = [])
+    {
+
+        $data = DB::select("SELECT u.id,cu.group,u.dni,u.email,u.last_name,u.first_name FROM users u
+                            JOIN course_user cu ON u.id=cu.user_id
+                            WHERE cu.course_id=$course->id
+                            AND cu.role=1
+                            ORDER BY cu.group,u.last_name,u.first_name");
+
+        $data = Collection::make($data)->keyBy('id');
+
+        foreach ($data as $row)
+        {
+            foreach ($modules as $moduleID)
+            {
+                $index = "module_$moduleID";
+                $row->$index = '0';
+
+                if (!empty($headerExcel))
+                    unset($row->id);
+            }
+        }
+
+        foreach ($modules as $moduleID)
+        {
+            if (!empty($headerExcel))
+                array_push($headerExcel, "Módulo $moduleID");
+
+            $r = DB::select("SELECT q.module_id,aq.user_id,ROUND(COUNT(aq.id)/40*100,2) percentage
+                            FROM approved_quizzes aq
+                            JOIN quizzes q ON aq.quiz_id=q.id
+                            JOIN modules m ON m.id=$moduleID
+                            WHERE aq.skipped=0
+                            AND q.module_id=$moduleID
+                            AND aq.created_at<=m.end_date
+                            GROUP BY aq.user_id");
+
+            foreach ($r as $r2)
+            {
+                $module = "module_$r2->module_id";
+                $data[$r2->user_id]->$module = $r2->percentage;
+            }
+        }
+        return $data;
     }
 
 }
