@@ -265,3 +265,6 @@
     margin-left: -35px;
     z-index: 1000;
 }
+.quiz-div .popover{
+    width: 200px;
+}

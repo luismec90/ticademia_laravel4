@@ -52,22 +52,25 @@ class MaterialsController extends \BaseController {
 
         $review = Review::findOrNew(Input::get('review_id'));
 
-        if (!Input::has('anonymous'))
-            $review->user_id = Auth::user()->id;
-
+        $review->user_id = Auth::user()->id;
         $review->material_id = $material->id;
         $review->rating = Input::get('score');
         $review->comment = Input::get('comment');
+
+        if (Input::has('anonymous'))
+            $review->anonymous = 1;
+        else
+            $review->anonymous = 0;
+
         $review->save();
 
         $material->recalculateRating();
 
-        if (!Input::has('anonymous'))
-            AchievementHelper::achievement_valoracionesMateriales(Auth::user(), $course);
+        AchievementHelper::achievement_valoracionesMateriales(Auth::user(), $course);
 
         Flash::success('Valoración creada exitosamente');
 
-           return Redirect::back();
+        return Redirect::back();
     }
 
     public function showRewiews($courseID, $moduleID, $materialID)

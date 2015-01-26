@@ -8,15 +8,15 @@
     @foreach($reviews as $review)
         <tr>
             <td>
-                @if(!is_null($review->user_id))
+                @if(!$review->anonymous)
                     @include('layouts.partials.avatar_square',['user'=>$review->user])
                 @endif
             </td>
             <td>
-                @if(!is_null($review->user_id))
-                    {{ $review->user->fullName() }}
-                @else
+                @if($review->anonymous)
                     Anónimo
+                @else
+                    {{ $review->user->fullName() }}
                 @endif
             </td>
             <td>{{ $review->comment }}</td>

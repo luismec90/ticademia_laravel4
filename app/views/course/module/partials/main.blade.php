@@ -28,6 +28,7 @@
                                      data-material-review-id="{{  $material->userReviews[0]->id }}"
                                      data-material-review-rating="{{ $material->userReviews[0]->rating }}"
                                      data-material-review-comment="{{ $material->userReviews[0]->comment }}"
+                                     data-material-review-anonymous="{{ $material->userReviews[0]->anonymous }}"
                                         @endif></div>
                                 <span class="text-muted"> ({{ $material->rating_count }})</span>
                                 <a class="link show-reviews" data-name="{{ $material->name }}"
@@ -126,7 +127,13 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="quiz-best-time-ever">
+                            <div class="quiz-best-time-ever"  data-toggle="popover" title="Mejor tiempo" data-content="
+                           @if (!is_null($quiz->user_id))
+                           Obtenido por: {{ $quiz->user->fullName() }}
+                           <br>
+                           Tiempo: <b>{{ $quiz->best_time}}</b> segundos
+                           @endif
+                            ">
                                 @if(!is_null($quiz->user_id))
                                     <img class="img-circle" src="{{ $quiz->user->avatarPath() }}" width="32">
                                 @endif
@@ -147,94 +154,4 @@
             </div>
         </div>
     </div>
-    <!--
-    <div class="col-sm-5">
-        <div id="quizzes-div" class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title">Evaluaciones</h3>
-            </div>
-            <div class="panel-body">
-                <table class="table table-bordered table-striped table-hover table-responsive">
-                    <tr>
-                        <td>
-                            Eva.
-                        </td>
-                        <td>
-                            Int.
-                        </td>
-                        <td>
-                            Estatus
-                        </td>
-                        <td>
-                            Mejor tiempo
-                        </td>
-                        <td>
-                            Puntaje
-                        </td>
-                        <td>
-                            Mi mejor tiempo
-                        </td>
-                        <td>
-                            Opc.
-                        </td>
-                    </tr>
-                    <?php $prevQuizIsAproved = true; ?>
-                    @foreach($module->quizzes as $quiz)
-
-                        <tr>
-                            <td>{{ $quiz->order }}</td>
-                            <td>
-                                @if( $quiz->userQuizAttempts->count())
-                                    {{ $quiz->userQuizAttempts[0]->successful_attempts .'/'. $quiz->userQuizAttempts[0]->total_attempts }}
-                                @else
-                                    0/0
-                                @endif
-                            </td>
-                            <td>
-                                @if(Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id))
-                                    <i class="fa fa-unlock"></i>
-                                @elseif(!is_null($quiz->approvedQuiz) && $quiz->approvedQuiz->skipped==0 && $quiz->approvedQuiz->created_at<=$module->end_date  )
-                                    <i class="fa fa-check"></i>
-                                @elseif(!is_null($quiz->approvedQuiz) && $quiz->approvedQuiz->skipped==0 && $quiz->approvedQuiz->created_at>$module->end_date  )
-                                    <i class="fa fa-check-circle"></i>
-                                @elseif(!is_null($quiz->approvedQuiz) && $quiz->approvedQuiz->skipped==1)
-                                    <i class="fa fa-share"></i>
-                                @elseif(!$prevQuizIsAproved)
-                                    <i class="fa fa-lock"></i>
-                                @elseif($prevQuizIsAproved)
-                                    <i class="fa fa-unlock"></i>
-                                @endif
-                            </td>
-                            <td>
-                                @if(!is_null($quiz->user_id))
-                                    {{ $quiz->best_time  }} segundos
-                                    <br>
-                                    Por:  {{ $quiz->user->linkFullName() }}
-                                @endif
-                            </td>
-                            <td>{{ is_null($quiz->approvedQuiz) ? "" : $quiz->approvedQuiz->score  }}</td>
-                            <td>{{ is_null($quiz->approvedQuiz) || $quiz->approvedQuiz->user_id==null ? "" : $quiz->approvedQuiz->best_time.' segundos'  }} </td>
-                            <td>
-                                <a class="btn btn-primary btn-sm quiz-launcher {{ $prevQuizIsAproved || Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id)? "" : "disabled" }}"
-                                   data-evaluacion-id="{{ $quiz->id }}"
-                                   data-url="{{ $quiz->path($course) }}"
-                                   data-order="{{ $quiz->order }}">Ver</a>
-                                <a class="btn btn-primary btn-sm"
-                                   href="{{ route('topic_path',[$course->id,$quiz->topic_id]) }}">Foro</a>
-                                @if(is_null($quiz->approvedQuiz) && $prevQuizIsAproved && $quiz->userQuizAttempts->count() )
-                                    <a class="btn btn-default btn-sm skip-quiz"
-                                       data-evaluacion-id="{{ $quiz->id }}">Saltar</a>
-                                @endif
-                            </td>
-
-                        </tr>
-                        <?php
-                        $prevQuizIsAproved = !is_null($quiz->approvedQuiz);
-                        ?>
-                    @endforeach
-                </table>
-            </div>
-        </div>
-    </div>
-    -->
 </div>

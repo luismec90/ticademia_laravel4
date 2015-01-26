@@ -139,7 +139,7 @@
                     <div class="form-group">
                         <div class="checkbox">
                             <label>
-                               {{ Form::checkbox('anonymous', 'true'); }}  Realizar comentario de forma anónima
+                               {{ Form::checkbox('anonymous', 'true',false,['id'=>'anonymous-comment']); }}  Realizar comentario de forma anónima
                             </label>
                         </div>
 

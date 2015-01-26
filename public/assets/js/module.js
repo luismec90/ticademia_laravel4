@@ -129,6 +129,7 @@ $(function () {
 
     loadSlider();
     loadStarts();
+    loadPopover();
 
 
 });
@@ -156,6 +157,7 @@ function reloadModule(loadNotification) {
             loadNotificaction();
         }
         loadStarts();
+        loadPopover();
     }).fail(function () {
         console.log('Error');
     });
@@ -181,9 +183,9 @@ function loadSlider() {
             rest: "label",
             labels: saliderStpes
         }).slider("float", {
-            handle:false,
-            pips:true,
-            prefix:'Módulo ',
+            handle: false,
+            pips: true,
+            prefix: 'Módulo ',
             labels: saliderStpes
         })
 
@@ -193,7 +195,7 @@ function loadSlider() {
             var stateObj = {foo: "bar"};
             history.pushState(stateObj, "Módulo " + $step, courseJSON['modules'][$step]['id']);
             coverOn();
-            window.location.href =  courseJSON['modules'][$step]['id'];
+            window.location.href = courseJSON['modules'][$step]['id'];
         });
 }
 function loadStarts() {
@@ -212,10 +214,17 @@ function loadStarts() {
             var reviewID = $(this).attr("data-material-review-id");
             var reviewRating = $(this).attr("data-material-review-rating");
             var reviewComment = $(this).attr("data-material-review-comment");
+            var reviewAnonymous = $(this).attr("data-material-review-anonymous");
 
             $("#create-review-id").val(reviewID);
             $("#create-review-rating").val(reviewRating);
             $("#create-review-comment").val(reviewComment);
+
+            if (reviewAnonymous == 1) {
+                $("#anonymous-comment").attr("checked", "true");
+            } else {
+                $("#anonymous-comment").removeAttr("checked");
+            }
 
             $("#material-name").html(name);
             $("#material-id").val(materialID);
@@ -235,3 +244,11 @@ function loadStarts() {
     });
 }
 
+function loadPopover() {
+    $(".quiz-best-time-ever").popover({
+        trigger: 'hover',
+        placement: 'top',
+        container: 'body',
+        html: 'true'
+    });
+}

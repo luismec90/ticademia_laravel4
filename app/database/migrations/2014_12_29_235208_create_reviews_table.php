@@ -21,6 +21,7 @@ class CreateReviewsTable extends Migration {
             $table->foreign('material_id')->references('id')->on('materials')->onDelete('cascade');
             $table->decimal('rating',2,1);
             $table->string('comment');
+            $table->boolean('anonymous')->default(0);
             $table->timestamps();
         });
     }

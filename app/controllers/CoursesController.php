@@ -24,12 +24,24 @@ class CoursesController extends \BaseController {
         $course = Course::with('modules')
             ->findOrFail($course_id);
 
-        return Redirect::route('module_path',[$course->id,$course->modules->first()->id]);
-        /* $course = Course::with('subject')
-             ->with('modules')
-             ->findOrFail($course_id);
+        $date = date('Y-m-d H:i:s');
 
-         return View::make('course.show', compact('course'));*/
+        $moduleID = - 1;
+        foreach ($course->modules as $module)
+        {
+            if (strtotime($date) <= strtotime($module->end_date))
+            {
+                $moduleID = $module->id;
+                break;
+            }
+        }
+
+        if ($moduleID == - 1)
+        {
+            $moduleID = $module->id;
+        }
+
+        return Redirect::route('module_path', [$course->id, $moduleID]);
     }
 
     public function calendar($course_id)
