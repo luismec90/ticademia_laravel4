@@ -5,6 +5,8 @@ class QuizzesController extends \BaseController {
 
     public function store($courseID, $moduleID)
     {
+        dd(Input::all()); //Pendiente
+
         $course = Course::findOrFail($courseID);
         $module = Module::where('course_id', $course->id)->findOrFail($moduleID);
 
@@ -17,8 +19,37 @@ class QuizzesController extends \BaseController {
         }
 
 
-
         Flash::success('Evaluación creada exitosamente');
+
+        return Redirect::back();
+    }
+
+    public function update($courseID, $moduleID)
+    {
+
+        $course = Course::findOrFail($courseID);
+        $module = Module::where('course_id', $course->id)->findOrFail($moduleID);
+
+        $quiz = Quiz::where('module_id', $module->id)->findOrFail(Input::get('quizID'));
+
+
+        $validation = Validator::make(Input::all(), Quiz::$updateRules);
+        if ($validation->fails())
+        {
+            Flash::error('Por favor inténtalo nuevamente');
+
+            return Redirect::back();
+        }
+
+        $quiz->quiz_type_id = Input::get('quizTypeID');
+        $materials = Input::get('materials');
+        if (is_array($materials))
+        {
+            $quiz->materials()->sync($materials);
+        }
+        $quiz->save();
+
+        Flash::success('Evaluación editada exitosamente');
 
         return Redirect::back();
     }

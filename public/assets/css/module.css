@@ -153,7 +153,11 @@
 #quizzes-div .quiz-div .quiz-status .fa-check{
    color:rgb(47, 137, 94);
 }
-
+#quizzes-div .quiz-div .edit-quiz{
+    position: absolute;
+    left:-35px;
+    top: 0px;
+}
 /* Float Shadow */
 .quiz-div {
     display: inline-block;

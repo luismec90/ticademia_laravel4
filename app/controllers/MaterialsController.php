@@ -4,6 +4,7 @@ class MaterialsController extends \BaseController {
 
     public function store($courseID, $moduleID)
     {
+
         $course = Course::findOrFail($courseID);
         $module = Module::where('course_id', $course->id)->findOrFail($moduleID);
 

@@ -56,7 +56,8 @@
                                 {{ ++$index }}
                             </td>
                             <td>
-                                <img class="img-rounded avatar info-user" data-user-id="{{ $user->id }}" width="30" src="{{ $user->avatarPath() }}" alt="{{  $user->fullName() }}">
+                                <img class="img-rounded avatar info-user" data-user-id="{{ $user->id }}" width="30"
+                                     src="{{ $user->avatarPath() }}" alt="{{  $user->fullName() }}">
                                 {{ $user->linkFullName() }}
                                 @if($index==1)
                                     <img width="25" src="{{ asset('assets/images/general/gold_cup.png') }}">
@@ -127,13 +128,13 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="quiz-best-time-ever"  data-toggle="popover" title="Mejor tiempo" data-content="
+                            <div class="quiz-best-time-ever" data-toggle="popover" title="Mejor tiempo" data-content="
                            @if (!is_null($quiz->user_id))
                            Obtenido por: {{ $quiz->user->fullName() }}
                            <br>
                            Tiempo: <b>{{ $quiz->best_time}}</b> segundos
                            @endif
-                            ">
+                                    ">
                                 @if(!is_null($quiz->user_id))
                                     <img class="img-circle" src="{{ $quiz->user->avatarPath() }}" width="32">
                                 @endif
@@ -144,6 +145,14 @@
                                        data-evaluacion-id="{{ $quiz->id }}"> <i class="fa fa-share"></i></a>
                                 @endif
                             </div>
+                            @if(Auth::user()->isTeacher($course->id))
+                                <button class="edit-quiz btn btn-info btn-sm"
+                                        data-quiz-id="{{ $quiz->id }}"
+                                        data-quiz-type="{{ $quiz->quiz_type_id }}"
+                                        data-materials="{{ implode(",",$quiz->materials->lists('id')) }}">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                </button>
+                            @endif
                         </div>
 
                         <?php

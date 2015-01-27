@@ -4,6 +4,11 @@ class Quiz extends \Eloquent {
 
     protected $fillable = [];
 
+    public static $updateRules = [
+        'quizTypeID' => 'required'
+    ];
+
+
     public function path($course)
     {
         // Para producción
@@ -58,4 +63,10 @@ class Quiz extends \Eloquent {
         }
 
     }
+
+    public function materials()
+    {
+        return $this->belongsToMany('Material');
+    }
+
 }

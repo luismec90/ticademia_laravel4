@@ -28,34 +28,16 @@ $(function () {
     });
 
     $("#body-module").on('click', '.video-launcher', function () {
-        materialID = $(this).attr("data-id");
+        launchVideo($(this).attr("data-name"), $(this).attr("data-url"));
+    });
+
+    $("#modal-quiz-attempt-feedback").on('click', '.video-launcher', function () {
+        $("#modal-quiz-attempt-feedback").modal('hide');
         var name = $(this).attr("data-name");
         var url = $(this).attr("data-url");
-
-        $('#panel-video-title').html(name);
-        sublime.unprepare('my_video_player');
-        $("#my_video_player").attr("data-youtube-id", url);
-
-        var windowWidth = $(window).width();
-
-        if (windowWidth > 991) {
-            var panelWidth = 868;
-        } else {
-            var panelWidth = windowWidth - 62;
-        }
-
-        $("#my_video_player").attr("width", panelWidth);
-        $("#my_video_player").attr("height", panelWidth * 9 / 16);
-
-        sublime.prepare('my_video_player');
-        sublime('my_video_player').play();
-        $('#video-container').removeClass('hide');
-        $('#video-container .panel').addClass('animated bounceInRight');
         setTimeout(function () {
-            $('#video-container .panel').removeClass('animated bounceInRight');
-
-        }, 1300);
-
+            launchVideo(name, url);
+        }, 500);
     });
 
     $('#btn-close-video').click(function () {
@@ -125,6 +107,23 @@ $(function () {
         var evaluacionID = $(this).attr("data-evaluacion-id");
         $("#skip-quiz-id").val(evaluacionID);
         $("#modal-skip-quiz").modal();
+    })
+
+    $("#body-module").on('click', '.edit-quiz', function () {
+        var quizID = $(this).attr("data-quiz-id");
+        var quizType = $(this).attr("data-quiz-type");
+        var materials = $(this).attr("data-materials");
+        $(".checkbox-materials").attr('checked', false);
+        if (materials != '') {
+            materials = materials.split(',');
+            for (var i = 0; i < materials.length; i++) {
+                var materialID = materials[i];
+                $("#material-checkbox-" + materialID).attr('checked', true);
+            }
+        }
+        $("#edit-quiz-id").val(quizID);
+        $("#quizTypeID").val(quizType);
+        $("#modal-edit-quiz").modal();
     });
 
     loadSlider();
@@ -251,4 +250,33 @@ function loadPopover() {
         container: 'body',
         html: 'true'
     });
+}
+function launchVideo(name, url) {
+
+    var name = name;
+    var url = url;
+
+    $('#panel-video-title').html(name);
+    sublime.unprepare('my_video_player');
+    $("#my_video_player").attr("data-youtube-id", url);
+
+    var windowWidth = $(window).width();
+
+    if (windowWidth > 991) {
+        var panelWidth = 868;
+    } else {
+        var panelWidth = windowWidth - 62;
+    }
+
+    $("#my_video_player").attr("width", panelWidth);
+    $("#my_video_player").attr("height", panelWidth * 9 / 16);
+
+    sublime.prepare('my_video_player');
+    sublime('my_video_player').play();
+    $('#video-container').removeClass('hide');
+    $('#video-container .panel').addClass('animated bounceInRight');
+    setTimeout(function () {
+        $('#video-container .panel').removeClass('animated bounceInRight');
+
+    }, 1300);
 }

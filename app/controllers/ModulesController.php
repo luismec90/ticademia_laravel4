@@ -6,7 +6,7 @@ class ModulesController extends \BaseController {
     public function show($courseID, $moduleID)
     {
 
-        $course = Course::with('subject','modules')->findOrFail($courseID);
+        $course = Course::with('subject', 'modules')->findOrFail($courseID);
 
         $module = Module::with(['materials',
             'materials.userPlayBackTime',
@@ -34,6 +34,11 @@ class ModulesController extends \BaseController {
             ->orderBy('score', 'DESC')
             ->paginate(15);
 
+        if (Auth::user()->isTeacher($course->id))
+        {
+            $quizzesType= ['' => 'Seleccionar...'] + QuizType::lists('name', 'id');
+        }
+
         if (Request::ajax())
         {
             return Response::json(View::make('course.module.partials.main', compact('course', 'module', 'ranking'))->render());
@@ -41,7 +46,7 @@ class ModulesController extends \BaseController {
 
         $currentModuleID = $moduleID;
 
-        return View::make('course.module.show', compact('course', 'module', 'ranking', 'currentModuleID'));
+        return View::make('course.module.show', compact('course', 'module', 'ranking', 'currentModuleID', 'quizzesType'));
     }
 
     public function ajaxShow($courseID, $moduleID)

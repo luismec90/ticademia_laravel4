@@ -137,6 +137,16 @@ class ApiSCORMController extends \BaseController {
         {
             $feedbackForUser = $C[rand(0, 3)] . $D[rand(0, 1)];
             $feedback = "Incorrecto";
+
+            if ($quiz->materials->count() > 0)
+            {
+                $feedbackForUser .= "<br><br>Te recomendamos revisar el siguiente material:<ul>";
+                foreach ($quiz->materials as $material)
+                {
+                    $feedbackForUser .= "<li> <a class='link video-launcher' data-id='$material->id'  data-name='$material->name' data-url='$material->url'>$material->name</a></li>";
+                }
+                $feedbackForUser .= "</ul>";
+            }
         }
 
 

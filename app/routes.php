@@ -125,6 +125,7 @@ Route::group(['prefix' => 'curso/{course_id}', 'before' => 'auth|isEnrolled'], f
         /* CRUD */
         Route::post('/material/crear', ['before' => 'isTeacher', 'as' => 'store_material_path', 'uses' => 'MaterialsController@store']);
         Route::post('/quiz/crear', ['before' => 'isTeacher', 'as' => 'store_quiz_path', 'uses' => 'QuizzesController@store']);
+        Route::post('/quiz/edit', ['before' => 'isTeacher', 'as' => 'edit_quiz_path', 'uses' => 'QuizzesController@update']);
     });
 
     /* Estadísticas */
