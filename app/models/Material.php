@@ -57,4 +57,8 @@ class Material extends \Eloquent {
             return asset('assets/images/course/pdf-icon.png');
     }
 
+    public function quizzes()
+    {
+        return $this->belongsToMany('quiz');
+    }
 }

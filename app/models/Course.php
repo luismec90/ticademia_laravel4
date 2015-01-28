@@ -28,12 +28,16 @@ class Course extends \Eloquent {
     public function groupRanking()
     {
         $query = DB::select("SELECT T.group,Round((0.3*T.max_score+0.7*T.avg_score-sqrt(T.standard_deviation))) score
-                       FROM (SELECT cu.group,MAX(mu.score) max_score,AVG(mu.score) avg_score,STDDEV_SAMP(mu.score) standard_deviation
+                            FROM (SELECT cu.group,MAX(mu.score + COALESCE(T.reward,0)) max_score,AVG(mu.score + COALESCE(T.reward,0)) avg_score,STDDEV_SAMP(mu.score + COALESCE(T.reward,0)) standard_deviation
                             FROM course_user cu
                             JOIN module_user mu ON cu.user_id=mu.user_id
+                            LEFT JOIN (SELECT ra.user_id,SUM(a.reward) reward
+                            FROM reached_achievements ra
+                            JOIN achievements a ON ra.achievement_id=a.id
+                            WHERE ra.course_id='{$this->id}') AS T ON T.user_id=mu.user_id
                             WHERE cu.course_id={$this->id}
                             GROUP BY cu.group) T
-                       ORDER BY score DESC");
+                            ORDER BY score DESC");
 
         return $query;
 
@@ -41,13 +45,19 @@ class Course extends \Eloquent {
 
     public function individualRanking()
     {
-        return User::join('module_user', 'module_user.user_id', '=', 'users.id')
-            ->join('modules', 'module_user.module_id', '=', 'modules.id')
-            ->where('modules.course_id', $this->id)
-            ->groupBy('module_user.user_id')
-            ->select('users.*', DB::raw('SUM(module_user.score) score'))
-            ->orderBy('score', 'DESC')
-            ->get();
+        $query = DB::select("SELECT u.*,SUM(mu.score) quizzes_score,COALESCE(T.reward,0) achievements_score,(SUM(mu.score) + COALESCE(T.reward,0)) score
+                            FROM users u
+                            JOIN module_user mu ON mu.user_id = u.id
+                            JOIN modules m ON mu.module_id = m.id
+                            LEFT JOIN (SELECT ra.user_id,SUM(a.reward) reward
+                            FROM reached_achievements ra
+                            JOIN achievements a ON ra.achievement_id=a.id
+                            WHERE ra.course_id='{$this->id}') AS T ON T.user_id=u.id
+                            where m.course_id = '{$this->id}'
+                            GROUP BY u.id
+                            ORDER BY score DESC");
+
+        return $query;
     }
 
     public function imagePath()

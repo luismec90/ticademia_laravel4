@@ -120,8 +120,18 @@ Route::filter('isEnrolled', function ($route)
         Session::put('connectionID', $connection->id);
     } else
     {
-        $connection=Connection::findOrFail(Session::get('connectionID'));
-        $connection->touch();
+        $connection = Connection::find(Session::get('connectionID'));
+        if (is_null($connection))
+        {
+            $connection = new Connection;
+            $connection->user_id = Auth::user()->id;
+            $connection->course_id = $course->id;
+            $connection->save();
+            Session::put('connectionID', $connection->id);
+        } else
+        {
+            $connection->touch();
+        }
     }
 
 });

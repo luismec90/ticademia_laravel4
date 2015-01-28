@@ -83,16 +83,23 @@ class CoursesController extends \BaseController {
         $ranking = $course->individualRanking();
         $userRanking = ['position' => 'N/A', 'fullName' => Auth::user()->fullName(), 'score' => 'N/A'];
 
-        foreach ($ranking as $index => $user)
+
+
+        $rankingCollection = new \Illuminate\Database\Eloquent\Collection;
+        foreach ($ranking as $index => $userData)
         {
+            $user =new User;
+            $user->setRawAttributes((array) $userData);
+            $rankingCollection->add($user);
+
             if ($user->isMe())
             {
-                $userRanking = ['position' => ($index + 1), 'fullName' => $user->fullName(), 'score' => $user->score];
-                break;
+                $userRanking = ['position' => ($index + 1), 'fullName' => $user->fullName(), 'quizzes_score' => $user->quizzes_score,'achievements_score' => $user->achievements_score,'score' => $user->score];
             }
         }
 
-        return View::make('course.ranking.individual', compact('course', 'ranking', 'userRanking'));
+
+        return View::make('course.ranking.individual', compact('course', 'rankingCollection', 'userRanking'));
     }
 
     public function reachedAchievements($course_id)

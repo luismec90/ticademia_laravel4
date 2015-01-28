@@ -126,6 +126,27 @@ $(function () {
         $("#modal-edit-quiz").modal();
     });
 
+    $("#body-module").on('mouseover', '.row-material', function () {
+        var quizzes = $(this).attr('data-quizzes');
+        if (quizzes != '') {
+            quizzes = quizzes.split(',');
+            for (var i = 0; i < quizzes.length; i++) {
+                var quizID = quizzes[i];
+                $("#quiz-id-" + quizID).addClass('rubberBand animated highlight-quiz');
+            }
+        }
+    });
+    $("#body-module").on('mouseleave', '.row-material', function () {
+        var quizzes = $(this).attr('data-quizzes');
+        if (quizzes != '') {
+            quizzes = quizzes.split(',');
+            for (var i = 0; i < quizzes.length; i++) {
+                var quizID = quizzes[i];
+                $("#quiz-id-" + quizID).removeClass('rubberBand animated highlight-quiz');
+            }
+        }
+    });
+
     loadSlider();
     loadStarts();
     loadPopover();

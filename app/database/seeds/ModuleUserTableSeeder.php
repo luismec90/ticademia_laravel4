@@ -13,8 +13,7 @@ class ModuleUserTableSeeder extends Seeder {
         {
             ModuleUser::create([
                 'module_id' => 1,
-                'user_id'   => $index,
-                'score'     => rand(1, 800)
+                'user_id'   => $index
             ]);
         }
     }

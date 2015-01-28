@@ -185,14 +185,14 @@ class AchievementHelper {
 
         if ($totalQuizzesBestTime == 15)
         {
-            $achievementID = 20;
+            $achievementID = 21;
             if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
             {
                 AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
             }
         } else if ($totalQuizzesBestTime == 5)
         {
-            $achievementID = 21;
+            $achievementID = 20;
             if (AchievementHelper::dontHaveTheAchievement($user, $course, $achievementID))//Si no tiene el logro para este curso
             {
                 AchievementHelper::giveAchievement($user, $course, $achievementID);//La validación se hizo antes de invocar este método
@@ -550,7 +550,7 @@ class AchievementHelper {
         $notification->title = 'Has ganado un nuevo logro';
         $notification->image = $achievement->imagePath();
         $notification->url = route('achievement_path', $courseID);
-        $notification->body = "Felicitaciones! Has ganado el logro: <b>{$achievement->name}</b>.";
+        $notification->body = "Felicitaciones! Has ganado el logro: <b>{$achievement->name}</b>.<br> Descripción: {$achievement->description} <br><br> Recompensa: <b>{$achievement->reward} puntos</b>";
         $notification->reached_achievement_id = $reachedAchievementID;
         $notification->show_modal = 1;
         $notification->save();

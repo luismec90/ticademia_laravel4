@@ -7,7 +7,7 @@
             <div class="panel-body">
                 <table class="table table-striped table-hover">
                     @foreach($module->materials as $material)
-                        <tr>
+                        <tr  class="row-material" data-quizzes="{{ implode(",",$material->quizzes->lists('id')) }}">
                             <td>
                                 <img src="{{ $material->iconPath() }}" width="35">
                             </td>
@@ -88,7 +88,7 @@
                 <center>
                     <?php $prevQuizIsAproved = true; ?>
                     @foreach($module->quizzes as $quiz)
-                        <div class="quiz-div {{ $prevQuizIsAproved || Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id)? "hvr-float-shadow" : "" }}">
+                        <div id="quiz-id-{{ $quiz->id }}" class="quiz-div {{ $prevQuizIsAproved || Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id)? "hvr-float-shadow" : "" }}">
                             <div class="quiz-launcher {{ $prevQuizIsAproved || Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id)? "" : "disabled" }}"
                                  data-evaluacion-id="{{ $quiz->id }}"
                                  data-url="{{ $quiz->path($course) }}"

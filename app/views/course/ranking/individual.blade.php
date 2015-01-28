@@ -28,13 +28,17 @@
                 <tr>
                     <th>Puesto</th>
                     <th>Nombre</th>
-                    <th>Puntaje</th>
+                    <td>Puntos por quizzes</td>
+                    <td>Puntos por logros</td>
+                    <td>Puntaje</td>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <td>{{ $userRanking['position'] }}</td>
                     <td>{{ $userRanking['fullName'] }}</td>
+                    <td>{{ $userRanking['quizzes_score'] }}</td>
+                    <td>{{ $userRanking['achievements_score'] }}</td>
                     <td>{{ $userRanking['score'] }}</td>
                 </tr>
                 </tbody>
@@ -56,7 +60,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($ranking as $index => $user)
+                @foreach($rankingCollection as $index => $user)
+
                     <tr>
                         <td>{{ $index+1 }}</td>
                         <td class="col-xs-3 col-sm-2 col-md-1">@include('layouts.partials.link_avatar_square',['user'=>$user,'size'=>70])</td>

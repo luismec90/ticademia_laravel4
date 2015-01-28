@@ -17,6 +17,9 @@
                         Descripción
                     </td>
                     <td>
+                        Recompensa
+                    </td>
+                    <td>
                         Fecha
                     </td>
                     <td>
@@ -37,8 +40,11 @@
 
                         </td>
                         <td>
+                            {{ $reachedAchievement->achievement->reward }}
+                        </td>
+                        <td>
                             {{ ucfirst($reachedAchievement->created_at->diffForHumans()) }}
-                            : {{ $reachedAchievement->created_at  }}
+                            : {{ $reachedAchievement->created_at  }} puntos
                         </td>
                         <td>
                             @include('course.partials.share_achievement',['reachedAchievement'=>$reachedAchievement])
