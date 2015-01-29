@@ -134,7 +134,7 @@
                             evaluación:</b>
                     </div>
                 </div>
-                @foreach($$module->materials as $material)
+                @foreach($module->materials as $material)
                     <div class="checkbox">
                         <label>
                             <input id="material-checkbox-{{ $material->id }}"  class="checkbox-materials" type="checkbox" name="materials[]"
