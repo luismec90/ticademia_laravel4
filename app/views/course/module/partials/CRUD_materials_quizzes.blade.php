@@ -84,10 +84,10 @@
                             evaluación:</b>
                     </div>
                 </div>
-                @foreach($course->modules as $row)
+                @foreach($module->materials as $material)
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="materials[]" value="{{ $row->id }}"> {{ $row->name }}
+                            <input type="checkbox" name="materials[]" value="{{ $material->id }}"> {{ $material->name }}
                         </label>
                     </div>
                 @endforeach
