@@ -134,11 +134,11 @@
                             evaluación:</b>
                     </div>
                 </div>
-                @foreach($course->modules as $module)
+                @foreach($$module->materials as $material)
                     <div class="checkbox">
                         <label>
-                            <input id="material-checkbox-{{ $module->id }}"  class="checkbox-materials" type="checkbox" name="materials[]"
-                                   value="{{ $module->id }}"> {{ $module->name }}
+                            <input id="material-checkbox-{{ $material->id }}"  class="checkbox-materials" type="checkbox" name="materials[]"
+                                   value="{{ $material->id }}"> {{ $material->name }}
                         </label>
                     </div>
                 @endforeach
