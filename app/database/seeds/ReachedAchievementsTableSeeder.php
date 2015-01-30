@@ -9,6 +9,7 @@ class ReachedAchievementsTableSeeder extends Seeder {
     {
         $faker = Faker::create();
 
+
         $achievementIDs = [1, 6, 7, 8, 9, 10, 11, 12, 13];
 
         foreach ($achievementIDs as $value)

@@ -9,9 +9,18 @@ class ModulesTableSeeder extends Seeder {
     {
         $faker = Faker::create();
 
-        $starDate = "2015-02-02 00:00:00";
+        Module::create([
+            'id'          => 1,
+            'course_id'   => 1,
+            'name'        => "Módulo 1",
+            'description' => '',
+            'start_date'  => '2015-02-02 00:00:00',
+            'end_date'    => '2015-02-11 23:59:59'
+        ]);
 
-        for ($i = 1; $i <= 16; $i ++)
+        $starDate = "2015-02-12 00:00:00";
+
+        for ($i = 2; $i <= 15; $i ++)
         {
             $fecha = new DateTime($starDate);
             $fecha->add(new DateInterval('P6DT23H59M59S'));

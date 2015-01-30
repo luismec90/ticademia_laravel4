@@ -17,7 +17,7 @@
 }
 
 #iframe-container .panel {
-    margin-top: 10px;
+    margin-top: 8px;
     margin-bottom: 50px;
     height: auto;
 }
@@ -30,7 +30,7 @@
 }
 
 #iframe-container iframe {
-    min-height: 600px;
+    min-height: 545px;
     width: 100%;
     border: none;
 }
@@ -78,7 +78,7 @@
     width: 100px;
     height: 110px;
     display: inline-block;
-    margin: 10px 20px 10px 20px;
+    margin: 25px 20px 10px 20px;
     background: url('../images/course/pergamino.png') no-repeat;
     background-size: 100%;
     position: relative;
@@ -101,6 +101,16 @@
     right: -35px;
     display: inline-block;
 }
+#quizzes-div .forum-quiz {
+    position: absolute;
+    top:-30px;
+    left: 5px;
+    display: inline-block;
+    font-size: 25px;
+    color:#444;
+}
+
+
 
 #quizzes-div .quiz-div .quiz-name {
     position: absolute;
@@ -300,6 +310,6 @@
 }
 
 #quizzes-div .quiz-div.highlight-quiz .quiz-launcher .quiz-name {
-    color:#FFFFFF;
+
     /* move the element up by 5px */
 }

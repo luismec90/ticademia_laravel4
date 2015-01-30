@@ -64,7 +64,9 @@ class ModulesController extends \BaseController {
 
             $module = Module::where('course_id', $courseID)->findOrFail($moduleID);
 
-            $material = Material::where('module_id', $module->id)->findOrFail(Input::get('materialID'));
+            $material = Material::whereHas('module',function ($q) use ($course){
+                $q->where('course_id',$course->id);
+            })->findOrFail(Input::get('materialID'));
 
             $materialUser = new MaterialUser;
             $materialUser->user_id = Auth::user()->id;

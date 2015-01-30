@@ -14,11 +14,12 @@ class TopicsTableSeeder extends Seeder {
             Topic::create([
                 'id'          => $index,
                 'course_id'   => 1,
-                'user_id'     => rand(2, 12),
+                'user_id'     => 1,
                 'name'        => "Módulo: Geometría elemental, conjuntos y sistemas numéricos. Evaluación $index",
                 'description' => $faker->text()
             ]);
         }
+
     }
 
 }

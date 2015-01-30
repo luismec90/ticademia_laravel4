@@ -7,7 +7,7 @@
             <div class="panel-body">
                 <table class="table table-striped table-hover">
                     @foreach($module->materials as $material)
-                        <tr  class="row-material" data-quizzes="{{ implode(",",$material->quizzes->lists('id')) }}">
+                        <tr class="row-material" data-quizzes="{{ implode(",",$material->quizzes->lists('id')) }}">
                             <td>
                                 <img src="{{ $material->iconPath() }}" width="35">
                             </td>
@@ -88,7 +88,8 @@
                 <center>
                     <?php $prevQuizIsAproved = true; ?>
                     @foreach($module->quizzes as $quiz)
-                        <div id="quiz-id-{{ $quiz->id }}" class="quiz-div {{ $prevQuizIsAproved || Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id)? "hvr-float-shadow" : "" }}">
+                        <div id="quiz-id-{{ $quiz->id }}"
+                             class="quiz-div {{ $prevQuizIsAproved || Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id)? "hvr-float-shadow" : "" }}">
                             <div class="quiz-launcher {{ $prevQuizIsAproved || Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id)? "" : "disabled" }}"
                                  data-evaluacion-id="{{ $quiz->id }}"
                                  data-url="{{ $quiz->path($course) }}"
@@ -145,6 +146,10 @@
                                        data-evaluacion-id="{{ $quiz->id }}"> <i class="fa fa-share"></i></a>
                                 @endif
                             </div>
+                            <a class="forum-quiz" href="{{ route('topic_path',[$course->id,$quiz->topic_id]) }}">
+                            <a class="forum-quiz" title="Foro" href="{{ route('topic_path',[$course->id,$quiz->topic_id]) }}">
+                               <img src="{{ asset('assets/images/course/forum-icon.png') }}" width="27" height="20">
+                            </a>
                             @if(Auth::user()->isTeacher($course->id))
                                 <button class="edit-quiz btn btn-info btn-sm"
                                         data-quiz-id="{{ $quiz->id }}"

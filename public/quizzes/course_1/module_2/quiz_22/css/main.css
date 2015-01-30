@@ -1,0 +1,37 @@
+#contenedor{
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
+
+#canvas{
+    position: absolute;
+    left: calc(50% - 150px);
+
+}
+h1{
+    text-align: center;
+}
+#div-asnwer{
+
+    margin-top: 20px;
+    text-align: center;
+
+}
+#answer1, #answer2{
+    width: 100px;
+    display: inline-block;
+}
+
+#imagen {
+    background: url('../img/image.jpg') no-repeat center;
+    width: 400px;
+    height: 250px;
+    margin: 50px auto;
+    left: 0;
+    right: 0;
+    position: relative;
+    font-size: 18px;
+    text-align: center;
+}

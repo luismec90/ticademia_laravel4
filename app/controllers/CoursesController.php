@@ -81,7 +81,7 @@ class CoursesController extends \BaseController {
             ->findOrFail($course_id);
 
         $ranking = $course->individualRanking();
-        $userRanking = ['position' => 'N/A', 'fullName' => Auth::user()->fullName(), 'score' => 'N/A'];
+        $userRanking = ['position' => 'N/A', 'fullName' => Auth::user()->fullName(), 'quizzes_score'=>'N/A','achievements_score'=>'N/A', 'score' => 'N/A'];
 
 
 

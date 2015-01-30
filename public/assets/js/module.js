@@ -28,11 +28,13 @@ $(function () {
     });
 
     $("#body-module").on('click', '.video-launcher', function () {
+        materialID = $(this).attr("data-id");
         launchVideo($(this).attr("data-name"), $(this).attr("data-url"));
     });
 
     $("#modal-quiz-attempt-feedback").on('click', '.video-launcher', function () {
         $("#modal-quiz-attempt-feedback").modal('hide');
+        materialID = $(this).attr("data-id");
         var name = $(this).attr("data-name");
         var url = $(this).attr("data-url");
         setTimeout(function () {

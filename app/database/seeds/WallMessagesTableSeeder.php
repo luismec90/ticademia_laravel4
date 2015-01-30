@@ -8,7 +8,7 @@ class WallMessagesTableSeeder extends Seeder {
     public function run()
     {
         $faker = Faker::create();
-
+/*
         foreach (range(1, 50) as $index)
         {
             WallMessage::create([
@@ -27,6 +27,7 @@ class WallMessagesTableSeeder extends Seeder {
                 'message'         => $faker->text()
             ]);
         }
+*/
     }
 
 }
