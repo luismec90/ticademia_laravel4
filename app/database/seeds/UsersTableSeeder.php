@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder {
         User::create([
             'id'         => 2,
             'first_name' => 'Estudiante1',
-            'last_name'  => 'Moreno',
+            'last_name'  => '',
             'birth_date' => '1990-02-22',
             'gender'     => 'm',
             'email'      => 'estudiante1@gmail.com',

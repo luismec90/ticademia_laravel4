@@ -169,83 +169,75 @@ class MaterialsTableSeeder extends Seeder {
             'order'       => '6'
         ]);
 
-        /*
-                Material::create([
-                    'id'          => 14,
-                    'module_id'   => 2,
-                    'name'        => 'Áreas de solidos geométricos',
-                    'description' => '',
-                    'duration'    => '320',
-                    'url'         => '22hAVvfzUdU',
-                    'type'        => 'video',
-                    'order'       => '4'
-                ]);
 
-                Material::create([
-                    'id'          => 15,
-                    'module_id'   => 3,
-                    'name'        => 'Algebra de conjuntos',
-                    'description' => '',
-                    'duration'    => '320',
-                    'url'         => 'HcLsiouFyCQ',
-                    'type'        => 'video',
-                    'order'       => '4'
-                ]);
+        Material::create([
+            'id'          => 15,
+            'module_id'   => 3,
+            'name'        => 'Algebra de conjuntos',
+            'description' => '',
+            'duration'    => '1783',
+            'url'         => 'K9B2kaF0WSw',
+            'type'        => 'video',
+            'order'       => '1'
+        ]);
 
 
-                Material::create([
-                    'id'          => 16,
-                    'module_id'   => 3,
-                    'name'        => 'Aplicación del algebra de conjuntos',
-                    'description' => '',
-                    'duration'    => '320',
-                    'url'         => 'K9B2kaF0WSw',
-                    'type'        => 'video',
-                    'order'       => '4'
-                ]);
-                Material::create([
-                    'id'          => 17,
-                    'module_id'   => 3,
-                    'name'        => 'Conjuntos numéricos',
-                    'description' => '',
-                    'duration'    => '320',
-                    'url'         => 'fs5RZ5AR_YQ',
-                    'type'        => 'video',
-                    'order'       => '4'
-                ]);
+        Material::create([
+            'id'          => 16,
+            'module_id'   => 3,
+            'name'        => 'Aplicación del algebra de conjuntos',
+            'description' => '',
+            'duration'    => '1387',
+            'url'         => 'fs5RZ5AR_YQ',
+            'type'        => 'video',
+            'order'       => '2'
+        ]);
 
-                Material::create([
-                    'id'          => 18,
-                    'module_id'   => 3,
-                    'name'        => 'Algebra de conjuntos en la recta numérica',
-                    'description' => '',
-                    'duration'    => '320',
-                    'url'         => '81xiA3p8UZc',
-                    'type'        => 'video',
-                    'order'       => '4'
-                ]);
-                Material::create([
-                    'id'          => 19,
-                    'module_id'   => 3,
-                    'name'        => 'Operaciones y propiedades de números reales y fraccionarios',
-                    'description' => '',
-                    'duration'    => '320',
-                    'url'         => 'X9aoE0-DBpc',
-                    'type'        => 'video',
-                    'order'       => '4'
-                ]);
+        Material::create([
+            'id'          => 17,
+            'module_id'   => 3,
+            'name'        => 'Conjuntos numéricos',
+            'description' => '',
+            'duration'    => '1416',
+            'url'         => '81xiA3p8UZc',
+            'type'        => 'video',
+            'order'       => '3'
+        ]);
 
-                Material::create([
-                    'id'          => 20,
-                    'module_id'   => 3,
-                    'name'        => 'Valor absoluto',
-                    'description' => '',
-                    'duration'    => '320',
-                    'url'         => 'RgCiFAAr9c0',
-                    'type'        => 'video',
-                    'order'       => '4'
-                ]);
-        */
+
+
+        Material::create([
+            'id'          => 18,
+            'module_id'   => 3,
+            'name'        => 'Operaciones y propiedades de números reales y fraccionarios',
+            'description' => '',
+            'duration'    => '1559',
+            'url'         => 'QLvZyQ8MURU',
+            'type'        => 'video',
+            'order'       => '4'
+        ]);
+
+        Material::create([
+            'id'          => 19,
+            'module_id'   => 3,
+            'name'        => 'Orden en los reales, intervalos *',
+            'description' => '',
+            'duration'    => '',
+            'url'         => '',
+            'type'        => 'video',
+            'order'       => '5'
+        ]);
+        Material::create([
+            'id'          => 20,
+            'module_id'   => 3,
+            'name'        => 'Distancia y valor absoluto *',
+            'description' => '',
+            'duration'    => '',
+            'url'         => '',
+            'type'        => 'video',
+            'order'       => '6'
+        ]);
+
     }
 
 }

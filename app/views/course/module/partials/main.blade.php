@@ -146,8 +146,8 @@
                                        data-evaluacion-id="{{ $quiz->id }}"> <i class="fa fa-share"></i></a>
                                 @endif
                             </div>
-                            <a class="forum-quiz" href="{{ route('topic_path',[$course->id,$quiz->topic_id]) }}">
-                            <a class="forum-quiz" title="Foro" href="{{ route('topic_path',[$course->id,$quiz->topic_id]) }}">
+
+                            <a class="forum-quiz" target="_blank" title="Foro" href="{{ route('topic_path',[$course->id,$quiz->topic_id]) }}">
                                <img src="{{ asset('assets/images/course/forum-icon.png') }}" width="27" height="20">
                             </a>
                             @if(Auth::user()->isTeacher($course->id))

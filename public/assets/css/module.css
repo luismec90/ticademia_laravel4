@@ -34,6 +34,12 @@
     width: 100%;
     border: none;
 }
+@media (min-width: 1400px) {
+    #iframe-container iframe {
+        min-height: 600px;
+    }
+
+}
 
 #panel-iframe-title, #panel-video-title {
     color: #fff;

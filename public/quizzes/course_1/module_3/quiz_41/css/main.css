@@ -1,0 +1,36 @@
+#contenedor{
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
+#canvas{
+    position: absolute;
+    left: calc(50% - 150px);
+
+}
+h1{
+    text-align: center;
+}
+#div-asnwer{
+
+    margin-top: 100px;
+    text-align: center;
+
+}
+
+.input-group{
+	width:200px;
+	margin:auto;
+}
+
+.equation {
+	font-family:times new roman;
+	font-size:120%;
+	font-style: italic;
+}
+
+
+
+
+

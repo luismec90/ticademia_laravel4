@@ -97,6 +97,27 @@ class DatabaseSeeder extends Seeder {
         DB::table('material_quiz')->insert(['quiz_id' => 30, 'material_id' => 14]);
         DB::table('material_quiz')->insert(['quiz_id' => 31, 'material_id' => 14]);
 
+        DB::table('material_quiz')->insert(['quiz_id' => 32, 'material_id' => 15]);
+        DB::table('material_quiz')->insert(['quiz_id' => 33, 'material_id' => 15]);
+        DB::table('material_quiz')->insert(['quiz_id' => 34, 'material_id' => 16]);
+        DB::table('material_quiz')->insert(['quiz_id' => 35, 'material_id' => 16]);
+
+        DB::table('material_quiz')->insert(['quiz_id' => 36, 'material_id' => 17]);
+        DB::table('material_quiz')->insert(['quiz_id' => 36, 'material_id' => 18]);
+
+        DB::table('material_quiz')->insert(['quiz_id' => 37, 'material_id' => 17]);
+        DB::table('material_quiz')->insert(['quiz_id' => 37, 'material_id' => 18]);
+
+        DB::table('material_quiz')->insert(['quiz_id' => 38, 'material_id' => 19]);
+        DB::table('material_quiz')->insert(['quiz_id' => 39, 'material_id' => 20]);
+        DB::table('material_quiz')->insert(['quiz_id' => 40, 'material_id' => 20]);
+        DB::table('material_quiz')->insert(['quiz_id' => 41, 'material_id' => 14]);
+        DB::table('material_quiz')->insert(['quiz_id' => 42, 'material_id' => 14]);
+        DB::table('material_quiz')->insert(['quiz_id' => 43, 'material_id' => 14]);
+        DB::table('material_quiz')->insert(['quiz_id' => 44, 'material_id' => 13]);
+        DB::table('material_quiz')->insert(['quiz_id' => 45, 'material_id' => 13]);
+        DB::table('material_quiz')->insert(['quiz_id' => 46, 'material_id' => 13]);
+
 
     }
 

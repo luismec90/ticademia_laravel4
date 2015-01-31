@@ -1,0 +1,48 @@
+#contenedor{
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
+#canvas{
+    position: absolute;
+    left: calc(50% - 150px);
+
+}
+h1{
+    text-align: center;
+}
+#div-asnwer{
+
+    text-align: center;
+
+}
+
+.input-group{
+	width:350px;
+	margin:auto;
+}
+.form-control{
+    height: auto;
+}
+
+.equation {
+	font-family:times new roman;
+	font-size:120%;
+	font-style: italic;
+}
+
+
+#imagen {
+    background: url('../img/image.jpg') no-repeat center;
+    width: 400px;
+    height: 250px;
+    margin: 50px auto;
+    left: 0;
+    right: 0;
+    position: relative;
+    font-size: 18px;
+    text-align: center;
+}
+
+
