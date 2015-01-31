@@ -36,17 +36,20 @@ class ModulesController extends \BaseController {
 
         if (Auth::user()->isTeacher($course->id))
         {
-            $quizzesType= ['' => 'Seleccionar...'] + QuizType::lists('name', 'id');
+            $quizzesType = ['' => 'Seleccionar...'] + QuizType::lists('name', 'id');
         }
+
+
+        $blockedModule = !in_array($module->id, [1, 2, 3]);
 
         if (Request::ajax())
         {
-            return Response::json(View::make('course.module.partials.main', compact('course', 'module', 'ranking'))->render());
+            return Response::json(View::make('course.module.partials.main', compact('course', 'module', 'ranking', 'blockedModule'))->render());
         }
 
         $currentModuleID = $moduleID;
 
-        return View::make('course.module.show', compact('course', 'module', 'ranking', 'currentModuleID', 'quizzesType'));
+        return View::make('course.module.show', compact('course', 'module', 'ranking', 'currentModuleID', 'quizzesType', 'blockedModule'));
     }
 
     public function ajaxShow($courseID, $moduleID)
@@ -64,8 +67,9 @@ class ModulesController extends \BaseController {
 
             $module = Module::where('course_id', $courseID)->findOrFail($moduleID);
 
-            $material = Material::whereHas('module',function ($q) use ($course){
-                $q->where('course_id',$course->id);
+            $material = Material::whereHas('module', function ($q) use ($course)
+            {
+                $q->where('course_id', $course->id);
             })->findOrFail(Input::get('materialID'));
 
             $materialUser = new MaterialUser;

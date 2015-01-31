@@ -89,8 +89,8 @@
                     <?php $prevQuizIsAproved = true; ?>
                     @foreach($module->quizzes as $quiz)
                         <div id="quiz-id-{{ $quiz->id }}"
-                             class="quiz-div {{ $prevQuizIsAproved || Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id)? "hvr-float-shadow" : "" }}">
-                            <div class="quiz-launcher {{ $prevQuizIsAproved || Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id)? "" : "disabled" }}"
+                             class="quiz-div {{ !$blockedModule && ($prevQuizIsAproved || Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id))? "hvr-float-shadow" : "" }}">
+                            <div class="quiz-launcher {{ !$blockedModule && ($prevQuizIsAproved || Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id)) ? "" : "disabled" }}"
                                  data-evaluacion-id="{{ $quiz->id }}"
                                  data-url="{{ $quiz->path($course) }}"
                                  data-order="{{ $quiz->order }}">
@@ -114,7 +114,9 @@
                                 </div>
 
                                 <div class="quiz-status">
-                                    @if(Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id))
+                                    @if($blockedModule)
+                                        <i class="fa fa-lock"></i>
+                                    @elseif(Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id))
                                         <i class="fa fa-unlock"></i>
                                     @elseif(!is_null($quiz->approvedQuiz) && $quiz->approvedQuiz->skipped==0 && $quiz->approvedQuiz->created_at<=$module->end_date  )
                                         <i class="fa fa-check"></i>
@@ -147,8 +149,9 @@
                                 @endif
                             </div>
 
-                            <a class="forum-quiz" target="_blank" title="Foro" href="{{ route('topic_path',[$course->id,$quiz->topic_id]) }}">
-                               <img src="{{ asset('assets/images/course/forum-icon.png') }}" width="27" height="20">
+                            <a class="forum-quiz" target="_blank" title="Foro"
+                               href="{{ route('topic_path',[$course->id,$quiz->topic_id]) }}">
+                                <img src="{{ asset('assets/images/course/forum-icon.png') }}" width="27" height="20">
                             </a>
                             @if(Auth::user()->isTeacher($course->id))
                                 <button class="edit-quiz btn btn-info btn-sm"

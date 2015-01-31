@@ -81,7 +81,7 @@ class ApiSCORMController extends \BaseController {
                 $diff = DB::select(DB::raw("SELECT ROUND(TIMESTAMPDIFF(MICROSECOND,'$startDate','$endDate')/1000000,3) AS value"));
                 $diff = $diff[0]->value;
                 $feedbackForUser = $A[rand(0, 4)] . $B[rand(0, 3)];
-                $feedbackForUser .= '<br><br> Tu tiempo fue de <b>' . $diff . ' segundos</b>';
+                $feedbackForUser .= '<br><br> Tu tiempo fue de <b>' . $diff . ' segundos</b> <img src="'.asset('assets/images/course/time.png').'" width="10">';
             } else
             {
                 $feedbackForUser = $C[rand(0, 3)] . $D[rand(0, 1)];
@@ -120,7 +120,7 @@ class ApiSCORMController extends \BaseController {
             $quiz = Quiz::find($quiz->id);//Cargamos de nuevo el quiz para preguntar por ->approvedQuiz
             if ($firstTimeApprovedQuiz && $quiz->approvedQuiz->skipped == 0)
             {
-                $feedbackForUser .= '<br><br> Acabas de ganar <b>' . $quiz->approvedQuiz->score . '  puntos</b> y tu tiempo fue de <b>' . $diff . ' segundos</b>';
+                $feedbackForUser .= '<br><br> Acabas de ganar <b>' . $quiz->approvedQuiz->score . '  puntos</b> <img src="'.asset('assets/images/course/star.png').'" width="17"> y tu tiempo fue de <b>' . $diff . ' segundos</b>  <img src="'.asset('assets/images/course/time.png').'" width="10">';
             } else
             {
                 $feedbackForUser .= '<br><br> Tu tiempo fue de <b>' . $diff . ' segundos</b>';
