@@ -20,16 +20,6 @@ class CoursesTableSeeder extends Seeder {
             'threshold'            => 0.6
         ]);
 
-        Course::create([
-            'id'                   => 2,
-            'subject_id'           => 2,
-            'start_date'           => '2015-01-01',
-            'end_date'             => '2015-01-01',
-            'levels'               => '8',
-            'type_of_registration' => 1,
-            'image'                => 'cover.jpg',
-            'threshold'            => 0.7
-        ]);
     }
 
 }

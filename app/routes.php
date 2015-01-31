@@ -12,6 +12,7 @@
 */
 
 Route::get('test', ['as' => 'home', 'uses' => 'PagesController@test']);
+Route::get('matricular', ['as' => 'home', 'uses' => 'PagesController@enroll']);
 
 Route::get('/', ['as' => 'home', 'uses' => 'PagesController@home']);
 

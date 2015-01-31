@@ -4,7 +4,7 @@
 <h1 class="section-title"><span>Mis Cursos</span></h1>
 <div class="row">
     <div class="col-xs-12">
-        <table class="table table-striped">
+        <table class="table table-striped table-bordered">
             <thead>
                 <tr>
                     <td class="col-xs-3"></td>

@@ -15,7 +15,7 @@ class TopicsTableSeeder extends Seeder {
             Topic::create([
                 'id'          => $i,
                 'course_id'   => 1,
-                'user_id'     => 1,
+                'user_id'     => 5,
                 'name'        => "Módulo: 1 - Evaluación: $orden",
                 'description' => "En este foro podrás exponer tus dudas respecto a la evaluación $orden del Módulo 1"
             ]);
@@ -28,7 +28,7 @@ class TopicsTableSeeder extends Seeder {
             Topic::create([
                 'id'          => $i,
                 'course_id'   => 1,
-                'user_id'     => 1,
+                'user_id'     => 5,
                 'name'        => "Módulo: 2 - Evaluación: $orden",
                 'description' => "En este foro podrás exponer tus dudas respecto a la evaluación $orden del Módulo 2"
             ]);
@@ -41,7 +41,7 @@ class TopicsTableSeeder extends Seeder {
             Topic::create([
                 'id'          => $i,
                 'course_id'   => 1,
-                'user_id'     => 1,
+                'user_id'     => 5,
                 'name'        => "Módulo: 3 - Evaluación: $orden",
                 'description' => "En este foro podrás exponer tus dudas respecto a la evaluación $orden del Módulo 3"
             ]);
@@ -54,7 +54,7 @@ class TopicsTableSeeder extends Seeder {
             Topic::create([
                 'id'          => $i,
                 'course_id'   => 1,
-                'user_id'     => 1,
+                'user_id'     => 5,
                 'name'        => "Módulo: 4 - Evaluación: $orden",
                 'description' => "En este foro podrás exponer tus dudas respecto a la evaluación $orden del Módulo 4"
             ]);
@@ -67,7 +67,7 @@ class TopicsTableSeeder extends Seeder {
             Topic::create([
                 'id'          => $i,
                 'course_id'   => 1,
-                'user_id'     => 1,
+                'user_id'     => 5,
                 'name'        => "Módulo: 5 - Evaluación: $orden",
                 'description' => "En este foro podrás exponer tus dudas respecto a la evaluación $orden del Módulo 5"
             ]);
@@ -80,7 +80,7 @@ class TopicsTableSeeder extends Seeder {
             Topic::create([
                 'id'          => $i,
                 'course_id'   => 1,
-                'user_id'     => 1,
+                'user_id'     => 5,
                 'name'        => "Módulo: 6 - Evaluación: $orden",
                 'description' => "En este foro podrás exponer tus dudas respecto a la evaluación $orden del Módulo 6"
             ]);
@@ -93,7 +93,7 @@ class TopicsTableSeeder extends Seeder {
             Topic::create([
                 'id'          => $i,
                 'course_id'   => 1,
-                'user_id'     => 1,
+                'user_id'     => 5,
                 'name'        => "Módulo: 7 - Evaluación: $orden",
                 'description' => "En este foro podrás exponer tus dudas respecto a la evaluación $orden del Módulo 7"
             ]);
@@ -106,7 +106,7 @@ class TopicsTableSeeder extends Seeder {
             Topic::create([
                 'id'          => $i,
                 'course_id'   => 1,
-                'user_id'     => 1,
+                'user_id'     => 5,
                 'name'        => "Módulo: 8 - Evaluación: $orden",
                 'description' => "En este foro podrás exponer tus dudas respecto a la evaluación $orden del Módulo 8"
             ]);
@@ -119,7 +119,7 @@ class TopicsTableSeeder extends Seeder {
             Topic::create([
                 'id'          => $i,
                 'course_id'   => 1,
-                'user_id'     => 1,
+                'user_id'     => 5,
                 'name'        => "Módulo: 9 - Evaluación: $orden",
                 'description' => "En este foro podrás exponer tus dudas respecto a la evaluación $orden del Módulo 9"
             ]);
@@ -132,7 +132,7 @@ class TopicsTableSeeder extends Seeder {
             Topic::create([
                 'id'          => $i,
                 'course_id'   => 1,
-                'user_id'     => 1,
+                'user_id'     => 5,
                 'name'        => "Módulo: 10 - Evaluación: $orden",
                 'description' => "En este foro podrás exponer tus dudas respecto a la evaluación $orden del Módulo 10"
             ]);
@@ -145,7 +145,7 @@ class TopicsTableSeeder extends Seeder {
             Topic::create([
                 'id'          => $i,
                 'course_id'   => 1,
-                'user_id'     => 1,
+                'user_id'     => 5,
                 'name'        => "Módulo: 11 - Evaluación: $orden",
                 'description' => "En este foro podrás exponer tus dudas respecto a la evaluación $orden del Módulo 11"
             ]);
@@ -158,7 +158,7 @@ class TopicsTableSeeder extends Seeder {
             Topic::create([
                 'id'          => $i,
                 'course_id'   => 1,
-                'user_id'     => 1,
+                'user_id'     => 5,
                 'name'        => "Módulo: 12 - Evaluación: $orden",
                 'description' => "En este foro podrás exponer tus dudas respecto a la evaluación $orden del Módulo 12"
             ]);
@@ -171,7 +171,7 @@ class TopicsTableSeeder extends Seeder {
             Topic::create([
                 'id'          => $i,
                 'course_id'   => 1,
-                'user_id'     => 1,
+                'user_id'     => 5,
                 'name'        => "Módulo: 13 - Evaluación: $orden",
                 'description' => "En este foro podrás exponer tus dudas respecto a la evaluación $orden del Módulo 13"
             ]);
@@ -184,7 +184,7 @@ class TopicsTableSeeder extends Seeder {
             Topic::create([
                 'id'          => $i,
                 'course_id'   => 1,
-                'user_id'     => 1,
+                'user_id'     => 5,
                 'name'        => "Módulo: 14 - Evaluación: $orden",
                 'description' => "En este foro podrás exponer tus dudas respecto a la evaluación $orden del Módulo 14"
             ]);
@@ -197,7 +197,7 @@ class TopicsTableSeeder extends Seeder {
             Topic::create([
                 'id'          => $i,
                 'course_id'   => 1,
-                'user_id'     => 1,
+                'user_id'     => 5,
                 'name'        => "Módulo: 15 - Evaluación: $orden",
                 'description' => "En este foro podrás exponer tus dudas respecto a la evaluación $orden del Módulo 15"
             ]);

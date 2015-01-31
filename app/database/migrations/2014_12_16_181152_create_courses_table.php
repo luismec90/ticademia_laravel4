@@ -22,7 +22,7 @@ class CreateCoursesTable extends Migration {
             $table->smallInteger('levels');
             $table->string('type_of_registration');
             $table->string('image');
-            $table->float('threshold');
+            $table->decimal('threshold',8,3);
             $table->timestamps();
         });
     }

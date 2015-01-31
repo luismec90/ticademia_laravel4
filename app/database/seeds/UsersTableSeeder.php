@@ -20,6 +20,7 @@ class UsersTableSeeder extends Seeder {
             'password'   => Hash::make('123'),
             'confirmed'  => 1
         ]);
+
         User::create([
             'id'         => 2,
             'first_name' => 'Estudiante1',
@@ -53,6 +54,18 @@ class UsersTableSeeder extends Seeder {
             'email'      => 'profesor1@gmail.com',
             'avatar'     => 'default.png',
             'password'   => Hash::make('123'),
+            'confirmed'  => 1
+        ]);
+        User::create([
+            'id'         => 5,
+            'first_name' => 'John Bayron',
+            'last_name'  => 'Baena Giraldo',
+            'dni'        => '71763465',
+            'birth_date' => '0000-00-00',
+            'gender'     => 'm',
+            'email'      => 'jbbaena@unal.edu.co',
+            'avatar'     => 'default.png',
+            'password'   => Hash::make('71763465'),
             'confirmed'  => 1
         ]);
         /*
