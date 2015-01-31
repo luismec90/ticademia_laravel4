@@ -43,7 +43,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <a class="btn btn-primary" data-toggle="modal" href="#modal-create-material">Crear material</a>
-                <a class="btn btn-primary pull-right" data-toggle="modal" href="#modal-create-quiz">Crear evaluación</a>
+                <a class="btn btn-primary pull-right" data-toggle="modal" href="#modal-create-quiz">Crear ejercicio</a>
             </div>
         </div>
         <br>
@@ -182,11 +182,11 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Saltar evaluación</h4>
+                    <h4 class="modal-title">Saltar ejercicio</h4>
                 </div>
                 <div class="modal-body">
                     {{ Form::hidden('quiz_id',null,['id'=>'skip-quiz-id','required'=>'required']) }}
-                    ¿Deseas saltar esta evaluación? ten en cuenta que luego la podrás realizar pero ya no recibirás
+                    ¿Deseas saltar este ejercicio? ten en cuenta que luego la podrás realizar pero ya no recibirás
                     puntuación.
                 </div>
                 <div class="modal-footer">

@@ -19,7 +19,7 @@ class QuizzesController extends \BaseController {
         }
 
 
-        Flash::success('Evaluación creada exitosamente');
+        Flash::success('Ejercicio creado exitosamente');
 
         return Redirect::back();
     }
@@ -49,7 +49,7 @@ class QuizzesController extends \BaseController {
         }
         $quiz->save();
 
-        Flash::success('Evaluación editada exitosamente');
+        Flash::success('Ejercicio editado exitosamente');
 
         return Redirect::back();
     }
@@ -71,7 +71,7 @@ class QuizzesController extends \BaseController {
             $approvedQuiz->skipped = 1;
             $approvedQuiz->save();
 
-            Flash::success('Evaluación saltada correctamente');
+            Flash::success('Ejercicio saltado correctamente');
         } else
         {
             Flash::error('Por favor inténtalo nuevamente');

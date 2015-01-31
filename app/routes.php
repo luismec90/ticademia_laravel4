@@ -16,10 +16,13 @@ Route::get('matricular', ['as' => 'home', 'uses' => 'PagesController@enroll']);
 
 Route::get('/', ['as' => 'home', 'uses' => 'PagesController@home']);
 
+
 /* Registro */
+/*
 Route::get('registro', ['before' => 'guest', 'as' => 'register_path', 'uses' => 'RegistrationController@create']);
 Route::post('registro', ['before' => 'guest', 'as' => 'register_path', 'uses' => 'RegistrationController@store']);
 Route::get('register/verify/{confirmationCode}', ['as' => 'confirmation_path', 'uses' => 'RegistrationController@confirm']);
+*/
 
 /* Entrar o registrarse con Facebook o Google + */
 Route::get('login_facebook', ['before' => 'guest', 'as' => 'login_facebook_path', 'uses' => 'SocialNetworksController@loginWithFacebook']);

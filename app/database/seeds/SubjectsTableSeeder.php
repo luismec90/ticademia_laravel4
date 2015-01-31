@@ -11,21 +11,13 @@ class SubjectsTableSeeder extends Seeder {
 
         Subject::create([
             'id'                => 1,
-            'name'              => 'Matemáticas Báscias',
-            'description'       => 'Lorem...',
-            'table_of_contents' => 'Lorem...',
+            'name'              => 'Matemáticas Básicas',
+            'description'       => '',
+            'table_of_contents' => '',
             'language'          => 'español',
-            'prerequisites'     => 'Lorem...'
+            'prerequisites'     => ''
         ]);
 
-        Subject::create([
-            'id'                => 2,
-            'name'              => 'Fundamentos de programación',
-            'description'       => 'Lorem...',
-            'table_of_contents' => 'Lorem...',
-            'language'          => 'español',
-            'prerequisites'     => 'Lorem...'
-        ]);
     }
 
 }

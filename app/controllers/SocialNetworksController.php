@@ -37,6 +37,10 @@ class SocialNetworksController extends \BaseController {
 
                 if (is_null($user))
                 {
+                    //Quitar esto para que funcione el registro
+                    Flash::error("El usuario no existe");
+                    return Redirect::route('home');
+
                     $isNewUser = true;
 
                     $user = new User;
@@ -135,6 +139,10 @@ class SocialNetworksController extends \BaseController {
 
                 if (is_null($user))
                 {
+                    //Quitar esto para que funcione el registro
+                    Flash::error("El usuario no existe");
+                    return Redirect::route('home');
+
                     $isNewUser = true;
 
                     $user = new User;

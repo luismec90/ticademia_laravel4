@@ -58,7 +58,7 @@
                         </ul>
                     </li>
                 @else
-                    <li @if(Route::currentRouteName()=='register_path') {{ "class='active'"}} @endif>{{ link_to_route('register_path','Registrarse') }}</li>
+                   {{-- <li @if(Route::currentRouteName()=='register_path') {{ "class='active'"}} @endif>{{ link_to_route('register_path','Registrarse') }}</li> --}}
                     <li class=" nav  navbar-nav dropdown">
                         <a class="white cursor" href="#" data-toggle="dropdown">Entrar <b class="caret"></b></a>
                         <ul class="dropdown-menu" style="padding: 15px;min-width: 250px;">

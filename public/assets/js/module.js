@@ -6,7 +6,7 @@ $(function () {
     $("#body-module").on('click', '.quiz-launcher:not(.disabled)', function () {
         evaluacionOReto = "evaluacion";
 
-        var name = "Evaluación  " + $(this).attr("data-order");
+        var name = "Ejercicio  " + $(this).attr("data-order");
         var url = $(this).attr("data-url");
         idEvaluacion = $(this).attr("data-evaluacion-id");
 

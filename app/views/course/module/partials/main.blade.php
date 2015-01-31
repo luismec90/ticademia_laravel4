@@ -82,7 +82,7 @@
     <div class="col-sm-5">
         <div id="quizzes-div" class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Evaluaciones</h3>
+                <h3 class="panel-title">Ejercicios</h3>
             </div>
             <div class="panel-body">
                 <center>
