@@ -24,8 +24,7 @@ class UsersController extends \BaseController {
         return View::make('pages.profile.general_info', compact('linkedWithFacebook', 'linkedWithGoogle'));
     }
 
-    public
-    function changeAvatar()
+    public function changeAvatar()
     {
 
         $validation = Validator::make(Input::all(), User::$updateAvatar, User::$validationMessages);
@@ -39,7 +38,7 @@ class UsersController extends \BaseController {
         $dataHeight = Input::get('dataHeight');
         $dataWidth = Input::get('dataWidth');
 
-        $path = 'users/avatars/';
+        $path = 'users/avatars';
 
         if (Auth::user()->avatar != 'default.png' && File::exists($path . Auth::user()->avatar))
         {
