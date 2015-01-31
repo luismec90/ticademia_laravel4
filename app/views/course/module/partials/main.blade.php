@@ -151,7 +151,7 @@
 
                             <a class="forum-quiz" target="_blank" title="Foro"
                                href="{{ route('topic_path',[$course->id,$quiz->topic_id]) }}">
-                                <img src="{{ asset('assets/images/course/forum-icon.png') }}" width="27" height="20">
+                                <img src="{{ asset('assets/images/course/forum-icon.png') }}" width="32" height="20">
                             </a>
                             @if(Auth::user()->isTeacher($course->id))
                                 <button class="edit-quiz btn btn-info btn-sm"
