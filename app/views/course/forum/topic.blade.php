@@ -20,6 +20,7 @@
                     @endif
 
 
+
                 }
             })
         });
@@ -41,19 +42,21 @@
                         <div class="panel panel-default">
                             <div class="panel-heading"><b class="link">{{ $topic->name }}</b></div>
                             <div class="panel-body">
-                                <div class="col-xs-3 col-sm-2 col-md-1">
-                                    @include('layouts.partials.link_avatar_square',['user'=>$topic->user])
-                                </div>
-                                <div class="col-xs-9 col-sm-10 col-md-11 ">
-                                    <div class="row info-date">
-                                        <div class="col-xs-12">
-                                            <div class="text-muted">Publicado
-                                                <b>{{ $topic->created_at->diffForHumans() }}</b>: {{ $topic->created_at }}
-                                                , por <b> {{ $topic->user->linkFullName() }} <span
-                                                            class="monitor">{{ $topic->user->isMonitor($course->id) ? '(Monitor)' : '' }}</span></b>
-                                            </div>
-                                        </div>
-                                    </div>
+                                {{-- <div class="col-xs-3 col-sm-2 col-md-1">
+                                     @include('layouts.partials.link_avatar_square',['user'=>$topic->user])
+                                 </div>
+                                 --}}
+                                <div class="col-xs-12">
+                                    {{--   <div class="row info-date">
+                                           <div class="col-xs-12">
+                                               <div class="text-muted">Publicado
+                                                   <b>{{ $topic->created_at->diffForHumans() }}</b>: {{ $topic->created_at }}
+                                                   , por <b> {{ $topic->user->linkFullName() }} <span
+                                                               class="monitor">{{ $topic->user->isMonitor($course->id) ? '(Monitor)' : '' }}</span></b>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       --}}
                                     <div class="row">
                                         <div class="col-xs-12">
                                             {{{ $topic->description }}}
