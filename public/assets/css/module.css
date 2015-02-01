@@ -314,8 +314,14 @@
 .quiz-div .popover {
     width: 200px;
 }
+#module-description{
+    margin-top: 0;
+    margin-bottom: 0;
 
-#quizzes-div .quiz-div.highlight-quiz .quiz-launcher .quiz-name {
-
-    /* move the element up by 5px */
+}
+#module-dates{
+    margin-top:10px;
+}
+#module-name{
+    margin-bottom: 10px;
 }

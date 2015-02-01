@@ -33,11 +33,11 @@
     </script>
 @stop
 @section('content')
-    <h1 class="section-title"><span>
+    <h1 id="module-name" class="section-title"><span>
             {{--<a class="btn btn-default btn-back" title="Ir atrás"
                                        href="{{ route('course_path',$course->id) }}"><i
                         class="fa fa-reply"></i></a>--}} {{ $module->name }}</span></h1>
-    <h4 class="text-center text-muted">Fecha de inicio: {{ $module->start_date  }} | Fecha de corte: {{ $module->end_date }}</h4>
+    <h4 id="module-description" class="text-center">{{ $module->description }} <div id="module-dates" class="text-muted">Fecha de inicio: {{ $module->start_date  }} | Fecha de corte: {{ $module->end_date }}</div></h4>
     <br>
     @if(Auth::user()->isTeacher($course->id))
         <div class="row">
