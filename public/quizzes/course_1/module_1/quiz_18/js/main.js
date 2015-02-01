@@ -10,7 +10,7 @@ $(function() {
 
     w = getRandom(5, 20) / 10;
 
-    var correctAnswer = Math.round(100 * w);
+    var correctAnswer = 100 * w;
     //console.log(correctAnswer + " " + missConception1);
     draw();
 
@@ -21,7 +21,6 @@ $(function() {
             $("#feedback").addClass("hide");
             var calificacion = 0;
             var feedback = "";
-            valor = Math.round(parseFloat(valor));
             switch (valor) {
                 case correctAnswer:
                     calificacion = 1.0;

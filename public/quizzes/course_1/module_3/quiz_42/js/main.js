@@ -1,6 +1,6 @@
 var a, b, c;
 
-$(function() {
+$(function () {
     try {
         API = getAPI();
         API.LMSInitialize("");
@@ -14,7 +14,7 @@ $(function() {
     //console.log(correctAnswer + " " + missConception1);
     var correctAnswer = draw();
 
-    $("#verificar").click(function() {
+    $("#verificar").click(function () {
         var valor = $("input[name=answer]:checked").val().trim();
         if (valor != "") {
             $("#correcto").addClass("hide");
@@ -42,10 +42,10 @@ $(function() {
             API.notifyDaemon(calificacion);
         }
     });
-    $("#aceptar").click(function() {
+    $("#aceptar").click(function () {
         window.parent.location.reload();
     });
-    $('#modal').on('hide.bs.modal', function(e) {
+    $('#modal').on('hide.bs.modal', function (e) {
         window.parent.location.reload();
     });
 
@@ -58,11 +58,17 @@ function draw() {
     var answers = ["(<span class='mvar' value='c'>c</span>,<span class='mvar' value='b'>b</span>]",
         "[<span class='mvar' value='b'>b</span>,∞)",
         "(<span class='mvar' value='a'>a</span>,<span class='mvar' value='c'>c</span>)",
-        "∅"];
-    var is = [0, 1, 2, 3];
+        "∅",
+        "(<span class='mvar' value='a'>a</span>,<span class='mvar' value='b'>b</span>]∪(<span class='mvar' value='c'>c</span>,∞)",
+        "(<span class='mvar' value='a'>a</span>,<span class='mvar' value='b'>b</span>)",
+        "[<span class='mvar' value='c'>c</span>,<span class='mvar' value='b'>b</span>]",
+        "[<span class='mvar' value='b'>b</span>,∞)",
+        "Ninguna de las anteriores",
+    ];
+    var is = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     shuffleArray(is);
     var i = 0;
-    while (i < 4) {
+    while (i < 9) {
         $("#label" + (i + 1)).html(answers[is[i]]);
         if (is[i] == 0)
             correct = i + 1;

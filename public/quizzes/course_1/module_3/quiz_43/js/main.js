@@ -57,12 +57,16 @@ function draw() {
     var answers = ["{x ∈ R : <span class='mvar' value='a'>a</span> ≤ x y x < <span class='mvar' value='b'>b</span>}",
         "{x ∈ R : <span class='mvar' value='a'>a</span> ≤ x ó x > <span class='mvar' value='b'>b</span>}",
         "{" + a + "," + (a + 1) + ", ... ," + (b - 2) + "," + (b - 1) + "}",
+        "{x ∈ Z : <span class='mvar' value='a'>a</span> ≤ x y x < <span class='mvar' value='b'>b</span>}",
+        "{x ∈ Q : <span class='mvar' value='a'>a</span> ≤ x y x < <span class='mvar' value='b'>b</span>}",
+        "{x ∈ Z : <span class='mvar' value='a'>a</span> ≤ x ó x < <span class='mvar' value='b'>b</span>}",
+        "{x ∈ Q : <span class='mvar' value='a'>a</span> ≤ x ó x < <span class='mvar' value='b'>b</span>}",
         "Todas las anteriores"];
-    var is = [0, 1, 2];
+    var is = [0, 1, 2,3,4,5,6,7];
     shuffleArray(is);
-    is[3] = 3;
+    is[8] = 8;
     var i = 0;
-    while (i < 4) {
+    while (i < 8) {
         $("#label" + (i + 1)).html(answers[is[i]]);
         if (is[i] == 0)
             correct = i + 1;

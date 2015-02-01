@@ -1,38 +1,45 @@
 var p;
 
-$(function() {
-	try{
-		API = getAPI();
-		API.LMSInitialize("");
-	}catch(e){
-		console.log(e);
-	}
+$(function () {
+    try {
+        API = getAPI();
+        API.LMSInitialize("");
+    } catch (e) {
+        console.log(e);
+    }
 
-    p=getRandom(0,100)/100;
+    p = getRandom(0, 200) / 100;
 
-    var labels = ["|(x+2)²-1|","|2-x²|","|1-2x|"];
-    var correctAnswer = shuffleArray([0,1,2]);
+    var labels = ["|(x+2)²-1|", "|2-x²|", "|1-2x|"];
+    var correctAnswer = shuffleArray([0, 1, 2]);
     //console.log(correctAnswer + " " + missConception1);
-    draw(labels,correctAnswer);
+    value1 = Math.abs(Math.pow(p + 2, 2) - 1);
+    value2 = Math.abs(2 - Math.pow(p, 2));
+    value3 = Math.abs(1 - 2 * p);
+    valueAnswer = [value1, value2, value3];
+    draw(labels, correctAnswer, valueAnswer);
 
-    $("#verificar").click(function() {
-        var valor1 = $("#answer1").val().trim(); valor1 = ((valor1.split(",")).length == 2) ? valor1.replace(",", ".") : valor1;
-        var valor2 = $("#answer2").val().trim(); valor2 = ((valor2.split(",")).length == 2) ? valor2.replace(",", ".") : valor2;
-        var valor3 = $("#answer3").val().trim(); valor3 = ((valor3.split(",")).length == 2) ? valor3.replace(",", ".") : valor3;
+    $("#verificar").click(function () {
+        var valor1 = $("#answer1").val().trim();
+        valor1 = ((valor1.split(",")).length == 2) ? valor1.replace(",", ".") : valor1;
+        var valor2 = $("#answer2").val().trim();
+        valor2 = ((valor2.split(",")).length == 2) ? valor2.replace(",", ".") : valor2;
+        var valor3 = $("#answer3").val().trim();
+        valor3 = ((valor3.split(",")).length == 2) ? valor3.replace(",", ".") : valor3;
         console.log(correctAnswer[valor1]);
         if (valor1 != "-1" && valor2 != "-1" && valor3 != "-1") {
             $("#correcto").addClass("hide");
             $("#feedback").addClass("hide");
             var calificacion = 0;
             var feedback = "";
-            if(0==correctAnswer[valor1] && 1==correctAnswer[valor2] && 2==correctAnswer[valor3]){
-                    calificacion = 1.0;
-                    $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
-            }else{
-                    calificacion = 0.0;
-                    $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
+            if (valor1 >= valor2 >= valor3) {
+                calificacion = 1.0;
+                $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
+            } else {
+                calificacion = 0.0;
+                $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
             }
-           $(this).attr("disabled", true);
+            $(this).attr("disabled", true);
             API.closeQuestion();
             if (typeof API.calificar == 'function') {
                 API.calificar(calificacion, feedback);
@@ -42,10 +49,10 @@ $(function() {
             API.notifyDaemon(calificacion);
         }
     });
-    $("#aceptar").click(function() {
+    $("#aceptar").click(function () {
         window.parent.location.reload();
     });
-    $('#modal').on('hide.bs.modal', function(e) {
+    $('#modal').on('hide.bs.modal', function (e) {
         window.parent.location.reload();
     });
 
@@ -53,9 +60,9 @@ $(function() {
 function getRandom(bottom, top) {
     return Math.floor(Math.random() * (1 + top - bottom)) + bottom;
 }
-function draw(labels,answer){
+function draw(labels, answer, valueAnswer) {
     $(".mvar[value=p]").html(p);
-	$("#answer1,#answer2,#answer3").html("<option value='-1'>---</option><option value='0'>"+labels[answer[0]]+"</option><option value='1'>"+labels[answer[1]]+"</option><option value='2'>"+labels[answer[2]]+"</option>");
+    $("#answer1,#answer2,#answer3").html("<option value='-1'>---</option><option value='" + valueAnswer[answer[0]] + "'>" + labels[answer[0]] + "</option><option value='" + valueAnswer[answer[1]] + "'>" + labels[answer[1]] + "</option><option value='" + valueAnswer[answer[2]] + "'>" + labels[answer[2]] + "</option>");
 }
 function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {

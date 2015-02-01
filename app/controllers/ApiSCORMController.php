@@ -81,10 +81,11 @@ class ApiSCORMController extends \BaseController {
                 $diff = DB::select(DB::raw("SELECT ROUND(TIMESTAMPDIFF(MICROSECOND,'$startDate','$endDate')/1000000,3) AS value"));
                 $diff = $diff[0]->value;
                 $feedbackForUser = $A[rand(0, 4)] . $B[rand(0, 3)];
-                $feedbackForUser .= '<br><br> Tu tiempo fue de <b>' . $diff . ' segundos</b> <img src="'.asset('assets/images/course/time.png').'" width="10">';
+                $feedbackForUser .= '<br><br> Tu tiempo fue de <b>' . $diff . ' segundos</b> <img src="' . asset('assets/images/course/time.png') . '" width="10">';
             } else
             {
                 $feedbackForUser = $C[rand(0, 3)] . $D[rand(0, 1)];
+                $feedbackForUser .= $this->feedbackMaterials($quiz);
             }
 
             return $feedbackForUser;
@@ -120,7 +121,7 @@ class ApiSCORMController extends \BaseController {
             $quiz = Quiz::find($quiz->id);//Cargamos de nuevo el quiz para preguntar por ->approvedQuiz
             if ($firstTimeApprovedQuiz && $quiz->approvedQuiz->skipped == 0)
             {
-                $feedbackForUser .= '<br><br> Acabas de ganar <b>' . $quiz->approvedQuiz->score . '  puntos</b> <img src="'.asset('assets/images/course/star.png').'" width="17"> y tu tiempo fue de <b>' . $diff . ' segundos</b>  <img src="'.asset('assets/images/course/time.png').'" width="10">';
+                $feedbackForUser .= '<br><br> Acabas de ganar <b>' . $quiz->approvedQuiz->score . '  puntos</b> <img src="' . asset('assets/images/course/star.png') . '" width="17"> y tu tiempo fue de <b>' . $diff . ' segundos</b>  <img src="' . asset('assets/images/course/time.png') . '" width="10">';
             } else
             {
                 $feedbackForUser .= '<br><br> Tu tiempo fue de <b>' . $diff . ' segundos</b>';
@@ -138,15 +139,7 @@ class ApiSCORMController extends \BaseController {
             $feedbackForUser = $C[rand(0, 3)] . $D[rand(0, 1)];
             $feedback = "Incorrecto";
 
-            if ($quiz->materials->count() > 0)
-            {
-                $feedbackForUser .= "<br><br>Te recomendamos revisar el siguiente material:<ul>";
-                foreach ($quiz->materials as $material)
-                {
-                    $feedbackForUser .= "<li> <a class='link video-launcher' data-id='$material->id'  data-name='$material->name' data-url='$material->url'>$material->name</a></li>";
-                }
-                $feedbackForUser .= "</ul>";
-            }
+            $feedbackForUser .= $this->feedbackMaterials($quiz);
         }
 
 
@@ -311,5 +304,21 @@ class ApiSCORMController extends \BaseController {
 
 
         return round($totalApprovedQuizzes / $totalQuizzes * 100, 2);
+    }
+
+    private function feedbackMaterials($quiz)
+    {
+        $feedbackForUser = "";
+        if ($quiz->materials->count() > 0)
+        {
+            $feedbackForUser .= "<br><br>Te recomendamos revisar el siguiente material:<ul>";
+            foreach ($quiz->materials as $material)
+            {
+                $feedbackForUser .= "<li> <a class='link video-launcher' data-id='$material->id'  data-name='$material->name' data-url='$material->url'>$material->name</a></li>";
+            }
+            $feedbackForUser .= "</ul>";
+        }
+
+        return $feedbackForUser;
     }
 }

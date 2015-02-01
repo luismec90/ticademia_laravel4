@@ -12,7 +12,7 @@ $(function() {
     b = getRandom(105,155);
 
     var correctAnswer = 360-a-b;
-    console.log(correctAnswer);
+
     draw();
 
     $("#verificar").click(function() {
