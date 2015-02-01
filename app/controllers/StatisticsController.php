@@ -69,7 +69,7 @@ class StatisticsController extends \BaseController {
 
         $data3[0] = ['Hora', 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado',];
 
-        for ($i = 1; $i < 24; $i ++)
+        for ($i = 1; $i <= 24; $i ++)
         {
             $data3[$i] = [$i - 1, 0, 0, 0, 0, 0, 0, 0];
 

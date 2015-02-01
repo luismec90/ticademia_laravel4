@@ -222,7 +222,7 @@ class MaterialsTableSeeder extends Seeder {
             'module_id'   => 3,
             'name'        => 'Orden en los reales, intervalos *',
             'description' => '',
-            'duration'    => '',
+            'duration'    => '320',
             'url'         => '',
             'type'        => 'video',
             'order'       => '5'
@@ -232,7 +232,7 @@ class MaterialsTableSeeder extends Seeder {
             'module_id'   => 3,
             'name'        => 'Distancia y valor absoluto *',
             'description' => '',
-            'duration'    => '',
+            'duration'    => '320',
             'url'         => '',
             'type'        => 'video',
             'order'       => '6'

@@ -122,7 +122,7 @@ class ModulesTableSeeder extends Seeder {
             'course_id'   => 1,
             'name'        => "Módulo 13",
             'description' => '',
-            'start_date'  => '2015-04-07 00:00:00',
+            'start_date'  => '2015-05-07 00:00:00',
             'end_date'    => '2015-05-13 23:59:59'
         ]);
 
