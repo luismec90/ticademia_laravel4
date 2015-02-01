@@ -29,7 +29,7 @@ $(function () {
 
         valor1 = parseFloat(valor1);
         valor2 = parseFloat(valor2);
-        valor2 = parseFloat(valor2);
+        valor3 = parseFloat(valor3);
 
         if (valor1 != "-1" && valor2 != "-1" && valor3 != "-1") {
             $("#correcto").addClass("hide");
