@@ -26,12 +26,13 @@ $(function () {
         valor2 = ((valor2.split(",")).length == 2) ? valor2.replace(",", ".") : valor2;
         var valor3 = $("#answer3").val().trim();
         valor3 = ((valor3.split(",")).length == 2) ? valor3.replace(",", ".") : valor3;
-        console.log(correctAnswer[valor1]);
+
         if (valor1 != "-1" && valor2 != "-1" && valor3 != "-1") {
             $("#correcto").addClass("hide");
             $("#feedback").addClass("hide");
             var calificacion = 0;
             var feedback = "";
+            console.log(valor1+" - "+valor2+" - "+valor3);
             if (valor1 >= valor2 >= valor3) {
                 calificacion = 1.0;
                 $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
