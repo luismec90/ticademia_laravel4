@@ -7,6 +7,7 @@ class PagesController extends BaseController {
     public function test()
     {
 
+        echo date('Y-m-d H:i:s');
 
     }
 
