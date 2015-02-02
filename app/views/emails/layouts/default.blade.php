@@ -31,7 +31,7 @@
                                     </tr>
                                     <tr>
                                         <td style="color: #CFCFCF; font-family: Arial,Helvetica sans-serif; font-size: 14px;" width="75%">
-                                            &reg; TICademia, 2014<br/>
+                                            &reg; TICademia, 2015<br/>
                                         </td>
                                     </tr>
                                 </table>
