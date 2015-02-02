@@ -56,6 +56,14 @@ class PagesController extends BaseController {
             } else
             {
                 var_dump($row);
+                $notification = new Notification;
+                $notification->user_id = $student->id;
+                $notification->title = 'Importante!';
+                $notification->image = 'http://ticademia.medellin.unal.edu.co/assets/images/course/alert.png ';
+                $notification->url = 'http://ticademia.medellin.unal.edu.co/assets/tutorial.pdf';
+                $notification->body = "Te recomendamos visitar la sección de recursos y leer el  archivo 'Tutorial para cálculos y redondeo' antes de resolver los ejercicios. <br> <br> <a class='btn btn-primary' target='_blank' href='http://ticademia.medellin.unal.edu.co/assets/tutorial.pdf'>Ver tutorial</a>";
+                $notification->show_modal = 1;
+                $notification->save();
             }
 
             $student->courses()->sync([1 => ['group' => $row[4], 'level_id' => 1, 'role' => 1]]);
