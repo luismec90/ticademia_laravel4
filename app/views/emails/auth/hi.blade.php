@@ -20,11 +20,10 @@
                         <table border="0" cellpadding="0" cellspacing="0" width="100%">
                             <tr>
                                 <td style="color: rgb(102, 102, 102); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 300;line-height: 20px;">
-                                    <h2>Bienvenido a TICademia!</h2>
+                                    <h2>Bienvenido!</h2>
 
                                     <p>
-                                        Como parte del curso de Matemáticas Básicas has sido matricualdo en TICademia, tus datos de acceso
-                                        son:
+                                        Como parte del curso de Matemáticas Básicas has sido matriculado en TICademia, tus datos de acceso son:
                                     </p>
 
                                     <p>

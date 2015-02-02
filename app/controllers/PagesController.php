@@ -7,11 +7,12 @@ class PagesController extends BaseController {
     public function test()
     {
 
+       //return View::make('emails.auth.hi', compact('courses'));
 
         Mail::send('emails.auth.hi', [], function ($message)
         {
             $message->to('luismec90@gmail.com')
-                ->subject('Bienvenido!!!');
+                ->subject('Bienvenido!');
         });
 
     }
