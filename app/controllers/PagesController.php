@@ -53,9 +53,6 @@ class PagesController extends BaseController {
                 $student->gender = 'm';
                 $student->save();
 
-            } else
-            {
-                var_dump($row);
                 $notification = new Notification;
                 $notification->user_id = $student->id;
                 $notification->title = 'Importante!';
@@ -64,6 +61,11 @@ class PagesController extends BaseController {
                 $notification->body = "Te recomendamos visitar la sección de recursos y leer el  archivo 'Tutorial para cálculos y redondeo' antes de resolver los ejercicios. <div class='btn-notification-hide'><br> <a class='btn btn-primary' target='_blank' href='http://localhost/assets/tutorial.pdf'>Ver tutorial</a> </div>";
                 $notification->show_modal = 1;
                 $notification->save();
+
+            } else
+            {
+                var_dump($row);
+
             }
 
             $student->courses()->sync([1 => ['group' => $row[4], 'level_id' => 1, 'role' => 1]]);
