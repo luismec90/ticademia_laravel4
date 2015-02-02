@@ -12,8 +12,8 @@ class ForumController extends \BaseController {
             $q->orderBy('created_at', 'DESC');
         }])
             ->where('course_id', $course->id)
+            ->orderBy('created_at','ASC')
             ->get();
-
 
         return View::make('course.forum.index', compact('course', 'topics'));
     }

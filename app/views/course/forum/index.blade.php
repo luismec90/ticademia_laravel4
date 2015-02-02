@@ -11,6 +11,7 @@
     <script>
         $(document).ready(function () {
             $('#table-forum').dataTable({
+                "bSort": false,
                 "language": {
                     "url": "{{ asset('assets/libs/datatables/js/spanish.lang') }}"
                 }
