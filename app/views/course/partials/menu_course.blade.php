@@ -55,6 +55,16 @@
                 <li class="@if(Route::currentRouteName()=='achievement_path') {{ "active"}} @endif"><a
                             href="{{ route('achievement_path',$course->id) }}"><i class="fa fa-trophy"></i> Mis logros</a></li>
                 @endif
+                <li role="presentation"
+                    class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                        <i class="fa fa-life-ring"></i> Recursos <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li class="">
+                            <a target="_blank" href="{{ asset('assets/tutorial.pdf') }}">Tutorial para cálculos y redondeo</a></li>
+                    </ul>
+                </li>
                 @if(Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id))
                     <li role="presentation"
                         class="dropdown @if(Route::currentRouteName()=='statistics_students_path' || Route::currentRouteName()=='module_report_path' || Route::currentRouteName()=='statistics_quizzes_path') {{ "active"}} @endif">
