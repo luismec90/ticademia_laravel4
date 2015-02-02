@@ -479,3 +479,9 @@ table.table:not(.no-header) thead tr:first-child {
 .info-user{
     cursor: pointer;
 }
+.btn-notification-hide{
+     display: none;
+ }
+.modal .btn-notification-hide{
+    display: block;
+}
