@@ -7,7 +7,7 @@
 
                 <p> Hola <b>{{ $oldUser->first_name }}</b>, <b>{{ $newUser->fullName() }}</b> acaba de
                     obtener un mejor tiempo para el ejercicio {{ $quiz->order }}
-                    del módulo: <b>{{ $quiz->module->name }}</b>.
+                    del <b>{{ $quiz->module->name }}</b>.
 
                 <p>
                     Record anterior: {{ $oldBestTime }} segundos
