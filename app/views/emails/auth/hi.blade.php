@@ -50,7 +50,7 @@
 
                             <tr>
                                 <td style="color: #CFCFCF; font-family: Arial,Helvetica sans-serif; font-size: 14px;" width="75%">
-                                    http://ticademia.medellin.unal.edu.co<br/>
+                                    <a target="_blank" href="http://ticademia.medellin.unal.edu.co" style="color: #CFCFCF;" >http://ticademia.medellin.unal.edu.co</a>
                                 </td>
                             </tr>
                         </table>
