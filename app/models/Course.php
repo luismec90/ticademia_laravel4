@@ -52,7 +52,8 @@ class Course extends \Eloquent {
                             LEFT JOIN (SELECT ra.user_id,SUM(a.reward) reward
                             FROM reached_achievements ra
                             JOIN achievements a ON ra.achievement_id=a.id
-                            WHERE ra.course_id='{$this->id}') AS T ON T.user_id=u.id
+                            WHERE ra.course_id='{$this->id}'
+                            GROUP BY ra.user_id) AS T ON T.user_id=u.id
                             where m.course_id = '{$this->id}'
                             GROUP BY u.id
                             ORDER BY score DESC");
