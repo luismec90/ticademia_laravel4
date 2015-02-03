@@ -22,7 +22,7 @@ class PagesController extends BaseController {
     {
         ini_set('max_execution_time', 300);
 
-        $students = [['1037615872','Cano Arroyave Mayerly','lmcanoa@unal.edu.co']];
+        $students = [['3438502','Cabarcas Jaramillo Daniel','dcabarc@unal.edu.co']];
 
 
         foreach ($students as $index => $row)
@@ -75,7 +75,7 @@ class PagesController extends BaseController {
 
             }
 
-            $student->courses()->sync([1 => ['level_id' => 1, 'role' => 1]]);
+            $student->courses()->sync([1 => ['level_id' => 10, 'role' => 2]]);
 
         }
     }
