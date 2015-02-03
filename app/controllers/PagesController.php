@@ -14,7 +14,10 @@ class PagesController extends BaseController {
             ->get()->lists('email');
 
         array_push($students, 'luismec90@gmail.com');
+        $students = array_reverse($students);
         array_push($students, 'lfmontoyag@unal.edu.co');
+
+
 
 
         //return View::make('emails.auth.hi', compact('courses'));
