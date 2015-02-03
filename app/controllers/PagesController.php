@@ -17,10 +17,15 @@ class PagesController extends BaseController {
         $students = array_reverse($students);
         array_push($students, 'lfmontoyag@unal.edu.co');
 
+        $cco="";
+       foreach($students as $email){
+           $cco.="$email,";
+       }
+        $cco=rtrim($cco,",");
 
 
 
-        //return View::make('emails.auth.hi', compact('courses'));
+        return View::make('emails.auth.hi', compact('courses'));
 
         Mail::send('emails.auth.hi', [], function ($message) use ($students)
         {
