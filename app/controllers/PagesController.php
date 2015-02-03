@@ -14,15 +14,27 @@ class PagesController extends BaseController {
             ->get()->lists('email');
 
         array_push($students, 'luismec90@gmail.com');
-        $students = array_reverse($students);
+
         array_push($students, 'lfmontoyag@unal.edu.co');
 
-        $cco="";
-       foreach($students as $email){
-           $cco.="$email,";
-       }
-        $cco=rtrim($cco,",");
+        $cco1 = "";
+        $cco2 = "";
+        $i = 0;
+        foreach ($students as $email)
+        {
+            if ($i < 400)
+            {
+                $cco1 .= "$email,";
+            } else
+            {
+                $cco2 .= "$email,";
+            }
 
+
+            $i ++;
+        }
+        $cco1 = rtrim($cco1, ",");
+        $cco2 = rtrim($cco2, ",");
 
 
         return View::make('emails.auth.hi', compact('courses'));
