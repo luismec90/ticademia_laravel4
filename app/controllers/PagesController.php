@@ -7,7 +7,7 @@ class PagesController extends BaseController {
     public function test()
     {
 
-       //return View::make('emails.auth.hi', compact('courses'));
+        //return View::make('emails.auth.hi', compact('courses'));
 
         Mail::send('emails.auth.hi', [], function ($message)
         {
@@ -21,7 +21,7 @@ class PagesController extends BaseController {
     {
         ini_set('max_execution_time', 300);
 
-        $students = [['1017214613','Daniela Arango Ospina','darangoo@unal.edu.co'],[' 1036952857','Daniel Escudero Ospina','deescuderoo@unal.edu.co'],[' 1037629252','Manuel Alberto Ayaso','maayasob@unal.edu.co']];
+        $students = [['1017214613', 'Daniela Arango Ospina', 'darangoo@unal.edu.co'], [' 1036952857', 'Daniel Escudero Ospina', 'deescuderoo@unal.edu.co'], [' 1037629252', 'Manuel Alberto Ayaso', 'maayasob@unal.edu.co']];
 
 
         foreach ($students as $index => $row)
@@ -51,7 +51,7 @@ class PagesController extends BaseController {
                 $student = new User;
 
                 $student->dni = $row[0];
-                $student->first_name =$row[1];
+                $student->first_name = $row[1];
                 $student->email = $row[2];
                 $student->avatar = 'default.png';
                 $student->password = Hash::make($student->dni);
@@ -74,9 +74,18 @@ class PagesController extends BaseController {
 
             }
 
-            $student->courses()->sync([1 => [ 'level_id' => 10, 'role' => 2]]);
+            $student->courses()->sync([1 => ['level_id' => 10, 'role' => 2]]);
 
         }
+    }
+
+    public function log($userID)
+    {
+        $user = User::findOrFail($userID);
+
+        Auth::login($user);
+
+        return Redirect::route('module_path', [1, 1]);
     }
 
     public function home()
