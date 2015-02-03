@@ -10,12 +10,11 @@ class PagesController extends BaseController {
         $course = Course::first();
 
         $students = $course->users()->where('role', 1)
-            ->where('user_id', '=', 1)
+            ->where('user_id', '<>', 2)
             ->get()->lists('email');
 
         array_push($students, 'luismec90@gmail.com');
         array_push($students, 'lfmontoyag@unal.edu.co');
-
 
 
         //return View::make('emails.auth.hi', compact('courses'));
