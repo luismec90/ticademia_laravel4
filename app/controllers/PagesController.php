@@ -11,7 +11,7 @@ class PagesController extends BaseController {
 
         Mail::send('emails.auth.hi', [], function ($message)
         {
-            $message->to('lfmontoyag@unal.edu.co')
+            $message->to('jbbaena@unal.edu.co')
                 ->subject('Bienvenido!');
         });
 
