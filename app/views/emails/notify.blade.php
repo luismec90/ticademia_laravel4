@@ -6,7 +6,7 @@
                 <h2>{{ $quiz->module->course->subject->name }}:</h2>
 
                 <p> Hola <b>{{ $oldUser->first_name }}</b>, <b>{{ $newUser->fullName() }}</b> acaba de
-                    obtener un mejor tiempo para la evaluación {{ $quiz->id }}
+                    obtener un mejor tiempo para el ejercicio {{ $quiz->order }}
                     del módulo: <b>{{ $quiz->module->name }}</b>.
 
                 <p>
