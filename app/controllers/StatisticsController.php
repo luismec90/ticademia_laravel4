@@ -408,7 +408,9 @@ class StatisticsController extends \BaseController {
             if (!empty($headerExcel))
                 array_push($headerExcel, "Módulo $moduleID");
 
-            $r = DB::select("SELECT q.module_id,aq.user_id,ROUND(COUNT(aq.id)/40*100,2) percentage
+            $module=Module::findOrFail($moduleID);
+
+            $r = DB::select("SELECT q.module_id,aq.user_id,ROUND(COUNT(aq.id)/{$module->quizzes->count()}*100,2) percentage
                             FROM approved_quizzes aq
                             JOIN quizzes q ON aq.quiz_id=q.id
                             JOIN modules m ON m.id=$moduleID
