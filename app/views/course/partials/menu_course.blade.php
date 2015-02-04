@@ -34,7 +34,7 @@
                     </ul>
                 </li>
                 <li class="@if(Route::currentRouteName()=='calendar_path') {{ "active"}} @endif"><a
-                            href="{{ route('calendar_path',$course->id) }}"><i class="fa fa-calendar"></i> Calendario</a></li>
+                            href="{{ route('calendar_path',$course->id) }}"><i class="fa fa-calendar"></i> Horarios de los tutores</a></li>
                 <li class="@if(Route::currentRouteName()=='wall_path') {{ "active"}} @endif"><a
                             href="{{ route('wall_path',$course->id) }}"><i class="fa fa-bullhorn"></i> Muro</a></li>
                 <li class="@if(Route::currentRouteName()=='forum_path'|| Route::currentRouteName()=='topic_path') {{ "active"}} @endif">
