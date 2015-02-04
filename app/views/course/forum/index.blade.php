@@ -63,7 +63,7 @@
                                     La última respuesta fue <b>{{ $topic->replies[0]->created_at->diffForHumans() }}</b>
                                     : {{ $topic->replies[0]->created_at }}, por
                                     <b>{{ $topic->replies[0]->user->linkFullName() }} <span
-                                                class="monitor">{{ $topic->user->isMonitor($course->id) ? '(Monitor)' : '' }}</span></b>
+                                                class="monitor">{{ $topic->replies[0]->user->isMonitor($course->id) ? '(Monitor)' : '' }}</span></b>
                                 @else
                                     N/A
                                 @endif
