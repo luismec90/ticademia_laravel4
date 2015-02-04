@@ -152,11 +152,11 @@ class ApiSCORMController extends \BaseController {
 
     private function bestTime($quiz, $diff)
     {
-        if ($quiz->best_time == '' || $quiz->best_time > $diff)
+        if ($quiz->best_time == '' || $quiz->best_time > $diff && $quiz->best_time > 0)
         {
             if ($quiz->user_id != null && !$quiz->user->isMe())
             {
-             Mail::send('emails.notify', ['oldUser' => $quiz->user, 'quiz' => $quiz, 'newUser' => Auth::user(), 'oldBestTime' => $quiz->best_time, 'newBestTime' => $diff], function ($message) use ($quiz)
+                Mail::send('emails.notify', ['oldUser' => $quiz->user, 'quiz' => $quiz, 'newUser' => Auth::user(), 'oldBestTime' => $quiz->best_time, 'newBestTime' => $diff], function ($message) use ($quiz)
                 {
                     $message->to($quiz->user->email, $quiz->user->fullName())
                         ->bcc('luismec90@gmail.com', 'Luis Montoya')
@@ -217,7 +217,7 @@ class ApiSCORMController extends \BaseController {
         $moduleUser->score = DB::table('approved_quizzes')
             ->join('quizzes', 'quizzes.id', '=', 'approved_quizzes.quiz_id')
             ->where('quizzes.module_id', $quiz->module->id)
-            ->where('approved_quizzes.user_id',Auth::user()->id)
+            ->where('approved_quizzes.user_id', Auth::user()->id)
             ->sum('approved_quizzes.score');
 
         $moduleUser->save();
