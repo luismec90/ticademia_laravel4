@@ -20,7 +20,7 @@
                             <td>{{ $user->courses->find($course->id)->pivot->group }}</td>
                         </tr>
                         <tr>
-                            <td>Posición</td>
+                            <td>Posición general</td>
                             <td>{{ $user->individual_position }}</td>
                         </tr>
                         <tr>
@@ -94,7 +94,7 @@
     </div>
     <div class="row">
         <div class="col-sm-4">
-            <h4>Nivel: {{ $level->name  }}</h4>
+            <h4>Nivel: <b>{{ $level->name  }}</b></h4>
 
             <div class="row">
                 <div class="col-xs-12">
