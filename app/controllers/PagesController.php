@@ -6,7 +6,7 @@ class PagesController extends BaseController {
 
     public function test()
     {
-    return Auth::user()->courses()->role;
+    return U::now();
     }
 
     public function enroll()
