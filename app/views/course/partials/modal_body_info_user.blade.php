@@ -104,6 +104,7 @@
         </div>
         <div class="col-sm-8">
             <h4>Puntaje por módulo</h4>
+            <div id="div-table-score-per-module">
             <table class="table table-bordered table-condensed table-striped table-hover">
                 @foreach($course->modules as $module)
                     <tr>
@@ -112,6 +113,7 @@
                     </tr>
                 @endforeach
             </table>
+            </div>
         </div>
     </div>
 @elseif($user->id==1)
@@ -141,11 +143,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <hr>
-        </div>
-    </div>
+
 @elseif($user->isMonitor($course->id))
     <div class="row">
         <div class="col-sm-4">
