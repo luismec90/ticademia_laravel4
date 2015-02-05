@@ -33,7 +33,7 @@
 
                         </a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="drop5">
-                            @forelse(Auth::user()->unviewedNotifications as $notification)
+                            @forelse(Auth::user()->unviewedNotifications->take(10) as $index => $notification)
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{{  route("show_notification_path",$notification->id)   }}">{{ $notification->body }}</a></li>
                             @empty
                                 <li role="presentation" class="dropdown-header">No hay notificaciones nuevas</li>
