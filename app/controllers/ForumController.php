@@ -70,15 +70,19 @@ class ForumController extends \BaseController {
             ->where('user_id', '<>', Auth::user()->id)
             ->distinct('user_id')
             ->lists('user_id');
-
         $quiz = Quiz::where('topic_id', $topic->id)->firstOrFail();
 
-        $usersApprovedQuiz = ApprovedQuiz::where('quiz_id', $quiz->id)
-            ->where('user_id', '<>', Auth::user()->id)
-            ->whereIn('user_id', $usersFromTopic)
-            ->lists('user_id');
+        $usersToNotify = [];
 
-        $usersToNotify = array_diff($usersFromTopic, $usersApprovedQuiz);
+        if (!empty($usersFromTopic))
+        {
+            $usersApprovedQuiz = ApprovedQuiz::where('quiz_id', $quiz->id)
+                ->where('user_id', '<>', Auth::user()->id)
+                ->whereIn('user_id', $usersFromTopic)
+                ->lists('user_id');
+
+            $usersToNotify = array_diff($usersFromTopic, $usersApprovedQuiz);
+        }
 
         $usersToNotify = (array_unique(array_merge($usersToNotify, $tutors)));
 
