@@ -118,7 +118,7 @@
                                         <div class="text-muted">Publicado
                                             <b>{{ $topicReply->created_at->diffForHumans() }}</b>: {{ $topicReply->created_at }}
                                             , por <b>{{ $topicReply->user->linkFullName() }} <span
-                                                        class="monitor">{{ $topicReply->user->roleName() }}</span></b>
+                                                        class="monitor">{{ $topicReply->user->roleName($course->id) }}</span></b>
 
                                         </div>
 
