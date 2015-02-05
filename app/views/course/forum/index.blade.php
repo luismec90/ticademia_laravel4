@@ -38,7 +38,7 @@
                         <td>Publicación</td>
                         <td>Respuestas</td>
                         <td>Última respuesta</td>
-                        <td></td>
+                        <td>Imagen</td>
                     </tr>
                     </thead>
                     @foreach($topics as $topic)
