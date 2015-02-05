@@ -278,3 +278,6 @@ ul {
 #div-comments .user-list li{
     margin-bottom: 0;
 }
+#div-comments .reply-2{
+    cursor: pointer;
+}

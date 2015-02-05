@@ -4,6 +4,11 @@ $(function () {
         $(this).parent().parent().parent().parent().find('.div-reply').removeClass('hide').find('textarea').val('').focus();
 
     });
+    $('#div-comments .reply-2').click(function () {
+        $('#div-comments .div-reply').addClass('hide');
+        $(this).parent().parent().parent().parent().parent().find('.div-reply').removeClass('hide').find('textarea').val('').focus();
+
+    });
 
     $("#div-comments").on("click", '.delete-message', function () {
 

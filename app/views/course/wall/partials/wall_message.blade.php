@@ -54,8 +54,7 @@
 
                             <i class="fa fa-thumbs-o-up {{ $wallMessage->likes->count() ? "like-icon" :"" }}" data-wall-message-id="{{ $wallMessage->id }}"></i>
                             <span class="counter">{{ $wallMessage->likes->count() }} </span>
-
-                            <i class="fa fa-comment-o"></i>
+                            <i class="fa fa-comment-o reply-2"></i>
                             {{ $wallMessage->replies->count() }}
                         </div>
                     </div>
