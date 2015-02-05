@@ -9,7 +9,7 @@
                 <div class="comment-box">
                     <div class="comment-head">
                         <h6 class="comment-name">{{ $wallMessage->user->linkFullName() }} <span
-                                    class="monitor">{{ $wallMessage->user->isMonitor($course->id) ? '(Monitor)' : '' }}</span>
+                                    class="monitor">{{ $wallMessage->user->roleName($course->id) }}</span>
                         </h6>
                         <span> Publicado {{ $wallMessage->created_at->diffForHumans() }}
                             : {{ $wallMessage->created_at }}</span>
@@ -72,7 +72,7 @@
                         <div class="comment-box">
                             <div class="comment-head">
                                 <h6 class="comment-name"> {{ $reply->user->linkFullName() }} <span
-                                            class="monitor">{{ $wallMessage->user->isMonitor($course->id) ? '(Monitor)' : '' }}</span>
+                                            class="monitor">{{ $reply->user->roleName($course->id) }}</span>
                                 </h6>
                                 <span> Publicado {{ $reply->created_at->diffForHumans() }}
                                     : {{ $reply->created_at }}</span>

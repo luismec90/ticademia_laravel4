@@ -485,3 +485,6 @@ table.table:not(.no-header) thead tr:first-child {
 .modal .btn-notification-hide{
     display: block;
 }
+#table-admin-info .blue{
+    color: #1769ff;
+}

@@ -98,7 +98,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         {
             $this->role = $course->role;
         }
-        $this->course_id =$courseID;
+        $this->course_id = $courseID;
     }
 
     public function courses()
@@ -154,4 +154,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->belongsToMany('Module')->withTimestamps()->withPivot(['score']);
     }
 
+    public function roleName($courseID)
+    {
+        if ($this->id == 1)
+            return "(Administrador)";
+        else if ($this->isMonitor($courseID))
+            return "(Monitor)";
+
+    }
 }
