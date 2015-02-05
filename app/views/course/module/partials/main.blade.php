@@ -139,7 +139,7 @@
                            @endif
                                     ">
                                 @if(!is_null($quiz->user_id))
-                                    <img class="img-circle" src="{{ $quiz->user->avatarPath() }}" width="32">
+                                    <img class="img-circle info-user" data-user-id="{{ $quiz->user->id }}" src="{{ $quiz->user->avatarPath() }}" width="32">
                                 @endif
                             </div>
                             <div class="jump-quiz">
