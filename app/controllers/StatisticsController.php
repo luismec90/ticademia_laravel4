@@ -47,6 +47,8 @@ class StatisticsController extends \BaseController {
 
         $connections = $connections = DB::table('connections')->where('course_id', $course->id)
             ->selectRaw("DATE_FORMAT(created_at,'%Y-%m-%d') day,COUNT(distinct(user_id)) total")
+            ->where(DB::raw("DATE_FORMAT(created_at,'%Y-%m-%d')"), '>=', $course->start_date)
+            ->where(DB::raw("DATE_FORMAT(created_at,'%Y-%m-%d')"), '<=', $course->end_date)
             ->groupBy('day')
             ->get();
 
@@ -118,8 +120,12 @@ class StatisticsController extends \BaseController {
 
         $historicalLevels = DB::table('historical_levels')->where('course_id', $course->id)
             ->selectRaw("DATE_FORMAT(created_at,'%Y-%m-%d') day,COUNT(distinct(user_id)) total,level_id")
+            ->where(DB::raw("DATE_FORMAT(created_at,'%Y-%m-%d')"), '>=', $course->start_date)
+            ->where(DB::raw("DATE_FORMAT(created_at,'%Y-%m-%d')"), '<=', $course->end_date)
             ->groupBy('day', 'level_id')
             ->get();
+
+
 
         foreach ($historicalLevels as $historicalLevel)
         {
@@ -185,7 +191,10 @@ class StatisticsController extends \BaseController {
                 {
                     $q->where('course_id', $course->id);
                 });
-            })->get();
+            })
+            ->where(DB::raw("DATE_FORMAT(created_at,'%Y-%m-%d')"), '>=', $course->start_date)
+            ->where(DB::raw("DATE_FORMAT(created_at,'%Y-%m-%d')"), '<=', $course->end_date)
+            ->get();
 
         foreach ($viewedVideos as $video)
         {
@@ -408,7 +417,7 @@ class StatisticsController extends \BaseController {
             if (!empty($headerExcel))
                 array_push($headerExcel, "Módulo $moduleID");
 
-            $module=Module::findOrFail($moduleID);
+            $module = Module::findOrFail($moduleID);
 
             $r = DB::select("SELECT q.module_id,aq.user_id,ROUND(COUNT(aq.id)/{$module->quizzes->count()}*100,2) percentage
                             FROM approved_quizzes aq
@@ -425,6 +434,7 @@ class StatisticsController extends \BaseController {
                 $data[$r2->user_id]->$module = $r2->percentage;
             }
         }
+
         return $data;
     }
 
