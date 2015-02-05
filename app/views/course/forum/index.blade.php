@@ -11,7 +11,11 @@
     <script>
         $(document).ready(function () {
             $('#table-forum').dataTable({
-                "bSort": false,
+                "pageLength": 20,
+                "aaSorting": [],
+                "columnDefs": [
+                    { "orderable": false, "targets": 0 }
+                ],
                 "language": {
                     "url": "{{ asset('assets/libs/datatables/js/spanish.lang') }}"
                 }
