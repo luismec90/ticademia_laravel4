@@ -58,7 +58,6 @@
                             <td>
                                 <img class="img-rounded avatar info-user" data-user-id="{{ $user->id }}" width="30"
                                      src="{{ $user->avatarPath() }}" alt="{{  $user->fullName() }}">
-                                {{ $user->linkFullName() }}
                                 @if($index==1)
                                     <img width="25" src="{{ asset('assets/images/general/gold_cup.png') }}">
                                 @elseif($index==2)
@@ -66,6 +65,8 @@
                                 @elseif($index==3)
                                     <img width="25" src="{{ asset('assets/images/general/bronze_cup.png') }}">
                                 @endif
+                                {{ $user->linkFullName() }}
+
                             </td>
                             <td>{{ $user->score }}
 
