@@ -121,6 +121,11 @@ class PagesController extends BaseController {
         return Redirect::route('module_path', [1, 1]);
     }
 
+    public function duels()
+    {
+        return View::make('pages.duel');
+    }
+
     public function home()
     {
         return View::make('pages.home');
