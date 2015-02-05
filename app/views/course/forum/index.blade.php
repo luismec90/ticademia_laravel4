@@ -74,7 +74,7 @@
                             </td>
                             <td>
                                 @if($topic->replies->count())
-                                    @include('layouts.partials.link_avatar_square',['user'=> $topic->replies[0]->user])
+                                    @include('layouts.partials.link_avatar_square',['user'=> $topic->replies[0]->user,'size'=>50])
                                 @endif
 
                             </td>
