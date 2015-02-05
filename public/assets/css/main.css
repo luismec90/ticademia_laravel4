@@ -489,7 +489,8 @@ table.table:not(.no-header) thead tr:first-child {
     color: #1769ff;
 }
 #modal-info-user .modal-header,#modal-info-user .modal-footer{
-    padding: 10px;
+    padding-top: 9px;
+    padding-bottom: 9px;
 }
 #modal-info-user-body .table{
     margin-bottom: 0;
