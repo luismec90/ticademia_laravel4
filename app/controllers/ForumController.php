@@ -61,18 +61,35 @@ class ForumController extends \BaseController {
 
         Session::flash('storedReply', true);
 
-        if (Auth::user()->isStudent($course->id))
+
+        $tutors = $course->users()->where('role', 2)
+            ->where('user_id', '<>', Auth::user()->id)
+            ->lists('user_id');
+
+        $usersFromTopic = TopicReply::where('topic_id', $topic->id)
+            ->where('user_id', '<>', Auth::user()->id)
+            ->distinct('user_id')
+            ->lists('user_id');
+
+        $quiz = Quiz::where('topic_id', $topic->id)->firstOrFail();
+
+        $usersApprovedQuiz = ApprovedQuiz::where('quiz_id', $quiz->id)
+            ->where('user_id', '<>', Auth::user()->id)
+            ->whereIn('user_id', $usersFromTopic)
+            ->lists('user_id');
+
+        $usersToNotify = array_diff($usersFromTopic, $usersApprovedQuiz);
+
+        $usersToNotify = (array_unique(array_merge($usersToNotify, $tutors)));
+
+        foreach ($usersToNotify as $user)
         {
-            $tutors = $course->users()->where('role', 2)->get();
-            foreach ($tutors as $tutor)
-            {
-                $notification = new Notification;
-                $notification->user_id = $tutor->id;
-                $notification->title = "Nuevo mensaje en el foro: {$topic->name}";
-                $notification->url = route('topic_path', [$course->id, $topic->id]);
-                $notification->body = "EL estudiante " . Auth::user()->fullName() . " ha publicado un mensaje en el foro: <b>{$topic->name}</b>";
-                $notification->save();
-            }
+            $notification = new Notification;
+            $notification->user_id = $user;
+            $notification->title = "Nuevo mensaje en el foro: {$topic->name}";
+            $notification->url = route('topic_path', [$course->id, $topic->id]);
+            $notification->body = "EL " . Auth::user()->roleNameForNotications($course->id) . " " . Auth::user()->fullName() . " ha publicado una respuesta en el foro: <b>{$topic->name}</b>";
+            $notification->save();
         }
 
         return Redirect::back();

@@ -162,4 +162,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             return "(Monitor)";
 
     }
+
+    public function roleNameForNotications($courseID)
+    {
+        if ($this->id == 1)
+            return "<b class='text-danger'>administrador</b>";
+        else if ($this->isMonitor($courseID))
+            return "<b class='text-danger'>monitor</b>";
+        else if ($this->isTeacher($courseID))
+            return "profesor";
+        else if ($this->isStudent($courseID))
+            return "estudiante";
+    }
 }

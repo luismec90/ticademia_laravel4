@@ -6,48 +6,7 @@ class PagesController extends BaseController {
 
     public function test()
     {
-
-        $course = Course::first();
-
-        $students = $course->users()->where('role', 1)
-            ->where('user_id', '<>', 2)
-            ->get()->lists('email');
-
-        array_push($students, 'luismec90@gmail.com');
-
-        array_push($students, 'lfmontoyag@unal.edu.co');
-
-        $cco1 = "";
-        $cco2 = "";
-        $i = 0;
-        foreach ($students as $email)
-        {
-            if ($i < 400)
-            {
-                $cco1 .= "$email,";
-            } else
-            {
-                $cco2 .= "$email,";
-            }
-
-
-            $i ++;
-        }
-        $cco1 = rtrim($cco1, ",");
-        $cco2 = rtrim($cco2, ",");
-
-
-        return View::make('emails.auth.hi', compact('courses'));
-
-        Mail::send('emails.auth.hi', [], function ($message) use ($students)
-        {
-            $message->to('soporte.ticademia@gmail.com')
-                ->bcc($students)
-                ->subject('Bienvenido!');
-        });
-
-        return View::make('emails.auth.hi', compact('courses'));
-
+    return Auth::user()->courses()->role;
     }
 
     public function enroll()
