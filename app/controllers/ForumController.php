@@ -12,7 +12,7 @@ class ForumController extends \BaseController {
             $q->orderBy('created_at', 'DESC');
         }])
             ->where('course_id', $course->id)
-            ->orderBy('created_at','ASC')
+            ->orderBy('created_at', 'ASC')
             ->get();
 
         return View::make('course.forum.index', compact('course', 'topics'));
@@ -60,6 +60,20 @@ class ForumController extends \BaseController {
         Flash::success('Mensaje creado exitosamente');
 
         Session::flash('storedReply', true);
+
+        if (Auth::user()->isStudent($course->id))
+        {
+            $tutors = $course->users()->where('role', 2)->get();
+            foreach ($tutors as $tutor)
+            {
+                $notification = new Notification;
+                $notification->user_id = $tutor->id;
+                $notification->title = "Nuevo mensaje en el foro: {$topic->name}";
+                $notification->url = route('topic_path', [$course->id, $topic->id]);
+                $notification->body = "EL estudiante " . Auth::user()->fullName() . " ha publicado un mensaje en el foro: <b>{$topic->name}</b>";
+                $notification->save();
+            }
+        }
 
         return Redirect::back();
     }
