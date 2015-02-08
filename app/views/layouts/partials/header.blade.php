@@ -43,7 +43,7 @@
                             <li role="presentation"><a  role="menuitem" tabindex="-1" href="{{ route('notifications_path') }}">Ver todas las notificaciones.</a></li>
                         </ul>
                     </li>
-                    <li role="presentation" class="dropdown">
+                    <li role="presentation" class="dropdown {{ isset($course) ? "open" :"" }}">
                         <a  href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                             Mis cursos <b class="caret"></b></a>
                         </a>
