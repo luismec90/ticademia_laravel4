@@ -70,7 +70,7 @@ function showNotification(data) {
 function askForDuel(data) {
     closeAllModals();
 
-    $("#modal-body-ask-duel").html("El usuario " + data.defiantUserID + " te ha retado un duelo, deseas aceptar? ");
+    $("#modal-body-ask-duel").html("El estudiante " + data.defiantUserFullName + " te ha retado un duelo, deseas aceptar? ");
     $("#modal-ask-duel").modal({
         show: true,
         keyboard: false,
