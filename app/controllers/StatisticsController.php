@@ -150,6 +150,8 @@ class StatisticsController extends \BaseController {
                 $predata4[$prevDate][1] --;
                 $flag = false;
 
+                $prevDate = date("Y-m-d", strtotime("+1 day", strtotime($prevDate)));
+
                 while ($prevDate <= $end_date)
                 {
                     //  echo "Para el usuario $row->id en la fecha $prevDate <br>";
