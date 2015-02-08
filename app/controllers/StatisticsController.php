@@ -91,15 +91,22 @@ class StatisticsController extends \BaseController {
         }
 
         /*------*/
+
+
         $levels = Level::orderBy('id')->lists('name');
 
         $predata4[0] = array_merge(['Fecha'], $levels);
 
+
         $date = $course->start_date;
+
         $end_date = date('Y-m-d');
 
         $months = ['', '01' => 'Ene', '02' => 'Feb', '03' => 'Mar', '04' => 'Abr', '05' => 'May', '06' => 'Jun',
                        '07' => 'Jul', '08' => 'Ago', '09' => 'Sep', '10' => 'Oct', '11' => 'Nov', '12' => 'Dic'];
+
+        $totalLevels = sizeof($levels);
+
 
         while (strtotime($date) <= strtotime($end_date))
         {
@@ -107,7 +114,6 @@ class StatisticsController extends \BaseController {
 
             $predata4[$date][0] = $months[$auxDate[1]] . ' ' . $auxDate[2];
 
-            $totalLevels = sizeof($levels);
 
             for ($i = 1; $i <= $totalLevels; $i ++)
             {
@@ -118,23 +124,72 @@ class StatisticsController extends \BaseController {
             $date = date("Y-m-d", strtotime("+1 day", strtotime($date)));
         }
 
-        $historicalLevels = DB::table('historical_levels')->where('course_id', $course->id)
-            ->selectRaw("DATE_FORMAT(created_at,'%Y-%m-%d') day,COUNT(distinct(user_id)) total,level_id")
-            ->where(DB::raw("DATE_FORMAT(created_at,'%Y-%m-%d')"), '>=', $course->start_date)
-            ->where(DB::raw("DATE_FORMAT(created_at,'%Y-%m-%d')"), '<=', $course->end_date)
-            ->groupBy('day', 'level_id')
+
+        $historicalLevelsPerUser = DB::table('users')
+            ->join('course_user', 'users.id', '=', 'course_user.user_id')
+            ->join('historical_levels', 'users.id', '=', 'historical_levels.user_id')
+            ->selectRaw("DATE_FORMAT(historical_levels.created_at,'%Y-%m-%d') day,users.id,historical_levels.level_id")
+            ->where(DB::raw("DATE_FORMAT(historical_levels.created_at,'%Y-%m-%d')"), '>=', $course->start_date)
+            ->where(DB::raw("DATE_FORMAT(historical_levels.created_at,'%Y-%m-%d')"), '<=', $course->end_date)
+            ->groupBy('users.id', 'day', 'historical_levels.level_id')
             ->get();
 
 
+        $flag = true;
+        $userFlag = - 1;
+        $t = sizeof($historicalLevelsPerUser);
 
-        foreach ($historicalLevels as $historicalLevel)
+        for ($i = 0; $i < $t; $i ++)
         {
+            if ($flag)
+            {
+                $userFlag = $historicalLevelsPerUser[$i]->id;
+                $prevDate = $historicalLevelsPerUser[$i]->day;
+                $levelID = 2;
+                $predata4[$prevDate][$levelID] ++;
+                $predata4[$prevDate][1] --;
+                $flag = false;
 
-            $predata4[$historicalLevel->day][$historicalLevel->level_id] = $historicalLevel->total;
-            $predata4[$historicalLevel->day][1] -= $historicalLevel->total;
+                while ($prevDate <= $end_date)
+                {
+                    //  echo "Para el usuario $row->id en la fecha $prevDate <br>";
+                    $predata4[$prevDate][$levelID] ++;
+                    $predata4[$prevDate][1] --;
 
+                    $prevDate = date("Y-m-d", strtotime("+1 day", strtotime($prevDate)));
+                }
+
+            } else
+            {
+                if ($userFlag != $historicalLevelsPerUser[$i]->id)
+                {
+                    $userFlag = $historicalLevelsPerUser[$i]->id;
+                    $prevDate = $historicalLevelsPerUser[$i]->day;
+                    $levelID = 2;
+                }
+
+                while ($prevDate <= $historicalLevelsPerUser[$i]->day)
+                {
+                    $predata4[$prevDate][$levelID] ++;
+                    $predata4[$prevDate][1] --;
+
+                    $prevDate = date("Y-m-d", strtotime("+1 day", strtotime($prevDate)));
+                }
+
+                if (isset($historicalLevelsPerUser[$i + 1]) && $historicalLevelsPerUser[$i + 1]->id != $userFlag)
+                {
+                    while ($prevDate <= $end_date)
+                    {
+                        $predata4[$prevDate][$levelID] ++;
+                        $predata4[$prevDate][1] --;
+
+                        $prevDate = date("Y-m-d", strtotime("+1 day", strtotime($prevDate)));
+                    }
+                }
+
+                $levelID ++;
+            }
         }
-
 
         $data4 = [];
         $totalLevels = sizeof($levels);

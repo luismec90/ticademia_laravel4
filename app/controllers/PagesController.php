@@ -6,7 +6,112 @@ class PagesController extends BaseController {
 
     public function test()
     {
-    return U::now();
+        $course = Course::first();
+
+        $totalStudents = $course->users()
+            ->where('role', 1)
+            ->count();
+
+        $levels = Level::orderBy('id')->lists('name');
+
+        $predata4[0] = array_merge(['Fecha'], $levels);
+
+
+        $date = $course->start_date;
+        $end_date = date('Y-m-d');
+
+        $months = ['', '01' => 'Ene', '02' => 'Feb', '03' => 'Mar', '04' => 'Abr', '05' => 'May', '06' => 'Jun',
+                       '07' => 'Jul', '08' => 'Ago', '09' => 'Sep', '10' => 'Oct', '11' => 'Nov', '12' => 'Dic'];
+
+        $totalLevels = sizeof($levels);
+
+
+        while (strtotime($date) <= strtotime($end_date))
+        {
+            $auxDate = explode("-", $date);
+
+            $predata4[$date][0] = $months[$auxDate[1]] . ' ' . $auxDate[2];
+
+
+            for ($i = 1; $i <= $totalLevels; $i ++)
+            {
+                $predata4[$date][$i] = 0;
+            }
+            $predata4[$date][1] = $totalStudents;
+
+            $date = date("Y-m-d", strtotime("+1 day", strtotime($date)));
+        }
+
+
+        $historicalLevelsPerUser = DB::table('users')
+            ->join('course_user', 'users.id', '=', 'course_user.user_id')
+            ->join('historical_levels', 'users.id', '=', 'historical_levels.user_id')
+            ->selectRaw("DATE_FORMAT(historical_levels.created_at,'%Y-%m-%d') day,users.id,historical_levels.level_id")
+            ->where(DB::raw("DATE_FORMAT(historical_levels.created_at,'%Y-%m-%d')"), '>=', $course->start_date)
+            ->where(DB::raw("DATE_FORMAT(historical_levels.created_at,'%Y-%m-%d')"), '<=', $course->end_date)
+            ->groupBy('users.id', 'day', 'historical_levels.level_id')
+            ->get();
+
+        $date = $course->start_date;
+        $end_date = date('Y-m-d');
+
+        $flag = true;
+        $userFlag = - 1;
+        $t = sizeof($historicalLevelsPerUser);
+
+        for ($i = 0; $i < $t; $i ++)
+        {
+            if ($flag)
+            {
+                $userFlag = $historicalLevelsPerUser[$i]->id;
+                $prevDate = $historicalLevelsPerUser[$i]->day;
+                $levelID = 2;
+                $predata4[$prevDate][$levelID] ++;
+                $predata4[$prevDate][1] --;
+                $flag = false;
+
+                while ($prevDate <= $end_date)
+                {
+                    //  echo "Para el usuario $row->id en la fecha $prevDate <br>";
+                    $predata4[$prevDate][$levelID] ++;
+                    $predata4[$prevDate][1] --;
+
+                    $prevDate = date("Y-m-d", strtotime("+1 day", strtotime($prevDate)));
+                }
+
+            } else
+            {
+                if ($userFlag != $historicalLevelsPerUser[$i]->id)
+                {
+                    $userFlag = $historicalLevelsPerUser[$i]->id;
+                    $prevDate = $historicalLevelsPerUser[$i]->day;
+                    $levelID = 2;
+                }
+
+                while ($prevDate <= $historicalLevelsPerUser[$i]->day)
+                {
+                    $predata4[$prevDate][$levelID] ++;
+                    $predata4[$prevDate][1] --;
+
+                    $prevDate = date("Y-m-d", strtotime("+1 day", strtotime($prevDate)));
+                }
+
+                if (isset($historicalLevelsPerUser[$i + 1]) && $historicalLevelsPerUser[$i + 1]->id != $userFlag)
+                {
+                    while ($prevDate <= $end_date)
+                    {
+                        $predata4[$prevDate][$levelID] ++;
+                        $predata4[$prevDate][1] --;
+
+                        $prevDate = date("Y-m-d", strtotime("+1 day", strtotime($prevDate)));
+                    }
+                }
+
+                $levelID ++;
+            }
+        }
+
+        return $predata4;
     }
 
     public function enroll()
