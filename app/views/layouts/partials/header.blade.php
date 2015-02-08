@@ -14,12 +14,12 @@
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
-           {{-- <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav">
                 <li class="@if(Route::currentRouteName()=='courses_path') {{ "active"}} @endif">
                     <a href="{{ route('courses_path') }}">Lista de cursos</a>
                 </li>
             </ul>
-            --}}
+
             <ul class="nav navbar-nav navbar-right">
                 @if(Auth::check())
                     <li role="presentation" class="dropdown">
