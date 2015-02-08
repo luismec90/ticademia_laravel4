@@ -86,7 +86,7 @@ class StatisticsController extends \BaseController {
         foreach ($connections as $connection)
         {
 
-            $data3[$connection->hour + 1][$connection->day] = $connection->total;
+            $data3[$connection->hour + 1][$connection->day] = (int) $connection->total;
 
         }
 
