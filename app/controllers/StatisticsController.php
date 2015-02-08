@@ -205,7 +205,7 @@ class StatisticsController extends \BaseController {
             {
                 for ($j = 1; $j <= $totalLevels; $j ++)
                 {
-                    $data4[$i][$j] = round($data4[$i][$j] / $totalStudents * 100, 1);
+                    $data4[$i][$j] = round($data4[$i][$j] / $t );
                 }
             }
             $i ++;
