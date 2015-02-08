@@ -14,7 +14,7 @@
                 "pageLength": 20,
                 "aaSorting": [],
                 "columnDefs": [
-                    { "orderable": false, "targets": 0 }
+                    {"orderable": false, "targets": 0}
                 ],
                 "language": {
                     "url": "{{ asset('assets/libs/datatables/js/spanish.lang') }}"
@@ -51,14 +51,14 @@
                                            class="link"><b>{{ $topic->name }}</b></a>
                                     </div>
                                 </div>
-                              {{--  <div class="information row">
-                                    <div class="col-xs-12">
-                                        Publicado
-                                        <b>{{ $topic->created_at->diffForHumans() }}</b>: {{ $topic->created_at }}, por
-                                        <b>{{ $topic->user->linkFullName() }} <span
-                                                    class="monitor">{{ $topic->user->isMonitor($course->id) ? '(Monitor)' : '' }}</span></b>
-                                    </div>
-                                </div> --}}
+                                {{--  <div class="information row">
+                                      <div class="col-xs-12">
+                                          Publicado
+                                          <b>{{ $topic->created_at->diffForHumans() }}</b>: {{ $topic->created_at }}, por
+                                          <b>{{ $topic->user->linkFullName() }} <span
+                                                      class="monitor">{{ $topic->user->isMonitor($course->id) ? '(Monitor)' : '' }}</span></b>
+                                      </div>
+                                  </div> --}}
                             </td>
                             <td>{{ $topic->replies->count() }}</td>
 
