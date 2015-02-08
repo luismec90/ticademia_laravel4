@@ -27,16 +27,19 @@ class Course extends \Eloquent {
 
     public function groupRanking()
     {
-        $query = DB::select("SELECT T.group,Round((0.3*T.max_score+0.7*T.avg_score-sqrt(T.standard_deviation))) score
+        $query = DB::select("SELECT T2.group,Round((0.3*T2.max_score+0.7*T2.avg_score-sqrt(T2.standard_deviation))) score
                             FROM (SELECT cu.group,MAX(mu.score + COALESCE(T.reward,0)) max_score,AVG(mu.score + COALESCE(T.reward,0)) avg_score,STDDEV_SAMP(mu.score + COALESCE(T.reward,0)) standard_deviation
                             FROM course_user cu
                             JOIN module_user mu ON cu.user_id=mu.user_id
                             LEFT JOIN (SELECT ra.user_id,SUM(a.reward) reward
                             FROM reached_achievements ra
                             JOIN achievements a ON ra.achievement_id=a.id
-                            WHERE ra.course_id='{$this->id}') AS T ON T.user_id=mu.user_id
+                            WHERE ra.course_id='{$this->id}'
+                            GROUP BY ra.user_id
+                            ) AS T ON T.user_id=mu.user_id
                             WHERE cu.course_id={$this->id}
-                            GROUP BY cu.group) T
+                            AND cu.group IS NOT NULL
+                            GROUP BY cu.group) AS T2
                             ORDER BY score DESC");
 
         return $query;
