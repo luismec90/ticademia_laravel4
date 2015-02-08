@@ -14,11 +14,12 @@
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav">
+           {{-- <ul class="nav navbar-nav">
                 <li class="@if(Route::currentRouteName()=='courses_path') {{ "active"}} @endif">
                     <a href="{{ route('courses_path') }}">Lista de cursos</a>
                 </li>
             </ul>
+            --}}
             <ul class="nav navbar-nav navbar-right">
                 @if(Auth::check())
                     <li role="presentation" class="dropdown">
@@ -42,8 +43,19 @@
                             <li role="presentation"><a  role="menuitem" tabindex="-1" href="{{ route('notifications_path') }}">Ver todas las notificaciones.</a></li>
                         </ul>
                     </li>
-                    <li class="@if(Route::currentRouteName()=='my_courses_path') {{ "active"}} @endif">
-                        <a href="{{ route('my_courses_path') }}">Mis cursos</a>
+                    <li role="presentation" class="dropdown">
+                        <a  href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                            Mis cursos <b class="caret"></b></a>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="drop5">
+                            @forelse(Auth::user()->courses->take(10) as $rowCourse)
+                                <li role="presentation" class="@if(isset($course) && $course->id==$rowCourse->id) {{ "active"}} @endif"><a role="menuitem" tabindex="-1" href="{{  route("course_path",$rowCourse->id)   }}">{{ $rowCourse->subject->name }}</a></li>
+                            @empty
+                                <li role="presentation" class="dropdown-header">No tines cursos inscritos</li>
+                            @endforelse
+                            <li class="divider"></li>
+                            <li role="presentation"><a  role="menuitem" tabindex="-1" href="{{ route('my_courses_path') }}">Ver todos mis cursos</a></li>
+                        </ul>
                     </li>
                     <li id="avatar-header"> @include('layouts.partials.avatar_circle')</li>
                     <li class="dropdown">
