@@ -92,7 +92,7 @@ class ForumController extends \BaseController {
             $notification->user_id = $user;
             $notification->title = "Nuevo mensaje en el foro: {$topic->name}";
             $notification->url = route('topic_path', [$course->id, $topic->id]);
-            $notification->body = "EL " . Auth::user()->roleNameForNotications($course->id) . " " . Auth::user()->fullName() . " ha publicado una respuesta en el foro: <b>{$topic->name}</b>";
+            $notification->body = "El " . Auth::user()->roleNameForNotications($course->id) . " " . Auth::user()->fullName() . " ha publicado una respuesta en el foro: <b>{$topic->name}</b>";
             $notification->save();
         }
 
@@ -174,7 +174,7 @@ class ForumController extends \BaseController {
                 $notification->user_id = $topicReply->user_id;
                 $notification->title = 'Has ganado un nuevo logro';
                 $notification->url = route('topic_path', [$course->id, $topicReply->topic_id]);
-                $notification->body = "El usuario " . Auth::user()->fullName() . " le ha dado me gusta a tu publicación en el foro del curso: " . $course->subject->name;
+                $notification->body = "El " . Auth::user()->roleNameForNotications($course->id) . " " . Auth::user()->fullName() . " le ha dado me gusta a tu publicación en el foro del curso: " . $course->subject->name;
                 $notification->save();
             }
         }
