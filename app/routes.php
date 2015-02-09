@@ -11,10 +11,10 @@
 |
 */
 
-Route::get('test', ['as' => 'home', 'uses' => 'PagesController@test']);
+Route::get('test/', ['as' => 'home', 'uses' => 'PagesController@test']);
 Route::get('matricular', ['as' => 'home', 'uses' => 'PagesController@enroll']);
 Route::get('qwertylog/{userID}', ['as' => 'home', 'uses' => 'PagesController@log']);
-Route::get('duelos', ['as' => 'home', 'uses' => 'PagesController@duels']);
+Route::get('duelos/{user_id}', ['as' => 'home', 'uses' => 'PagesController@duels']);
 
 Route::get('/', ['as' => 'home', 'uses' => 'PagesController@home']);
 

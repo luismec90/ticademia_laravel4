@@ -50,20 +50,42 @@
 {{ HTML::script('assets/libs/bootstrap-growl/bootstrap-growl.min.js') }}
 {{ HTML::script('assets/js/main.js') }}
 
+{{ HTML::script('assets/js/api.js') }}
+
+
 @section('js')
 @show
 <script>
-    load_notification_path = "{{ route('load_notification_path') }}";
+
+    @if(isset($course) && Auth::check())
+        var courseID = "{{ $course->id }}";
+        var userID = "{{ Auth::user()->id }}";
+        var userIsStudent = "{{ Auth::user()->isStudent($course->id) }}";
+    @else
+        var courseID = false;
+        var userID = false;
+        var userIsStudent = false;
+    @endif
+
+    var load_notification_path = "{{ route('load_notification_path') }}";
+
     @if(Auth::check() && Auth::user()->unviewedModalNotifications->count())
-    $(function () {
-        loadNotificaction();
-    });
+        $(function () {
+            loadNotificaction();
+        });
     @endif
 
     /* Google Analytics */
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
     ga('create', 'UA-42717766-4', 'auto');

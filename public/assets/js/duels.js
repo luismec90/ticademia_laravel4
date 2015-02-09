@@ -1,35 +1,31 @@
 var conn;
-var courseID = 1;
-var userID = 5;
-var userID = Math.floor((Math.random() * 1000) + 1);
+
 $(function () {
-    conn = new WebSocket('ws://localhost:8080');
-    conn.onopen = function (e) {
-        console.log("Connection established!");
-        console.log("Current user: " + userID);
+    if (courseID && userID && userIsStudent) {
+        conn = new WebSocket('ws://localhost:8080');
+        conn.onopen = function (e) {
+            init();
+        };
 
-        init();
-    };
+        conn.onmessage = function (e) {
+            data = JSON.parse(e.data);
 
-    conn.onmessage = function (e) {
-        data = JSON.parse(e.data);
-        console.log(data);
-
-        switch (data.action) {
-            case "updateTotalUsersOnline":
-                document.getElementById("totalUsersOnline").innerHTML = data.totalUsersOnline;
-                break;
-            case "showNotification":
-                showNotification(data);
-                break;
-            case "askForDuel":
-                askForDuel(data);
-                break;
-            case "setDuel":
-                setDuel(data);
-                break;
-        }
-    };
+            switch (data.action) {
+                case "updateTotalUsersOnline":
+                    document.getElementById("totalUsersOnline").innerHTML = data.totalUsersOnline;
+                    break;
+                case "showNotification":
+                    showNotification(data);
+                    break;
+                case "askForDuel":
+                    askForDuel(data);
+                    break;
+                case "setDuel":
+                    setDuel(data);
+                    break;
+            }
+        };
+    }
 });
 
 function init() {
@@ -70,7 +66,10 @@ function showNotification(data) {
 function askForDuel(data) {
     closeAllModals();
 
-    $("#modal-body-ask-duel").html("El estudiante " + data.defiantUserFullName + " te ha retado un duelo, deseas aceptar? ");
+    var askDuelElLa = data.defiantUserGender == 'm' ? 'el' : 'la';
+    $("#ask-duel-el-la").html(askDuelElLa);
+    $("#avatar-defiant-user").attr("src", data.defiantUserAvatar);
+    $("#ask-duel-defiant-name").html(data.defiantUserFullName);
     $("#modal-ask-duel").modal({
         show: true,
         keyboard: false,
@@ -97,19 +96,26 @@ function acceptDuel() {
 }
 function setDuel(data) {
     closeAllModals();
+    evaluacionOReto = "reto";
+    // var opponentUserID = data.defiantUserID == userID ? data.opponentUserID : data.defiantUserID;
+    var quizPath = data.quizPath;
 
-    var opponentUserID = data.defiantUserID == userID ? data.opponentUserID : data.defiantUserID;
-    $("#opponent-id").html(opponentUserID);
-    $("#modal-show-duel-quiz").modal({
-        keyboard: false,
-        backdrop: 'static'
-    });
+    $("#iframe-duel-quiz").attr("src", quizPath);
+    $('#iframe-duel-container').removeClass('hide');
+
+    $('#iframe-duel-container .panel').addClass('animated bounceInRight');
+
+    /* $("#opponent-id").html(opponentUserID);
+     $("#modal-show-duel-quiz").modal({
+     keyboard: false,
+     backdrop: 'static'
+     });
+     */
 }
 
-function answerQuizDuel() {
-    closeAllModals();
+function answerQuizDuel(quizStatus) {
 
-    var quizStatus = $("#input-show-duel-quiz").val() == 4 ? "correct" : "wrong";
+    closeAllModals();
 
     var data = {
         action: 'answerQuizDuel',
@@ -123,4 +129,13 @@ function answerQuizDuel() {
 
 function closeAllModals() {
     $('.modal.in').modal('hide');
+
+    if ($('#iframe-duel-container').is(':visible')) {
+        setTimeout(function () {
+            $('#iframe-duel-container').addClass('hide');
+            $('#iframe-duel-container .panel').removeClass('animated bounceOutRight');
+        }, 600);
+        $('#iframe-duel-container .panel').removeClass("bounceInRight").addClass('animated bounceOutRight');
+    }
 }
+

@@ -73,20 +73,11 @@ API.notifyDaemon = function (calificacion) {
 
     if (evaluacionOReto == "reto") {
         if (calificacion == 1) {
-            var status = "correcto";
+            var quizStatus = "correct";
         } else {
-            var status = "incorrecto";
+            var quizStatus = "wrong";
         }
-        var data = {
-            tipo: 'enviar_respuesta',
-            id_curso: idCursoGlobal,
-            posible_ganador: idUsuarioGlobal,
-            nombre_usuario: nombreUsuarioGlobal,
-            estatus: status,
-            fecha_inicio_reto: fechaInicioReto,
-            fecha_fin_reto: date_to_server_date(new Date())
-        };
-        conn.send(JSON.stringify(data));
+        answerQuizDuel(quizStatus);
     }
 }
 API.closeQuestion = function () {

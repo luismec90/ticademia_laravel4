@@ -50,7 +50,18 @@
                 <div class="modal-header">
                     <h4 class="modal-title" id="myModalLabel">Te han retado</h4>
                 </div>
-                <div id="modal-body-ask-duel" class="modal-body">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div >
+                                <p>Has sido seleccionado para participar en un duelo con <span id="ask-duel-el-la"></span> estudiante <b id="ask-duel-defiant-name"></b>.</p>
+                                <p>¿Deseas aceptar?</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <img id="avatar-defiant-user" class="media-object img-thumbnail avatar img-responsive" width="auto" src="">
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" onclick="rejectDuel()" class="btn btn-default" data-dismiss="modal">Rechazar
@@ -62,31 +73,15 @@
         </div>
     </div>
 
-    <div class="modal" id="modal-show-duel-quiz" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Duelo</h4>
+
+    <div id="iframe-duel-container" class="hide">
+        <div class="container">
+            <div class="panel panel-custom">
+                <div class="panel-heading">
+                    <h3 id="panel-iframe-duel-title">Duelo</h3>
                 </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <b>¿Cuánto es 2+2?</b>
-                        </div>
-                        <div class="col-xs-4">
-                            <input id="input-show-duel-quiz" class="form-control" type="text">
-                        </div>
-                        <div class="col-xs-4">
-                            <button onclick="answerQuizDuel()" class="btn btn-primary">Enviar</button>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <smal>Tu oponete es el estudiante: <span id="opponent-id"></span></smal>
-                        </div>
-                    </div>
+                <div class="panel-body">
+                    <iframe id="iframe-duel-quiz"></iframe>
                 </div>
             </div>
         </div>

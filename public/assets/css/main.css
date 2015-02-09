@@ -503,3 +503,41 @@ table.table:not(.no-header) thead tr:first-child {
     height: 190px;
     overflow: auto;
 }
+#iframe-duel-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(68, 68, 68, 0.9);
+    z-index: 1000;
+}
+
+#iframe-duel-container .panel {
+    margin-top: 8px;
+    margin-bottom: 50px;
+    height: auto;
+}
+#iframe-duel-container .panel-custom{
+    border-color: #41BC81;
+}
+#iframe-duel-container .panel-custom>.panel-heading{
+    background: #41BC81;
+    border-color: #41BC81;
+}
+#panel-iframe-duel-title{
+    color: #fff;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+#iframe-duel-container iframe {
+    min-height: 545px;
+    width: 100%;
+    border: none;
+}
+@media (min-width: 1400px) {
+    #iframe-duel-container iframe {
+        min-height: 600px;
+    }
+
+}
