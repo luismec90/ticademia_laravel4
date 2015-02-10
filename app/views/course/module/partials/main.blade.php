@@ -42,7 +42,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-4">
         <div id="ranking-div" class="panel panel-success">
             <div class="panel-heading">
                 <h3 class="panel-title">Ranking del módulo</h3>
@@ -80,7 +80,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-5">
+    <div class="col-sm-4">
         <div id="quizzes-div" class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">Ejercicios</h3>

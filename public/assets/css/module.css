@@ -84,7 +84,7 @@
     width: 100px;
     height: 110px;
     display: inline-block;
-    margin: 25px 20px 10px 20px;
+    margin: 25px 12px 10px 12px;
     background: url('../images/course/pergamino.png') no-repeat;
     background-size: 100%;
     position: relative;
@@ -104,7 +104,7 @@
     width: 30px;
     height: 30px;
     top: 40px;
-    right: -35px;
+    right: -27px;
     display: inline-block;
 }
 #quizzes-div .forum-quiz {
