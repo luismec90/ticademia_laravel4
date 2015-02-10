@@ -92,8 +92,8 @@
 
 
             </ul>
-            <div id="div-btn-duels">
-                <button id="btn-get-duel" class="btn btn-danger btn-sm  {{ !Auth::user()->isStudent($course->id) ? "hide" :"" }}" onclick="getDuel()"
+            <div id="div-btn-duels" class="{{ !Auth::user()->isStudent($course->id) ? "hide " :"" }}">
+                <button id="btn-get-duel" class="btn btn-danger btn-sm" onclick="getDuel()"
                         data-toggle="popover" title="Duelos"
                         data-placement="bottom"
                         data-html="true"
