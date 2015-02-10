@@ -96,7 +96,7 @@
                         data-toggle="popover" title="Duelos"
                         data-placement="bottom"
                         data-html="true"
-                        data-content="Esta nueva funcionalidad te permitirá batirte a duelo con otros estudiantes. Al ganar un duelo obtienes 10 puntos los cuales te ayudara a escalar en el <b>Ranking individual</b>."
+                        data-content="Esta nueva funcionalidad te permitirá batirte a duelo con otros estudiantes. Al ganar un duelo obtienes 10 puntos los cuales te ayudarán a escalar en el <b>Ranking individual</b>."
                         >Duelos
                 </button>
                 <span id="div-total-users-online">
