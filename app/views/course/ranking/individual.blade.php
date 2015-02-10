@@ -28,6 +28,7 @@
                     <th>Puesto</th>
                     <th>Nombre</th>
                     <td>Puntos por quizzes</td>
+                    <td>Puntos por duelos</td>
                     <td>Puntos por logros</td>
                     <td>Puntaje</td>
                 </tr>
@@ -37,6 +38,7 @@
                     <td>{{ $userRanking['position'] }}</td>
                     <td>{{ $userRanking['fullName'] }}</td>
                     <td>{{ $userRanking['quizzes_score'] }}</td>
+                    <td>{{ $userRanking['duels_score'] }}</td>
                     <td>{{ $userRanking['achievements_score'] }}</td>
                     <td>{{ $userRanking['score'] }}</td>
                 </tr>

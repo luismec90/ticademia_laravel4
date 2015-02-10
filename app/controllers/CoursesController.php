@@ -81,7 +81,7 @@ class CoursesController extends \BaseController {
             ->findOrFail($course_id);
 
         $ranking = $course->individualRanking();
-        $userRanking = ['position' => 'N/A', 'fullName' => Auth::user()->fullName(), 'quizzes_score'=>'N/A','achievements_score'=>'N/A', 'score' => 'N/A'];
+        $userRanking = ['position' => 'N/A', 'fullName' => Auth::user()->fullName(), 'quizzes_score'=>'N/A','duels_score'=>'N/A','achievements_score'=>'N/A', 'score' => 'N/A'];
 
 
 
@@ -94,7 +94,7 @@ class CoursesController extends \BaseController {
 
             if ($user->isMe())
             {
-                $userRanking = ['position' => ($index + 1), 'fullName' => $user->fullName(), 'quizzes_score' => $user->quizzes_score,'achievements_score' => $user->achievements_score,'score' => $user->score];
+                $userRanking = ['position' => ($index + 1), 'fullName' => $user->fullName(), 'quizzes_score' => $user->quizzes_score, 'duels_score' => $user->bet,'achievements_score' => $user->achievements_score,'score' => $user->score];
             }
         }
 

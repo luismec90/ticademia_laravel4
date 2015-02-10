@@ -28,7 +28,7 @@ class Course extends \Eloquent {
     public function groupRanking()
     {
         $query = DB::select("SELECT T2.group,Round((0.3*T2.max_score+0.7*T2.avg_score-sqrt(T2.standard_deviation))) score
-                            FROM (SELECT cu.group,MAX(mu.score + COALESCE(T.reward,0)) max_score,AVG(mu.score + COALESCE(T.reward,0)) avg_score,STDDEV_SAMP(mu.score + COALESCE(T.reward,0)) standard_deviation
+                            FROM (SELECT cu.group,MAX(mu.score + COALESCE(T.reward,0)+ COALESCE(TT.bet,0)) max_score,AVG(mu.score + COALESCE(T.reward,0)+ COALESCE(TT.bet,0)) avg_score,STDDEV_SAMP(mu.score + COALESCE(T.reward,0)+ COALESCE(TT.bet,0)) standard_deviation
                             FROM course_user cu
                             JOIN module_user mu ON cu.user_id=mu.user_id
                             LEFT JOIN (SELECT ra.user_id,SUM(a.reward) reward
@@ -37,6 +37,11 @@ class Course extends \Eloquent {
                             WHERE ra.course_id='{$this->id}'
                             GROUP BY ra.user_id
                             ) AS T ON T.user_id=mu.user_id
+                            LEFT JOIN (SELECT d.winner_user_id user_id,SUM(d.bet) bet
+                            FROM duels d
+                            WHERE d.course_id='{$this->id}'
+                            AND winner_user_id IS NOT NULL
+                            GROUP BY d.winner_user_id) AS TT ON TT.user_id=mu.user_id
                             WHERE cu.course_id={$this->id}
                             AND cu.group IS NOT NULL
                             GROUP BY cu.group) AS T2
@@ -48,7 +53,7 @@ class Course extends \Eloquent {
 
     public function individualRanking()
     {
-        $query = DB::select("SELECT u.*,SUM(mu.score) quizzes_score,COALESCE(T.reward,0) achievements_score,(SUM(mu.score) + COALESCE(T.reward,0)) score
+        $query = DB::select("SELECT u.*,SUM(mu.score) quizzes_score,COALESCE(T.reward,0) achievements_score,COALESCE(T2.bet,0) bet,(SUM(mu.score) + COALESCE(T.reward,0)+COALESCE(T2.bet,0)) score
                             FROM users u
                             JOIN module_user mu ON mu.user_id = u.id
                             JOIN modules m ON mu.module_id = m.id
@@ -57,6 +62,11 @@ class Course extends \Eloquent {
                             JOIN achievements a ON ra.achievement_id=a.id
                             WHERE ra.course_id='{$this->id}'
                             GROUP BY ra.user_id) AS T ON T.user_id=u.id
+                            LEFT JOIN (SELECT d.winner_user_id user_id,SUM(d.bet) bet
+                            FROM duels d
+                            WHERE d.course_id='{$this->id}'
+                            AND winner_user_id IS NOT NULL
+                            GROUP BY d.winner_user_id) AS T2 ON T2.user_id=u.id
                             where m.course_id = '{$this->id}'
                             GROUP BY u.id
                             ORDER BY score DESC");
