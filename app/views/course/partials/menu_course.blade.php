@@ -92,12 +92,13 @@
 
 
             </ul>
-            <div id="div-btn-duels" class="{{ !Auth::user()->isStudent($course->id) ? "hide" :"" }}">
-                <button id="btn-get-duel" class="btn btn-danger btn-sm" onclick="getDuel()"
+            <div id="div-btn-duels">
+                <button id="btn-get-duel" class="btn btn-danger btn-sm  {{ !Auth::user()->isStudent($course->id) ? "hide" :"" }}" onclick="getDuel()"
                         data-toggle="popover" title="Duelos"
                         data-placement="bottom"
                         data-html="true"
                         data-content="Esta nueva funcionalidad te permitirá batirte a duelo con otros estudiantes. Al ganar un duelo obtienes 5 puntos los cuales te ayudarán a escalar en el <b>Ranking individual</b>."
+
                         >Duelos
                 </button>
                 <span id="div-total-users-online">
