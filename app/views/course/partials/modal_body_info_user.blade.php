@@ -21,7 +21,7 @@
                         </tr>
                         <tr>
                             <td>Duelos</td>
-                            <td>{{ $wonDuels }}/{{ $totalDuels }} <span class="text-muted">(Efectividad: {{ $totalDuels>0 ? round($wonDuels/$totalDuels*100,2): 0 }} %)</span> </td>
+                            <td>{{ $wonDuels }}/{{ $totalDuels }} <span class="text-muted">(Efectividad: {{ $totalDuels>0 ? round($wonDuels/$totalDuels*100,2) : 0 }} %)</span> </td>
                         </tr>
                         <tr>
                             <td>Posición general</td>
