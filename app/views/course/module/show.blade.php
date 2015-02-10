@@ -19,7 +19,7 @@
         module_path = "{{ route('module_path',[$course->id,$module->id]) }}";
         raty_path = "{{ asset('assets/libs/raty/') }}";
         courseJSON = JSON.parse('{{ json_encode($course) }}');
-        current_module="{{ $module->id }}";
+        current_module = "{{ $module->id }}";
 
     </script>
 @stop
@@ -35,7 +35,10 @@
             {{--<a class="btn btn-default btn-back" title="Ir atrás"
                                        href="{{ route('course_path',$course->id) }}"><i
                         class="fa fa-reply"></i></a>--}} {{ $module->name }}</span></h1>
-    <h4 id="module-description" class="text-center">{{ $module->description }} <div id="module-dates" class="text-muted">Fecha de inicio: {{ $module->start_date  }} | Fecha de corte: {{ $module->end_date }}</div></h4>
+    <h4 id="module-description" class="text-center">{{ $module->description }}
+        <div id="module-dates" class="text-muted">Fecha de inicio: {{ $module->start_date  }} | Fecha de
+            corte: {{ $module->end_date }}</div>
+    </h4>
     <br>
     @if(Auth::user()->isTeacher($course->id))
         <div class="row">
@@ -137,7 +140,8 @@
                     <div class="form-group">
                         <div class="checkbox">
                             <label>
-                               {{ Form::checkbox('anonymous', 'true',false,['id'=>'anonymous-comment']); }}  Realizar comentario de forma anónima
+                                {{ Form::checkbox('anonymous', 'true',false,['id'=>'anonymous-comment']); }}  Realizar
+                                comentario de forma anónima
                             </label>
                         </div>
 
