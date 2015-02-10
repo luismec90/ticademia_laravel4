@@ -69,6 +69,7 @@
                                 redondeo</a></li>
                     </ul>
                 </li>
+
                 @if(Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id))
                     <li role="presentation"
                         class="dropdown @if(Route::currentRouteName()=='statistics_students_path' || Route::currentRouteName()=='statistics_materials_path' || Route::currentRouteName()=='module_report_path' || Route::currentRouteName()=='statistics_quizzes_path') {{ "active"}} @endif">
