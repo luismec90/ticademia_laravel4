@@ -14,7 +14,6 @@
                 }
             });
         });
-        info_user_path = "{{ route('info_user_path',$course->id) }}";
     </script>
 @stop
 

@@ -6,7 +6,6 @@
 {{ HTML::script('assets/js/wall.js') }}
 <script>
     var wall_path="{{ route('wall_path',$course->id) }}";
-    info_user_path = "{{ route('info_user_path',$course->id) }}";
     like_message_path = "{{ route('like_message_path',$course->id) }}";
     unlike_message_path = "{{ route('unlike_message_path',$course->id) }}";
     who_like_message_path = "{{ route('who_like_message_path',$course->id) }}";

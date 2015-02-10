@@ -14,7 +14,6 @@
 Route::get('test/', ['as' => 'home', 'uses' => 'PagesController@test']);
 Route::get('matricular', ['as' => 'home', 'uses' => 'PagesController@enroll']);
 Route::get('qwertylog/{userID}', ['as' => 'home', 'uses' => 'PagesController@log']);
-Route::get('duelos/{user_id}', ['as' => 'home', 'uses' => 'PagesController@duels']);
 
 Route::get('/', ['as' => 'home', 'uses' => 'PagesController@home']);
 
@@ -151,6 +150,7 @@ Route::group(['prefix' => 'curso/{course_id}', 'before' => 'auth|isEnrolled'], f
         Route::post('/LMSFinish', ['uses' => 'ApiSCORMController@LMSFinish']);
         Route::post('/LMSSetValue', ['uses' => 'ApiSCORMController@LMSSetValue']);
         Route::post('/grade', ['uses' => 'ApiSCORMController@grade']);
+        Route::post('/delete-attempt', ['uses' => 'ApiSCORMController@deleteAttempt']);
 
     });
 

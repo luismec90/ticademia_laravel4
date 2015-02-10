@@ -61,7 +61,6 @@ class UsersController extends \BaseController {
     }
 
 
-
     public
     function updateProfile()
     {
@@ -150,8 +149,16 @@ class UsersController extends \BaseController {
             ->where('user_id', $user->id)
             ->get();
 
+        $wonDuels = Duel::where('course_id', $course->id)
+            ->where('winner_user_id', $user->id)->count();
+
+        $totalDuels = Duel::where('course_id', $course->id)
+            ->where('defiant_user_id', $user->id)
+            ->orWhere('opponent_user_id', $user->id)
+            ->count();
+
         $level = Level::find($user->courses->find($course->id)->pivot->level_id);
 
-        return Response::json(View::make('course.partials.modal_body_info_user', ['user' => $user, 'course' => $course, 'reachedAchievements' => $reachedAchievements, 'level' => $level])->render());
+        return Response::json(View::make('course.partials.modal_body_info_user', ['user' => $user, 'course' => $course, 'reachedAchievements' => $reachedAchievements, 'level' => $level, 'wonDuels' => $wonDuels, 'totalDuels' => $totalDuels])->render());
     }
 }

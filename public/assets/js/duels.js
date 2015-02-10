@@ -1,8 +1,12 @@
 var conn;
-
+var isOnQuiz = false;
+var lookingForDuelCounter;
+var lookingForDuelTimerCount;
+var acceptingDuelCounter;
+var acceptingDuelTimmerCount;
 $(function () {
     if (courseID && userID && userIsStudent) {
-        conn = new WebSocket('ws://localhost:8080');
+        conn = new WebSocket('ws://localhost:8000');
         conn.onopen = function (e) {
             init();
         };
@@ -23,6 +27,9 @@ $(function () {
                 case "setDuel":
                     setDuel(data);
                     break;
+                case "closeAllModals":
+                    closeAllModals();
+                    break;
             }
         };
     }
@@ -40,6 +47,14 @@ function init() {
 
 
 function getDuel() {
+
+
+    lookingForDuelTimerCount = 30;
+    $("#time-getting-duel").html(lookingForDuelTimerCount);
+    clearInterval(lookingForDuelCounter);
+    lookingForDuelCounter = setInterval(lookingForDuelTimer, 1000);
+
+
     $("#modal-finding-opponent").modal({
         keyboard: false,
         backdrop: 'static'
@@ -66,6 +81,19 @@ function showNotification(data) {
 function askForDuel(data) {
     closeAllModals();
 
+    if ($("#iframe_exam").is(":visible")) {
+        isOnQuiz = true;
+        $("#note-ask-for-duel").removeClass("hide");
+    } else {
+        isOnQuiz = false;
+        $("#note-ask-for-duel").addClass("hide");
+    }
+
+    acceptingDuelTimmerCount = 29;
+    $("#time-accepting-duel").html(acceptingDuelTimmerCount);
+    clearInterval(acceptingDuelCounter);
+    acceptingDuelCounter = setInterval(acceptingDuelTimer, 1000);
+
     var askDuelElLa = data.defiantUserGender == 'm' ? 'el' : 'la';
     $("#ask-duel-el-la").html(askDuelElLa);
     $("#avatar-defiant-user").attr("src", data.defiantUserAvatar);
@@ -76,6 +104,33 @@ function askForDuel(data) {
         backdrop: 'static'
     });
 }
+function cancelDuel() {
+    closeAllModals();
+
+    var data = {
+        action: 'cancelDuel',
+        courseID: courseID,
+        userID: userID
+    };
+
+    conn.send(JSON.stringify(data));
+}
+function cancelDuelTimeOff() {
+    clearInterval(lookingForDuelCounter);
+    if ($("#modal-finding-opponent").is(":visible")) {
+
+        closeAllModals();
+
+        var data = {
+            action: 'cancelDuelTimeOff',
+            courseID: courseID,
+            userID: userID
+        };
+
+        conn.send(JSON.stringify(data));
+    }
+}
+
 function rejectDuel() {
     var data = {
         action: 'rejectDuel',
@@ -86,6 +141,11 @@ function rejectDuel() {
     conn.send(JSON.stringify(data));
 }
 function acceptDuel() {
+    if (isOnQuiz) {
+        deleteQuizAttempt();
+        closeOpenQuiz();
+    }
+
     var data = {
         action: 'acceptDuel',
         courseID: courseID,
@@ -97,7 +157,7 @@ function acceptDuel() {
 function setDuel(data) {
     closeAllModals();
     evaluacionOReto = "reto";
-    // var opponentUserID = data.defiantUserID == userID ? data.opponentUserID : data.defiantUserID;
+
     var quizPath = data.quizPath;
 
     $("#iframe-duel-quiz").attr("src", quizPath);
@@ -105,12 +165,6 @@ function setDuel(data) {
 
     $('#iframe-duel-container .panel').addClass('animated bounceInRight');
 
-    /* $("#opponent-id").html(opponentUserID);
-     $("#modal-show-duel-quiz").modal({
-     keyboard: false,
-     backdrop: 'static'
-     });
-     */
 }
 
 function answerQuizDuel(quizStatus) {
@@ -139,3 +193,39 @@ function closeAllModals() {
     }
 }
 
+function closeOpenQuiz() {
+    setTimeout(function () {
+        $('#iframe-container').addClass('hide');
+        $('#iframe-container .panel').removeClass('animated bounceOutRight');
+    }, 600);
+    $('#iframe-container .panel').removeClass("bounceInRight").addClass('animated bounceOutRight');
+}
+function deleteQuizAttempt() {
+    $.ajax({
+        url: base_url + "/SCORM/delete-attempt",
+        method: "post",
+        data: {
+            quiz_id: idEvaluacion
+        }, success: function (data) {
+
+        }
+    });
+}
+
+function lookingForDuelTimer() {
+    lookingForDuelTimerCount--;
+    if (lookingForDuelTimerCount <= 0) {
+        cancelDuelTimeOff();
+        return;
+    }
+    $("#time-getting-duel").html(lookingForDuelTimerCount);
+}
+
+function acceptingDuelTimer() {
+    acceptingDuelTimmerCount--;
+    if (acceptingDuelTimmerCount <= 0) {
+        clearInterval(acceptingDuelCounter);
+        return;
+    }
+    $("#time-accepting-duel").html(acceptingDuelTimmerCount);
+}

@@ -131,7 +131,13 @@ $(function () {
             console.log('Error');
         });
     });
+
+    $("#btn-get-duel").popover({trigger:'hover'});
 });
+
+
+
+
 
 function coverOn() {
     $("#cover-display").css({

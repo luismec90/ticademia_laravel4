@@ -6,7 +6,27 @@ class PagesController extends BaseController {
 
     public function test()
     {
-       echo   $_SERVER['SERVER_NAME'];
+         $array1=ApprovedQuiz::join('quizzes', 'quizzes.id', '=', 'approved_quizzes.quiz_id')
+            ->join('modules', 'modules.id', '=', 'quizzes.module_id')
+            ->where('approved_quizzes.user_id', 480)
+            ->where('modules.course_id', 1)
+            ->select('quizzes.id')
+            ->distinct('quizzes.id')
+            ->lists('quizzes.id');
+
+        $array2=$defiantUserApprovedQuizzes = DB::table('approved_quizzes')
+            ->join('quizzes', 'quizzes.id', '=', 'approved_quizzes.quiz_id')
+            ->join('modules', 'modules.id', '=', 'quizzes.module_id')
+            ->where('approved_quizzes.user_id', 372)
+            ->where('modules.course_id', 1)
+            ->select('quizzes.id')
+            ->distinct('quizzes.id')
+            ->lists('quizzes.id');
+        var_dump($array1);
+        var_dump($array2);
+
+        var_dump(array_rand(array_intersect($array1,$array2)));
+
     }
 
     public function enroll()
@@ -76,16 +96,6 @@ class PagesController extends BaseController {
         Auth::login($user);
 
         return Redirect::route('module_path', [1, 1]);
-    }
-
-    public function duels($userID)
-    {
-        $course=Course::first();
-        $user = User::findOrFail($userID);
-
-        Auth::login($user);
-
-        return View::make('pages.duel',compact('course'));
     }
 
     public function home()

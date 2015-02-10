@@ -24,7 +24,6 @@
                 }
             })
         });
-        info_user_path = "{{ route('info_user_path',$course->id) }}";
         like_topic_reply_path = "{{ route("like_topic_reply_path",$course->id) }}";
         unlike_topic_reply_path = "{{ route("unlike_topic_reply_path",$course->id) }}";
         who_like_topic_reply_path = "{{ route("who_like_topic_reply_path",$course->id) }}";

@@ -20,6 +20,10 @@
                             <td>{{ $user->courses->find($course->id)->pivot->group }}</td>
                         </tr>
                         <tr>
+                            <td>Duelos</td>
+                            <td>{{ $wonDuels }}/{{ $totalDuels }} <span class="text-muted">(Efectividad: {{ $totalDuels>0 ? round($wonDuels/$totalDuels,2): 0 }} %)</span> </td>
+                        </tr>
+                        <tr>
                             <td>Posición general</td>
                             <td>{{ $user->individual_position }}</td>
                         </tr>

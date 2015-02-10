@@ -5,7 +5,7 @@ html, body {
 body {
     font-family: "Lato";
 
-    font-size: 16px;
+    font-size: 15px;
     color: #222;
     background: #fff;
     -webkit-font-smoothing: antialiased;
@@ -540,4 +540,18 @@ table.table:not(.no-header) thead tr:first-child {
         min-height: 600px;
     }
 
+}
+#btn-get-duel{
+    margin: 4px;
+}
+#div-total-users-online{
+    display: inline-block;
+    margin-top: 9px;
+}
+#menu-course .nav>li>a {
+    padding: 10px 10px;
+    border-left: 1px solid #f5f5f5;
+}
+#modal-duel-notification{
+    z-index: 1045;
 }

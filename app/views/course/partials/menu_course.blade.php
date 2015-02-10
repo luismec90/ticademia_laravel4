@@ -26,15 +26,16 @@
                                         href="{{ route('module_path',[$course->id,$module->id]) }}">{{ $module->name }} </a>
                             </li>
                         @endforeach
-                            {{--
-                               <li class="divider"></li>
-                          <li class="{{ Route::currentRouteName()=='course_path' ? "active" :"" }}"><a
-                                       href="{{ route('course_path',$course->id) }}">Ver todos</a></li>
-                                       --}}
+                        {{--
+                           <li class="divider"></li>
+                      <li class="{{ Route::currentRouteName()=='course_path' ? "active" :"" }}"><a
+                                   href="{{ route('course_path',$course->id) }}">Ver todos</a></li>
+                                   --}}
                     </ul>
                 </li>
                 <li class="@if(Route::currentRouteName()=='calendar_path') {{ "active"}} @endif"><a
-                            href="{{ route('calendar_path',$course->id) }}"><i class="fa fa-calendar"></i> Horarios de los tutores</a></li>
+                            href="{{ route('calendar_path',$course->id) }}"><i class="fa fa-calendar"></i> Horarios de
+                        los tutores</a></li>
                 <li class="@if(Route::currentRouteName()=='wall_path') {{ "active"}} @endif"><a
                             href="{{ route('wall_path',$course->id) }}"><i class="fa fa-bullhorn"></i> Muro</a></li>
                 <li class="@if(Route::currentRouteName()=='forum_path'|| Route::currentRouteName()=='topic_path') {{ "active"}} @endif">
@@ -48,12 +49,14 @@
                         <li class="@if(Route::currentRouteName()=='group_ranking_path') {{ "active"}} @endif"><a
                                     href="{{ route('group_ranking_path',$course->id) }}">Ranking grupal</a></li>
                         <li class="@if(Route::currentRouteName()=='individual_ranking_path') {{ "active"}} @endif"><a
-                                    href="{{ route('individual_ranking_path',$course->id) }}">Ranking individual</a></li>
+                                    href="{{ route('individual_ranking_path',$course->id) }}">Ranking individual</a>
+                        </li>
                     </ul>
                 </li>
                 @if(Auth::user()->isStudent($course->id))
-                <li class="@if(Route::currentRouteName()=='achievement_path') {{ "active"}} @endif"><a
-                            href="{{ route('achievement_path',$course->id) }}"><i class="fa fa-trophy"></i> Mis logros</a></li>
+                    <li class="@if(Route::currentRouteName()=='achievement_path') {{ "active"}} @endif"><a
+                                href="{{ route('achievement_path',$course->id) }}"><i class="fa fa-trophy"></i> Mis
+                            logros</a></li>
                 @endif
                 <li role="presentation"
                     class="dropdown">
@@ -62,7 +65,8 @@
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li class="">
-                            <a target="_blank" href="{{ asset('assets/tutorial.pdf') }}">Tutorial para cálculos y redondeo</a></li>
+                            <a target="_blank" href="{{ asset('assets/tutorial.pdf') }}">Tutorial para cálculos y
+                                redondeo</a></li>
                     </ul>
                 </li>
                 @if(Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id))
@@ -84,7 +88,21 @@
                         </ul>
                     </li>
                 @endif
+
+
             </ul>
+            <div id="div-btn-duels" class="{{ Auth::user()->id!=2 ? "hide" :"" }}">
+                <button id="btn-get-duel" class="btn btn-danger btn-sm" onclick="getDuel()"
+                        data-toggle="popover" title="Duelos"
+                        data-placement="bottom"
+                        data-html="true"
+                        data-content="Esta nueva funcionalidad te permitirá batirte a duelo con otros estudiantes. Al ganar un duelo obtienes 10 puntos los cuales te ayudara a escalar en el <b>Ranking individual</b>."
+                        >Duelos
+                </button>
+                <span id="div-total-users-online">
+                Usuarios conectados: <b id="totalUsersOnline">0</b>
+                    </span>
+            </div>
         </div>
         <!-- /.navbar-collapse -->
     </div>

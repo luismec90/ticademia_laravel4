@@ -150,6 +150,24 @@ class ApiSCORMController extends \BaseController {
         return $feedbackForUser;
     }
 
+    public function deleteAttempt()
+    {
+        $quizId = Input::get('quiz_id');
+        $quiz = Quiz::find($quizId);
+
+        if (!is_null($quiz))
+        {
+            $sessionName = Auth::user()->id . '-' . $quiz->id;
+
+            $quizAttemptId = Session::get($sessionName);
+            Session::forget($sessionName);
+
+            $quizAttempt = QuizAttempt::find($quizAttemptId);
+            if (!is_null($quizAttempt))
+                $quizAttempt->delete();
+        }
+    }
+
     private function bestTime($quiz, $diff)
     {
         if ($quiz->best_time == '' || $quiz->best_time > $diff && $quiz->best_time > 0)
@@ -322,4 +340,5 @@ class ApiSCORMController extends \BaseController {
 
         return $feedbackForUser;
     }
+
 }

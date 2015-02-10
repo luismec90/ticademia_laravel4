@@ -28,9 +28,7 @@
     {{ HTML::script('assets/libs/raty/jquery.raty.js') }}
     <script type="text/javascript" src="//cdn.sublimevideo.net/js/hckx7vmz.js"></script>
     {{ HTML::script('assets/js/module.js') }}
-    <script>
-        info_user_path = "{{ route('info_user_path',$course->id) }}";
-    </script>
+
 @stop
 @section('content')
     <h1 id="module-name" class="section-title"><span>

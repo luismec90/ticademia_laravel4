@@ -50,8 +50,10 @@
 {{ HTML::script('assets/libs/bootstrap-growl/bootstrap-growl.min.js') }}
 {{ HTML::script('assets/js/main.js') }}
 
-{{ HTML::script('assets/js/api.js') }}
-
+@if(isset($course))
+    {{ HTML::script('assets/js/api.js') }}
+    {{ HTML::script('assets/js/duels.js') }}
+@endif
 
 @section('js')
 @show
@@ -61,10 +63,12 @@
         var courseID = "{{ $course->id }}";
         var userID = "{{ Auth::user()->id }}";
         var userIsStudent = "{{ Auth::user()->isStudent($course->id) }}";
+        var info_user_path = "{{ route('info_user_path',$course->id) }}";
     @else
         var courseID = false;
         var userID = false;
         var userIsStudent = false;
+        var info_user_path=false;
     @endif
 
     var load_notification_path = "{{ route('load_notification_path') }}";
@@ -116,6 +120,7 @@
 </div>
 <!-- /.modal -->
 
+@if(isset($course))
 <div class="modal fade" id="modal-info-user">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -137,6 +142,9 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
+    @include('course.partials.duel_modals')
+@endif
 
 <div id="cover-display">
     <img id="img-loading" src="{{ asset("assets/images/general/loading.gif") }}">
