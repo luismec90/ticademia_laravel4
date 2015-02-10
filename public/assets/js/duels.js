@@ -6,7 +6,7 @@ var acceptingDuelCounter;
 var acceptingDuelTimmerCount;
 $(function () {
     if (courseID && userID && userIsStudent) {
-        conn = new WebSocket('ws://localhost:8000');
+        conn = new WebSocket('ws://'+base_url+':8000');
         conn.onopen = function (e) {
             init();
         };
