@@ -39,8 +39,13 @@ class ModulesController extends \BaseController {
             $quizzesType = ['' => 'Seleccionar...'] + QuizType::lists('name', 'id');
         }
 
+        $availableModules = [1, 2, 3];
 
-        $blockedModule = !in_array($module->id, [1, 2, 3, 4]);
+        if (Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id))
+            array_push($availableModules, 4);
+
+        $blockedModule = !in_array($module->id, $availableModules);
+
 
         if (Request::ajax())
         {
