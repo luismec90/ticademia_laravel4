@@ -40,7 +40,7 @@ class ModulesController extends \BaseController {
         }
 
 
-        $blockedModule = !in_array($module->id, [1, 2, 3]);
+        $blockedModule = !in_array($module->id, [1, 2, 3, 4]);
 
         if (Request::ajax())
         {
