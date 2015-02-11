@@ -212,7 +212,58 @@ class StatisticsController extends \BaseController {
 
         }
 
-        return View::make('course.statistics.students', compact('course', 'data', 'data2', 'data3', 'data4', 'totalStudents'));
+        /** ----------------- */
+
+        $predata5[0] = ['Fecha', 'Cantidad de duelos por día'];
+
+
+        $date = $course->start_date;
+        $end_date = date('Y-m-d');
+
+
+        while (strtotime($date) <= strtotime($end_date))
+        {
+            $auxDate = explode("-", $date);
+            $predata5[$date] = [$months[$auxDate[1]] . ' ' . $auxDate[2], 0];
+            $date = date("Y-m-d", strtotime("+1 day", strtotime($date)));
+        }
+
+        $duels = DB::table('duels')->where('course_id', $course->id)
+            ->selectRaw("DATE_FORMAT(created_at,'%Y-%m-%d') day,COUNT(id) total")
+            ->where(DB::raw("DATE_FORMAT(created_at,'%Y-%m-%d')"), '>=', $course->start_date)
+            ->where(DB::raw("DATE_FORMAT(created_at,'%Y-%m-%d')"), '<=', $course->end_date)
+            ->groupBy('day')
+            ->get();
+
+
+        foreach ($duels as $duel)
+        {
+            $date = $duel->day;
+
+            $predata5[$date][1] += $duel->total;
+
+        }
+
+        $data5 = [];
+        $i = 0;
+        foreach ($predata5 as $row)
+        {
+            $data5[$i] = $row;
+            $i ++;
+        }
+
+        /*-------------*/
+
+
+        $data6 = [['Resultado del duelo', 'Cantidad de duelos'],
+            ["Duelos ganados por el retador", Duel::where('course_id', $course->id)->whereNotNull('winner_user_id')->whereRaw('defiant_user_id=winner_user_id')->count()],
+            ["Duelos ganados por el retado", Duel::where('course_id', $course->id)->whereNotNull('winner_user_id')->whereRaw('opponent_user_id=winner_user_id')->count()],
+            ["Empates", Duel::where('course_id', $course->id)->whereNull('winner_user_id')->count()],
+        ];
+
+
+
+        return View::make('course.statistics.students', compact('course', 'data', 'data2', 'data3', 'data4', 'data5', 'data6', 'totalStudents'));
     }
 
     public function materials($courseID)

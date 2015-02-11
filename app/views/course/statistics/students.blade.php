@@ -17,6 +17,12 @@
             var data4 = google.visualization.arrayToDataTable(
                     {{ json_encode($data4) }}
             );
+            var data5 = google.visualization.arrayToDataTable(
+                    {{ json_encode($data5) }}
+            );
+            var data6 = google.visualization.arrayToDataTable(
+                    {{ json_encode($data6) }}
+            );
 
             var options = {
                 is3D: true,
@@ -49,6 +55,19 @@
                 'height': 400
             };
 
+            var options5 = {
+                vAxes: {
+                    0: {title: 'Duelos', logScale: false, minValue: 0}
+                },
+                'height': 400,
+                legend: {position: 'top'}
+            };
+            var options6 = {
+                is3D: true,
+                'height': 400,
+                legend: {position: 'top'}
+            };
+
             var chart = new google.visualization.PieChart(document.getElementById('distribucion-niveles'));
             chart.draw(data, options);
 
@@ -60,6 +79,12 @@
 
             var chart4 = new google.visualization.LineChart(document.getElementById('levels-per-day'));
             chart4.draw(data4, options4);
+
+            var chart5 = new google.visualization.LineChart(document.getElementById('duels-per-day'));
+            chart5.draw(data5, options5);
+
+            var chart6 = new google.visualization.PieChart(document.getElementById('distribucion-duels'));
+            chart6.draw(data6, options6);
         }
         $(document).ready(function () {
             $(window).resize(function () {
@@ -127,6 +152,36 @@
 
                     <center>
                         <div id="conections-per-hour"></div>
+                    </center>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Duelos por día</h3>
+                </div>
+                <div class="panel-body">
+
+                    <center>
+                        <div id="duels-per-day"></div>
+                    </center>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Distribución de los duelos</h3>
+                </div>
+                <div class="panel-body">
+
+                    <center>
+                        <div id="distribucion-duels"></div>
                     </center>
 
                 </div>
