@@ -68,7 +68,7 @@ function draw() {
         '( ' + ra + 'x<sup>2</sup> + ' + rb + 'y<sup>3</sup>z<sup>4</sup> )( ' + rra + 'x + ' + rrb + 'yz<sup>2</sup> )( ' + rra + 'x - ' + rrb + 'yz<sup>2</sup> )',
         '( ' + ra + 'x<sup>2</sup> + ' + rb + 'y<sup>3</sup>z<sup>4</sup> )( ' + rra + 'x - ' + rrb + 'yz<sup>2</sup> )<sup>2</sup>',
         '( ' + rra + 'x<sup>2</sup> + ' + rrb + 'yz<sup>2</sup> )<sup>2</sup>( ' + rra + 'x - ' + rrb + 'yz<sup>2</sup> )<sup>2</sup>',
-        'Ninguna de las anteriores'
+        'Ninguna de las opciones'
     ];
     var is = [0, 1, 2, 3,4,5,6,7];
     shuffleArray(is);

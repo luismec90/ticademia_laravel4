@@ -67,7 +67,7 @@ function draw() {
         '<span class="fraccion"><span>' + (m * m) + '</span><span><span class="raiz" style="letter-spacing:-1px">&radic;</span><span class="radicando">' + (m * m) + ' + ' + (k * k) + 'h<sup>2</sup></span>+' + k + 'h</span></span>',
         '<span class="raiz" style="letter-spacing:-1px">&radic;</span><span class="radicando">' + (m * m) + ' + ' + (k * k) + 'h<sup>2</sup></span>+' + k + 'h</span>',
         '<span class="raiz" style="letter-spacing:-1px">&radic;</span><span class="radicando">' + (m * m) + ' + ' + (k * k) + 'h<sup>2</sup></span>+' + k + '<span class="raiz" style="letter-spacing:-1px">&radic;</span><span class="radicando">h</span></span>',
-        'Ninguna de las anteriores'
+        'Ninguna de las opciones'
 
     ];
     var is = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];

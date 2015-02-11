@@ -66,7 +66,7 @@ function draw() {
         a + 'z<sup>2</sup> + ' + (a * b) + 'w<sup>3</sup>yz<sup>2</sup> + ' + b + 'w<sup>3</sup>y',
         a + 'z<sup>4</sup> + ' + (2 * a * b) + 'w<sup>3</sup>yz<sup>2</sup> + ' + b + 'w<sup>6</sup>y<sup>2</sup>',
         a + 'z<sup>4</sup> +' + b + 'w<sup>6</sup>y<sup>2</sup>',
-        'Ninguna de las anteriores'
+        'Ninguna de las opciones'
     ];
     var is = [0, 1, 2, 3, 4, 5, 6];
     shuffleArray(is);

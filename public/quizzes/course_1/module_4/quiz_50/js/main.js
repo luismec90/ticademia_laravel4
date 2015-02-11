@@ -67,7 +67,7 @@ function draw() {
         '<span class="fraccion"><span>x<sup>' + ((m - n * Math.pow(-1, m))) + '</sup> y<sup>' + (j * j) + '</sup></span><span>z<sup>' + (j * k) + '</sup> w<sup>' + (j) + '</sup></span></span>',
         '<span class="fraccion"><span>x<sup>' + ((m - n * Math.pow(-1, m))) + '</sup> y<sup>' + (j) + '</sup></span><span>z<sup>' + k + '</sup> w<sup>' + (j) + '</sup></span></span>',
         '<span class="fraccion"><span>z<sup>' + j * k + '</sup> w<sup>' + (j * j) + '</sup></span><span>x<sup>' + (j * (m - n * Math.pow(-1, m))) + '</sup> w<sup>' + (j*j) + '</sup></span></span>',
-        'Ninguna de las anteriores',
+        'Ninguna de las opciones',
 
 
     ];

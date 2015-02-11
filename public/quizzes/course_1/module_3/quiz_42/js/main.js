@@ -63,7 +63,7 @@ function draw() {
         "(<span class='mvar' value='a'>a</span>,<span class='mvar' value='b'>b</span>)",
         "[<span class='mvar' value='c'>c</span>,<span class='mvar' value='b'>b</span>]",
         "[<span class='mvar' value='b'>b</span>,∞)",
-        "Ninguna de las anteriores",
+        "Ninguna de las opciones",
     ];
     var is = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     shuffleArray(is);

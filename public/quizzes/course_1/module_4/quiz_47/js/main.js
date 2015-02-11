@@ -66,7 +66,7 @@ function draw() {
         '<span class="fraccion"><span>2m + 2</span><span>m<sup>' + (k + n) + '</sup></span></span>',
         '<span class="fraccion"><span>2m<sup>' + (n - k + 1) + '</sup> + m<sup>' + (n - k) + '</sup> + 1</span><span>m<sup>' + (k) + '</sup></span></span>',
         '<span class="fraccion"><span>2m<sup>' + (n - k + 1) + '</sup> + m<sup>' + (n - k) + '</sup> + 2</span><span>m<sup>' + (k) + '</sup></span></span>',
-        'Ninguna de las anteriores'];
+        'Ninguna de las opciones'];
     var is = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
     shuffleArray(is);
     var i = 0;

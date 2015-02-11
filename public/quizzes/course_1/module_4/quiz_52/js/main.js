@@ -66,7 +66,7 @@ function draw() {
         (s * m * m) + 'x<sup>' + (n) + '</sup>',
         (s * m * m) + 'x<sup>' + (n + 1) + '</sup>',
         (-s * m * m) + 'x<sup>' + (n) + '</sup>',
-        'Ninguna de las anteriores'
+        'Ninguna de las opciones'
 
     ];
     var is = [0, 1, 2, 3, 4, 5, 6, 7];
