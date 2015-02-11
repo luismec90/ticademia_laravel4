@@ -12,7 +12,7 @@ $(function () {
     b = getRandom(1, 10);
     a2 = a * a;
     b2 = b * b;
-    console.log(a + " " + b);
+  //  console.log(a + " " + b);
     //console.log(correctAnswer + " " + missConception1);
     var correctAnswer = draw();
 
