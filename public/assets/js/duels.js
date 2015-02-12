@@ -5,11 +5,17 @@ var lookingForDuelTimerCount;
 var acceptingDuelCounter;
 var acceptingDuelTimmerCount;
 $(function () {
-    if (courseID && userID && userIsStudent) {
-        //conn = new WebSocket('ws://localhost:8000');
-        conn = new WebSocket('ws://ticademia.medellin.unal.edu.co:8000');
+    if (courseID && userID) {
+
+        conn = new WebSocket('ws://localhost:8000');
+        //conn = new WebSocket('ws://ticademia.medellin.unal.edu.co:8000');
         conn.onopen = function (e) {
-            init();
+            if(userIsStudent){
+                init();
+            }else{
+                initTutor();
+            }
+
         };
 
         conn.onmessage = function (e) {
@@ -46,6 +52,14 @@ function init() {
     conn.send(JSON.stringify(data));
 }
 
+function initTutor() {
+    var data = {
+        action: 'initTutor',
+        courseID: courseID,
+        userID: userID
+    };
+    conn.send(JSON.stringify(data));
+}
 
 function getDuel() {
 
