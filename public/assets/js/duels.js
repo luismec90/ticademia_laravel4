@@ -8,8 +8,8 @@ $(function () {
     if (courseID && userID) {
 
         conn = new WebSocket('ws://localhost:8000');
-        //conn = new WebSocket('ws://ticademia.medellin.unal.edu.co:8000');
-        conn.onopen = function (e) {
+        conn = new WebSocket('ws://ticademia.medellin.unal.edu.co:8000');
+        //conn.onopen = function (e) {
             if(userIsStudent){
                 init();
             }else{
