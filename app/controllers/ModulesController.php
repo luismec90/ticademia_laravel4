@@ -42,8 +42,10 @@ class ModulesController extends \BaseController {
         $availableModules = [1, 2, 3];
 
         if (Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id))
+        {
             array_push($availableModules, 4);
             array_push($availableModules, 5);
+        }
 
         $blockedModule = !in_array($module->id, $availableModules);
 
