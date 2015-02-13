@@ -66,7 +66,6 @@ class PagesController extends BaseController {
             } else
             {
                 echo "Matriculado <br>";
-
             }
         }
     }
