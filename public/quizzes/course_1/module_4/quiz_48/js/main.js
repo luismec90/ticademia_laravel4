@@ -70,7 +70,7 @@ function draw() {
         '<span class="fraccion"><span>' + (f1) + '</span><span>(2<sup>' + n + '-m+1</sup>)(3<sup>k-1</sup>)</span></span>',
         '<span class="fraccion"><span>' + (f1) + '</span><span>(2<sup>' + n + '-m</sup>)(3<sup>k</sup>)</span></span>',
         '<span class="fraccion"><span>' + minusf1 + '3<sup> k + 1 </sup>(m+1)<sup>2</sup></span><span>2<sup>' + n + '+m</sup></span></span>',
-        '<span class="fraccion"><span>'+minusf1+'2<sup> ' + n + ' + m </sup>(m+1)<sup>2</sup></span><span>3<sup> k + 1 </sup></span></span>',
+        '<span class="fraccion"><span>'+minusf1+'2<sup> ' + n + ' + m </sup></span><span>3<sup> k + 1 </sup>(m+1)<sup>2</span></span>',
         'Ninguna de las opciones'
     ];
     var is = [0, 1, 2, 3, 4, 5, 6, 7];
