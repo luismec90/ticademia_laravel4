@@ -9,7 +9,7 @@ $(function () {
     }
 
     a = getRandomUnion(-5, 5,-1,1);
-    b =getRandomUnion(-6, 9,-1,6);
+    b =getRandomUnion(-9, 9,-6,6);
 
     var correctAnswer1 = a;
     var correctAnswer2 = b;
