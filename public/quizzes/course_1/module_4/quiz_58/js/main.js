@@ -8,8 +8,8 @@ $(function () {
         console.log(e);
     }
 
-    a = getRandomUnion(-8, 8, -5, 5);
-    b = getRandomUnion(-4, 4, -1, 1);
+    a = getRandomFrom([-11,-7,-5,5,7,11]);
+    b = getRandomFrom([-11,-7,-5,5,7,11]);
     c = getRandom(1, 4);
     d = getRandomFrom([5,7,11]);
 
