@@ -10,8 +10,8 @@ $(function () {
 
     a = getRandomFrom([-11,-7,-5,5,7,11]);
     b = getRandomFrom([-11,-7,-5,5,7,11]);
-    c = getRandom(1, 4);
-    d = getRandomFrom([5,7,11]);
+    c = getRandom(2,4);
+    d = getRandom(6,9);
 
    // console.log(a + " " + b + " " + c + " " + d);
     //var missConception1 = n;
