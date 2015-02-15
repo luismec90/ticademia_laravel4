@@ -13,7 +13,7 @@ $(function () {
     c = getRandom(1, 4);
     d = getRandomFrom([5,7,11]);
 
-    console.log(a + " " + b + " " + c + " " + d);
+   // console.log(a + " " + b + " " + c + " " + d);
     //var missConception1 = n;
     //console.log(correctAnswer + " " + missConception1);
     draw();
