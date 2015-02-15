@@ -10,8 +10,8 @@ $(function () {
 
     a = getRandomUnion(-8, 8, -5, 5);
     b = getRandomUnion(-4, 4, -1, 1);
-    c = getRandom(2, 5);
-    d = getRandom(2, 5);
+    c = getRandom(1, 4);
+    d = getRandomFrom([5,7,11]);
 
     console.log(a + " " + b + " " + c + " " + d);
     //var missConception1 = n;
