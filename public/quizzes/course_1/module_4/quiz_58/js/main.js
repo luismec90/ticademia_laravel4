@@ -66,9 +66,9 @@ function draw() {
     $('.mvar[value=cd]').html(c * d);
     var cxbaxd = c * b + a * d;
     if (cxbaxd > 0)
-        $('.mvar[value=cxbaxd]').html("- " + cxbaxd);
+        $('.mvar[value=cxbaxd]').html("+ " + cxbaxd);
     else
-        $('.mvar[value=cxbaxd]').html("+ " + (cxbaxd*-1));
+        $('.mvar[value=cxbaxd]').html("- " + (cxbaxd*-1));
 
     $('.mvar[value=axb]').html(a * b);
 }
