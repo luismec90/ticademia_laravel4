@@ -39,7 +39,7 @@ class ModulesController extends \BaseController {
             $quizzesType = ['' => 'Seleccionar...'] + QuizType::lists('name', 'id');
         }
 
-        $availableModules = [1, 2, 3];
+        $availableModules = [1, 2, 3, 4];
 
         if (Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id))
         {
