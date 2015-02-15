@@ -43,8 +43,8 @@ class ModulesController extends \BaseController {
 
         if (Auth::user()->isMonitor($course->id) || Auth::user()->isTeacher($course->id))
         {
-            array_push($availableModules, 4);
             array_push($availableModules, 5);
+            array_push($availableModules, 6);
         }
 
         $blockedModule = !in_array($module->id, $availableModules);
