@@ -66,7 +66,7 @@ function draw() {
         'x<sup>' + (n - 1) + '</sup> (2 - ' + m + 'x<sup>' + j + '</sup>)',
         'x<sup>' + n + '</sup> (1 - ' + Math.pow(m, 2) + 'x<sup>' + j + '</sup>)',
         'x<sup>' + (n - 1) + '</sup> (1 - ' + m + 'x<sup>' + (j + 1) + '</sup>)',
-        'Nunguna de las anteriores'
+        'Nunguna de las opciones'
     ];
     var is = [0, 1, 2, 3, 4, 5, 6, 7];
     shuffleArray(is);
