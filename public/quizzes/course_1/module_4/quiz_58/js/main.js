@@ -70,7 +70,13 @@ function draw() {
     else
         $('.mvar[value=cxbaxd]').html("- " + (cxbaxd*-1));
 
-    $('.mvar[value=axb]').html(a * b);
+    var axb = a * b;
+    if (axb > 0)
+        $('.mvar[value=axb]').html("+ " + axb);
+    else
+        $('.mvar[value=axb]').html("- " + (axb*-1));
+
+
 }
 function getRandomUnion(bottom, top, avoidLeft, avoidRight) {
     while (true) {
