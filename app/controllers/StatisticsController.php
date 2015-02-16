@@ -454,7 +454,7 @@ class StatisticsController extends \BaseController {
 
         $predata[0] = ['Fecha', 'Evaluaciones resueltas', 'Evaluaciones intentadas'];
 
-        return $course;
+
 
         $quizzesAttempts = QuizAttempt::whereHas('quiz', function ($q) use ($course)
         {
@@ -464,6 +464,7 @@ class StatisticsController extends \BaseController {
             });
         })->get();
 
+        return $course;
 
 
         $date = $course->start_date;
