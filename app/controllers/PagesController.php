@@ -13,7 +13,10 @@ class PagesController extends BaseController {
     {
         ini_set('max_execution_time', 300);
 
-        $students = [['80040024', 'Abril Díaz Cristian Ramiro', 'INGENIERÍA ELÉCTRICA', '1000001', '1', 'MATEMÁTICAS BÁSICAS', 'crabrild@unal.edu.co']];
+        $students = [
+            ['12345', 'Supelano Luisa Fernanda', 'fernanda.d11@hotmail.com'],
+            ['1038414791', 'Giraldo Soto Miguel', 'guelol960523@hotmailcom']
+        ];
 
         foreach ($students as $index => $row)
         {
@@ -45,7 +48,7 @@ class PagesController extends BaseController {
                 $student->dni = $row[0];
                 $student->first_name = $firstName;
                 $student->last_name = $lastName;
-                $student->email = $row[6];
+                $student->email = $row[2];
                 $student->avatar = 'default.png';
                 $student->password = Hash::make($student->dni);
                 $student->confirmed = 1;
