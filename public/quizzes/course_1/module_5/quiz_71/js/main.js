@@ -67,7 +67,7 @@ function draw() {
         '(x + y)(' + (a * a) + 'x<sup>2</sup> + ' + (2*a) + 'xy + ' + (b * b) + 'y<sup>2</sup>)',
         '(' + a + 'x + y)(' + (a * a) + 'x<sup>2</sup> - ' + (2*a) + 'xy + ' + (b * b) + 'y<sup>2</sup>)',
         '(x + ' + b + 'y)(' + (a * a) + 'x<sup>2</sup> - ' + (2*a) + 'xy + ' + (b * b) + 'y<sup>2</sup>)',
-        'Ninguna de las anteriores'
+        'Ninguna de las opciones'
 
 
 
