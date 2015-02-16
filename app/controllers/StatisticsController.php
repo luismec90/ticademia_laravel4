@@ -458,9 +458,9 @@ class StatisticsController extends \BaseController {
 
         $quizzesAttempts = QuizAttempt::whereHas('quiz', function ($q) use ($course)
         {
-            $q->whereHas('module', function ($q) use ($course)
+            $q->whereHas('module', function ($q2) use ($course)
             {
-                $q->where('course_id', $course->id);
+                $q2->where('course_id', $course->id);
             });
         })->get();
 
