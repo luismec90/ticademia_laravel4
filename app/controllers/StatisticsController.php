@@ -462,6 +462,7 @@ class StatisticsController extends \BaseController {
             });
         })->get();
 
+        return $course;
 
         $date = $course->start_date;
         $end_date = date('Y-m-d');
@@ -469,7 +470,7 @@ class StatisticsController extends \BaseController {
         $months = ['', '01' => 'Ene', '02' => 'Feb', '03' => 'Mar', '04' => 'Abr', '05' => 'May', '06' => 'Jun',
                        '07' => 'Jul', '08' => 'Ago', '09' => 'Sep', '10' => 'Oct', '11' => 'Nov', '12' => 'Dic'];
 
-        return $course;
+
 
         while (strtotime($date) <= strtotime($end_date))
         {
