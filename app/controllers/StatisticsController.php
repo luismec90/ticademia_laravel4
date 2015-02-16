@@ -445,6 +445,8 @@ class StatisticsController extends \BaseController {
     {
         $course = Course::findOrFail($courseID);
 
+        return $course;
+
         $totalQuizzes = Quiz::whereHas('module', function ($q) use ($course)
         {
             $q->where('course_id', $course->id);
