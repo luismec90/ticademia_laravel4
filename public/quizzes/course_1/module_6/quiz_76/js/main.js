@@ -1,6 +1,6 @@
 var n, r;
 
-$(function() {
+$(function () {
     try {
         API = getAPI();
         API.LMSInitialize("");
@@ -13,7 +13,7 @@ $(function() {
     //console.log(correctAnswer + " " + missConception1);
     var correctAnswer = draw();
 
-    $("#verificar").click(function() {
+    $("#verificar").click(function () {
         var valor = $("input[name=answer]:checked").val().trim();
         if (valor != "") {
             $("#correcto").addClass("hide");
@@ -41,10 +41,10 @@ $(function() {
             API.notifyDaemon(calificacion);
         }
     });
-    $("#aceptar").click(function() {
+    $("#aceptar").click(function () {
         window.parent.location.reload();
     });
-    $('#modal').on('hide.bs.modal', function(e) {
+    $('#modal').on('hide.bs.modal', function (e) {
         window.parent.location.reload();
     });
 
@@ -67,12 +67,19 @@ function draw() {
     var answers = [(factn / (factr * factnr)) + 'u<sup>' + (n - r) + '</sup>v<sup>' + (2 * r) + '</sup>',
         (factn / (fact2r * factn2r)) + 'u<sup>' + (n - 2 * r) + '</sup>v<sup>' + (2 * r) + '</sup>',
         (factn / (factr * factnr)) + 'u<sup>' + (r) + '</sup>v<sup>' + (2 * r) + '</sup>',
-        (factn / (fact2r * factn2r)) + 'u<sup>' + (r) + '</sup>v<sup>' + (2 * r) + '</sup>'];
+        (factn / (fact2r * factn2r)) + 'u<sup>' + (r) + '</sup>v<sup>' + (2 * r) + '</sup>',
+        'u<sup>' + (n - 2 * r) + '</sup>v<sup>' + (2 * r) + '</sup>',
+        'u<sup>' + (r) + '</sup>v<sup>' + (2 * r) + '</sup>',
+        'u<sup>' + (n - r) + '</sup>v<sup>' + (2 * r) + '</sup>',
+        (factn / (factr * factnr)) + 'u<sup>' + (n - 2 * r) + '</sup>v<sup>' + (2 * r) + '</sup>',
+        'Ninguna de las opciones'
 
-    var is = [0, 1, 2, 3];
+    ];
+
+    var is = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     shuffleArray(is);
     var i = 0;
-    while (i < 4) {
+    while (i < 9) {
         $("#label" + (i + 1)).html(answers[is[i]]);
         if (is[i] == 0)
             correct = i + 1;

@@ -1,6 +1,6 @@
 var a, n, r;
 
-$(function() {
+$(function () {
     try {
         API = getAPI();
         API.LMSInitialize("");
@@ -8,13 +8,13 @@ $(function() {
         console.log(e);
     }
 
-    a = getRandom(2, 3);
+    a = getRandom(2, 7);
     n = getRandom(17, 20);
     r = getRandom(3, 5);
     //console.log(correctAnswer + " " + missConception1);
     var correctAnswer = draw();
 
-    $("#verificar").click(function() {
+    $("#verificar").click(function () {
         var valor = $("input[name=answer]:checked").val().trim();
         if (valor != "") {
             $("#correcto").addClass("hide");
@@ -42,10 +42,10 @@ $(function() {
             API.notifyDaemon(calificacion);
         }
     });
-    $("#aceptar").click(function() {
+    $("#aceptar").click(function () {
         window.parent.location.reload();
     });
-    $('#modal').on('hide.bs.modal', function(e) {
+    $('#modal').on('hide.bs.modal', function (e) {
         window.parent.location.reload();
     });
 
@@ -67,13 +67,18 @@ function draw() {
     var a2 = -a1;
     var a3 = Math.pow(-1, r + 1) * a * a;
     var a4 = Math.pow(-1, r) * fn / (fr * fnr * Math.pow(a, n - r - 2));
+    var a5 = Math.pow(-1, r) * fn / (fr * fnr);
+    var a6 = Math.pow(-1, r) * fn * a / (fr * fnr);
+    var a7 = -a6;
+    var a8 = Math.pow(-1, r) * a * a;
+    var a9 = 'Ninguna de las anteriores';
 
-    var answers = [a1, a2, a3, a4];
+    var answers = [a1, a2, a3, a4, a5, a6, a7, a8, a9];
 
-    var is = [0, 1, 2, 3];
+    var is = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     shuffleArray(is);
     var i = 0;
-    while (i < 4) {
+    while (i < 9) {
         $("#label" + (i + 1)).html(answers[is[i]]);
         if (is[i] == 0)
             correct = i + 1;
