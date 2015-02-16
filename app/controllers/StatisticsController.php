@@ -262,7 +262,6 @@ class StatisticsController extends \BaseController {
         ];
 
 
-
         return View::make('course.statistics.students', compact('course', 'data', 'data2', 'data3', 'data4', 'data5', 'data6', 'totalStudents'));
     }
 
@@ -446,7 +445,6 @@ class StatisticsController extends \BaseController {
         $course = Course::findOrFail($courseID);
 
 
-
         $totalQuizzes = Quiz::whereHas('module', function ($q) use ($course)
         {
             $q->where('course_id', $course->id);
@@ -455,24 +453,18 @@ class StatisticsController extends \BaseController {
         $predata[0] = ['Fecha', 'Evaluaciones resueltas', 'Evaluaciones intentadas'];
 
 
-
-        $quizzesAttempts = QuizAttempt::whereHas('quiz', function ($q) use ($course)
-        {
-            $q->whereHas('module', function ($q2) use ($course)
-            {
-                $q2->where('course_id', $course->id);
-            });
-        })->get();
-
-        return $course;
-
+        $quizzesAttempts = DB::table('quiz_attempts')
+            ->join('quizzes', 'quizzes.id', '=', 'quiz_attempts.quiz_id')
+            ->join('modules', 'modules.id', '=', 'quizzes.module_id')
+            ->where('modules.course_id', $course->id)
+            ->selectRaw('quiz_attempts.*,DATE_FORMAT(quiz_attempts.created_at,"%Y-%m-%d") created_at')
+            ->get();
 
         $date = $course->start_date;
         $end_date = date('Y-m-d');
 
         $months = ['', '01' => 'Ene', '02' => 'Feb', '03' => 'Mar', '04' => 'Abr', '05' => 'May', '06' => 'Jun',
                        '07' => 'Jul', '08' => 'Ago', '09' => 'Sep', '10' => 'Oct', '11' => 'Nov', '12' => 'Dic'];
-
 
 
         while (strtotime($date) <= strtotime($end_date))
@@ -484,7 +476,7 @@ class StatisticsController extends \BaseController {
 
         foreach ($quizzesAttempts as $quizzesAttempt)
         {
-            $date = $quizzesAttempt->created_at->format('Y-m-d');
+            $date = $quizzesAttempt->created_at;
 
             if ($quizzesAttempt->grade >= $course->threshold)
             {
