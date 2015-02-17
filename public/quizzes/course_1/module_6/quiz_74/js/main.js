@@ -1,6 +1,6 @@
 var n, r;
 
-$(function() {
+$(function () {
     try {
         API = getAPI();
         API.LMSInitialize("");
@@ -15,6 +15,8 @@ $(function() {
     var fr = fact(r);
     var fnr = fact(n - r);
 
+    console.log(n + " " + r + " " + fn + " " + fr + " " + fnr);
+
     var correctAnswer = fn / (fr * fnr);
     /*var missConception1 = fn/fr;
      var missConception2 = fn/fnr;
@@ -22,7 +24,7 @@ $(function() {
     //console.log(correctAnswer + " " + missConception1);
     draw();
 
-    $("#verificar").click(function() {
+    $("#verificar").click(function () {
         var valor = $("#answer").val().trim();
         if (valor != "") {
             $("#correcto").addClass("hide");
@@ -35,11 +37,11 @@ $(function() {
                     calificacion = 1.0;
                     $("#correcto").html("Calificación: <b>" + calificacion + "</b>").removeClass("hide");
                     break;
-                    /*case missConception1:
-                     calificacion = 0.5;
-                     feedback = "n!/r!";
-                     $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
-                     break;*/
+                /*case missConception1:
+                 calificacion = 0.5;
+                 feedback = "n!/r!";
+                 $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
+                 break;*/
                 default:
                     calificacion = 0.0;
                     $("#feedback").html("Calificación: <b>" + calificacion + "</b> <br> ...").removeClass("hide");
@@ -55,10 +57,10 @@ $(function() {
             API.notifyDaemon(calificacion);
         }
     });
-    $("#aceptar").click(function() {
+    $("#aceptar").click(function () {
         window.parent.location.reload();
     });
-    $('#modal').on('hide.bs.modal', function(e) {
+    $('#modal').on('hide.bs.modal', function (e) {
         window.parent.location.reload();
     });
 

@@ -139,9 +139,9 @@ class SocialNetworksController extends \BaseController {
 
                 if (is_null($user))
                 {
-                    //Quitar esto para que funcione el registro
-                    Flash::error("El usuario no existe");
-                    return Redirect::route('home');
+                        //Quitar esto para que funcione el registro
+                        Flash::error("El usuario no existe");
+                        return Redirect::route('home');
 
                     $isNewUser = true;
 
@@ -205,48 +205,7 @@ class SocialNetworksController extends \BaseController {
         }
     }
 
-    public function linkWithFacebook()
-    {
-        $code = Input::get('code');
-        $fb = OAuth::consumer('Facebook');
 
-        if (!empty($code))
-        {
-            $token = $fb->requestAccessToken($code);
-            $result = json_decode($fb->request('/me'), true);
-
-
-            $socialNetwork = SocialNetwork::where('email', $result['email'])
-                ->where('name', 'facebook')
-                ->first();
-
-            if (is_null($socialNetwork))
-            {
-                $socialNetwork = new SocialNetWork;
-                $socialNetwork->user_id = Auth::user()->id;
-                $socialNetwork->email = $result['email'];
-                $socialNetwork->name = 'facebook';
-                $socialNetwork->save();
-
-                Flash::success("Cuenta vinculada exitosamente");
-
-            } else if ($socialNetwork->user->isMe())
-            {
-                Flash::success("La cuenta ya esta vinculada");
-            } else
-            {
-                Flash::error("Esta cuenta de Facebook ya ha sido registrada con otro usuario");
-            }
-
-            return Redirect::route('profile_path');
-        } else
-        {
-            $url = $fb->getAuthorizationUri();
-
-            return Redirect::to((string) $url);
-        }
-
-    }
 
     public function linkWithGoogle()
     {

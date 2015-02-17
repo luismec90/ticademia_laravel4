@@ -1,5 +1,7 @@
 <?php
 
+
+
 class AchievementHelper {
 
     public static function achievement_enLinea($user, $course)
