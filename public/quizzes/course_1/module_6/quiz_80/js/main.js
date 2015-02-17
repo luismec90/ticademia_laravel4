@@ -77,10 +77,11 @@ function decimalComparison(v1,v2,d){
 }
 function draw(){
     var e1 = 2*k*m;
+    var e2=(k*k-1)*m;
 
     $('.mvar[value=e0]').html(m);
 
     $('.mvar[value=e1]').html((e1<0?" - ":" + ")+Math.abs(e1));
 
-    $('.mvar[value=e2]').html((k*k-1)*m);
+    $('.mvar[value=e2]').html((e2<0?" - ":" + ")+Math.abs(e2));
 }
