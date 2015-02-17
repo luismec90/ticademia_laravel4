@@ -8,7 +8,7 @@ $(function () {
         console.log(e);
     }
 
-    n = getRandom(12, 17);
+    n = getRandom(13, 18);
     r = getRandom(2, 4);
     //console.log(correctAnswer + " " + missConception1);
     var correctAnswer = draw();
