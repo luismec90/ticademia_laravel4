@@ -15,11 +15,7 @@ $(function () {
     var fr = fact(r);
     var fnr = fact(n - r);
 
-    console.log(n + " " + r + " " + fn + " " + fr + " " + fnr);
-
-    var correctAnswer = fn / (fr * fnr);
-
-    console.log(correctAnswer);
+    var correctAnswer =Math.round(fn / (fr * fnr));
 
     /*var missConception1 = fn/fr;
      var missConception2 = fn/fnr;
