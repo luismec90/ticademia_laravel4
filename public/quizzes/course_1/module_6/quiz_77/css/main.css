@@ -69,3 +69,7 @@ h1{
 .big-parentheses{
 	font-size: 90px;
 }
+.exponente{
+    position: absolute;
+    top:-20px;
+}
