@@ -71,11 +71,12 @@ function draw() {
     var a6 = Math.pow(-1, r) * fn * a / (fr * fnr);
     var a7 = -a6;
     var a8 = Math.pow(-1, r) * a * a;
-    var a9 = 'Ninguna de las anteriores';
+    var a9 = -a5;
+    var a10 = 'Ninguna de las anteriores';
 
-    var answers = [a1, a2, a3, a4, a5, a6, a7, a8, a9];
+    var answers = [a1, a2, a3, a4, a5, a6, a7, a8, a9,a10];
 
-    var is = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+    var is = [0, 1, 2, 3, 4, 5, 6, 7, 8,9];
     shuffleArray(is);
     var i = 0;
     while (i < 9) {
