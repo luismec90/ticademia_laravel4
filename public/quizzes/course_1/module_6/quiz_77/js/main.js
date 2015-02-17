@@ -79,7 +79,7 @@ function draw() {
     var is = [0, 1, 2, 3, 4, 5, 6, 7, 8,9];
     shuffleArray(is);
     var i = 0;
-    while (i < 9) {
+    while (i < 10) {
         $("#label" + (i + 1)).html(answers[is[i]]);
         if (is[i] == 0)
             correct = i + 1;
