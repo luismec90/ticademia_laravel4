@@ -18,6 +18,9 @@ $(function () {
     console.log(n + " " + r + " " + fn + " " + fr + " " + fnr);
 
     var correctAnswer = fn / (fr * fnr);
+
+    console.log(correctAnswer);
+
     /*var missConception1 = fn/fr;
      var missConception2 = fn/fnr;
      var missConception3 = fr;*/
