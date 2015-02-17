@@ -1,22 +1,22 @@
-var a,b,c,m;
+var a, b, c, m;
 
-$(function() {
-	try{
-		API = getAPI();
-		API.LMSInitialize("");
-	}catch(e){
-		console.log(e);
-	}
+$(function () {
+    try {
+        API = getAPI();
+        API.LMSInitialize("");
+    } catch (e) {
+        console.log(e);
+    }
 
-    a = getRandom(2,10)*getRandomFrom([-1,1]);
-    b = getRandom(2,10)*getRandomFrom([-1,1]);
-    c = getRandom(2,10)*getRandomFrom([-1,1]);
-    m = getRandom(3,10);
+    a = getRandom(2, 10) * getRandomFrom([-1, 1]);
+    b = getRandom(2, 10) * getRandomFrom([-1, 1]);
+    c = getRandom(2, 10) * getRandomFrom([-1, 1]);
+    m = getRandom(3, 10);
 
     //console.log(correctAnswer + " " + missConception1);
     var correctAnswer = draw();
 
-    $("#verificar").click(function() {
+    $("#verificar").click(function () {
         var valor = $("input[name=answer]:checked").val().trim();
         if (valor != "") {
             $("#correcto").addClass("hide");
@@ -44,10 +44,10 @@ $(function() {
             API.notifyDaemon(calificacion);
         }
     });
-    $("#aceptar").click(function() {
+    $("#aceptar").click(function () {
         window.parent.location.reload();
     });
-    $('#modal').on('hide.bs.modal', function(e) {
+    $('#modal').on('hide.bs.modal', function (e) {
         window.parent.location.reload();
     });
 
@@ -55,46 +55,47 @@ $(function() {
 function getRandom(bottom, top) {
     return Math.floor(Math.random() * (1 + top - bottom)) + bottom;
 }
-function getRandomFrom(vals){
-	return vals[getRandom(0,vals.length-1)];
+function getRandomFrom(vals) {
+    return vals[getRandom(0, vals.length - 1)];
 }
-function draw(){
-	var correct = 0;
-    var d = b*b-4*a*(c-m/(m+1));
-    var c1,c2,c3;
-    if(d>0){
-        c1='2';
-        c2='1';
-        c3='0';
-    }else if(d<0){
-        c1='0';
-        c2='1';
-        c3='2';
-    }else{
-        c1='1';
-        c2='0';
-        c3='2';
+function draw() {
+    var correct = 0;
+    var d = b * b - 4 * a * (c - m / (m + 1));
+    var c1, c2, c3;
+    if (d > 0) {
+        c1 = '2';
+        c2 = '1';
+        c3 = '0';
+    } else if (d < 0) {
+        c1 = '0';
+        c2 = '1';
+        c3 = '2';
+    } else {
+        c1 = '1';
+        c2 = '0';
+        c3 = '2';
     }
-	var answers = [c1,
-                    c2,
-                    c3,
-                    '3',
-                    '4'];
-	var is = [0,1,2,3,4];
-	shuffleArray(is);
-	var i = 0;
-	while(i<5){
-		$("#label"+(i+1)).html(answers[is[i]]);
-		if(is[i]==0)correct=i+1;
-		i++;
-	}
-	
+    var answers = [c1,
+        c2,
+        c3,
+        '3',
+        '4'];
+    var is = [0, 1, 2, 3, 4];
+    shuffleArray(is);
+    var i = 0;
+    while (i < 5) {
+        $("#label" + (i + 1)).html(answers[is[i]]);
+        if (is[i] == 0)correct = i + 1;
+        i++;
+    }
+    var e2 = b;
+    var e3 = c;
     $('.mvar[value=e1]').html(a);
-    $('.mvar[value=e2]').html(b);
-    $('.mvar[value=e3]').html(c);
+    $('.mvar[value=e2]').html((e2 < 0 ? " - " : " + ") + Math.abs(e2));
+    $('.mvar[value=e3]').html((e3 < 0 ? " - " : " + ") + Math.abs(e3));
     $('.mvar[value=e4]').html(m);
-    $('.mvar[value=e5]').html(m+1);
-	return correct;
+    $('.mvar[value=e5]').html(m + 1);
+    return correct;
 }
 
 function shuffleArray(array) {
