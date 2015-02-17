@@ -10,7 +10,7 @@ $(function() {
 
     n = getRandom(3,10);
 
-	var fact = [2, 6, 24, 120, 720, 5040, 40320];
+	var fact = [2, 6, 24, 120, 720, 5040, 40320,362880,3628800];
     var correctAnswer = fact[n-2];
     var missConception1 = n;
 	var missConception2 = Math.pow(n,n);
